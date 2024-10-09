@@ -1,11 +1,10 @@
-
+import { Route, Routes, Router } from "react-router-dom";
+import Nav from "./pages/navbar/Nav";
 
 
 function App() {
   return (
-    <div>
-      <h1>Hello world</h1>
-    </div>
+    <Nav/>
   );
 }
 
