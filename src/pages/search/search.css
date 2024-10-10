@@ -21,9 +21,9 @@
 .search-container {
     position: absolute; 
     left: 200px; 
-    top: 50%; /* Center vertically */
+    top: 50%; 
     transform: translateY(-60%); 
-    color: white; /* Text color */
+    color: white; 
     
 }
 
@@ -39,14 +39,14 @@
 }
 
 .shop-text {
-    font-size: 24px; /* Larger size for "SHOP" */
-    font-weight: bold; /* Optional: Makes it stand out more */
-    margin: 10px 0; /* Adds some space around the "SHOP" text */
+    font-size: 24px; 
+    font-weight: bold; 
+    margin: 10px 0; 
     font-style:  frank-new, sans-serif;
 }
 
 .search-text {
-    font-size: 18px; /* Size for "Find what you need" */
-    margin: 0; /* Ensures no extra margin */
+    font-size: 18px; 
+    margin: 0; 
     
 }
