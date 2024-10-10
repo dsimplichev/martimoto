@@ -1,36 +1,59 @@
-.nav-bar {
+
+.navbar {
     background-color: black;
+    padding: 10px 20px;
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    
-}
-
-.nav{
-    display: flex;
-    
-}
-
-.nav li {
-    margin-right: 15px; 
-   
-}
-
-.nav li a {
     color: white;
-    text-decoration: none;
-
+    position: relative;
 }
 
-.nav li a:hover {
-    color: yellow;
-}
-
-.btn-nav {
+.navbar-content {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: wheat;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: yellow; 
+}
+
+.btn {
+    display: flex;
     gap: 10px;
+    margin-left: auto; 
     
-   
+}
+
+.login {
+    background-color: yellow;
+    border-radius: 5px;
+    border: solid black;
+    padding: 5px 5px;
+    
+}
+
+.sign_up {
+    background-color: wheat;
+    border-radius: 5px;
+    border: solid black;
+    padding: 5px 5px;
 }
