@@ -1,17 +1,30 @@
 .page-content {
-    height: 100vh; /* Full page height */
+    height: 100vh; 
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-image: url('your-image-url.jpg'); /* Background image */
+    align-items: center; 
+    justify-content: flex-start; 
+    position: relative; 
     background-size: cover;
     background-position: center;
-    margin-top: 0; /* So it's attached to the navbar */
-    padding-left: 20px;
 }
 
 .image-container {
-    position: relative;
+    width: 100%; 
+    position: relative; 
+}
+
+.img {
+    width: 100%;
+    height: auto; 
+}
+
+.search-container {
+    position: absolute; 
+    left: 200px; 
+    top: 50%; /* Center vertically */
+    transform: translateY(-60%); 
+    color: white; /* Text color */
+    
 }
 
 .search-btn {
@@ -21,10 +34,17 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.shop-text {
+    font-size: 24px; /* Larger size for "SHOP" */
+    font-weight: bold; /* Optional: Makes it stand out more */
+    margin: 10px 0; /* Adds some space around the "SHOP" text */
 }
 
 .search-text {
-    color: white;
-    font-size: 18px;
+    font-size: 18px; /* Size for "Find what you need" */
+    margin: 0; /* Ensures no extra margin */
+    
 }
