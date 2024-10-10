@@ -1,5 +1,6 @@
 import './nav.css';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.png'
 
 
 function Nav() {
@@ -8,6 +9,7 @@ function Nav() {
     return (
         <div className="navbar">
             <div className="navbar-content">
+            <img src={logo} alt="Logo" className="logo" />
                 <ul className="nav-links">
                     <li><Link to="/">HOME</Link></li>
                     <li><Link to="/recipes">SELECTION MODEL</Link></li>

@@ -31,6 +31,7 @@
     background-color: #f39c12;
     color: white;
     border: none;
+    border-radius: 5px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -41,6 +42,7 @@
     font-size: 24px; /* Larger size for "SHOP" */
     font-weight: bold; /* Optional: Makes it stand out more */
     margin: 10px 0; /* Adds some space around the "SHOP" text */
+    font-style:  frank-new, sans-serif;
 }
 
 .search-text {

@@ -10,7 +10,7 @@ function Search() {
                     <div className="search-container">
                         
                         <p className="shop-text">SHOP</p>
-                        <p className="search-text">Find what you need</p>
+                        <p className="search-text">Second Hand Parts</p>
                         <button className="search-btn">Search</button>
                     </div>
                 </div>

@@ -58,3 +58,9 @@
     border: solid black;
     padding: 5px 5px;
 }
+
+.logo {
+    height: 80px; 
+    
+    margin-left: 160px;
+}
