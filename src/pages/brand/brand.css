@@ -19,11 +19,16 @@
 }
 
 .btn-all-categories {
-    background-color: #f39c12;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 10px 15px;
     text-decoration: none;
     border-radius: 5px;
+    border: solid #f39c12
+}
+
+.btn-all-categories:hover {
+   background-color: #f39c12;
 }
 
 .divider {
@@ -36,24 +41,37 @@
 
 .categories-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr ; 
+    grid-template-columns: repeat(3, 1fr) ; 
     grid-gap: 10px;
+    margin-right: 180px;
 }
 
 
 .category-one, .category-two {
     grid-column: auto;
     grid-row: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-three, .category-four {
     grid-column: auto;
     grid-row: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-five, .category-six {
     grid-column: auto;
     grid-row: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 

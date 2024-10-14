@@ -4,6 +4,7 @@ import ducati from "../../assets/ducati.png"
 import suzuki from "../../assets/suzuki.png"
 import honda from "../../assets/honda.png"
 import kawasaki from "../../assets/kawasaki.png"
+import yamaha from "../../assets/yamaha.png"
 
 function Brand() {
     return (
@@ -42,8 +43,8 @@ function Brand() {
                     <p>KAWASAKI</p>
                 </div>
                 <div className="category-six">
-                    <img src="" alt="Category 6" />
-                    <p></p>
+                    <img src={yamaha} alt="Category 6" />
+                    <p>YAMAHA</p>
                 </div>
             </div>
         </div>
