@@ -1,5 +1,9 @@
 import './brand.css'
 import bmw from "../../assets/bmw.png"
+import ducati from "../../assets/ducati.png"
+import suzuki from "../../assets/suzuki.png"
+import honda from "../../assets/honda.png"
+import kawasaki from "../../assets/kawasaki.png"
 
 function Brand() {
     return (
@@ -18,22 +22,28 @@ function Brand() {
 
                 <div className="category-one">
                     <img src={bmw} alt="Category 1" />
+                    <p>BMW</p>
                 </div>
                 <div className="category-two">
-                    <img src="" alt="Category 2" />
+                    <img src={ducati} alt="Category 2" />
+                    <p>DUCATI</p>
                 </div>
 
                 <div className="category-three">
-                    <img src="" alt="Category 3" />
+                    <img  src={suzuki} alt="Category 3" />
+                    <p>SUZUKI</p>
                 </div>
                 <div className="category-four">
-                    <img src="" alt="Category 4" />
+                    <img src={honda} alt="Category 4" />
+                    <p>HONDA</p>
                 </div>
                 <div className="category-five">
-                    <img src="" alt="Category 5" />
+                    <img src={kawasaki} alt="Category 5" />
+                    <p>KAWASAKI</p>
                 </div>
                 <div className="category-six">
                     <img src="" alt="Category 6" />
+                    <p></p>
                 </div>
             </div>
         </div>

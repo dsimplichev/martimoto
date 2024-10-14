@@ -1,6 +1,7 @@
 .container {
     width: 90%; 
-    margin: 40px auto; 
+    margin: 40px 200px 40px 200px;
+    
 }
 
 .header-section {
@@ -9,6 +10,7 @@
     align-items: center;
     margin-bottom: 15px; 
     padding-top: 80px ;
+    margin-right: 200px;
 }
 
 .title {
@@ -28,7 +30,7 @@
     height: 2px;
     background-color: #f39c12;
     margin-bottom: 20px; 
-    
+    margin-right: 200px;
 }
 
 
@@ -59,10 +61,25 @@
 .category-two img, 
 .category-three img, 
 .category-four img, 
-.category-five img 
+.category-five img,
 .category-six img {
     width: 45%;
     height: auto;
     object-fit: cover;
-    display: block;
+    display: flex;
+    
 }
+
+.category-one p,
+.category-two p,
+.category-three p, 
+.category-four p,
+.category-five p,
+.category-six  p {
+    
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+}
+
+
