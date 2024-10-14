@@ -1,10 +1,10 @@
 import React from 'react';
 import './brand.css';
 
-function BrandCard({ imgSrc, brandName }) {
+function BrandCard({ img, brandName }) {
     return (
         <div className="category-card">
-            <img src={imgSrc} alt={brandName} />
+            <img src={img} alt={brandName} />
             <p>{brandName}</p>
         </div>
     );

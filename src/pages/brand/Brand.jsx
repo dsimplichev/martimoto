@@ -9,12 +9,12 @@ import yamaha from "../../assets/yamaha.png"
 
 
 const brands = [
-    { imgSrc: bmw, brandName: "BMW" },
-    { imgSrc: ducati, brandName: "DUCATI" },
-    { imgSrc: suzuki, brandName: "SUZUKI" },
-    { imgSrc: honda, brandName: "HONDA" },
-    { imgSrc: kawasaki, brandName: "KAWASAKI" },
-    { imgSrc: yamaha, brandName: "YAMAHA" },
+    { img: bmw, brandName: "BMW" },
+    { img: ducati, brandName: "DUCATI" },
+    { img: suzuki, brandName: "SUZUKI" },
+    { img: honda, brandName: "HONDA" },
+    { img: kawasaki, brandName: "KAWASAKI" },
+    { img: yamaha, brandName: "YAMAHA" },
 ];
 
 function Brand() {
@@ -30,7 +30,7 @@ function Brand() {
 
         <div className="categories-grid">
             {brands.map((brand, index) => (
-                <BrandCard key={index} imgSrc={brand.imgSrc} brandName={brand.brandName} />
+                <BrandCard key={index} img={brand.img} brandName={brand.brandName} />
             ))}
         </div>
     </div>
