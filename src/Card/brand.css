@@ -1,0 +1,47 @@
+.container {
+    width: 90%; 
+    margin: 40px auto; 
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; 
+    padding-top: 80px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-all-categories {
+    background-color: #f39c12;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.divider {
+    height: 2px;
+    background-color: #f39c12;
+    margin-bottom: 20px; 
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.category-card {
+    text-align: center; /* Center the text */
+}
+
+.category-card img {
+    width: 60%;
+    height: auto;
+    object-fit: cover;
+}
