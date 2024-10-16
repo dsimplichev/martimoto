@@ -10,18 +10,24 @@
 .about-text {
   flex: 1;
   padding: 20px;
-  border: solid #f39c12;
+  background-color: #f39c12;
   
 }
+
+
 
 .about-text h2 {
   font-size: 36px;
   margin-bottom: 20px;
+  color: white;
+  margin-left: 15px;
 }
 
 .about-text p {
   font-size: 18px;
   line-height: 1.6;
+  color: white;
+  margin-left: 15px;
 }
 
 .about-image {
@@ -41,13 +47,25 @@
     padding: 10px 20px;
     background-color: #f39c12;
     color: white;
-    border: none;
+    border: solid white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-  }
-.get-in-touch-btn:hover {
+    margin-left: 15px;
   
-  
+}
+
+  .get-in-touch-btn:hover {
+   color: #f39c12;
+   background-color: white;
+   
+}
+
+.divider {
+    height: 2px;
+    background-color: white;
+    margin-bottom: 20px; 
+    margin-right: 15px;
+    margin-left: 15px;
 }

@@ -8,6 +8,7 @@ function About() {
     <div className="about-container">
       <div className="about-text">
         <h2>About Us</h2>
+        <div className="divider"></div>
         <p>
           We are a company dedicated to providing the best second-hand motorcycle parts. 
           Our mission is to offer high-quality products at affordable prices, helping motorcycle enthusiasts to find the right parts for their bikes.
