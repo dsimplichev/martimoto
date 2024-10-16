@@ -23,7 +23,7 @@ function LastProduct() {
                 <h2 className="title">Last Products</h2>
             </div>
 
-            <div className="divider"></div>
+            <div className="divider-last"></div>
 
             <div className="products-grid">
                 {products.map((product, index) => (

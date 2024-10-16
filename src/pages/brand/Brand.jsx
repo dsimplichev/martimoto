@@ -26,7 +26,7 @@ function Brand() {
             <a href="#" className="btn-all-categories">All Brands</a>
         </div>
 
-        <div className="divider"></div>
+        <div className="divider-brand"></div>
 
         <div className="categories-grid">
             {brands.map((brand, index) => (
