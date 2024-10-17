@@ -19,14 +19,52 @@
 .social-icons {
     display: flex;
     gap: 20px;
+    
 }
 
-.social-icons img {
-    width: 40px; 
+.social-icon{
+    width: 20px; 
     height: auto;
     cursor: pointer;
+    color: white;
 }
 
-.social-icons img:hover {
+.social-icon:hover {
     opacity: 0.8; 
+    color: f39c12;
+}
+
+
+.footer-line {
+    border-top: 1px solid white; 
+    margin-top: 20px;
+    width: 80%; 
+    text-align: center;
+    padding-top: 10px;
+}
+
+.footer-line p {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+}
+
+.privacy-policy-container {
+    background-color: white; 
+    padding: 20px;
+    text-align: center;
+}
+
+.privacy-policy-container p {
+    color: black;
+    font-size: 14px;
+}
+
+.privacy-policy-container a {
+    color: f39c12; 
+    text-decoration: none;
+}
+
+.privacy-policy-container a:hover {
+    text-decoration: underline;
 }
