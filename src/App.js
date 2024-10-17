@@ -4,6 +4,7 @@ import Search from "./pages/search/Search";
 import Brand from "./pages/brand/Brand"
 import LastProduct from "./pages/lastproduct/LastProduct";
 import About from "./pages/About/About";
+import Footer from "./pages/footer/Footer"
 
 
 
@@ -15,6 +16,7 @@ function App() {
     <Brand />
     <LastProduct />
     <About />
+    <Footer />
     </>
   );
 }
