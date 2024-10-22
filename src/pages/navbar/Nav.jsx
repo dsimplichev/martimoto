@@ -12,9 +12,9 @@ function Nav() {
             <img src={logo} alt="Logo" className="logo" />
                 <ul className="nav-links">
                     <li><Link to="/">HOME</Link></li>
-                    <li><Link to="/recipes">SELECTION MODEL</Link></li>
-                    <li><Link to="/add-recipes">CONTACT</Link></li>
-                    <li><Link to="/news">ABOUT</Link></li>
+                    <li><Link to="/model">SELECTION MODEL</Link></li>
+                    <li><Link to="/contact">CONTACT</Link></li>
+                    <li><Link to="/about">ABOUT</Link></li>
                 </ul>
                 <div className="btn">
                         <>
