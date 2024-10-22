@@ -40,26 +40,26 @@ function Register({ onClose }) {
     
     return (
         <div class="form-container">
-            <h2>Регистрирай се</h2>
+            <h2>Signup</h2>
             <form onSubmit={onSubmit}>
-                <label for="username">Потребителско име</label>
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" onChange={onChange} required />
 
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" onChange={onChange} required />
 
-                <label for="password">Парола</label>
+                <label for="password">Password</label>
                 <input type="password" id="password" name="password" onChange={onChange} required />
 
-                <label for="confirmPassword">Повтори паролата</label>
+                <label for="confirmPassword">Confirm Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" onChange={onChange} required />
 
-                <input type="submit" class="btn__register" value="Регистрирай се" />
+                <input type="submit" class="btn__register" value="Signup" />
             </form>
 
             <div class="have__account">
-                <small>Имаш акаунт?</small>
-                <button onClick={onClose} >Натисни тук</button>
+                <small>Already have an account?</small>
+                <button onClick={onClose} >Login now</button>
             </div>
         </div>
 

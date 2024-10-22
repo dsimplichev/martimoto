@@ -1,28 +1,30 @@
-form-container {
+
+.form-container {
     position: fixed; 
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
     background-color: rgba(255, 255, 255, 0.8); 
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 8px; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
     z-index: 10; 
 }
+
 
 .blur-background {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; 
+    height: 100%; 
     backdrop-filter: blur(5px); 
     z-index: 5; 
 }
 
+
 h2 {
     margin-bottom: 20px; 
-    text-align: center; 
 }
 
 label {
@@ -40,30 +42,35 @@ input[type="password"] {
     border-radius: 4px; 
 }
 
-input[type="submit"] {
-    background-color: #4CAF50; 
+
+.btn__register {
+    background-color: #f39c12; 
     color: white; 
-    padding: 10px; 
     border: none; 
-    border-radius: 4px; 
+    padding: 10px; 
+    border-radius: 5px; 
     cursor: pointer; 
-    width: 100%; 
+    font-size: 16px; 
 }
 
-input[type="submit"]:hover {
-    background-color: #45a049; 
+.btn__register:hover {
+    background-color: #e67e22; 
 }
+
 
 .have__account {
-    text-align: center; 
-    margin-top: 15px; 
+    margin-top: 10px; 
 }
 
-a {
-    color: #007bff; 
+.have__account small {
+    margin-right: 5px; 
+}
+
+.have__account a {
+    color: #3498db; 
     text-decoration: none; 
 }
 
-a:hover {
+.have__account a:hover {
     text-decoration: underline; 
 }
