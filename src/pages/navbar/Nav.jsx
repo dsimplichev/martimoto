@@ -1,10 +1,12 @@
 import './nav.css';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
+import Register from '../register/Register';
+import { useState } from 'react';
 
 
 function Nav() {
-    
+    const [showRegister, setShowRegister] = useState(false)
 
     return (
         <div className="navbar">
@@ -18,11 +20,12 @@ function Nav() {
                 </ul>
                 <div className="btn">
                         <>
-                            <button className='sign_up' >Sign up</button>
+                            <button className='sign_up' onClick={() => setShowRegister(true)} >Sign up</button>
                             <button className='login' >Login</button>
                         </>                  
                 </div>
             </div>
+            {showRegister && <Register onClose={() => setShowRegister(false)} />}
         </div>
     );
 }

@@ -5,13 +5,14 @@ import Brand from "./pages/brand/Brand"
 import LastProduct from "./pages/lastproduct/LastProduct";
 import About from "./pages/About/About";
 import Footer from "./pages/footer/Footer"
-import Register from "./pages/register/Register";
+
+import React, { useState } from 'react';
 
 
 
 function App() {
   
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Example authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -23,7 +24,7 @@ function App() {
     
     
     <Routes>
-      <Route path="/register" element={<Register />} /> 
+      
     </Routes>
     
     <Search />
