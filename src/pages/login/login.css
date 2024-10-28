@@ -15,7 +15,6 @@
 .login__container {
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 3px 4px 8px var(--color-primary);
     padding: 20px;
     max-width: 400px;
     width: 100%;
@@ -40,20 +39,16 @@
     align-items: center;
     gap: 1rem;
     padding: 0.6rem 2.5rem;
-    border: 2px solid transparent;
-    border-radius: var(--border-radius-2);
+    border: 5px solid transparent;
     cursor: pointer;
-    background: var(--color-primary);
     color: white;
     text-decoration: none;
     margin: 0 auto;
+    color: black;
+    background-color: #f39c12;
+    border-radius: 5px;
 }
 
-.btn__login:hover {
-    background: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-}
 
 .social-login {
     width: 100%;
@@ -114,7 +109,7 @@
     top: 50%;
     width: 40%;
     height: 1px;
-    background: var(--color-primary)
+   
 }
 
 .or::before {
@@ -145,8 +140,8 @@ input[type="password"] {
     border-radius: 4px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    
+   
 }
 
 .google__icon {
