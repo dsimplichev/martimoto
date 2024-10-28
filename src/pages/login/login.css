@@ -1,0 +1,158 @@
+.modal__login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(1px);
+}
+
+.login__container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 3px 4px 8px var(--color-primary);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.login__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn__login {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 2.5rem;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    margin: 0 auto;
+}
+
+.btn__login:hover {
+    background: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.social-login {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.social__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.social__wrap li {
+    margin: 7px 0;
+}
+
+.social__wrap li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    max-width: 250px;
+}
+
+.social__wrap .google a {
+    background-color: #db4437;
+}
+
+.social__wrap .fb a {
+    background-color: #3b5998;
+}
+
+.or {
+    width: 100%;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+    margin: 10px 0;
+    position: relative;
+}
+
+.or::before,
+.or::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--color-primary)
+}
+
+.or::before {
+    left: 0;
+}
+
+.or::after {
+    right: 0;
+}
+
+form {
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333333;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.google__icon {
+    padding-right: 10px;
+}
+
+.facebook__icon {
+    padding-right: 10px;
+}
