@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './about.css'; 
 import about from "../../assets/about.png"
+import ContactForm from '../contact/ContactForm';
 
 
 function About() {
+  
+  const [showContactForm, setShowContactForm] = useState(false);
+
+    const handleOpenContactForm = () => setShowContactForm(true);
+    const handleCloseContactForm = () => setShowContactForm(false);
+  
+  
   return (
     <div className="about-container">
       <div className="about-text">
@@ -16,7 +24,8 @@ function About() {
         <p>
           Our journey started with a passion for motorcycles, and over the years we have grown to become a trusted source for parts across different brands and models.
         </p>
-        <button className="get-in-touch-btn">Get in Touch</button> 
+        <button className="get-in-touch-btn" onClick={handleOpenContactForm}>Get in Touch</button> 
+        {showContactForm && <ContactForm onClose={handleCloseContactForm} />}
       </div>
 
       <div className="about-image">
