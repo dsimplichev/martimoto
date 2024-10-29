@@ -5,36 +5,36 @@ function ContactForm() {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
-        querySummary: '',
+        query: '',
         message: ''
     });
 
-    const handleChange = (e) => {
+    const onChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
     };
 
-    const handleSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        // Here you can handle form submission logic
-        alert('Message sent!');
+        console.log("Message sent:", formData);
+        setFormData({ fullName: '', email: '', query: '', message: '' });
     };
 
     return (
-        <div className="form-overlay">
-            <div className="form-container">
-                <h2 className='get-touch'>Get in Touch</h2>
-                <hr className="title-line" />
-                <form onSubmit={handleSubmit}>
+        <div className="contact-form-overlay">
+            <div className="contact-form-container">
+                <h2 className="contact-form-title">Get in Touch</h2>
+                <hr className="title-underline" />
+                <form onSubmit={onSubmit}>
                     <label htmlFor="fullName">Full Name</label>
                     <input
                         type="text"
                         id="fullName"
                         name="fullName"
                         value={formData.fullName}
-                        onChange={handleChange}
+                        onChange={onChange}
                         required
                     />
 
@@ -44,17 +44,17 @@ function ContactForm() {
                         id="email"
                         name="email"
                         value={formData.email}
-                        onChange={handleChange}
+                        onChange={onChange}
                         required
                     />
 
-                    <label htmlFor="querySummary">Short description</label>
+                    <label htmlFor="query">Short description</label>
                     <input
                         type="text"
-                        id="querySummary"
-                        name="querySummary"
-                        value={formData.querySummary}
-                        onChange={handleChange}
+                        id="query"
+                        name="query"
+                        value={formData.query}
+                        onChange={onChange}
                         required
                     />
 
@@ -62,13 +62,13 @@ function ContactForm() {
                     <textarea
                         id="message"
                         name="message"
-                        rows="4"
+                        rows="5"
                         value={formData.message}
-                        onChange={handleChange}
+                        onChange={onChange}
                         required
                     ></textarea>
 
-                    <button type="submit" className="btn-send">Send</button>
+                    <button type="submit" className="send-button">Send</button>
                 </form>
             </div>
         </div>
