@@ -5,12 +5,9 @@ import ContactForm from '../contact/ContactForm';
 
 
 function About() {
-  
+ 
   const [showContactForm, setShowContactForm] = useState(false);
-
-    const handleOpenContactForm = () => setShowContactForm(true);
-    const handleCloseContactForm = () => setShowContactForm(false);
-  
+   
   
   return (
     <div className="about-container">
@@ -24,8 +21,8 @@ function About() {
         <p>
           Our journey started with a passion for motorcycles, and over the years we have grown to become a trusted source for parts across different brands and models.
         </p>
-        <button className="get-in-touch-btn" onClick={handleOpenContactForm}>Get in Touch</button> 
-        {showContactForm && <ContactForm onClose={handleCloseContactForm} />}
+        <button className="get-in-touch-btn" onClick={() => setShowContactForm(true)}>Get in Touch</button> 
+        {showContactForm && <ContactForm onClose={() => setShowContactForm(false)} />}
       </div>
 
       <div className="about-image">

@@ -1,67 +1,75 @@
-.contact-form-overlay {
+.form-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(5px); /* Background blur */
+    z-index: 10;
 }
 
-.contact-form-container {
-    background-color: white;
+.form-container {
+    background-color: rgba(255, 255, 255, 0.95); 
     padding: 20px;
-    width: 100%;
-    max-width: 400px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.contact-form-container h2 {
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.contact-form-container label {
-    margin-top: 10px;
+.get-touch {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+.title-line {
+    margin: 10px 0 20px;
+    border: none;
+    border-top: 2px solid #f39c12; /* Colored line below the title */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
     display: block;
+    margin-bottom: 5px;
+    text-align: left;
 }
 
-.contact-form-container input,
-.contact-form-container textarea {
+input[type="text"],
+input[type="email"],
+textarea {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
     margin-bottom: 15px;
-    border-radius: 4px;
     border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.contact-form-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #3498db;
+textarea {
+    resize: none;
+}
+
+.btn-send {
+    background-color: #f39c12;
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s;
 }
 
-.contact-form-container button:hover {
-    background-color: #2980b9;
+.btn-send:hover {
+    background-color: #e67e22;
 }

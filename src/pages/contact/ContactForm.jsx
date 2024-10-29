@@ -1,13 +1,11 @@
-
-
 import React, { useState } from 'react';
 import './contactForm.css';
 
-function ContactForm({ onClose }) {
+function ContactForm() {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
-        summary: '',
+        querySummary: '',
         message: ''
     });
 
@@ -20,35 +18,57 @@ function ContactForm({ onClose }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Message sent!");
-        setFormData({
-            fullName: '',
-            email: '',
-            summary: '',
-            message: ''
-        });
-        onClose();
+        // Here you can handle form submission logic
+        alert('Message sent!');
     };
 
     return (
-        <div className="contact-form-overlay" onClick={onClose}>
-            <div className="contact-form-container" onClick={(e) => e.stopPropagation()}>
-                <button className="close-button" onClick={onClose}>X</button>
-                <h2>Contact Us</h2>
+        <div className="form-overlay">
+            <div className="form-container">
+                <h2 className='get-touch'>Get in Touch</h2>
+                <hr className="title-line" />
                 <form onSubmit={handleSubmit}>
-                    <label>Full Name</label>
-                    <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
+                    <label htmlFor="fullName">Full Name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        required
+                    />
 
-                    <label>Email</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
 
-                    <label>Short Summary of Query</label>
-                    <input type="text" name="summary" value={formData.summary} onChange={handleChange} required />
+                    <label htmlFor="querySummary">Short description</label>
+                    <input
+                        type="text"
+                        id="querySummary"
+                        name="querySummary"
+                        value={formData.querySummary}
+                        onChange={handleChange}
+                        required
+                    />
 
-                    <label>Message</label>
-                    <textarea name="message" value={formData.message} onChange={handleChange} required></textarea>
+                    <label htmlFor="message">Message</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                    ></textarea>
 
-                    <button type="submit">Send</button>
+                    <button type="submit" className="btn-send">Send</button>
                 </form>
             </div>
         </div>
