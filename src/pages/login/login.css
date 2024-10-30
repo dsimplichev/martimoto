@@ -153,3 +153,20 @@ input[type="password"] {
 .facebook__icon {
     padding-right: 10px;
 }
+
+.register-prompt {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+.create-account {
+    color: #f39c12;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.create-account:hover {
+    text-decoration: underline;
+}

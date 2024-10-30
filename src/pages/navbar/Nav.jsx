@@ -12,6 +12,11 @@ function Nav() {
     const [showRegister, setShowRegister] = useState(false)
     const [showLogin, setShowLogin] = useState(false);
 
+    const toggleForms = () => {
+        setShowLogin(false);
+        setShowRegister(true);
+    };
+
     return (
         <div className="navbar">
             <div className="navbar-content">
@@ -30,7 +35,7 @@ function Nav() {
                 </div>
             </div>
             {showRegister && <Register onClose={() => setShowRegister(false)} />}
-            {showLogin && <Login onClose={() => setShowLogin(false)} />}
+            {showLogin && <Login onClose={() => setShowLogin(false)} onCreateAccountClick={toggleForms} />}
         </div>
     );
 }
