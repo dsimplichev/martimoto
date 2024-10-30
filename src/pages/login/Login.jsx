@@ -5,7 +5,7 @@ import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
 import Register from '../register/Register';
 
-function Login( onClose, onCreateAccountClick ) {
+function Login( {onClose, onCreateAccountClick }) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
