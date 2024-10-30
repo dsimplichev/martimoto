@@ -46,23 +46,23 @@
     
 }
 
-.login {
+.user {
     background-color: #f39c12;
-    border-radius: 5px;
+    border-radius: 50px;
     border: solid black;
-    padding: 5px 5px;
+   
     
 }
 
-.sign_up {
-    background-color: wheat;
-    border-radius: 5px;
+.ShoppingCart {
+    background-color: white;
+    border-radius: 50px;
     border: solid black;
     padding: 5px 5px;
 }
 
 .logo {
-    height: 80px; 
+    height: 100px; 
     
     margin-left: 160px;
 }

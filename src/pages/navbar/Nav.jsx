@@ -4,6 +4,8 @@ import logo from '../../assets/logo.png'
 import Register from '../register/Register';
 import { useState } from 'react';
 import Login from '../login/Login';
+import { FaUserCircle } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 function Nav() {
@@ -22,8 +24,8 @@ function Nav() {
                 </ul>
                 <div className="btn">
                         <>
-                            <button className='sign_up' onClick={() => setShowRegister(true)} >Sign up</button>
-                            <button className='login' onClick={() => setShowLogin(true)}>Login</button>
+                            <button className='user' onClick={() => setShowLogin(true)}> <FaUserCircle /> </button>
+                            <button className='ShoppingCart' > <FaShoppingCart /> </button>  
                         </>                  
                 </div>
             </div>

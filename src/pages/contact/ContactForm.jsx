@@ -25,7 +25,7 @@ function ContactForm() {
     return (
         <div className="contact-form-overlay">
             <div className="contact-form-container">
-                <h2 className="contact-form-title">Get in Touch</h2>
+                <h3 className="contact-form-title">Get in Touch</h3>
                 <hr className="title-underline" />
                 <form onSubmit={onSubmit}>
                     <label htmlFor="fullName">Full Name</label>
