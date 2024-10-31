@@ -10,6 +10,8 @@
     padding-right: 75%;
 }
 
+
+
 .filter-buttons {
     margin-bottom: 20px;
 }
@@ -30,6 +32,7 @@
     align-items: center;
     margin: 20px 0;
     gap: 30px;
+    
     
 }
 
@@ -73,7 +76,7 @@
 }
 
 .search-title-container {
-    border: solid lightgray;
+    border-bottom: solid lightgray;
     border-width: 1px;
 }
 
