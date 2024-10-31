@@ -14,12 +14,14 @@ function PartsSearch() {
         </div>
         
         <div className="search-now">
+        <div className="search-title-container">
         <h2 className="search-title">SEARCH NOW</h2>
+        </div>
         <form className="search-form">
             <div className="form-group">
                 
                 <select id="year" name="year">
-                    <option value="">Year</option>
+                    <option  value="">Year</option>
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
                    

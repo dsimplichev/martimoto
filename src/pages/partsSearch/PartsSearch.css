@@ -1,11 +1,13 @@
 .parts-search-container {
-    padding: 20px;
+    padding: 100px 400px 30px 400px;
     text-align: center;
 }
 
 .search-title {
     font-size: 24px;
     margin-bottom: 20px;
+    text-align: left; 
+    padding-right: 75%;
 }
 
 .filter-buttons {
@@ -13,37 +15,93 @@
 }
 
 .filter-button {
-    padding: 9px 75px;
-    margin: 0 5px;
+    padding: 9px 75px; 
+    margin: 0 25px; 
     border: none;
     background-color: white;
     color: black;
     cursor: pointer;
-    border: solid #f39c12;
-    
+    border: solid lightgray;
 }
-
-
 
 .search-form {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px 0;
+    gap: 30px;
+    
 }
 
 .form-group {
-    margin: 0 10px;
+    margin: 10px 0; 
+    margin-bottom: 20px; 
+    
 }
 
+
 .search-button {
-    padding: 10px 15px;
+    padding:  15px;
     border: none;
     background-color: #28a745;
     color: white;
     cursor: pointer;
+     
 }
 
 .search-button:hover {
     background-color: #218838;
+}
+
+.search-now {
+    border: solid lightgray;
+    border-width: 1px; 
+    text-align: left; 
+}
+
+#year {
+    padding: 10px;
+    
+}
+
+#make {
+    padding: 10px;
+}
+
+#model {
+    padding: 10px;
+}
+
+.search-title-container {
+    border: solid lightgray;
+    border-width: 1px;
+}
+
+
+
+@media (max-width: 768px) {
+    .parts-search-container {
+        padding: 20px; 
+    }
+
+    .filter-button {
+        padding: 9px 15px; 
+    }
+
+    .search-title {
+        font-size: 20px; 
+    }
+
+    .search-form {
+        flex-direction: column; 
+    }
+
+    .form-group {
+        width: 100%; 
+    }
+
+    .search-button {
+        width: 100%; 
+        margin-top: 10px; 
+    }
 }
