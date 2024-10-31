@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './contactForm.css';
 
-function ContactForm() {
+function ContactForm({onClose}) {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -22,8 +22,15 @@ function ContactForm() {
         setFormData({ fullName: '', email: '', query: '', message: '' });
     };
 
+    const handleOverlayClick = (e) => {
+        if (e.target.classList.contains('contact-form-overlay')) {
+            onClose();
+        }
+    };
+
     return (
-        <div className="contact-form-overlay">
+   
+        <div className="contact-form-overlay" onClick={handleOverlayClick}>
             <div className="contact-form-container">
                 <h3 className="contact-form-title">Get in Touch</h3>
                 <hr className="title-underline" />
@@ -72,6 +79,7 @@ function ContactForm() {
                 </form>
             </div>
         </div>
+    
     );
 }
 
