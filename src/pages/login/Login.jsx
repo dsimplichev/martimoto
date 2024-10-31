@@ -20,8 +20,14 @@ function Login( {onClose, onCreateAccountClick }) {
         });
     };
 
+    const handleOverlayClick = (e) => {
+        if (e.target.classList.contains('modal__login')) {
+            onClose();
+        }
+    };
+
     return (
-        <div className="modal__login">
+        <div className="modal__login" onClick={handleOverlayClick}>
             <div className='login__container'>
                 <div className='login__form'>
                     <h2 className='login__title'>Login</h2>

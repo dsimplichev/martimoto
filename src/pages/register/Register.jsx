@@ -37,8 +37,16 @@ function Register({ onClose }) {
         });
     };
     
-    
+    const handleOverlayClick = (e) => {
+        if (e.target.classList.contains('modal__login')) {
+            onClose();
+        }
+    };
+
+
     return (
+        
+    <div className="modal__login" onClick={handleOverlayClick}>
         <div class="form-container">
             <h2>Signup</h2>
             <form onSubmit={onSubmit}>
@@ -62,7 +70,7 @@ function Register({ onClose }) {
                 <button onClick={onClose} >Login now</button>
             </div>
         </div>
-
+      </div>
 
     )
 }
