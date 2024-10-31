@@ -1,0 +1,46 @@
+.parts-search-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.search-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.filter-buttons {
+    margin-bottom: 20px;
+}
+
+.filter-button {
+    padding: 9px 75px;
+    margin: 0 5px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border: solid #f39c12;
+    
+}
+
+
+
+.search-form {
+    display: inline-block;
+}
+
+.form-group {
+    margin: 10px 0;
+}
+
+.search-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #218838;
+}
