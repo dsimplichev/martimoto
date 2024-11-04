@@ -1,8 +1,33 @@
 
-import React from "react";
+import React, { useState } from "react";
 import './PartsSearch.css';
+import SelectDropdown from "../../Card/SelectDropdown";
 
 function PartsSearch() {
+
+    const makes = [
+        { value: 'BMW', label: 'BMW' },
+        { value: 'Yamaha', label: 'Yamaha' }
+    ];
+
+    const allModels = {
+        'BMW': [{ value: 's1000rr', label: 'S1000RR' }, { value: 'f800gs', label: 'F800GS' }],
+        'Yamaha': [{ value: 'r1', label: 'R1' }, { value: 'mt09', label: 'MT-09' }]
+    };
+
+    const years = [
+        { value: '2024', label: '2024' },
+        { value: '2023', label: '2023' }
+    ];
+
+    const [selectedMake, setSelectedMake] = useState("");
+    const [filteredModels, setFilteredModels] = useState([]);
+
+    const handleMakeChange = (make) => {
+        setSelectedMake(make);
+        setFilteredModels(allModels[make] || []);
+    };
+
     return (
         <div className="parts-search-container">
 
@@ -16,39 +41,22 @@ function PartsSearch() {
             <div className="search-now">
                 <div className="search-title-container">
                     <h2 className="search-title">SEARCH NOW</h2>
-                    <div className="divider-search"></div>
                 </div>
                 <form className="search-form">
-                    <div className="form-group">
 
-                        <select id="year" name="year">
-                            <option value="">Year</option>
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-
-                        <select id="make" name="make">
-                            <option value="">Make</option>
-                            <option value="make1">Make 1</option>
-                            <option value="make2">Make 2</option>
-
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-
-                        <select id="model" name="model">
-                            <option value="">Model</option>
-                            <option value="model1">model 1</option>
-                            <option value="model2">model 2</option>
-
-                        </select>
-                    </div>
-
+                    <SelectDropdown
+                        label="Year"
+                        options={years}
+                    />
+                    <SelectDropdown
+                        label="Make"
+                        options={makes}
+                        onChange={(e) => handleMakeChange(e.target.value)}
+                    />
+                    <SelectDropdown
+                        label="Model"
+                        options={filteredModels}
+                    />
                     <button type="submit" className="search-button">Search</button>
                 </form>
             </div>

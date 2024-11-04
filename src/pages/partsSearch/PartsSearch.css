@@ -42,7 +42,7 @@
 
 
 .search-button {
-    padding:  15px;
+    padding:  15px;   
     border: none;
     background-color: #28a745;
     color: white;
@@ -62,15 +62,18 @@
 
 #year {
     padding: 10px;
+    width: 100px;
     
 }
 
 #make {
     padding: 10px;
+    width: 150px;
 }
 
 #model {
     padding: 10px;
+    width: 200px;
 }
 
 .search-title-container {
