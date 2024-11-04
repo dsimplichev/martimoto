@@ -1,8 +1,8 @@
 import React from 'react';
 
-function SelectDropdown({ label, options, onChange }) {
+function SelectDropdown({ label, options, onChange, className }) {
     return (
-        <div className="form-group">
+        <div className={className} >
             <select onChange={onChange}>
                 <option value="">{label}</option>
                 {options.map((option, index) => (

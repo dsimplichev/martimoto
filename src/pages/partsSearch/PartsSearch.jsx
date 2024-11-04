@@ -44,19 +44,11 @@ function PartsSearch() {
                 </div>
                 <form className="search-form">
 
-                    <SelectDropdown
-                        label="Year"
-                        options={years}
-                    />
-                    <SelectDropdown
-                        label="Make"
-                        options={makes}
-                        onChange={(e) => handleMakeChange(e.target.value)}
-                    />
-                    <SelectDropdown
-                        label="Model"
-                        options={filteredModels}
-                    />
+                    <SelectDropdown className="select-year" label="Year" options={years} />
+                    <SelectDropdown className="select-make" label="Make" options={makes} onChange={(e) =>
+                        handleMakeChange(e.target.value)} />
+                    <SelectDropdown className="select-model" label="Model" options={filteredModels} />
+
                     <button type="submit" className="search-button">Search</button>
                 </form>
             </div>

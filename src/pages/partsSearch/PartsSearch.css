@@ -34,11 +34,7 @@
     
 }
 
-.form-group {
-    margin: 10px 0; 
-    margin-bottom: 20px; 
-    
-}
+
 
 
 .search-button {
@@ -60,18 +56,19 @@
     text-align: left; 
 }
 
-#year {
+.select-year {
     padding: 10px;
     width: 100px;
+ 
     
 }
 
-#make {
+.select-make {
     padding: 10px;
     width: 150px;
 }
 
-#model {
+.select-model {
     padding: 10px;
     width: 200px;
 }
