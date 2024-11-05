@@ -10,7 +10,7 @@
 .search-now-brand {
     border: 1px solid lightgray;
     padding: 20px;
-    margin-bottom: 30px;
+    margin: 100px 300px 50px 300px;
 }
 
 .search-title-container-brand {
@@ -23,6 +23,7 @@
     font-size: 24px;
     font-weight: bold;
     margin: 0;
+    
 }
 
 
@@ -51,7 +52,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
     gap: 15px;
-    margin-top: 20px;
+    margin: 60px 300px 50px 300px;
 }
 
 .category-item-brand {

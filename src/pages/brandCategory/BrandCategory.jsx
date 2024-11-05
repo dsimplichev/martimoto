@@ -2,13 +2,28 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import './brandCategory.css';
 import SelectDropdown from '../../Card/SelectDropdown';
+import exhaust from '../../assets/CategoryIMG/exhaust.png'
+
 
 const categories = [
-    "Акумулатори", "Вериги", "Въздушни филтри", "Запалителни свещи", 
-    "Капаци за двигател", "Масла", "Маслени филтри", "Мото генерации", 
-    "Мото гуми", "Мото окачване", "Мото радиатори", "Мото рогатки", 
-    "Накладки за мотор", "Спирачни дискове", "Спирачни маркучи", 
-    "Спойлери за мотор", "Съединители", "Части за двигател"
+    // { name: "Акумулатори", img: "path/to/акумулатори.jpg" },
+    // { name: "Вериги", img: "path/to/вериги.jpg" },
+    // { name: "Въздушни филтри", img: "path/to/въздушни_филтри.jpg" },
+    // { name: "Запалителни свещи", img: "path/to/запалителни_свещи.jpg" },
+    // { name: "Капаци за двигател", img: "path/to/капаци_за_двигател.jpg" },
+    // { name: "Масла", img: "path/to/масла.jpg" },
+    // { name: "Маслени филтри", img: "path/to/маслени_филтри.jpg" },
+    { name: "Мото генерации", img: exhaust },
+    // { name: "Мото гуми", img: "path/to/мото_гуми.jpg" },
+    // { name: "Мото окачване", img: "path/to/мото_окачване.jpg" },
+    // { name: "Мото радиатори", img: "path/to/мото_радиатори.jpg" },
+    // { name: "Мото рогатки", img: "path/to/мото_рогатки.jpg" },
+    // { name: "Накладки за мотор", img: "path/to/накладки_за_мотор.jpg" },
+    // { name: "Спирачни дискове", img: "path/to/спирачни_дискове.jpg" },
+    // { name: "Спирачни маркучи", img: "path/to/спирачни_маркучи.jpg" },
+    // { name: "Спойлери за мотор", img: "path/to/спойлери_за_мотор.jpg" },
+    // { name: "Съединители", img: "path/to/съединители.jpg" },
+    // { name: "Части за двигател", img: "path/to/части_за_двигател.jpg" }
 ];
 
 function BrandCategory() {
@@ -32,7 +47,8 @@ function BrandCategory() {
             <div className="category-grid-brand">
                 {categories.map((category, index) => (
                     <div key={index} className="category-item-brand">
-                        <p>{category}</p>
+                    <img src={category.img} alt={category.name} className="category-image" />
+                        <p>{category.name}</p>
                     </div>
                 ))}
             </div>
