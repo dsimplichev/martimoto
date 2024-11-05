@@ -70,6 +70,13 @@
     background-color: #eaeaea;
 }
 
+.category-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px; 
+    margin-bottom: 10px; 
+}
+
 
 @media (max-width: 768px) {
     .search-form-brand {

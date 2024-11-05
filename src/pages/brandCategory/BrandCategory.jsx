@@ -3,27 +3,44 @@ import { useParams } from 'react-router-dom';
 import './brandCategory.css';
 import SelectDropdown from '../../Card/SelectDropdown';
 import exhaust from '../../assets/CategoryIMG/exhaust.png'
+import battery from '../../assets/CategoryIMG/battery.png'
+import chain from '../../assets/CategoryIMG/chain.png'
+import filter from '../../assets/CategoryIMG/filter.png'
+import plugs from '../../assets/CategoryIMG/plugs.png'
+import cover from '../../assets/CategoryIMG/cover.png'
+import oil from '../../assets/CategoryIMG/oil.png'
+import oilfilter from '../../assets/CategoryIMG/oilfilter.png'
+import tyres from '../../assets/CategoryIMG/tyres.png'
+import suspension from '../../assets/CategoryIMG/suspension.png'
+import radiator from '../../assets/CategoryIMG/radiator.png'
+import rogatki from '../../assets/CategoryIMG/rogatki.png'
+import pads from '../../assets/CategoryIMG/pads.png'
+import disk from '../../assets/CategoryIMG/disk.png'
+import markuchi from '../../assets/CategoryIMG/markuchi.png'
+import spoileri from '../../assets/CategoryIMG/spoileri.png'
+import clutch from '../../assets/CategoryIMG/clutch.png'
+import engine from '../../assets/CategoryIMG/engine.png'
 
 
 const categories = [
-    // { name: "Акумулатори", img: "path/to/акумулатори.jpg" },
-    // { name: "Вериги", img: "path/to/вериги.jpg" },
-    // { name: "Въздушни филтри", img: "path/to/въздушни_филтри.jpg" },
-    // { name: "Запалителни свещи", img: "path/to/запалителни_свещи.jpg" },
-    // { name: "Капаци за двигател", img: "path/to/капаци_за_двигател.jpg" },
-    // { name: "Масла", img: "path/to/масла.jpg" },
-    // { name: "Маслени филтри", img: "path/to/маслени_филтри.jpg" },
-    { name: "Мото генерации", img: exhaust },
-    // { name: "Мото гуми", img: "path/to/мото_гуми.jpg" },
-    // { name: "Мото окачване", img: "path/to/мото_окачване.jpg" },
-    // { name: "Мото радиатори", img: "path/to/мото_радиатори.jpg" },
-    // { name: "Мото рогатки", img: "path/to/мото_рогатки.jpg" },
-    // { name: "Накладки за мотор", img: "path/to/накладки_за_мотор.jpg" },
-    // { name: "Спирачни дискове", img: "path/to/спирачни_дискове.jpg" },
-    // { name: "Спирачни маркучи", img: "path/to/спирачни_маркучи.jpg" },
-    // { name: "Спойлери за мотор", img: "path/to/спойлери_за_мотор.jpg" },
-    // { name: "Съединители", img: "path/to/съединители.jpg" },
-    // { name: "Части за двигател", img: "path/to/части_за_двигател.jpg" }
+     { name: "Акумулатори", img: battery },
+     { name: "Вериги", img: chain },
+     { name: "Въздушни филтри", img: filter },
+     { name: "Запалителни свещи", img: plugs },
+     { name: "Капаци за двигател", img: cover },
+     { name: "Масла", img: oil },
+     { name: "Маслени филтри", img: oilfilter },
+     { name: "Мото генерации", img: exhaust },
+     { name: "Мото гуми", img: tyres },
+     { name: "Мото окачване", img: suspension },
+     { name: "Мото радиатори", img: radiator },
+     { name: "Мото рогатки", img: rogatki },
+     { name: "Накладки за мотор", img: pads },
+     { name: "Спирачни дискове", img: disk},
+     { name: "Спирачни маркучи", img: markuchi},
+     { name: "Спойлери за мотор", img: spoileri },
+     { name: "Съединители", img: clutch},
+     { name: "Части за двигател", img: engine}
 ];
 
 function BrandCategory() {
