@@ -42,7 +42,12 @@
 }
 
 .category-card {
-    text-align: center; /* Center the text */
+    text-align: center; 
+}
+
+.category-card  p { 
+    text-decoration: none;  
+    color: black; 
 }
 
 .category-card img {

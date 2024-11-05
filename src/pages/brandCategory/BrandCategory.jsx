@@ -16,23 +16,22 @@ function BrandCategory() {
 
     return (
         <div>
-            <h1>All Categories for {brandName}</h1>
-
-            <div className="search-now">
-                <div className="search-title-container">
-                    <h2 className="search-title">SEARCH NOW</h2>
+            
+            <div className="search-now-brand">
+                <div className="search-title-container-brand">
+                    <h2 className="search-title-brand">SEARCH NOW</h2>
                 </div>
-                <form className="search-form">
+                <form className="search-form-brand">
                     <SelectDropdown label="Year" options={[{ value: '2024', label: '2024' }, { value: '2023', label: '2023' }]} />
                     <SelectDropdown label="Make" options={[{ value: brandName, label: brandName }]} />
                     <SelectDropdown label="Model" options={[]} />
-                    <button type="submit" className="search-button">Search</button>
+                    <button type="submit" className="search-button-brand">Search</button>
                 </form>
             </div>
 
-            <div className="category-grid">
+            <div className="category-grid-brand">
                 {categories.map((category, index) => (
-                    <div key={index} className="category-item">
+                    <div key={index} className="category-item-brand">
                         <p>{category}</p>
                     </div>
                 ))}
