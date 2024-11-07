@@ -6,6 +6,7 @@ import suzuki from "../../assets/suzuki.jpg"
 import honda from "../../assets/honda.jpg"
 import kawasaki from "../../assets/kawasaki.jpg"
 import yamaha from "../../assets/yamaha.jpg"
+import aprilia from "../../assets/aprilia.jpg"
 
 
 const brands = [
@@ -15,6 +16,7 @@ const brands = [
     { img: honda, brandName: "HONDA" },
     { img: kawasaki, brandName: "KAWASAKI" },
     { img: yamaha, brandName: "YAMAHA" },
+    { img: aprilia, brandName: "APRILIA" },
 ];
 
 function Brand() {

@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 function BrandCard({ img, brandName }) {
     return (
-        <Link to={`/brands/${brandName}`}>
+        <Link to={`/brands/${brandName}`} className="no-underline">
         <div className="category-card">
             <img src={img} alt={brandName} />
-            <p>{brandName}</p>
+            <p className="brand-name">{brandName}</p>
         </div>
         </Link>
     );
