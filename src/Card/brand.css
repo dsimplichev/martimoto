@@ -2,6 +2,7 @@
 .category-card {
     text-align: center; 
     transition: background-color 0.3s ease;
+  
 }
 
 .category-card  p { 
@@ -11,11 +12,11 @@
 
 
 
-
 .brand-name {
     background-color: lightgray;
     padding: 10px;
-    margin: 0 50px;
+    margin: 0 20px;
+    position: relative;
 }
 
 .brand-name:hover  {
@@ -33,5 +34,7 @@
     height: auto;
     object-fit: cover;
 }
+
+
 
 
