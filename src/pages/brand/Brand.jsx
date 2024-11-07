@@ -1,11 +1,11 @@
 import './brand.css'
 import BrandCard from '../../Card/BrandCard'
-import bmw from "../../assets/bmw.png"
-import ducati from "../../assets/ducati.png"
-import suzuki from "../../assets/suzuki.png"
-import honda from "../../assets/honda.png"
-import kawasaki from "../../assets/kawasaki.png"
-import yamaha from "../../assets/yamaha.png"
+import bmw from "../../assets/bmw.jpg"
+import ducati from "../../assets/ducati.jpg"
+import suzuki from "../../assets/suzuki.jpg"
+import honda from "../../assets/honda.jpg"
+import kawasaki from "../../assets/kawasaki.jpg"
+import yamaha from "../../assets/yamaha.jpg"
 
 
 const brands = [
