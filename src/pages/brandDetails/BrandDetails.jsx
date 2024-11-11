@@ -1,13 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import './brandDetails.css';
+import s1000r from "../../assets/BMW/s1000r.png"
+import s1000rr from "../../assets/BMW/s1000rr.png"
 
 const models = [
-    { name: "S1000R", img: "/path/to/s1000r.jpg" },
-    { name: "S1000RR", img: "/path/to/s1000rr.jpg" },
-    { name: "F800", img: "/path/to/f800.jpg" },
-    { name: "R80", img: "/path/to/r80.jpg" },
-    { name: "1300GS", img: "/path/to/1300gs.jpg" }
+    { name: "S1000R", img: s1000r },
+    { name: "S1000RR", img: s1000rr },
+ 
 ];
 
 function BrandDetails() {
