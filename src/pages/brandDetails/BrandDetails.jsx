@@ -1,17 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import './brandDetails.css';
-import s1000r from "../../assets/BMW/s1000r.png"
-import s1000rr from "../../assets/BMW/s1000rr.png"
+import modelsData from './modelsData';
 
-const models = [
-    { name: "S1000R", img: s1000r },
-    { name: "S1000RR", img: s1000rr },
- 
-];
+
+
 
 function BrandDetails() {
     const { brandName } = useParams();
+   
+    const models = modelsData[brandName] || [];
 
     return (
         <div className="brand-details">
