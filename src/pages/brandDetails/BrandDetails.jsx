@@ -11,7 +11,6 @@ function BrandDetails() {
         <div className="brand-details">
             <h1 className="brand-title">{brandName}</h1>
             <div className="title-underline"></div>
-
             <div className="model-grid">
                 {models.map((model, index) => (
                     <div key={index} className="model-card">

@@ -1,4 +1,4 @@
-import { Route, Routes, Router } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Nav from "./pages/navbar/Nav";
 import Search from "./pages/search/Search";
 import Brand from "./pages/brand/Brand"
@@ -8,7 +8,8 @@ import Footer from "./pages/footer/Footer"
 import PartsSearch from "./pages/partsSearch/PartsSearch";
 import BrandDetails from "./pages/brandDetails/BrandDetails";
 import ModelDetails from "./pages/brandDetails/ModelDetails";
-import YearDetails from "./pages/brandDetails/YearDetails"
+import YearDetails from "./pages/brandDetails/YearDetails";
+
 
 import React, { useState } from 'react';
 
@@ -36,7 +37,7 @@ function App() {
     <Route path="/partssearch" element={<PartsSearch />} />
     <Route path="/brands/:brandName" element={<BrandDetails />} />
     <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-    <Route path="/brands/:brandName/models/:modelName/:subModelName/:year" element={<YearDetails />} />
+    <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
     
     </Routes>
     

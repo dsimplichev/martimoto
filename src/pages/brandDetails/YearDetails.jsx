@@ -1,18 +1,23 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import yearDetailsData from './yearDetailsData';  
 import './yearDetails.css';
 
 function YearDetails() {
-    const { modelName, subModelName, year } = useParams();
-    const modelYears = yearDetailsData[modelName]?.[subModelName] || [];
-    const model = modelYears.find(item => item.year === year);  
+    const { brandName, modelName, subModelName } = useParams();  
+    const yearsData = yearDetailsData[modelName]?.[subModelName] || [];  
 
     return (
-        <div className="year">
-            <h1>{modelName} - {subModelName} - {year}</h1>
+        <div className="year-details">
+            <h1 className="year-title">{modelName} {subModelName}</h1>  
             <div className="title-underline"></div>
-            <div className="model-image-container">
-                <img src={model?.img} alt={year} className="model-image" />
+            <div className="year-grid">
+                {yearsData.map((yearItem, index) => (
+                    <div key={index} className="year-card">
+                        <img src={yearItem.img} alt={yearItem.year} className="year-image" />
+                        <p className="year-name">{yearItem.year}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

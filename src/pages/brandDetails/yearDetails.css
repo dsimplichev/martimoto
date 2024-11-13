@@ -1,12 +1,66 @@
-
-.model-card { 
-    padding: 10px;
+.year-details {
+    padding: 20px;
     text-align: center;
+    margin: 40px 180px 
 }
 
-.model-card img {
-    max-width: 100%;
+.year-title {
+    font-size: 24px;
+    color:black;
+    margin-bottom: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+
+
+.year-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);  
+    gap: 20px;
+}
+
+.year-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.year-image {
+    width: 60%;
     height: auto;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
 
+.year-name {
+    font-size: 1.1rem;
+    color: #000000;
+    position: relative;
+    padding: 10px;
+}
+
+.year-name::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: red;
+    transition: width 0.3s ease, left 0.3s ease;
+    text-decoration: none;
+}
+
+.year-card:hover .year-name::after {
+    width: 100%;
+    left: 0;
+}

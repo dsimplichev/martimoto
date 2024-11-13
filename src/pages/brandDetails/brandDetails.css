@@ -73,9 +73,15 @@
     height: 2px;
     background-color: red;
     transition: width 0.3s ease, left 0.3s ease;
+    
 }
 
 .model-card:hover .model-name::after {
     width: 100%;
     left: 0;
+}
+
+.model-name  {
+    text-decoration: none;
+    color: inherit; 
 }
