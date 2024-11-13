@@ -4,6 +4,7 @@ import Panigale from "../../assets/Ducati/Panigale.png"
 import Streetfighter from "../../assets/Ducati/Streetfighter.png"
 import Ducati from "../../assets/Ducati/Ducati.png"
 import D999 from "../../assets/Ducati/D999.png"
+import GSXR from "../../assets/SUZUKI/GSXR.png"
 
 const modelsData = {
     BMW: [
@@ -17,6 +18,13 @@ const modelsData = {
         { name: "STREETFIGHTER", img: Streetfighter },
         { name: "848 /1098 /1198", img: Ducati },
         { name: "749 /999SBK", img: D999 },
+    ],
+    SUZUKI: [
+        { name: "GSX-R", img: GSXR },
+        { name: "GSX", img: Streetfighter },
+        { name: "GSX-S 1000", img: Ducati },
+        { name: "GSX-S 750", img: D999 },
+        { name: "HAYABUSA", img: D999 },
     ],
     
 };
