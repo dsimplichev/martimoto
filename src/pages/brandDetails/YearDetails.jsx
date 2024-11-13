@@ -10,12 +10,14 @@ function YearDetails() {
     return (
         <div className="year-details">
             <h1 className="year-title">{modelName} {subModelName}</h1>  
-            <div className="title-underline"></div>
+            <div className="year-underline"></div>
             <div className="year-grid">
                 {yearsData.map((yearItem, index) => (
                     <div key={index} className="year-card">
                         <img src={yearItem.img} alt={yearItem.year} className="year-image" />
+            
                         <p className="year-name">{yearItem.year}</p>
+                       
                     </div>
                 ))}
             </div>
