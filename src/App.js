@@ -36,7 +36,7 @@ function App() {
     <Route path="/partssearch" element={<PartsSearch />} />
     <Route path="/brands/:brandName" element={<BrandDetails />} />
     <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-    <Route path="/models/:modelName/:subModelName/:year" element={<YearDetails />} />
+    <Route path="/brands/:brandName/models/:modelName/:subModelName/:year" element={<YearDetails />} />
     
     </Routes>
     

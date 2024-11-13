@@ -1,11 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './brandDetails.css';
 import modelsData from './modelsData';
-import { Link } from 'react-router-dom';
-
-
-
 
 function BrandDetails() {
     const { brandName } = useParams();
