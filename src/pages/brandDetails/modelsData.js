@@ -5,6 +5,10 @@ import Streetfighter from "../../assets/Ducati/Streetfighter.png"
 import Ducati from "../../assets/Ducati/Ducati.png"
 import D999 from "../../assets/Ducati/D999.png"
 import GSXR from "../../assets/SUZUKI/GSXR.png"
+import GSX from "../../assets/SUZUKI/GSX.png"
+import GSXS from "../../assets/SUZUKI/GSXS.png"
+import GSXS750 from "../../assets/SUZUKI/GSXS750.png"
+import HAYABUSA from "../../assets/SUZUKI/HAYABUSA.png"
 
 const modelsData = {
     BMW: [
@@ -21,10 +25,10 @@ const modelsData = {
     ],
     SUZUKI: [
         { name: "GSX-R", img: GSXR },
-        { name: "GSX", img: Streetfighter },
-        { name: "GSX-S 1000", img: Ducati },
-        { name: "GSX-S 750", img: D999 },
-        { name: "HAYABUSA", img: D999 },
+        { name: "GSX", img: GSX },
+        { name: "GSX-S 1000", img: GSXS },
+        { name: "GSX-S 750", img: GSXS750 },
+        { name: "HAYABUSA", img: HAYABUSA },
     ],
     
 };
