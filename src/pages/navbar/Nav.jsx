@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Login from '../login/Login';
 import { FaUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
 
 
 function Nav() {
@@ -22,10 +23,11 @@ function Nav() {
             <div className="navbar-content">
             <img src={logo} alt="Logo" className="logo" />
                 <ul className="nav-links">
-                    <li><Link to="/">HOME</Link></li>
-                    <li><Link to="/model">SELECTION MODEL</Link></li>
-                    <li><Link to="/contact">CONTACT</Link></li>
-                    <li><Link to="/about">ABOUT</Link></li>
+                    <li><Link to="/">НАЧАЛО</Link></li>
+                    <li><Link to="/model">ИЗБЕРИ МОДЕЛ</Link></li>
+                    <li><Link to="/model">АКСЕСОАРИ</Link></li>
+                    <li><Link to="/contact">КОНТАКТИ</Link></li>
+                    <li><Link to="/about">ЗА НАС</Link></li>
                 </ul>
                 <div className="btn">
                         <>
