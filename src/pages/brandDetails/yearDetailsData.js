@@ -10,7 +10,9 @@ import GSXR19961997 from "../../assets/SUZUKI/GSXR19961997.png";
 import GSXR19982000 from "../../assets/SUZUKI/GSXR19982000.png";
 import GSXR20002003 from "../../assets/SUZUKI/GSXR20002003.png";
 import GSXR200420055 from "../../assets/SUZUKI/GSXR200420055.png";
+import GSXR20112016  from "../../assets/SUZUKI/GSXR20112016.png"
 
+import GSXR10002002  from "../../assets/SUZUKI/GSXR10002002.png"
 
 const yearDetailsData = {
     "GSX-R": {
@@ -30,7 +32,16 @@ const yearDetailsData = {
             { year: "2000-2003", img: GSXR20002003 },
             { year: "2004-2005", img: GSXR200420055 },
             { year: "2006-2007", img: GSXR20062007 },
-            { year: "2011-2016", img: GSXR20082010 },
+            { year: "2011-2016", img: GSXR20112016 },
+        ],
+        "1000": [
+            { year: "2001-2002", img: GSXR10002002 },
+            { year: "2003-2004", img: GSXR19881989 },
+            { year: "2005-2006", img: GSXR19941995 },
+            { year: "2007-2008", img: GSXR19961997 },
+            { year: "2009-2011", img: GSXR19982000 },
+            { year: "2012-2015", img: GSXR20002003 },
+            { year: "2018-2020", img: GSXR200420055 },     
         ],
     },
 };
