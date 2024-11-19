@@ -24,8 +24,7 @@ const modelsData = {
     SUZUKI: [
         { name: "GSX-R", img: GSXR },
         { name: "GSX", img: GSX },
-        { name: "GSX-S 1000", img: GSXS },
-        { name: "GSX-S 750", img: GSXS750 },
+        { name: "GSX-S", img: GSXS },
         { name: "HAYABUSA", img: HAYABUSA },
     ],
 };
