@@ -9,6 +9,7 @@ import PartsSearch from "./pages/partsSearch/PartsSearch";
 import BrandDetails from "./pages/brandDetails/BrandDetails";
 import ModelDetails from "./pages/brandDetails/ModelDetails";
 import YearDetails from "./pages/brandDetails/YearDetails";
+import Accessories from "./pages/accessories/Accessories";
 
 
 import React, { useState } from 'react';
@@ -35,6 +36,7 @@ function App() {
     <Route path="/last-product" element={<LastProduct />} />
     <Route path="/about" element={<About />} />
     <Route path="/partssearch" element={<PartsSearch />} />
+    <Route path="/accessories" element={<Accessories />} />
     <Route path="/brands/:brandName" element={<BrandDetails />} />
     <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
     <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />

@@ -25,7 +25,7 @@ function Nav() {
                 <ul className="nav-links">
                     <li><Link to="/">НАЧАЛО</Link></li>
                     <li><Link to="/model">ИЗБЕРИ МОДЕЛ</Link></li>
-                    <li><Link to="/model">АКСЕСОАРИ</Link></li>
+                    <li><Link to="/accessories">АКСЕСОАРИ</Link></li>
                     <li><Link to="/contact">КОНТАКТИ</Link></li>
                     <li><Link to="/about">ЗА НАС</Link></li>
                 </ul>

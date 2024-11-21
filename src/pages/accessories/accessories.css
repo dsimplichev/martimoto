@@ -1,0 +1,32 @@
+.accessories-page {
+    padding: 20px;
+    text-align: center;
+}
+
+.accessories-page h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.accessory-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.category {
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.category:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
