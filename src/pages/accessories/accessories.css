@@ -5,7 +5,7 @@
 
 .accessories-page h1 {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .accessory-categories {
@@ -15,12 +15,24 @@
     gap: 20px;
 }
 
+.divider-acc {
+    height: 2px;
+    background-color: #f39c12;
+    margin-bottom: 20px;
+    margin-right: 200px;
+    margin-left: auto; 
+    width: calc(100% - 200px); 
+}
+
 .category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     border: 2px solid #ccc;
     border-radius: 10px;
     background-color: #f9f9f9;
-    width: 150px;
+    width: 200px;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
@@ -29,4 +41,16 @@
 .category:hover {
     background-color: #e0e0e0;
     transform: scale(1.05);
+}
+
+.category img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.category p {
+    font-size: 1rem;
+    font-weight: bold;
 }
