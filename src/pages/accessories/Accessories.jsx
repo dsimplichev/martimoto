@@ -3,7 +3,9 @@ import './accessories.css';
 function Accessories() {
     return (
         <div className="accessories-page">
+            <div className="header-section-acc">
             <h1>Аксесоари</h1>
+            </div>
             <div className="divider-acc"></div>
             <div className="accessory-categories">
                 <div className="category">Балансьори</div>

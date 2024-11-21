@@ -4,8 +4,9 @@
 }
 
 .accessories-page h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+      
 }
 
 .accessory-categories {
@@ -15,13 +16,22 @@
     gap: 20px;
 }
 
+.header-section-acc{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px; 
+    padding-top: 80px ;
+    margin-right: 200px;
+    margin-left: 180px;
+}
+
 .divider-acc {
     height: 2px;
     background-color: #f39c12;
     margin-bottom: 20px;
-    margin-right: 200px;
-    margin-left: auto; 
-    width: calc(100% - 200px); 
+    margin-left: 180px; 
+   
 }
 
 .category {
