@@ -8,11 +8,26 @@ function Accessories() {
             </div>
             <div className="divider-acc"></div>
             <div className="accessory-categories">
-                <div className="category">Балансьори</div>
-                <div className="category">Краш тапи</div>
-                <div className="category">Гараж</div>
-                <div className="category">Лепенки</div>
-                <div className="category">Ръкохватки</div>
+                <div className="category">
+                    <img src="" alt="Балансьори" className="category-image"/>
+                    <p>Балансьори</p>
+                    </div>
+                <div className="category">
+                    <img src=""  alt="Краш тапи" className="category-image"/>
+                    <p>Краш тапи</p>
+                    </div>
+                <div className="category">
+                    <img src="" alt="Гараж" className="category-image"/>
+                    <p>Гараж</p>
+                    </div>
+                <div className="category">
+                    <img src="" alt="Лепенки" className="category-image"/>
+                    <p>Лепенки</p>
+                    </div>
+                <div className="category">
+                    <img src="" alt="Ръкохватки" className="category-image" />
+                    <p>Ръкохватки</p>
+                    </div>
             </div>
         </div>
     );
