@@ -42,7 +42,7 @@
     text-align: center;
     width: 250px;
     height: auto;
-    border: solid #f39c12;
+    border: solid lightgray;
 }
 
 .product img {
@@ -65,14 +65,14 @@
 
 .details-btn {
     border-radius: 5px;
-    border: solid #f39c12;
+    border: solid lightgray;
     color: black;
     font-weight: bold;
     
 }
 
 .add-to-cart-btn {
-    background-color: #f39c12;
+    background-color: lightgray;
     color:black;
     font-weight: bold;
     border-radius: 5px;
@@ -81,11 +81,12 @@
 
 .add-to-cart-btn:hover {
     background-color: white;
-    border: solid #f39c12;
+    border: solid lightgray;
+    
 }
 
 .details-btn:hover {
-    background-color:#f39c12;
+    background-color:lightgray;
 }
 
 .details-btn:hover, .add-to-cart-btn:hover {
