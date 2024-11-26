@@ -37,12 +37,12 @@
 }
 
 .product {
-    border: 1px solid #ddd;
+    border: 3px solid #ddd;
     padding: 10px;
     text-align: center;
     width: 250px;
     height: auto;
-    border: solid lightgray;
+    border-radius: 9px;
 }
 
 .product img {
