@@ -9,6 +9,7 @@ import GSX from "../../assets/SUZUKI/GSX.png";
 import GSXS from "../../assets/SUZUKI/GSXS.png";
 import GSXS750 from "../../assets/SUZUKI/GSXS750.png";
 import HAYABUSA from "../../assets/SUZUKI/HAYABUSA.png";
+import yamaha from "../../assets/Yamaha/yamaha.png"
 
 const modelsData = {
     BMW: [
@@ -26,6 +27,13 @@ const modelsData = {
         { name: "GSX", img: GSX },
         { name: "GSX-S", img: GSXS },
         { name: "HAYABUSA", img: HAYABUSA },
+    ],
+    YAMAHA: [
+        { name: "YZF R1", img: yamaha },
+        { name: "YZF R6", img: GSX },
+        { name: "YZF R125", img: GSXS },
+        { name: "XJ6", img: HAYABUSA },
+        { name: "MT", img: HAYABUSA },
     ],
 };
 
