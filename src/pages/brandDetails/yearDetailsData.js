@@ -50,6 +50,7 @@ const yearDetailsData = {
             { year: "2018-2020", img: GSXR10002020 },     
         ],
     },
+    
 };
 
 export default yearDetailsData
