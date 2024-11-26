@@ -6,7 +6,7 @@ import GSXS750 from "../../assets/SUZUKI/GSXS750.png";
 import GSXS from "../../assets/SUZUKI/GSXS.png";
 
 const modelDetailsData = {
-    "GSX-RR": [
+    "GSX-R": [
         { name: "600", img: S600 },
         { name: "750", img: GSXR750 },
         { name: "1000", img: GSXR1000 },

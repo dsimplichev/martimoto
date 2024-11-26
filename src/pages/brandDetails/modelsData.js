@@ -10,6 +10,11 @@ import GSXS from "../../assets/SUZUKI/GSXS.png";
 import GSXS750 from "../../assets/SUZUKI/GSXS750.png";
 import HAYABUSA from "../../assets/SUZUKI/HAYABUSA.png";
 import yamaha from "../../assets/Yamaha/yamaha.png"
+import YZFR6 from "../../assets/Yamaha/YZFR6.png"
+import YZFR125 from "../../assets/Yamaha/YZFR125.png"
+import XJ6 from "../../assets/Yamaha/XJ6.png"
+import MT from "../../assets/Yamaha/MT.png"
+
 
 const modelsData = {
     BMW: [
@@ -30,10 +35,10 @@ const modelsData = {
     ],
     YAMAHA: [
         { name: "YZF R1", img: yamaha },
-        { name: "YZF R6", img: GSX },
-        { name: "YZF R125", img: GSXS },
-        { name: "XJ6", img: HAYABUSA },
-        { name: "MT", img: HAYABUSA },
+        { name: "YZF R6", img: YZFR6 },
+        { name: "YZF R125", img: YZFR125 },
+        { name: "XJ6", img: XJ6 },
+        { name: "MT", img: MT },
     ],
 };
 
