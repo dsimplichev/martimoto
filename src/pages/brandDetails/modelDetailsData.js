@@ -9,7 +9,9 @@ import YZFR120022003 from "../../assets/Yamaha/YZFR120022003.png";
 import YZFR120042006 from "../../assets/Yamaha/YZFR120042006.png";
 import YZFR120092014 from "../../assets/Yamaha/YZFR120092014.png";
 import YZFR120072008 from "../../assets/Yamaha/YZFR120072008.png";
-import YZFR120072008 from "../../assets/Yamaha/YZFR120072008.png";
+import YZFR120152017 from "../../assets/Yamaha/YZFR120152017.png";
+import YZFR120202021 from "../../assets/Yamaha/YZFR120202021.png";
+
 
 const modelDetailsData = {
     "GSX-R": [
@@ -33,8 +35,8 @@ const modelDetailsData = {
         { name: "2004-2006", img: YZFR120042006 },
         { name: "2007-2008", img: YZFR120072008 }, 
         { name: "2009-2014", img: YZFR120092014 },
-        { name: "2015-2017", img: GSXS750 }, 
-        { name: "2020-2021", img: GSXS },
+        { name: "2015-2017", img: YZFR120152017 }, 
+        { name: "2020-2021", img: YZFR120202021 },
 
     ],
     
