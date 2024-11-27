@@ -13,6 +13,9 @@ import YZFR120152017 from "../../assets/Yamaha/YZFR120152017.png";
 import YZFR120202021 from "../../assets/Yamaha/YZFR120202021.png";
 import MT10 from "../../assets/Yamaha/MT10.png";
 import MT07 from "../../assets/Yamaha/MT07.png";
+import MT09 from "../../assets/Yamaha/MT09.png";
+import MT09T from "../../assets/Yamaha/MT09T.png";
+import MT125 from "../../assets/Yamaha/MT125.png";
 
 
 const modelDetailsData = {
@@ -44,9 +47,9 @@ const modelDetailsData = {
     "MT": [
         { name: "MT 10", img: MT10 },
         { name: "MT 07", img: MT07 },
-        { name: "MT 09", img: YZFR120042006 },
-        { name: "MT 09 TRACER", img: YZFR120072008 }, 
-        { name: "MT 125", img: YZFR120092014 },
+        { name: "MT 09", img: MT09 },
+        { name: "MT 09 TRACER", img: MT09T }, 
+        { name: "MT 125", img: MT125 },
        
     ],
     
