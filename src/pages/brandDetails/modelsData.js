@@ -40,6 +40,13 @@ const modelsData = {
         { name: "XJ6", img: XJ6 },
         { name: "MT", img: MT },
     ],
+    HONDA: [
+        { name: "CBR", img: yamaha },
+        { name: "CBF", img: YZFR6 },
+        { name: "CB", img: YZFR125 },
+        { name: "HORNET", img: XJ6 },
+        { name: "VFR", img: MT },
+    ],
 };
 
 export default modelsData;
