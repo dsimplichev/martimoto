@@ -17,6 +17,8 @@ import MT09 from "../../assets/Yamaha/MT09.png";
 import MT09T from "../../assets/Yamaha/MT09T.png";
 import MT125 from "../../assets/Yamaha/MT125.png";
 
+import CBR1100 from "../../assets/HONDA/CBR1100.png";
+
 
 const modelDetailsData = {
     "GSX-R": [
@@ -50,6 +52,22 @@ const modelDetailsData = {
         { name: "MT 09", img: MT09 },
         { name: "MT 09 TRACER", img: MT09T }, 
         { name: "MT 125", img: MT125 },
+       
+    ],
+    "CBR": [
+        { name: "1100 XX", img: CBR1100 },
+        { name: "1100", img: MT07 },
+        { name: "1000 F", img: MT09 },
+        { name: "1000 RR", img: MT09T }, 
+        { name: "954 ", img: MT125 },
+        { name: "929", img: MT09 },
+        { name: "900", img: MT09T }, 
+        { name: "650", img: MT125 },
+        { name: "600", img: MT09T }, 
+        { name: "600 FS", img: MT125 },
+        { name: "500 R", img: MT09 },
+        { name: "250 R", img: MT09T }, 
+        { name: "125", img: MT125 },
        
     ],
     
