@@ -25,6 +25,9 @@ import CBR929 from "../../assets/HONDA/CBR929.png";
 import CBR900 from "../../assets/HONDA/CBR900.png";
 import CBR650 from "../../assets/HONDA/CBR650.png";
 import CBR600 from "../../assets/HONDA/CBR600.png";
+import CBR600FS from "../../assets/HONDA/CBR600FS.png";
+
+
 
 const modelDetailsData = {
     "GSX-R": [
@@ -70,7 +73,7 @@ const modelDetailsData = {
         { name: "900", img: CBR900 }, 
         { name: "650", img: CBR650 },
         { name: "600", img: CBR600 }, 
-        { name: "600 FS", img: MT125 },
+        { name: "600 FS", img: CBR600FS },
         { name: "500 R", img: MT09 },
         { name: "250 R", img: MT09T }, 
         { name: "125", img: MT125 },
