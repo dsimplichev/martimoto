@@ -47,6 +47,12 @@ const modelsData = {
         { name: "HORNET", img: XJ6 },
         { name: "VFR", img: MT },
     ],
+    KAWASAKI: [
+        { name: "NINJA", img: yamaha },
+        { name: "ZX", img: YZFR6 },
+        { name: "NINJA H2", img: MT },
+        { name: "Z", img: MT },
+    ],
 };
 
 export default modelsData;
