@@ -15,6 +15,10 @@ import YZFR125 from "../../assets/Yamaha/YZFR125.png"
 import XJ6 from "../../assets/Yamaha/XJ6.png"
 import MT from "../../assets/Yamaha/MT.png"
 
+import KAWASAKIZ from "../../assets/KAWASAKI/KAWASAKIZ.png"
+import KAWASAKIH2 from "../../assets/KAWASAKI/KAWASAKIH2.png"
+import KAWASAKIZX from "../../assets/KAWASAKI/KAWASAKIZX.png"
+import KAWASAKININJA from "../../assets/KAWASAKI/KAWASAKININJA.png"
 
 const modelsData = {
     BMW: [
@@ -48,10 +52,10 @@ const modelsData = {
         { name: "VFR", img: MT },
     ],
     KAWASAKI: [
-        { name: "NINJA", img: yamaha },
-        { name: "ZX", img: YZFR6 },
-        { name: "NINJA H2", img: MT },
-        { name: "Z", img: MT },
+        { name: "NINJA", img: KAWASAKININJA },
+        { name: "ZX", img: KAWASAKIZX },
+        { name: "NINJA H2", img: KAWASAKIH2 },
+        { name: "Z", img: KAWASAKIZ },
     ],
 };
 
