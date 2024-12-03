@@ -32,6 +32,7 @@ import CBR125 from "../../assets/HONDA/CBR125.png";
 
 import NINJA250 from "../../assets/KAWASAKI/NINJA250.png";
 import KAWASAKININJA from "../../assets/KAWASAKI/KAWASAKININJA.png"
+
 import KAWASAKIZ6R from "../../assets/KAWASAKI/KAWASAKIZ6R.png"
 import KAWASAKIZ6R363 from "../../assets/KAWASAKI/KAWASAKIZ6R363.png"
 import KAWASAKIZ7R from "../../assets/KAWASAKI/KAWASAKIZ7R.png"
@@ -39,6 +40,10 @@ import KAWASAKIZ9R from "../../assets/KAWASAKI/KAWASAKIZ9R.png"
 import KAWASAKIZ10R from "../../assets/KAWASAKI/KAWASAKIZ10R.png"
 import KAWASAKIZ12R from "../../assets/KAWASAKI/KAWASAKIZ12R.png"
 import KAWASAKIZ14R from "../../assets/KAWASAKI/KAWASAKIZ14R.png"
+
+import KAWASAKIZ1000 from "../../assets/KAWASAKI/KAWASAKIZ1000.png"
+import KAWASAKIZ900 from "../../assets/KAWASAKI/KAWASAKIZ900.png"
+import KAWASAKIZ800 from "../../assets/KAWASAKI/KAWASAKIZ800.png"
 
 const modelDetailsData = {
     "GSX-R": [
@@ -103,6 +108,15 @@ const modelDetailsData = {
         { name: "ZX-10R", img: KAWASAKIZ10R },
         { name: "ZX-12R", img: KAWASAKIZ12R },
         { name: "ZX-14R", img: KAWASAKIZ14R },
+    ],
+    "Z": [
+        { name: "Z-1000", img: KAWASAKIZ1000 },
+        { name: "Z-900", img: KAWASAKIZ900 },
+        { name: "Z-800", img: KAWASAKIZ800 },
+        { name: "Z-750", img: KAWASAKIZ9R },
+        { name: "Z-650", img: KAWASAKIZ10R },
+        { name: "Z-400", img: KAWASAKIZ12R },
+        { name: "Z-300", img: KAWASAKIZ14R },
     ],
     
 };
