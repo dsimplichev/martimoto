@@ -44,6 +44,10 @@ import KAWASAKIZ14R from "../../assets/KAWASAKI/KAWASAKIZ14R.png"
 import KAWASAKIZ1000 from "../../assets/KAWASAKI/KAWASAKIZ1000.png"
 import KAWASAKIZ900 from "../../assets/KAWASAKI/KAWASAKIZ900.png"
 import KAWASAKIZ800 from "../../assets/KAWASAKI/KAWASAKIZ800.png"
+import KAWASAKIZ750 from "../../assets/KAWASAKI/KAWASAKIZ750.png"
+import KAWASAKIZ650 from "../../assets/KAWASAKI/KAWASAKIZ650.png"
+import KAWASAKIZ400 from "../../assets/KAWASAKI/KAWASAKIZ400.png"
+import KAWASAKIZ300 from "../../assets/KAWASAKI/KAWASAKIZ300.png"
 
 const modelDetailsData = {
     "GSX-R": [
@@ -113,10 +117,10 @@ const modelDetailsData = {
         { name: "Z-1000", img: KAWASAKIZ1000 },
         { name: "Z-900", img: KAWASAKIZ900 },
         { name: "Z-800", img: KAWASAKIZ800 },
-        { name: "Z-750", img: KAWASAKIZ9R },
-        { name: "Z-650", img: KAWASAKIZ10R },
-        { name: "Z-400", img: KAWASAKIZ12R },
-        { name: "Z-300", img: KAWASAKIZ14R },
+        { name: "Z-750", img: KAWASAKIZ750 },
+        { name: "Z-650", img: KAWASAKIZ650 },
+        { name: "Z-400", img: KAWASAKIZ400 },
+        { name: "Z-300", img: KAWASAKIZ300 },
     ],
     
 };
