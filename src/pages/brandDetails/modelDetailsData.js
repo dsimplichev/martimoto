@@ -32,6 +32,9 @@ import CBR125 from "../../assets/HONDA/CBR125.png";
 
 import NINJA250 from "../../assets/KAWASAKI/NINJA250.png";
 import KAWASAKININJA from "../../assets/KAWASAKI/KAWASAKININJA.png"
+import KAWASAKIZ6R from "../../assets/KAWASAKI/KAWASAKIZ6R.png"
+import KAWASAKIZ6R363 from "../../assets/KAWASAKI/KAWASAKIZ6R363.png"
+import KAWASAKIZ7R from "../../assets/KAWASAKI/KAWASAKIZ7R.png"
 
 const modelDetailsData = {
     "GSX-R": [
@@ -89,9 +92,9 @@ const modelDetailsData = {
    
     ],
     "ZX": [
-        { name: "ZX-6R", img: KAWASAKININJA },
-        { name: "ZX-6R 636", img: NINJA250 },
-        { name: "ZX-7R", img: KAWASAKININJA },
+        { name: "ZX-6R", img: KAWASAKIZ6R },
+        { name: "ZX-6R 636", img: KAWASAKIZ6R363 },
+        { name: "ZX-7R", img: KAWASAKIZ7R },
         { name: "ZX-9R", img: NINJA250 },
         { name: "ZX-10R", img: KAWASAKININJA },
         { name: "ZX-12R", img: NINJA250 },
