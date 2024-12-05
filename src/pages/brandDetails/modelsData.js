@@ -23,6 +23,11 @@ import KAWASAKININJA from "../../assets/KAWASAKI/KAWASAKININJA.png"
 import RSV4 from "../../assets/APRILIA/RSV4.png"
 import RSV1000 from "../../assets/APRILIA/RSV1000.png"
 import RSVTUONO from "../../assets/APRILIA/RSVTUONO.png"
+import TUONOV4 from "../../assets/APRILIA/TUONOV4.png"
+import RS600 from "../../assets/APRILIA/RS600.png"
+import RS250 from "../../assets/APRILIA/RS250.png"
+
+
 
 const modelsData = {
     BMW: [
@@ -65,9 +70,9 @@ const modelsData = {
         { name: "RSV 4", img: RSV4 },
         { name: "RSV 1000", img: RSV1000 },
         { name: "RSV TUONO", img: RSVTUONO },
-        { name: "TUONO V4", img: KAWASAKIZ },
-        { name: "RS 660", img: KAWASAKININJA },
-        { name: "RS 250", img: KAWASAKIZX },
+        { name: "TUONO V4", img: TUONOV4 },
+        { name: "RS 660", img: RS600 },
+        { name: "RS 250", img: RS250 },
         { name: "RS 125", img: KAWASAKIH2 },
         { name: "TUONO 125", img: KAWASAKIZ },
         { name: "SL 1000 FALCO", img: KAWASAKIZ },
