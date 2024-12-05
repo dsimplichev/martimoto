@@ -26,7 +26,9 @@ import RSVTUONO from "../../assets/APRILIA/RSVTUONO.png"
 import TUONOV4 from "../../assets/APRILIA/TUONOV4.png"
 import RS600 from "../../assets/APRILIA/RS600.png"
 import RS250 from "../../assets/APRILIA/RS250.png"
-
+import RS125 from "../../assets/APRILIA/RS125.png"
+import TUONO125 from "../../assets/APRILIA/TUONO125.png"
+import SL1000FALCO from "../../assets/APRILIA/SL1000FALCO.png"
 
 
 const modelsData = {
@@ -73,9 +75,9 @@ const modelsData = {
         { name: "TUONO V4", img: TUONOV4 },
         { name: "RS 660", img: RS600 },
         { name: "RS 250", img: RS250 },
-        { name: "RS 125", img: KAWASAKIH2 },
-        { name: "TUONO 125", img: KAWASAKIZ },
-        { name: "SL 1000 FALCO", img: KAWASAKIZ },
+        { name: "RS 125", img: RS125 },
+        { name: "TUONO 125", img: TUONO125 },
+        { name: "SL 1000 FALCO", img: SL1000FALCO },
     ],
 };
 
