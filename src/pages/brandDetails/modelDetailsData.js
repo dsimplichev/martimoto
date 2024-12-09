@@ -49,6 +49,10 @@ import KAWASAKIZ650 from "../../assets/KAWASAKI/KAWASAKIZ650.png"
 import KAWASAKIZ400 from "../../assets/KAWASAKI/KAWASAKIZ400.png"
 import KAWASAKIZ300 from "../../assets/KAWASAKI/KAWASAKIZ300.png"
 
+import RSV42009 from "../../assets/APRILIA/RSV42009.png"
+import RSV42020 from "../../assets/APRILIA/RSV42020.png"
+
+
 const modelDetailsData = {
     "GSX-R": [
         { name: "600", img: S600 },
@@ -121,6 +125,11 @@ const modelDetailsData = {
         { name: "Z-650", img: KAWASAKIZ650 },
         { name: "Z-400", img: KAWASAKIZ400 },
         { name: "Z-300", img: KAWASAKIZ300 },
+    ],
+    "RSV 4": [
+        { name: "2009-2015", img: RSV42009 },
+        { name: "2015-2020", img: RSV42020 },
+   
     ],
     
 };
