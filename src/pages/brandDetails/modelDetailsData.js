@@ -53,6 +53,8 @@ import RSV42009 from "../../assets/APRILIA/RSV42009.png"
 import RSV42020 from "../../assets/APRILIA/RSV42020.png"
 import RSV10001998 from "../../assets/APRILIA/RSV10001998.png"
 import RSV10002005 from "../../assets/APRILIA/RSV10002005.png"
+import TUONOV42011 from "../../assets/APRILIA/TUONOV42011.png"
+import TUONOV42020 from "../../assets/APRILIA/TUONOV42020.png"
 
 
 const modelDetailsData = {
@@ -136,6 +138,11 @@ const modelDetailsData = {
     "RSV 1000": [
         { name: "1998-2002", img: RSV10001998 },
         { name: "2003-2005", img: RSV10002005 },
+   
+    ],
+    "TUONO V4": [
+        { name: "2011-2013", img: TUONOV42011 },
+        { name: "2014-2020", img: TUONOV42020 },
    
     ],
     
