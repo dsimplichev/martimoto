@@ -59,6 +59,10 @@ import TUONOV42020 from "../../assets/APRILIA/TUONOV42020.png"
 import S1000R2014 from "../../assets/BMW/S1000R2014.png"
 import S1000R2019 from "../../assets/BMW/S1000R2019.png"
 
+import S1000RR2009 from "../../assets/BMW/S1000RR2009.png"
+import S1000RR2016 from "../../assets/BMW/S1000RR2016.png"
+import S1000RR2018 from "../../assets/BMW/S1000RR2018.png"
+import S1000RR2024 from "../../assets/BMW/S1000RR2024.png"
 
 const modelDetailsData = {
     "GSX-R": [
@@ -152,6 +156,12 @@ const modelDetailsData = {
         { name: "2014-2016", img: S1000R2014 },
         { name: "2017-2019", img: S1000R2019 },
    
+    ],
+    "S1000RR": [
+        { name: "2009-2014", img: S1000RR2009 },
+        { name: "2015-2016", img: S1000RR2016 },
+        { name: "2017-2018", img: S1000RR2018 },
+        { name: "2023-2024", img: S1000RR2024 }, 
     ],
     
 };
