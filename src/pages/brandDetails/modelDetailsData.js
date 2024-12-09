@@ -51,6 +51,8 @@ import KAWASAKIZ300 from "../../assets/KAWASAKI/KAWASAKIZ300.png"
 
 import RSV42009 from "../../assets/APRILIA/RSV42009.png"
 import RSV42020 from "../../assets/APRILIA/RSV42020.png"
+import RSV10001998 from "../../assets/APRILIA/RSV10001998.png"
+import RSV10002005 from "../../assets/APRILIA/RSV10002005.png"
 
 
 const modelDetailsData = {
@@ -129,6 +131,11 @@ const modelDetailsData = {
     "RSV 4": [
         { name: "2009-2015", img: RSV42009 },
         { name: "2015-2020", img: RSV42020 },
+   
+    ],
+    "RSV 1000": [
+        { name: "1998-2002", img: RSV10001998 },
+        { name: "2003-2005", img: RSV10002005 },
    
     ],
     
