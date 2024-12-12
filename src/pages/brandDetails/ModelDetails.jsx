@@ -1,11 +1,12 @@
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './modelDetails.css';
-import modelDetailsData from "../brandDetails/modelDetailsData";
+import modelDetailsData from '../brandDetails/modelDetailsData'; 
 
 function ModelDetails() {
-    const { brandName, modelName } = useParams();  // 
-    const subModels = modelDetailsData[modelName] || [];
+    const { brandName, modelName } = useParams(); 
+    const subModels = modelDetailsData[modelName] || []; 
 
     return (
         <div className="model-details">

@@ -4,8 +4,10 @@ import yearDetailsData from './yearDetailsData';
 import './yearDetails.css';
 
 function YearDetails() {
-    const { brandName, modelName, subModelName } = useParams();  
+    const { brandName, modelName, subModelName, } = useParams();  
     const yearsData = yearDetailsData[modelName]?.[subModelName] || [];  
+    
+
 
     return (
         <div className="year-details">
