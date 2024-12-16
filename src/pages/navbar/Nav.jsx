@@ -13,7 +13,7 @@ function Nav() {
     const [cartItems, setCartItems] = useState([
         { id: 1, name: "Продукт 1", img: "path/to/image1.jpg", price: "20 лв." },
         { id: 2, name: "Продукт 2", img: "path/to/image2.jpg", price: "30 лв." }
-    ]); 
+    ]);
 
     const toggleForms = () => {
         setShowLogin(false);
@@ -45,6 +45,9 @@ function Nav() {
                         <button className='ShoppingCart' onClick={toggleCart}> <FaShoppingCart /> </button>
                     </>
                 </div>
+            </div>
+            <div className="info-bar">
+                <p className="info-text">Добре дошли в нашия магазин! Открийте най-добрите оферти и продукти за вашия мотор!</p>
             </div>
             {showCart && (
                 <div className={`cart-dropdown ${showCart ? 'show' : ''}`}>
