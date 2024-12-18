@@ -4,7 +4,7 @@ import yearDetailsData from './yearDetailsData';
 import './yearDetails.css';
 
 function YearDetails() {
-    const { brandName, modelName, subModelName, } = useParams();  
+    const { brandName, modelName, subModelName, yearRange } = useParams();  
     const yearsData = yearDetailsData[modelName]?.[subModelName] || []; 
     
     
@@ -18,7 +18,7 @@ function YearDetails() {
                 {yearsData.map((yearItem, index) => (
                     <div key={index} className="year-card">
                        <Link to={`/brands/${brandName}/models/${modelName}/${subModelName}/${yearItem.year}`}>
-                            <img src={yearItem.img} alt={yearItem.year} className="year-image" />
+                            <img src={yearItem.img} alt={yearItem.yearRange} className="year-image" />
                             <p className="year-name">{yearItem.year}</p>
                         </Link>
                     </div>
