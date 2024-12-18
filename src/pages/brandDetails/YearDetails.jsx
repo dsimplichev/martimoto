@@ -1,11 +1,12 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import yearDetailsData from './yearDetailsData';  
 import './yearDetails.css';
 
 function YearDetails() {
     const { brandName, modelName, subModelName, } = useParams();  
-    const yearsData = yearDetailsData[modelName]?.[subModelName] || [];  
+    const yearsData = yearDetailsData[modelName]?.[subModelName] || []; 
+    
     
 
 
@@ -16,10 +17,10 @@ function YearDetails() {
             <div className="year-grid">
                 {yearsData.map((yearItem, index) => (
                     <div key={index} className="year-card">
-                        <img src={yearItem.img} alt={yearItem.year} className="year-image" />
-            
-                        <p className="year-name">{yearItem.year}</p>
-                       
+                       <Link to={`/brands/${brandName}/models/${modelName}/${subModelName}/${yearItem.year}`}>
+                            <img src={yearItem.img} alt={yearItem.year} className="year-image" />
+                            <p className="year-name">{yearItem.year}</p>
+                        </Link>
                     </div>
                 ))}
             </div>
