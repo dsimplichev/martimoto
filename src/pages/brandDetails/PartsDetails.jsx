@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import partsData from './partsData';  
 import './partsDetails.css'; 
 function PartsDetails() {
     const { brandName, modelName, subModelName, yearRange } = useParams();  
-    const partsForYear = partsData[brandName]?.[modelName]?.[subModelName]?.[yearRange] || [];
+    const allParts = partsData[brandName]?.[modelName]?.[subModelName]?.[yearRange] || [];
+    const [currentPage, setCurrentPage] = useState(1);
+    const partsPerPage = 20;
+    
+    const indexOfLastPart = currentPage * partsPerPage;
+    const indexOfFirstPart = indexOfLastPart - partsPerPage;
+    const currentParts = allParts.slice(indexOfFirstPart, indexOfLastPart);
+
+
+    const nextPage = () => {
+        if (indexOfLastPart < allParts.length) setCurrentPage(currentPage + 1);
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
+
     return (
         <div className="parts-details">
+            <h1 className="parts-title">{yearRange}</h1>
+            <div className="parts-underline"></div>
             <div className="parts-grid">
-                {partsForYear.map((part, index) => (
+                {currentParts.map((part, index) => (
                     <div key={index} className="parts-card">
                         <img src={part.img} alt={part.title} className="parts-image" />
                         <p className="parts-name">{part.title}</p>
                     </div>
                 ))}
+            </div>
+            <div className="pagination">
+                <button onClick={prevPage} disabled={currentPage === 1} className="pagination-btn">Previous</button>
+                <button onClick={nextPage} disabled={indexOfLastPart >= allParts.length} className="pagination-btn">Next</button>
             </div>
         </div>
     );

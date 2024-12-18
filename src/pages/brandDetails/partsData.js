@@ -3,8 +3,14 @@ const partsData = {
         "GSX-R": {
             "600": {
                 "1996-2000": [
-                    { title: "Окачване", img: "/images/suspension96.png" },
-                    { title: "Двигател", img: "/images/engine96.png" },
+                    { title: "Brake Pads", img: "/path/to/brake-pads.jpg" },
+                    { title: "Clutch Lever", img: "/path/to/clutch-lever.jpg" },
+                    { title: "Brake Pads", img: "/path/to/brake-pads.jpg" },
+                    { title: "Clutch Lever", img: "/path/to/clutch-lever.jpg" },
+                    { title: "Brake Pads", img: "/path/to/brake-pads.jpg" },
+                    { title: "Clutch Lever", img: "/path/to/clutch-lever.jpg" },
+                    { title: "Brake Pads", img: "/path/to/brake-pads.jpg" },
+                    { title: "Clutch Lever", img: "/path/to/clutch-lever.jpg" },
                 ],
                 "2001-2003": [
                     { title: "Спирачки", img: "/images/brakes01.png" },
