@@ -61,7 +61,7 @@ import S1000R2019 from "../../assets/BMW/S1000R2019.png"
 
 import S1000RR2009 from "../../assets/BMW/S1000RR2009.png"
 import S1000RR2016 from "../../assets/BMW/S1000RR2016.png"
-import S1000RR2018 from "../../assets/BMW/S1000RR2018.png"
+import S1000RR2018 from "../../assets/BMW/S1000RR2018.png" 
 import S1000RR2024 from "../../assets/BMW/S1000RR2024.png"
 
 const modelDetailsData = {
