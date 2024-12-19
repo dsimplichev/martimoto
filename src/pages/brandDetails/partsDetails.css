@@ -93,20 +93,40 @@
 }
 
 .parts-price {
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: bold;
-    color: #333;
+    color: black;
+    background-color: #f0f8ff;
+    border: 2px solid #0078d4;
+    border-radius: 8px;
+    padding: 5px 10px;
+    color: #0078d4;
+    display: inline-block;
+    text-align: center;
 }
 
-.parts-btn {
+.cart-btn, .search-btn {
+    background-color: #0078d4; 
+    color: #fff; 
     border: none;
-    background: transparent;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
     cursor: pointer;
-    font-size: 1.2rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     margin-left: 10px;
-    transition: transform 0.2s;
 }
 
-.parts-btn:hover {
-    transform: scale(1.2);
+.cart-btn:hover, .search-btn:hover {
+    background-color: #005a9e; 
+    transform: scale(1.1); 
 }
+.parts-info button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.5); 
+}
+

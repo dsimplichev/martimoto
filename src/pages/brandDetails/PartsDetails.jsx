@@ -37,8 +37,8 @@ function PartsDetails() {
                         <p className="parts-name">{part.title}</p>
                         <div className="parts-info">
                         <p className="parts-price">{part.price ?`$${part.price.toFixed(2)}` : "N/A"}</p>
-                            <button className="parts-btn cart-btn"><FaShoppingBasket /></button>
-                            <button className="parts-btn search-btn"><FaSearch /></button>
+                            <button className="cart-btn"><FaShoppingBasket /></button>
+                            <button className="search-btn"><FaSearch /></button>
                     </div>
                     </div>
                 ))}
