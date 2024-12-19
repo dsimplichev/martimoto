@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import partsData from './partsData';  
 import './partsDetails.css'; 
+import { FaShoppingBasket } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+
+
 function PartsDetails() {
     const { brandName, modelName, subModelName, yearRange } = useParams();  
     const allParts = partsData[brandName]?.[modelName]?.[subModelName]?.[yearRange] || [];
@@ -31,6 +35,11 @@ function PartsDetails() {
                     <div key={index} className="parts-card">
                         <img src={part.img} alt={part.title} className="parts-image" />
                         <p className="parts-name">{part.title}</p>
+                        <div className="parts-info">
+                        <p className="parts-price">{part.price ?`$${part.price.toFixed(2)}` : "N/A"}</p>
+                            <button className="parts-btn cart-btn"><FaShoppingBasket /></button>
+                            <button className="parts-btn search-btn"><FaSearch /></button>
+                    </div>
                     </div>
                 ))}
             </div>

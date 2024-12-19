@@ -83,3 +83,30 @@
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+
+.parts-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.parts-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.parts-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    transition: transform 0.2s;
+}
+
+.parts-btn:hover {
+    transform: scale(1.2);
+}
