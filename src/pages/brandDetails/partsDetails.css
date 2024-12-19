@@ -99,14 +99,15 @@
     background-color: #f0f8ff;
     border: 2px solid #0078d4;
     border-radius: 8px;
-    padding: 5px 10px;
+    padding:  10px;
     color: #0078d4;
     display: inline-block;
     text-align: center;
+    margin-top: 20px;
 }
 
 .cart-btn, .search-btn {
-    background-color: #0078d4; 
+    background-color: f39c12; 
     color: #fff; 
     border: none;
     border-radius: 50%;
@@ -120,6 +121,13 @@
     transition: transform 0.3s ease, background-color 0.3s ease;
     margin-left: 10px;
 }
+
+.cart-btn{
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+
 
 .cart-btn:hover, .search-btn:hover {
     background-color: #005a9e; 

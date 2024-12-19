@@ -44,8 +44,8 @@ function PartsDetails() {
                 ))}
             </div>
             <div className="pagination">
-                <button onClick={prevPage} disabled={currentPage === 1} className="pagination-btn">Previous</button>
-                <button onClick={nextPage} disabled={indexOfLastPart >= allParts.length} className="pagination-btn">Next</button>
+                <button onClick={prevPage} disabled={currentPage === 1} className="pagination-btn">Назад</button>
+                <button onClick={nextPage} disabled={indexOfLastPart >= allParts.length} className="pagination-btn">Напред</button>
             </div>
         </div>
     );
