@@ -47,7 +47,7 @@ function Nav() {
                 </div>
             </div>
             <div className="info-bar">
-                <p className="info-text">Добре дошли в нашия магазин! Открийте най-добрите оферти и продукти за вашия мотор!</p>
+                <p className="info-text">МартиМото ви пожелава весело и незабравимо изкарване на Коледните и Новогодишни празници!</p>
             </div>
             {showCart && (
                 <div className={`cart-dropdown ${showCart ? 'show' : ''}`}>
