@@ -205,11 +205,13 @@
 .modal-body {
     display: flex;
     align-items: flex-start;
+    gap: 20px;
 }
 
 .modal-image {
     max-width: 40%;
     border-radius: 8px;
+    height: auto;
 }
 
 .modal-details {
@@ -217,7 +219,7 @@
     margin-left: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .modal-title {
