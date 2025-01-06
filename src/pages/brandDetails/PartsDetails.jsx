@@ -70,9 +70,9 @@ function PartsDetails() {
                                     : "Цена не е налична"}
                             </p>
                             <p className="modal-description">{selectedPart.description || "Няма описание."}</p>
-                        </div>
-                        <button className="modal-cart-btn">Добави в количката</button>
-
+                            </div>
+                            <button className="modal-cart-btn">Добави в количката</button>
+                        
                     </div>
                 </div>
             )}
