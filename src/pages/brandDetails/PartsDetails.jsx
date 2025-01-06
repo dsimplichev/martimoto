@@ -62,14 +62,17 @@ function PartsDetails() {
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <button className="modal-close-btn" onClick={closeModal}>X</button>
                         <img src={selectedPart.img} alt={selectedPart.title} className="modal-image" />
-                        <h2 className="modal-title">{selectedPart.title}</h2>
-                        <p className="modal-price">
-                            {selectedPart.price !== undefined
-                                ? `$${selectedPart.price.toFixed(2)}`
-                                : "Цена не е налична"}
-                        </p>
-                        <p className="modal-description">{selectedPart.description || "Няма описание."}</p>
+                        <div className="modal-detailss">
+                            <h2 className="modal-title">{selectedPart.title}</h2>
+                            <p className="modal-price">
+                                {selectedPart.price !== undefined
+                                    ? `$${selectedPart.price.toFixed(2)}`
+                                    : "Цена не е налична"}
+                            </p>
+                            <p className="modal-description">{selectedPart.description || "Няма описание."}</p>
+                        </div>
                         <button className="modal-cart-btn">Добави в количката</button>
+
                     </div>
                 </div>
             )}
