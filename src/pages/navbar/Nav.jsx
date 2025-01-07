@@ -56,7 +56,7 @@ function Nav() {
                     </>
                 ) : (
                     <>
-                        <button className='FaUserCircle' onClick={() => setShowLogin(true)}> 
+                        <button className='user' onClick={() => setShowLogin(true)}> 
                             <FaUserCircle /> 
                         </button>
                     </>
