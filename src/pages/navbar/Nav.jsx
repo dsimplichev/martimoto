@@ -44,7 +44,7 @@ function Nav() {
             <div className="btn">
                 {isLoggedIn ? (
                     <>
-                        <button className='favorites'>
+                        <button className='FaHeart'>
                             <Link to="/favorites">
                                 <FaHeart /> 
                             </Link>
@@ -57,12 +57,12 @@ function Nav() {
                 ) : (
                     <>
                         <button className='user' onClick={() => setShowLogin(true)}> 
-                            <FaUserCircle /> {/* Икона за логин */}
+                            <FaUserCircle /> 
                         </button>
                     </>
                 )}
                 <button className='ShoppingCart' onClick={toggleCart}> 
-                    <FaShoppingCart /> {/* Икона за количка */}
+                    <FaShoppingCart /> 
                 </button>
             </div>
         </div>
