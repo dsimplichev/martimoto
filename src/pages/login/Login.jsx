@@ -1,23 +1,38 @@
 import './login.css';
-import React, { useState } from 'react';
-
+import React, { useState, useContext } from 'react';
 import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
-import Register from '../register/Register';
+import { AuthContext } from '../../Context/AuthContext';
 
-function Login( {onClose, onCreateAccountClick }) {
+function Login({ onClose, onCreateAccountClick }) {
+    const { login } = useContext(AuthContext); 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-
-    
+    const [error, setError] = useState(null); 
 
     const onChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!formData.email || !formData.password) {
+            setError("Моля, попълнете всички полета.");
+            return;
+        }
+
+        // Логика за логване
+        const success = login(formData.email, formData.password);
+        if (success) {
+            onClose(); 
+        } else {
+            setError("Грешен имейл или парола.");
+        }
     };
 
     const handleOverlayClick = (e) => {
@@ -28,31 +43,46 @@ function Login( {onClose, onCreateAccountClick }) {
 
     return (
         <div className="modal__login" onClick={handleOverlayClick}>
-            <div className='login__container'>
-                <div className='login__form'>
-                    <h2 className='login__title'>Login</h2>
-                    <div className='social-login'>
-                        <ul className='social__wrap'>
-                            <li className='google'>
-                                <a href="#"><ImGoogle2 className='google__icon' />Login with Google</a>
+            <div className="login__container">
+                <div className="login__form">
+                    <h2 className="login__title">Вход</h2>
+                    <div className="social-login">
+                        <ul className="social__wrap">
+                            <li className="google">
+                                <a href="#"><ImGoogle2 className="google__icon" />Вход с Google</a>
                             </li>
-                            <li className='fb'>
-                                <a href="#"><FaFacebook className='facebook__icon' />Login with Facebook</a>
+                            <li className="fb">
+                                <a href="#"><FaFacebook className="facebook__icon" />Вход с Facebook</a>
                             </li>
                         </ul>
                     </div>
-                    <div className='or'>or</div>
-                    <form>
-                        <label htmlFor='email'>Email</label>
-                        <input type="email" name="email" id="email" />
-                        <label htmlFor='password'>Password</label>
-                        <input type="password" name="password" id="password" onChange={onChange} />
-                        <input className='btn__login' type="submit" value="Login" />
+                    <div className="or">или</div>
+                    {error && <p className="error-message">{error}</p>}
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="email">Имейл</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            value={formData.email}
+                            onChange={onChange}
+                        />
+                        <label htmlFor="password">Парола</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={onChange}
+                        />
+                        <button className="btn__login" type="submit">Вход</button>
                     </form>
 
                     <div className="register-prompt">
-                        Don't have an account?{' '}
-                        <span className="create-account" onClick={onCreateAccountClick}>Create Account</span>
+                        Нямате акаунт?{' '}
+                        <span className="create-account" onClick={onCreateAccountClick}>
+                            Регистрация
+                        </span>
                     </div>
                 </div>
             </div>
