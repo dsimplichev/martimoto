@@ -49,14 +49,14 @@ function Nav() {
                                 <FaHeart /> 
                             </Link>
                         </button>
-                        <button className='logout' onClick={logout}>
+                        <button className='FaSignOutAlt' onClick={logout}>
                             <FaSignOutAlt /> 
                         </button>
-                        <span className="user-greeting">Здравей, {user?.email}</span>
+                    
                     </>
                 ) : (
                     <>
-                        <button className='user' onClick={() => setShowLogin(true)}> 
+                        <button className='FaUserCircle' onClick={() => setShowLogin(true)}> 
                             <FaUserCircle /> 
                         </button>
                     </>

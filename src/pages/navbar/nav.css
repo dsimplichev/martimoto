@@ -171,6 +171,25 @@
     transform: scale(1.1);
 }
 
+.FaSignOutAlt{
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid #f39c12;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.FaSignOutAlt:hover {
+    background-color: #f39c12;
+    transform: scale(1.1);
+}
+
 
 @keyframes scroll {
     from {
