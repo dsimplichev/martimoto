@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './register.css';
 
-function Register({ onClose }) {
+function Register({ onClose, onLoginClick }) { // Добавяме onLoginClick
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -28,17 +28,13 @@ function Register({ onClose }) {
         }
 
         try {
-            
             const response = await axios.post('http://localhost:5000/register', {
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,
             });
 
-           
             setMessage(response.data.message || 'Успешно регистриран!');
-            
-            
             setFormData({
                 username: '',
                 email: '',
@@ -46,7 +42,6 @@ function Register({ onClose }) {
                 confirmPassword: '',
             });
         } catch (error) {
-            
             if (error.response && error.response.data.message) {
                 setMessage(error.response.data.message);
             } else {
@@ -113,7 +108,12 @@ function Register({ onClose }) {
 
                 <div className="have__account">
                     <small>Already have an account?</small>
-                    <button onClick={onClose}>Login now</button>
+                    <button onClick={() => {
+                        onClose();
+                        onLoginClick(); // 
+                    }}>
+                        Login now
+                    </button>
                 </div>
             </div>
         </div>

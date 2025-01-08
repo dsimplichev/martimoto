@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.send('Сървърът работи!');
 });
 
-mongoose.connect('mongodb://localhost:27017/MartiMoto', {
+mongoose.connect('mongodb://localhost:27017/martimoto', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {

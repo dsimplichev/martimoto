@@ -11,46 +11,64 @@ import ModelDetails from "./pages/brandDetails/ModelDetails";
 import YearDetails from "./pages/brandDetails/YearDetails";
 import Accessories from "./pages/accessories/Accessories";
 import PartsDetails from "./pages/brandDetails/PartsDetails"
-
-
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 
 import React, { useState } from 'react';
 
-
-
 function App() {
-  
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
-  
+
   return (
     <div>
-    <Nav isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-    
-    
-    <Routes>
-    
-    <Route path="/" element={<Search />} />
-    <Route path="/brand" element={<Brand />} />
-    <Route path="/last-product" element={<LastProduct />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/partssearch" element={<PartsSearch />} />
-    <Route path="/accessories" element={<Accessories />} />
-    <Route path="/brands/:brandName" element={<BrandDetails />} />
-    <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-    <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
-    <Route path="/brands/:brandName/models/:modelName/:subModelName/:yearRange" element={<PartsDetails />} />
-    </Routes>
-    
-    
-    <Brand />
-    <LastProduct />
-    <About />
-    <Footer />
-  </div>
+      <Nav isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+
+      <Routes>
+        <Route path="/" element={<Search />} />
+        <Route path="/brand" element={<Brand />} />
+        <Route path="/last-product" element={<LastProduct />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/partssearch" element={<PartsSearch />} />
+        <Route path="/accessories" element={<Accessories />} />
+        <Route path="/brands/:brandName" element={<BrandDetails />} />
+        <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
+        <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
+        <Route path="/brands/:brandName/models/:modelName/:subModelName/:yearRange" element={<PartsDetails />} />
+      </Routes>
+
+      <Brand />
+      <LastProduct />
+      <About />
+      <Footer />
+
+      {isLoginOpen && (
+        <Login
+          onClose={() => setIsLoginOpen(false)}
+          onCreateAccountClick={() => {
+            setIsLoginOpen(false);
+            setIsRegisterOpen(true);
+          }}
+        />
+      )}
+
+      {isRegisterOpen && (
+        <Register
+          onClose={() => setIsRegisterOpen(false)}
+          onLoginClick={() => {
+            setIsRegisterOpen(false);
+            setIsLoginOpen(true); 
+          }}
+        />
+      )}
+
+    </div>
   );
 }
 
