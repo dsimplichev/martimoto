@@ -34,13 +34,22 @@ function Register({ onClose, onLoginClick }) {
                 password: formData.password,
             });
 
+            // Показване на съобщение за успешна регистрация
             setMessage(response.data.message || 'Успешно регистриран!');
+            
+            // Изчистване на формата
             setFormData({
                 username: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
             });
+
+            // Затваряне на формата
+            setTimeout(() => {
+                onClose();
+            }, 1500);  // Затваря след 1.5 сек, за да може съобщението да се види
+
         } catch (error) {
             if (error.response && error.response.data.message) {
                 setMessage(error.response.data.message);
@@ -110,7 +119,7 @@ function Register({ onClose, onLoginClick }) {
                     <small>Already have an account?</small>
                     <button onClick={() => {
                         onClose();
-                        onLoginClick(); // 
+                        onLoginClick();
                     }}>
                         Login now
                     </button>
