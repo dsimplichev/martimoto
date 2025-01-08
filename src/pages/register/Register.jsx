@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './register.css';
-
 
 function Register({ onClose }) {
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ function Register({ onClose }) {
         });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
@@ -27,14 +27,32 @@ function Register({ onClose }) {
             return;
         }
 
-        setMessage('Успешно регистриран!');
+        try {
+            
+            const response = await axios.post('http://localhost:5000/register', {
+                username: formData.username,
+                email: formData.email,
+                password: formData.password,
+            });
 
-        setFormData({
-            username: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-        });
+           
+            setMessage(response.data.message || 'Успешно регистриран!');
+            
+            
+            setFormData({
+                username: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+            });
+        } catch (error) {
+            
+            if (error.response && error.response.data.message) {
+                setMessage(error.response.data.message);
+            } else {
+                setMessage('Грешка при регистрацията. Опитайте отново.');
+            }
+        }
     };
 
     const handleOverlayClick = (e) => {
@@ -43,37 +61,63 @@ function Register({ onClose }) {
         }
     };
 
-
     return (
-
         <div className="modal-overlay" onClick={handleOverlayClick}>
-            <div className="form-container" >
+            <div className="form-container">
                 <h2>Signup</h2>
                 <form onSubmit={onSubmit}>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" onChange={onChange} required />
+                    <label htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={onChange}
+                        required
+                    />
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" onChange={onChange} required />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={onChange}
+                        required
+                    />
 
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" onChange={onChange} required />
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={onChange}
+                        required
+                    />
 
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" onChange={onChange} required />
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={onChange}
+                        required
+                    />
 
-                    <input type="submit" class="btn__register" value="Signup" />
+                    <input type="submit" className="btn__register" value="Signup" />
                 </form>
 
-                <div class="have__account">
+                {message && <p className="message">{message}</p>}
+
+                <div className="have__account">
                     <small>Already have an account?</small>
-                    <button onClick={onClose} >Login now</button>
+                    <button onClick={onClose}>Login now</button>
                 </div>
             </div>
         </div>
-        
-   
-    )
+    );
 }
 
 export default Register;
