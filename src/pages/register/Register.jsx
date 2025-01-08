@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './register.css';
 
-function Register({ onClose, onLoginClick }) { 
+function Register({ onClose, onLoginClick }) {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -34,10 +34,10 @@ function Register({ onClose, onLoginClick }) {
                 password: formData.password,
             });
 
-            // Показване на съобщение за успешна регистрация
+
             setMessage(response.data.message || 'Успешно регистриран!');
-            
-            // Изчистване на формата
+
+
             setFormData({
                 username: '',
                 email: '',
@@ -45,10 +45,10 @@ function Register({ onClose, onLoginClick }) {
                 confirmPassword: '',
             });
 
-            // Затваряне на формата
+
             setTimeout(() => {
                 onClose();
-            }, 1500);  // Затваря след 1.5 сек, за да може съобщението да се види
+            }, 1500);
 
         } catch (error) {
             if (error.response && error.response.data.message) {
@@ -116,6 +116,9 @@ function Register({ onClose, onLoginClick }) {
                 {message && <p className="message">{message}</p>}
 
                 <div className="have__account">
+
+                    {message && <p className="message">{message}</p>}
+
                     <small>Already have an account?</small>
                     <button onClick={() => {
                         onClose();

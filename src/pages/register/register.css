@@ -102,3 +102,11 @@ input[type="password"] {
 .have__account a:hover {
     text-decoration: underline; 
 }
+
+.message {
+    color: green; 
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
