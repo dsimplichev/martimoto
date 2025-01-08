@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './register.css';
 
-function Register({ onClose, onLoginClick }) { // Добавяме onLoginClick
+function Register({ onClose, onLoginClick }) { 
     const [formData, setFormData] = useState({
         username: '',
         email: '',
