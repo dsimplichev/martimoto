@@ -11,7 +11,8 @@ function Nav() {
     const { isLoggedIn, user, login, logout } = useContext(AuthContext);
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
-    const [showCart, setShowCart] = useState(false); 
+    const [showCart, setShowCart] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
     const [cartItems, setCartItems] = useState([
         { id: 1, name: "Продукт 1", img: "path/to/image1.jpg", price: "20 лв." },
         { id: 2, name: "Продукт 2", img: "path/to/image2.jpg", price: "30 лв." }
@@ -24,6 +25,10 @@ function Nav() {
 
     const toggleCart = () => {
         setShowCart((prev) => !prev);
+    };
+
+    const toggleDropdown = () => {
+        setShowDropdown((prev) => !prev);
     };
 
     const removeItemFromCart = (id) => {
@@ -44,22 +49,31 @@ function Nav() {
                 <div className="btn">
                     {isLoggedIn ? (
                         <>
+                            <div className="profile-section">
+                                <span className="profile-header" onClick={toggleDropdown}>
+                                    Моят профил <FaChevronDown className="chevron-down" />
+                                </span>
+                                <p className="greeting">Здравейте</p>
+                                <p className="username">{user?.username}</p>
+                                {showDropdown && (
+                                    <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
+                                        <ul>
+                                            <li><Link to="/profile">Моят профил</Link></li>
+                                            <li><Link to="/order-history">История на поръчките</Link></li>
+                                            <li><button className="logout-btn" onClick={logout}>Изход</button></li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
                             <button className='FaHeart'>
                                 <Link to="/favorites">
                                     <FaHeart />
                                 </Link>
                             </button>
-                            <div className="profile-section">
-                                <span className="profile-header">
-                                    Моят профил <FaChevronDown className="chevron-down" />
-                                </span>
-                                <p className="greeting">Здравейте</p>
-                                <p className="username">{user?.username}</p>
-                            </div>
                         </>
                     ) : (
                         <>
-                            <button className='user' onClick={() => setShowLogin(true)}> 
+                            <button className='user' onClick={() => setShowLogin(true)}>
                                 <FaUserCircle />
                             </button>
                         </>
