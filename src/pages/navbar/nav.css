@@ -212,16 +212,16 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 100%; /* Позиционира менюто под бутона */
-    left: auto; /* Отменя евентуална стойност на left */
-    right: 0; /* Подравнява менюто спрямо дясната страна на бутона */
+    top: 100%; 
+    left: auto; 
+    right: 0; 
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0;
     list-style: none;
-    width: 200px; /* Ширина на менюто */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Сянка за менюто */
+    width: 200px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     z-index: 1000;
     margin-top: 5px;
     
