@@ -1,11 +1,11 @@
 import './nav.css';
 import { Link } from 'react-router-dom';
-import { useState, useContext} from 'react';
+import { useState, useContext } from 'react';
 import logo from '../../assets/logo.png';
 import Register from '../register/Register';
 import Login from '../login/Login';
-import { AuthContext } from '../../Context/AuthContext'
-import { FaUserCircle, FaShoppingCart, FaSignOutAlt, FaHeart } from "react-icons/fa";
+import { AuthContext } from '../../Context/AuthContext';
+import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 
 function Nav() {
     const { isLoggedIn, user, login, logout } = useContext(AuthContext);
@@ -32,73 +32,75 @@ function Nav() {
 
     return (
         <div className="navbar">
-        <div className="navbar-content">
-            <img src={logo} alt="Logo" className="logo" />
-            <ul className="nav-links">
-                <li><Link to="/">НАЧАЛО</Link></li>
-                <li><Link to="/model">ИЗБЕРИ МОДЕЛ</Link></li>
-                <li><Link to="/accessories">АКСЕСОАРИ</Link></li>
-                <li><Link to="/contact">КОНТАКТИ</Link></li>
-                <li><Link to="/about">ЗА НАС</Link></li>
-            </ul>
-            <div className="btn">
-                {isLoggedIn ? (
-                    <>
-                        <button className='FaHeart'>
-                            <Link to="/favorites">
-                                <FaHeart /> 
-                            </Link>
-                        </button>
-                        <button className='FaSignOutAlt' onClick={logout}>
-                            <FaSignOutAlt /> 
-                        </button>
-                    
-                    </>
-                ) : (
-                    <>
-                        <button className='user' onClick={() => setShowLogin(true)}> 
-                            <FaUserCircle /> 
-                        </button>
-                    </>
-                )}
-                <button className='ShoppingCart' onClick={toggleCart}> 
-                    <FaShoppingCart /> 
-                </button>
+            <div className="navbar-content">
+                <img src={logo} alt="Logo" className="logo" />
+                <ul className="nav-links">
+                    <li><Link to="/">НАЧАЛО</Link></li>
+                    <li><Link to="/model">ИЗБЕРИ МОДЕЛ</Link></li>
+                    <li><Link to="/accessories">АКСЕСОАРИ</Link></li>
+                    <li><Link to="/contact">КОНТАКТИ</Link></li>
+                    <li><Link to="/about">ЗА НАС</Link></li>
+                </ul>
+                <div className="btn">
+                    {isLoggedIn ? (
+                        <>
+                            <button className='FaHeart'>
+                                <Link to="/favorites">
+                                    <FaHeart />
+                                </Link>
+                            </button>
+                            <div className="profile-section">
+                                <span className="profile-header">
+                                    Моят профил <FaChevronDown className="chevron-down" />
+                                </span>
+                                <p className="greeting">Здравейте</p>
+                                <p className="username">{user?.username}</p>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <button className='user' onClick={() => setShowLogin(true)}> 
+                                <FaUserCircle />
+                            </button>
+                        </>
+                    )}
+                    <button className='ShoppingCart' onClick={toggleCart}>
+                        <FaShoppingCart />
+                    </button>
+                </div>
             </div>
-        </div>
-        <div className="info-bar">
-            <p className="info-text">МартиМото ви пожелава весело и незабравимо изкарване на Коледните и Новогодишни празници!</p>
-        </div>
-        {showCart && (
-            <div className={`cart-dropdown ${showCart ? 'show' : ''}`}>
-                {cartItems.length === 0 ? (
-                    <p>Количката е празна</p>
-                ) : (
-                    <ul>
-                        {cartItems.map((item) => (
-                            <li key={item.id} className="cart-item">
-                                <img src={item.img} alt={item.name} className="cart-item-img" />
-                                <div className="cart-item-info">
-                                    <p>{item.name}</p>
-                                    <p>{item.price}</p>
-                                </div>
-                                <button
-                                    className="remove-item"
-                                    onClick={() => removeItemFromCart(item.id)}
-                                >
-                                    X
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+            <div className="info-bar">
+                <p className="info-text">МартиМото ви пожелава весело и незабравимо изкарване на Коледните и Новогодишни празници!</p>
             </div>
-        )}
-        {showRegister && <Register onClose={() => setShowRegister(false)} />}
-        {showLogin && <Login onClose={() => setShowLogin(false)} onCreateAccountClick={toggleForms} />}
-    </div>
-);
+            {showCart && (
+                <div className={`cart-dropdown ${showCart ? 'show' : ''}`}>
+                    {cartItems.length === 0 ? (
+                        <p>Количката е празна</p>
+                    ) : (
+                        <ul>
+                            {cartItems.map((item) => (
+                                <li key={item.id} className="cart-item">
+                                    <img src={item.img} alt={item.name} className="cart-item-img" />
+                                    <div className="cart-item-info">
+                                        <p>{item.name}</p>
+                                        <p>{item.price}</p>
+                                    </div>
+                                    <button
+                                        className="remove-item"
+                                        onClick={() => removeItemFromCart(item.id)}
+                                    >
+                                        X
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            )}
+            {showRegister && <Register onClose={() => setShowRegister(false)} />}
+            {showLogin && <Login onClose={() => setShowLogin(false)} onCreateAccountClick={toggleForms} />}
+        </div>
+    );
 }
-
 
 export default Nav;

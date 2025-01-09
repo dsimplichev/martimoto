@@ -26,7 +26,7 @@ function Login({ onClose, onCreateAccountClick }) {
             return;
         }
 
-        // Логика за логване
+        
         const success = login(formData.email, formData.password);
         if (success) {
             onClose(); 
