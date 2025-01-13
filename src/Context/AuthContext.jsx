@@ -1,31 +1,49 @@
 import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('user');
-    }
-  }, [user]);
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/auth/user', { withCredentials: true });
+        setUser(response.data.user);
+      } catch (error) {
+        console.error('Неуспешно извличане на потребител:', error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const login = (email) => {
-    setUser({ email });
+    fetchUser();
+  }, []);
+
+  const login = async (email, password) => {
+    try {
+      const response = await axios.post('/api/auth/login', { email, password });
+      console.log('User data after login:', response.data.user);
+      setUser(response.data.user);
+    } catch (error) {
+      console.error('Грешка при вход:', error);
+    }
   };
 
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    try {
+      await axios.post('/api/auth/logout');
+      setUser(null);
+    } catch (error) {
+      console.error('Грешка при изход:', error);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!user, user, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!user, user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

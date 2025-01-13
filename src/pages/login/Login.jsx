@@ -36,7 +36,7 @@ function Login({ onClose, onCreateAccountClick }) {
 
             if (response.ok) {
                 alert(data.message); 
-                onClose(); // Затвори модала
+                onClose(); 
             } else {
                 setError(data.message); 
             }
