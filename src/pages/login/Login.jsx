@@ -1,16 +1,14 @@
 import './login.css';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
-import { AuthContext } from '../../Context/AuthContext';
 
 function Login({ onClose, onCreateAccountClick }) {
-    const { login } = useContext(AuthContext); 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-    const [error, setError] = useState(null); 
+    const [error, setError] = useState(null);
 
     const onChange = (e) => {
         setFormData({
@@ -19,19 +17,32 @@ function Login({ onClose, onCreateAccountClick }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!formData.email || !formData.password) {
             setError("Моля, попълнете всички полета.");
             return;
         }
 
-        
-        const success = login(formData.email, formData.password);
-        if (success) {
-            onClose(); 
-        } else {
-            setError("Грешен имейл или парола.");
+        try {
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message); 
+                onClose(); // Затвори модала
+            } else {
+                setError(data.message); 
+            }
+        } catch (error) {
+            console.error('Грешка при логване:', error);
+            setError("Нещо се обърка. Опитайте отново.");
         }
     };
 
