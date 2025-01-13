@@ -1,34 +1,30 @@
 import { Route, Routes } from "react-router-dom";
 import Nav from "./pages/navbar/Nav";
 import Search from "./pages/search/Search";
-import Brand from "./pages/brand/Brand"
+import Brand from "./pages/brand/Brand";
 import LastProduct from "./pages/lastproduct/LastProduct";
 import About from "./pages/About/About";
-import Footer from "./pages/footer/Footer"
+import Footer from "./pages/footer/Footer";
 import PartsSearch from "./pages/partsSearch/PartsSearch";
 import BrandDetails from "./pages/brandDetails/BrandDetails";
 import ModelDetails from "./pages/brandDetails/ModelDetails";
 import YearDetails from "./pages/brandDetails/YearDetails";
 import Accessories from "./pages/accessories/Accessories";
-import PartsDetails from "./pages/brandDetails/PartsDetails"
+import PartsDetails from "./pages/brandDetails/PartsDetails";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from './Context/AuthContext';
 
 function App() {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isLoggedIn, login, logout } = useContext(AuthContext);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
-
   return (
     <div>
-      <Nav isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+      <Nav isLoggedIn={isLoggedIn} onLogout={logout} />
 
       <Routes>
         <Route path="/" element={<Search />} />
@@ -63,11 +59,10 @@ function App() {
           onClose={() => setIsRegisterOpen(false)}
           onLoginClick={() => {
             setIsRegisterOpen(false);
-            setIsLoginOpen(true); 
+            setIsLoginOpen(true);
           }}
         />
       )}
-
     </div>
   );
 }

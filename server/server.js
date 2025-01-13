@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
             return res.status(404).json({ message: 'Няма потребител с този имейл.' });
         }
 
-        /
+        
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Грешна парола.' });
