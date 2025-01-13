@@ -1,14 +1,15 @@
-import './nav.css';
-import { Link } from 'react-router-dom';
-import { useState, useContext, useCallback } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
+import axios from 'axios';  // За да изпратим GET заявка към сървъра за потребителя
+import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import './nav.css';
 import logo from '../../assets/logo.png';
 import Register from '../register/Register';
 import Login from '../login/Login';
-import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 
 function Nav({ onLogout }) {
-    const { isLoggedIn, user, logout } = useContext(AuthContext);
+    const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showCart, setShowCart] = useState(false);
@@ -25,10 +26,9 @@ function Nav({ onLogout }) {
 
     const toggleCart = () => setShowCart(prev => !prev);
 
-    const toggleDropdown = useCallback(() => {
-        console.log('Dropdown clicked');
+    const toggleDropdown = () => {
         setShowDropdown(prev => !prev);
-    }, []);
+    };
 
     const removeItemFromCart = (id) => {
         setCartItems(prev => prev.filter(item => item.id !== id));
@@ -39,8 +39,16 @@ function Nav({ onLogout }) {
         onLogout?.();
     };
 
-    console.log('isLoggedIn:', isLoggedIn);
-    console.log('user:', user);
+    // Проверка дали има валиден токен или сесия при стартиране на компонента
+    useEffect(() => {
+        axios.get('/user', { withCredentials: true })  // Изпращаме GET заявка към сървъра
+            .then(response => {
+                setUser(response.data.user);  // Задаваме потребителя в контекста
+            })
+            .catch(error => {
+                console.log('Няма активен потребител или токен:', error);
+            });
+    }, [setUser]);  // Тази проверка ще се изпълни само при зареждане на компонента
 
     return (
         <div className="navbar">
