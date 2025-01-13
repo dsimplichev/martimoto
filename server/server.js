@@ -92,19 +92,22 @@ app.post('/login', async (req, res) => {
 
 
 app.get('/user', async (req, res) => {
-    const token = req.cookies.token;
+    
+    const token = req.cookies.token || req.session.token; 
 
     if (!token) {
         return res.status(401).json({ message: 'Няма валиден токен.' });
     }
 
     try {
+        
         const decoded = jwt.verify(token, 'your_secret_key');  
         const user = await User.findById(decoded.id);
         if (!user) {
             return res.status(404).json({ message: 'Потребителят не съществува.' });
         }
 
+        
         res.status(200).json({ user: { email: user.email, username: user.username } });
     } catch (error) {
         console.error('Грешка при валидиране на токена:', error);
@@ -112,7 +115,6 @@ app.get('/user', async (req, res) => {
     }
 });
 
-// Изход (logout) - премахване на токена
 app.post('/logout', (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Успешен изход!' });

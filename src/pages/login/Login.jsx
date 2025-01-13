@@ -77,6 +77,7 @@ function Login({ onClose, onCreateAccountClick }) {
                             id="email"
                             value={formData.email}
                             onChange={onChange}
+                            autocomplete="email" 
                         />
                         <label htmlFor="password">Парола</label>
                         <input
@@ -85,6 +86,7 @@ function Login({ onClose, onCreateAccountClick }) {
                             id="password"
                             value={formData.password}
                             onChange={onChange}
+                            autocomplete="current-password" 
                         />
                         <button className="btn__login" type="submit">Вход</button>
                     </form>
