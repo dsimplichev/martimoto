@@ -38,15 +38,15 @@ function Nav({ onLogout }) {
     };
 
     useEffect(() => {
-        axios.get('/user', { withCredentials: true })
+        axios.get('http://localhost:5000/user', { withCredentials: true })
             .then(response => {
+                console.log(response); // Добави логване на отговор
                 setUser(response.data.user);
             })
-            .catch(() => {
-                console.log('Няма активен потребител или токен.');
+            .catch(error => {
+                console.log('Грешка при заявка към /user:', error);
             });
     }, [setUser]);
-
     return (
         <div className="navbar">
             <div className="navbar-content">

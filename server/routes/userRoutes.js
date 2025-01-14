@@ -5,7 +5,7 @@ const { JWT_SECRET } = require('../config');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/user', async (req, res) => {
     const token = req.cookies.token;
 
     if (!token) {
