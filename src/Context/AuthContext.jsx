@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/auth/user', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/auth/user', { withCredentials: true });
         if (response.data.user) {
           setUser(response.data.user);
         } else {
@@ -29,9 +29,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password }, { withCredentials: true });
+      const response = await axios.post('http://localhost:5000/auth/login', { email, password }, { withCredentials: true });
       console.log('User data after login:', response.data.user);
       setUser(response.data.user);
+      console.log('Updated user state:', user);
     } catch (error) {
       console.error('Грешка при вход:', error);
     }
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true });
+      await axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true });
       setUser(null);
     } catch (error) {
       console.error('Грешка при изход:', error);

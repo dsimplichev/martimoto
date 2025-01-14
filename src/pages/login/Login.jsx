@@ -26,7 +26,7 @@ function Login({ onClose, onCreateAccountClick }) {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('http://localhost:5000/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -35,10 +35,10 @@ function Login({ onClose, onCreateAccountClick }) {
             const data = await response.json();
 
             if (response.ok) {
-                alert(data.message); 
-                onClose(); 
+                alert(data.message);
+                onClose();
             } else {
-                setError(data.message); 
+                setError(data.message);
             }
         } catch (error) {
             console.error('Грешка при логване:', error);
@@ -77,7 +77,7 @@ function Login({ onClose, onCreateAccountClick }) {
                             id="email"
                             value={formData.email}
                             onChange={onChange}
-                            autocomplete="email" 
+                            autoComplete="email"
                         />
                         <label htmlFor="password">Парола</label>
                         <input
@@ -86,7 +86,7 @@ function Login({ onClose, onCreateAccountClick }) {
                             id="password"
                             value={formData.password}
                             onChange={onChange}
-                            autocomplete="current-password" 
+                            autoComplete="current-password"
                         />
                         <button className="btn__login" type="submit">Вход</button>
                     </form>

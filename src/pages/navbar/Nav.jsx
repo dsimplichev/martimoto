@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
-import axios from 'axios';  // За да изпратим GET заявка към сървъра за потребителя
+import axios from 'axios';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import './nav.css';
@@ -26,9 +26,7 @@ function Nav({ onLogout }) {
 
     const toggleCart = () => setShowCart(prev => !prev);
 
-    const toggleDropdown = () => {
-        setShowDropdown(prev => !prev);
-    };
+    const toggleDropdown = () => setShowDropdown(prev => !prev);
 
     const removeItemFromCart = (id) => {
         setCartItems(prev => prev.filter(item => item.id !== id));
@@ -39,16 +37,15 @@ function Nav({ onLogout }) {
         onLogout?.();
     };
 
-    // Проверка дали има валиден токен или сесия при стартиране на компонента
     useEffect(() => {
-        axios.get('/user', { withCredentials: true })  // Изпращаме GET заявка към сървъра
+        axios.get('/user', { withCredentials: true })
             .then(response => {
-                setUser(response.data.user);  // Задаваме потребителя в контекста
+                setUser(response.data.user);
             })
-            .catch(error => {
-                console.log('Няма активен потребител или токен:', error);
+            .catch(() => {
+                console.log('Няма активен потребител или токен.');
             });
-    }, [setUser]);  // Тази проверка ще се изпълни само при зареждане на компонента
+    }, [setUser]);
 
     return (
         <div className="navbar">
@@ -63,29 +60,21 @@ function Nav({ onLogout }) {
                 </ul>
                 <div className="btn">
                     {isLoggedIn ? (
-                        <>
-                            <div className="profile-section">
-                                <span className="profile-header" onClick={toggleDropdown}>
-                                    Моят профил <FaChevronDown className="chevron-down" />
-                                </span>
-                                <p className="greeting">Здравейте</p>
-                                <p className="username">{user && user.email ? user.email : 'Няма име'}</p>
-                                {showDropdown && (
-                                    <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
-                                        <ul>
-                                            <li><Link to="/profile">Моят профил</Link></li>
-                                            <li><Link to="/order-history">История на поръчките</Link></li>
-                                            <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
-                            <button className="FaHeart">
-                                <Link to="/favorites">
-                                    <FaHeart />
-                                </Link>
-                            </button>
-                        </>
+                        <div className="profile-section">
+                            <span className="profile-header" onClick={toggleDropdown}>
+                                Моят профил <FaChevronDown className="chevron-down" />
+                            </span>
+                            <p className="username">{user?.email || 'Няма име'}</p>
+                            {showDropdown && (
+                                <div className="dropdown-menu">
+                                    <ul>
+                                        <li><Link to="/profile">Моят профил</Link></li>
+                                        <li><Link to="/order-history">История на поръчките</Link></li>
+                                        <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
                     ) : (
                         <button className="user" onClick={() => setShowLogin(true)}>
                             <FaUserCircle />
@@ -105,7 +94,7 @@ function Nav({ onLogout }) {
             </div>
 
             {showCart && (
-                <div className={`cart-dropdown ${showCart ? 'show' : ''}`}>
+                <div className="cart-dropdown">
                     {cartItems.length === 0 ? (
                         <p>Количката е празна</p>
                     ) : (
@@ -117,10 +106,7 @@ function Nav({ onLogout }) {
                                         <p>{item.name}</p>
                                         <p>{item.price}</p>
                                     </div>
-                                    <button
-                                        className="remove-item"
-                                        onClick={() => removeItemFromCart(item.id)}
-                                    >
+                                    <button className="remove-item" onClick={() => removeItemFromCart(item.id)}>
                                         X
                                     </button>
                                 </li>
