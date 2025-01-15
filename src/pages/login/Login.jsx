@@ -1,9 +1,14 @@
 import './login.css';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
+import { AuthContext } from '../../Context/AuthContext';
+
 
 function Login({ onClose, onCreateAccountClick }) {
+    
+    const { login } = useContext(AuthContext)
+    
     const [formData, setFormData] = useState({
         email: '',
         password: '',
