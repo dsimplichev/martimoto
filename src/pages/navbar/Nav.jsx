@@ -48,6 +48,7 @@ function Nav({ onLogout }) {
                 console.log('Грешка при заявка към /user:', error);
             });
     }, [setUser, isLoggedIn]);
+
     return (
         <div className="navbar">
             <div className="navbar-content">
@@ -61,25 +62,35 @@ function Nav({ onLogout }) {
                 </ul>
                 <div className="btn">
                     {isLoggedIn ? (
-                        <div className="profile-section">
-                            <span className="profile-header" onClick={toggleDropdown}>
-                                Моят профил <FaChevronDown className="chevron-down" />
-                            </span>
-                            <p className="username">{user?.email || 'Няма име'}</p>
-                            {showDropdown && (
-                                <div className="dropdown-menu">
-                                    <ul>
-                                        <li><Link to="/profile">Моят профил</Link></li>
-                                        <li><Link to="/order-history">История на поръчките</Link></li>
-                                        <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
+                        <>
+                            <div className="profile-section">
+                                <span className="profile-header" onClick={toggleDropdown}>
+                                    Моят профил <FaChevronDown className="chevron-down" />
+                                </span>
+                                <p className="greeting">Здравейте</p>
+                                <p className="username">{user?.username}</p>
+                                {showDropdown && (
+                                    <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
+                                        <ul>
+                                            <li><Link to="/profile">Моят профил</Link></li>
+                                            <li><Link to="/order-history">История на поръчките</Link></li>
+                                            <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                            <button className='FaHeart'>
+                                <Link to="/favorites">
+                                    <FaHeart />
+                                </Link>
+                            </button>
+                        </>
                     ) : (
-                        <button className="user" onClick={() => setShowLogin(true)}>
-                            <FaUserCircle />
-                        </button>
+                        <>
+                            <button className='user' onClick={() => setShowLogin(true)}>
+                                <FaUserCircle />
+                            </button>
+                        </>
                     )}
 
                     <button className="ShoppingCart" onClick={toggleCart}>
