@@ -29,26 +29,9 @@ function Login({ onClose, onCreateAccountClick }) {
             setError("Моля, попълнете всички полета.");
             return;
         }
-
-        try {
-            const response = await fetch('http://localhost:5000/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert(data.message);
-                onClose();
-            } else {
-                setError(data.message);
-            }
-        } catch (error) {
-            console.error('Грешка при логване:', error);
-            setError("Нещо се обърка. Опитайте отново.");
-        }
+        login(formData.email, formData.password)
+        onClose()
+        
     };
 
     const handleOverlayClick = (e) => {

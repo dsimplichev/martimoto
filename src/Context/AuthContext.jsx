@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/auth/user', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/user/user', { withCredentials: true });
         console.log(response)
         
         if (response.data.user) {
@@ -25,8 +25,10 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
       }
     };
-
+    
+    
     fetchUser();
+    
   }, []);
 
   const login = async (email, password) => {
@@ -50,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!user, user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!user, user, setUser, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

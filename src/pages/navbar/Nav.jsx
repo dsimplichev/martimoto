@@ -38,7 +38,8 @@ function Nav({ onLogout }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:5000/user', { withCredentials: true })
+       if(isLoggedIn)
+        axios.get('http://localhost:5000/user/user', { withCredentials: true })
             .then(response => {
                 console.log(response); // Добави логване на отговор
                 setUser(response.data.user);
@@ -46,7 +47,7 @@ function Nav({ onLogout }) {
             .catch(error => {
                 console.log('Грешка при заявка към /user:', error);
             });
-    }, [setUser]);
+    }, [setUser, isLoggedIn]);
     return (
         <div className="navbar">
             <div className="navbar-content">
