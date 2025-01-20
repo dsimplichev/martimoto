@@ -29,6 +29,7 @@
 }
 
 .parts-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -250,4 +251,47 @@
 .modal-cart-btn:hover {
     background-color: #d87e05;
     transform: scale(1.05);
+}
+
+.modal-left {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.modal-thumbnails {
+    display: flex;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.thumbnail:hover {
+    opacity: 0.7;
+}
+
+.FaHeart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color:#f39c12;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid #f39c12;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.FaHeart:hover {
+    background-color: red;
+    transform: scale(1.1);
 }
