@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 router.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body; 
 
     if (!username || !email || !password) {
         return res.status(400).json({ message: 'Моля, попълнете всички полета.' });
@@ -24,9 +24,16 @@ router.post('/register', async (req, res) => {
 
         
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, email, password: hashedPassword });
-        await newUser.save();
 
+        
+        const newUser = new User({ 
+            username, 
+            email, 
+            password: hashedPassword, 
+            role: role || 'user' 
+        });
+
+        await newUser.save();
         res.status(201).json({ message: 'Успешно регистриран!' });
     } catch (error) {
         console.error('Грешка при регистрацията:', error);
@@ -56,16 +63,15 @@ router.post('/login', async (req, res) => {
         }
 
         
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
 
         
         res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
 
-        
         res.status(200).json({
             message: 'Успешен вход!',
-            user: { email: user.email, username: user.username },
-            token, 
+            user: { email: user.email, username: user.username, role: user.role }, 
+            token,
         });
     } catch (error) {
         console.error('Грешка при логването:', error);

@@ -38,15 +38,15 @@ function Nav({ onLogout }) {
     };
 
     useEffect(() => {
-       if(isLoggedIn)
-        axios.get('http://localhost:5000/user/user', { withCredentials: true })
-            .then(response => {
-                console.log(response); // Добави логване на отговор
-                setUser(response.data.user);
-            })
-            .catch(error => {
-                console.log('Грешка при заявка към /user:', error);
-            });
+        if (isLoggedIn)
+            axios.get('http://localhost:5000/user/user', { withCredentials: true })
+                .then(response => {
+                    console.log(response); // Добави логване на отговор
+                    setUser(response.data.user);
+                })
+                .catch(error => {
+                    console.log('Грешка при заявка към /user:', error);
+                });
     }, [setUser, isLoggedIn]);
 
     return (
@@ -74,6 +74,12 @@ function Nav({ onLogout }) {
                                         <ul>
                                             <li><Link to="/profile">Моят профил</Link></li>
                                             <li><Link to="/order-history">История на поръчките</Link></li>
+                                            {user?.role === 'admin' && (
+                                                <>
+                                                    <li><Link to="/add-part">Добави част</Link></li>
+                                                    <li><Link to="/add-accessory">Добави аксесоари</Link></li>
+                                                </>
+                                            )}
                                             <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
                                         </ul>
                                     </div>
