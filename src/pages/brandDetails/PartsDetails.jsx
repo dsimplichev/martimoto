@@ -45,7 +45,7 @@ function PartsDetails() {
             <div className="parts-grid">
                 {currentParts.map((part, index) => (
                     <div key={index} className="parts-card">
-                    <FaHeart className="FaHeart" />
+                    <FaHeart className="FaHeart2" />
                     <img src={part.img} alt={part.title} className="parts-image" />
                     <p className="parts-name">{part.title}</p>
                     <div className="parts-info">

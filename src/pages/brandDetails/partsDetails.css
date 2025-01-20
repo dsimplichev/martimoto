@@ -277,7 +277,7 @@
     opacity: 0.7;
 }
 
-.FaHeart {
+.FaHeart2 {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -291,7 +291,7 @@
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.FaHeart:hover {
+.FaHeart2:hover {
     background-color: red;
     transform: scale(1.1);
 }
