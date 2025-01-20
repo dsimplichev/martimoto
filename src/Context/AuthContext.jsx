@@ -33,12 +33,23 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/login', { email, password }, { withCredentials: true });
+      const response = await axios.post(
+        'http://localhost:5000/auth/login',
+        { email, password },
+        { withCredentials: true }
+      );
+
       console.log('User data after login:', response.data.user);
       setUser(response.data.user);
-      console.log('Updated user state:', user);
+
+      return { success: true }; 
     } catch (error) {
-      console.error('Грешка при вход:', error);
+      console.error('Грешка при вход:', error.response?.data?.message || error.message);
+
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Възникна грешка при вход. Опитайте отново.',
+      }; 
     }
   };
 

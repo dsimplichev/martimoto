@@ -4,10 +4,8 @@ import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
 import { AuthContext } from '../../Context/AuthContext';
 
-
 function Login({ onClose, onCreateAccountClick }) {
-    
-    const { login } = useContext(AuthContext)
+    const { login } = useContext(AuthContext);
     
     const [formData, setFormData] = useState({
         email: '',
@@ -29,9 +27,13 @@ function Login({ onClose, onCreateAccountClick }) {
             setError("Моля, попълнете всички полета.");
             return;
         }
-        login(formData.email, formData.password)
-        onClose()
-        
+
+        try {
+            await login(formData.email, formData.password);
+            onClose();
+        } catch (err) {
+            setError("Внимание: Въведените име и/или парола не си съответстват или са грешни.");
+        }
     };
 
     const handleOverlayClick = (e) => {
