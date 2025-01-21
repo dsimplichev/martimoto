@@ -15,6 +15,7 @@ function AddPart() {
     const [message, setMessage] = useState('');
 
     const [availableModels, setAvailableModels] = useState([]);
+    const [availableCylinders, setAvailableCylinders] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
 
     const handleBrandChange = (e) => {
@@ -24,14 +25,24 @@ function AddPart() {
         setCylinder('');
         setYear('');
         setAvailableModels(brands[selectedBrand]?.models || []);
+        setAvailableCylinders([]); 
         setAvailableYears([]); 
     };
 
     const handleModelChange = (e) => {
         const selectedModel = e.target.value;
         setModel(selectedModel);
+        setCylinder('');
         setYear('');
+        setAvailableCylinders(brands[brand]?.cylinderOptions[selectedModel] || []);
         setAvailableYears(brands[brand]?.years[selectedModel] || []);
+    };
+
+    const handleCylinderChange = (e) => {
+        const selectedCylinder = e.target.value;
+        setCylinder(selectedCylinder);
+        setYear('');
+        setAvailableYears(brands[brand]?.years[model][selectedCylinder] || []);
     };
 
     const handleSubmit = (e) => {
@@ -59,7 +70,8 @@ function AddPart() {
                     <label>Марка</label>
                     <select value={brand} onChange={handleBrandChange}>
                         <option value="">Изберете марка</option>
-                        <option value="BMW">BMW</option>
+                        <option value="BMW">BMW</option>           
+                        <option value="Suzuki">Suzuki</option>
                     </select>
                 </div>
 
@@ -79,12 +91,26 @@ function AddPart() {
 
                 {model && (
                     <div>
+                        <label>Кубатура</label>
+                        <select value={cylinder} onChange={handleCylinderChange}>
+                            <option value="">Изберете кубатура</option>
+                            {availableCylinders.map((cylinderOption) => (
+                                <option key={cylinderOption} value={cylinderOption}>
+                                    {cylinderOption}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
+
+                {cylinder && (
+                    <div>
                         <label>Година</label>
                         <select value={year} onChange={(e) => setYear(e.target.value)}>
                             <option value="">Изберете година</option>
-                            {availableYears.map((yearRange) => (
-                                <option key={yearRange} value={yearRange}>
-                                    {yearRange}
+                            {availableYears.map((yearOption) => (
+                                <option key={yearOption} value={yearOption}>
+                                    {yearOption}
                                 </option>
                             ))}
                         </select>
@@ -97,6 +123,7 @@ function AddPart() {
                         type="text"
                         value={partName}
                         onChange={(e) => setPartName(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -105,22 +132,24 @@ function AddPart() {
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        required
                     />
                 </div>
 
                 <div>
                     <label>Цена</label>
                     <input
-                        type="text"
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        required
                     />
                 </div>
 
-                <button type="submit">Добави част в количка</button>
+                <button type="submit">Добави частта</button>
             </form>
 
-            {message && <p className={message.includes('успешно') ? 'message' : 'message error'}>{message}</p>}
+            {message && <p>{message}</p>}
         </div>
     );
 }
