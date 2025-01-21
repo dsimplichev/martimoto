@@ -1,0 +1,30 @@
+form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.add-accessory-form {
+    border: 2px solid #333; /* Дебелина 2px, цвят тъмно сив (#333) */
+    padding: 20px; /* Отстояние от вътрешността на бордера */
+    border-radius: 8px; /* Закръглени ъгли на бордера */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Лека сянка около формата */
+  }
