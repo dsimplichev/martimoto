@@ -34,21 +34,27 @@ function AddPart() {
         setModel(selectedModel);
         setCylinder('');
         setYear('');
-        setAvailableCylinders(brands[brand]?.cylinderOptions[selectedModel] || []);
-        setAvailableYears(brands[brand]?.years[selectedModel] || []);
+        
+        
+        const cylinders = brands[brand]?.cylinderOptions?.[selectedModel] || [];
+        setAvailableCylinders(cylinders);
+
+        const years = brands[brand]?.years?.[selectedModel] || [];
+        setAvailableYears(years);
     };
 
     const handleCylinderChange = (e) => {
         const selectedCylinder = e.target.value;
         setCylinder(selectedCylinder);
         setYear('');
-        setAvailableYears(brands[brand]?.years[model][selectedCylinder] || []);
+        const yearsForCylinder = brands[brand]?.years?.[model]?.[selectedCylinder] || [];
+        setAvailableYears(yearsForCylinder);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-       
+        
         if (!brand || !model || !partName || !description || !price) {
             setMessage("Моля, попълнете всички полета!");
             return;
@@ -70,7 +76,8 @@ function AddPart() {
                     <label>Марка</label>
                     <select value={brand} onChange={handleBrandChange}>
                         <option value="">Изберете марка</option>
-                        <option value="BMW">BMW</option>           
+                        <option value="BMW">BMW</option>
+                        <option value="Ducati">Ducati</option>
                         <option value="Suzuki">Suzuki</option>
                     </select>
                 </div>

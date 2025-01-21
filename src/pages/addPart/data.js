@@ -6,6 +6,15 @@ export const brands = {
             S1000RR: ['2009-2014', '2015-2016', '2017-2018', '2023-2024'],
         },
     },
+    Ducati: {
+        models: ['Panigale', 'Streetfighter', '848 / 1098 / 1198', '749 / 999SBK'],
+        years: {
+            
+        },
+        cylinderOptions: {
+            
+        },
+    },
     Suzuki: {
         models: ['GSX', 'GSX-R', 'GSX-S', 'HAYABUSA'],
         years: {
