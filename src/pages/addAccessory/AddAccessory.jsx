@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../Context/AuthContext';
 import "./addaccessory.css"
 
 function AddAccessory() {
+    const { user, isLoggedIn } = useContext(AuthContext);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -23,6 +25,9 @@ function AddAccessory() {
         
     };
 
+    if (!isLoggedIn || user.role !== 'admin') {
+        return <p>Нямате права да достъпвате тази страница.</p>; 
+    }
     return (
         <div>
             <h2>Добави аксесоар</h2>
@@ -68,5 +73,6 @@ function AddAccessory() {
         </div>
     );
 }
+
 
 export default AddAccessory;
