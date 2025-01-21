@@ -1,0 +1,52 @@
+.add-part-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.add-part-form div {
+    margin-bottom: 10px;
+}
+
+.add-part-form label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.add-part-form input, .add-part-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-part-form button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-part-form button:hover {
+    background-color: #218838;
+}
+
+.message {
+    color: green;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.message.error {
+    color: red;
+}

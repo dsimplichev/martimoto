@@ -14,9 +14,11 @@ import PartsDetails from "./pages/brandDetails/PartsDetails";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import AddAccessory from "./pages/addAccessory/AddAccessory";
+import AddPart from "./pages/addPart/AddPart";
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
+
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -39,7 +41,7 @@ function App() {
         <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
         <Route path="/brands/:brandName/models/:modelName/:subModelName/:yearRange" element={<PartsDetails />} />
         <Route path="/add-accessory" element={<AddAccessory />} />
-      
+        <Route path="/add-part" element={<AddPart />} />
       </Routes>
 
       <Brand />
