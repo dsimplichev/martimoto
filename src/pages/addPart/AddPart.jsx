@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext'; 
+import { brands } from './data'; 
 import "./addpart.css";
 
 function AddPart() {
@@ -13,18 +14,36 @@ function AddPart() {
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
 
+    const [availableModels, setAvailableModels] = useState([]);
+    const [availableYears, setAvailableYears] = useState([]);
+
+    const handleBrandChange = (e) => {
+        const selectedBrand = e.target.value;
+        setBrand(selectedBrand);
+        setModel('');
+        setCylinder('');
+        setYear('');
+        setAvailableModels(brands[selectedBrand]?.models || []);
+        setAvailableYears([]); 
+    };
+
+    const handleModelChange = (e) => {
+        const selectedModel = e.target.value;
+        setModel(selectedModel);
+        setYear('');
+        setAvailableYears(brands[brand]?.years[selectedModel] || []);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
        
-        if (!brand || !model || !cylinder || !year || !partName || !description || !price) {
+        if (!brand || !model || !partName || !description || !price) {
             setMessage("Моля, попълнете всички полета!");
             return;
         }
 
-        setMessage("Частта е добавена успешно! (тук ще добавим бекенд връзка)");
-
-       
+        setMessage("Частта е добавена успешно!");
     };
 
     
@@ -38,36 +57,40 @@ function AddPart() {
             <form className="add-part-form" onSubmit={handleSubmit}>
                 <div>
                     <label>Марка</label>
-                    <input
-                        type="text"
-                        value={brand}
-                        onChange={(e) => setBrand(e.target.value)}
-                    />
+                    <select value={brand} onChange={handleBrandChange}>
+                        <option value="">Изберете марка</option>
+                        <option value="BMW">BMW</option>
+                    </select>
                 </div>
-                <div>
-                    <label>Модел</label>
-                    <input
-                        type="text"
-                        value={model}
-                        onChange={(e) => setModel(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Кубатура</label>
-                    <input
-                        type="text"
-                        value={cylinder}
-                        onChange={(e) => setCylinder(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Година</label>
-                    <input
-                        type="text"
-                        value={year}
-                        onChange={(e) => setYear(e.target.value)}
-                    />
-                </div>
+
+                {brand && (
+                    <div>
+                        <label>Модел</label>
+                        <select value={model} onChange={handleModelChange}>
+                            <option value="">Изберете модел</option>
+                            {availableModels.map((modelName) => (
+                                <option key={modelName} value={modelName}>
+                                    {modelName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
+
+                {model && (
+                    <div>
+                        <label>Година</label>
+                        <select value={year} onChange={(e) => setYear(e.target.value)}>
+                            <option value="">Изберете година</option>
+                            {availableYears.map((yearRange) => (
+                                <option key={yearRange} value={yearRange}>
+                                    {yearRange}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
+
                 <div>
                     <label>Име на частта</label>
                     <input
@@ -76,6 +99,7 @@ function AddPart() {
                         onChange={(e) => setPartName(e.target.value)}
                     />
                 </div>
+
                 <div>
                     <label>Описание</label>
                     <textarea
@@ -83,6 +107,7 @@ function AddPart() {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
+
                 <div>
                     <label>Цена</label>
                     <input
@@ -91,6 +116,7 @@ function AddPart() {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
+
                 <button type="submit">Добави част в количка</button>
             </form>
 
