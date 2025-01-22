@@ -34,12 +34,20 @@ function AddPart() {
         setModel(selectedModel);
         setCylinder('');
         setYear('');
-        
-        
+
+        // Извличане на налични кубатури (ако има)
         const cylinders = brands[brand]?.cylinderOptions?.[selectedModel] || [];
         setAvailableCylinders(cylinders);
 
-        const years = brands[brand]?.years?.[selectedModel] || [];
+        // Извличане на налични години
+        let years = [];
+        if (Array.isArray(brands[brand]?.years?.[selectedModel])) {
+            // Ако годините са списък (както при BMW)
+            years = brands[brand]?.years?.[selectedModel] || [];
+        } else {
+            // Ако годините са вложен обект (както при Suzuki)
+            years = brands[brand]?.years?.[selectedModel]?.[cylinder] || [];
+        }
         setAvailableYears(years);
     };
 
@@ -47,14 +55,22 @@ function AddPart() {
         const selectedCylinder = e.target.value;
         setCylinder(selectedCylinder);
         setYear('');
-        const yearsForCylinder = brands[brand]?.years?.[model]?.[selectedCylinder] || [];
+
+        // Извличане на години според кубатурата (ако има)
+        let yearsForCylinder = [];
+        if (Array.isArray(brands[brand]?.years?.[model])) {
+            // Ако годините са списък (както при BMW)
+            yearsForCylinder = brands[brand]?.years?.[model] || [];
+        } else {
+            // Ако годините са вложен обект (както при Suzuki)
+            yearsForCylinder = brands[brand]?.years?.[model]?.[selectedCylinder] || [];
+        }
         setAvailableYears(yearsForCylinder);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        
         if (!brand || !model || !partName || !description || !price) {
             setMessage("Моля, попълнете всички полета!");
             return;
@@ -63,7 +79,6 @@ function AddPart() {
         setMessage("Частта е добавена успешно!");
     };
 
-    
     if (!isLoggedIn || user.role !== 'admin') {
         return <p>Нямате права да достъпвате тази страница.</p>; 
     }
@@ -96,7 +111,7 @@ function AddPart() {
                     </div>
                 )}
 
-                {model && (
+                {model && availableCylinders.length > 0 && (
                     <div>
                         <label>Кубатура</label>
                         <select value={cylinder} onChange={handleCylinderChange}>
@@ -110,7 +125,7 @@ function AddPart() {
                     </div>
                 )}
 
-                {cylinder && (
+                {availableYears.length > 0 && (
                     <div>
                         <label>Година</label>
                         <select value={year} onChange={(e) => setYear(e.target.value)}>
