@@ -24,6 +24,7 @@ import CBR1000RR2004 from "../../assets/HONDA/CBR1000RR2004.png"
 import CBR1000RR2011 from "../../assets/HONDA/CBR1000RR2011.png"
 import CBR1000RR2015 from "../../assets/HONDA/CBR1000RR2015.png"
 import CBR1000RR2019 from "../../assets/HONDA/CBR1000RR2019.png"
+import CBR1000RR2023 from "../../assets/HONDA/CBR1000RR2023.png"
 
 
 
@@ -63,7 +64,7 @@ const yearDetailsData = {
          { year: "2008-2011", img: CBR1000RR2011 },
          { year: "2012-2015", img: CBR1000RR2015 },
          { year: "2017-2019", img: CBR1000RR2019 },
-         { year: "2020-2023" }
+         { year: "2020-2023", img: CBR1000RR2023 }
        ] 
     }
     
