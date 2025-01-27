@@ -19,7 +19,13 @@ import GSXR10002008  from "../../assets/SUZUKI/GSXR10002008.png"
 import GSXR10002011  from "../../assets/SUZUKI/GSXR10002011.png"
 import GSXR10002015  from "../../assets/SUZUKI/GSXR10002015.png"
 import GSXR10002020  from "../../assets/SUZUKI/GSXR10002020.png"
+
 import CBR1000RR2004 from "../../assets/HONDA/CBR1000RR2004.png"
+import CBR1000RR2011 from "../../assets/HONDA/CBR1000RR2011.png"
+import CBR1000RR2015 from "../../assets/HONDA/CBR1000RR2015.png"
+import CBR1000RR2019 from "../../assets/HONDA/CBR1000RR2019.png"
+
+
 
 const yearDetailsData = {
     "GSX-R": {
@@ -54,9 +60,9 @@ const yearDetailsData = {
     "CBR": {
        "1000 RR":[
          { year: "2004-2007", img: CBR1000RR2004 },
-         { year: "2008-2011" },
-         { year: "2012-2015" },
-         { year: "2017-2019" },
+         { year: "2008-2011", img: CBR1000RR2011 },
+         { year: "2012-2015", img: CBR1000RR2015 },
+         { year: "2017-2019", img: CBR1000RR2019 },
          { year: "2020-2023" }
        ] 
     }
