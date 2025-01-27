@@ -25,8 +25,13 @@ import CBR1000RR2011 from "../../assets/HONDA/CBR1000RR2011.png"
 import CBR1000RR2015 from "../../assets/HONDA/CBR1000RR2015.png"
 import CBR1000RR2019 from "../../assets/HONDA/CBR1000RR2019.png"
 import CBR1000RR2023 from "../../assets/HONDA/CBR1000RR2023.png"
-
-
+import CBR9001999    from "../../assets/HONDA/CBR9001999.png"
+import CBR6001987 from "../../assets/HONDA/CBR6001987.png"
+import CBR6001994 from "../../assets/HONDA/CBR6001994.png"
+import CBR6001997 from "../../assets/HONDA/CBR6001997.png"
+import CBR6002002 from "../../assets/HONDA/CBR6002002.png"
+import CBR6002006 from "../../assets/HONDA/CBR6002006.png"
+import CBR6002015 from "../../assets/HONDA/CBR6002015.png"
 
 const yearDetailsData = {
     "GSX-R": {
@@ -65,7 +70,18 @@ const yearDetailsData = {
          { year: "2012-2015", img: CBR1000RR2015 },
          { year: "2017-2019", img: CBR1000RR2019 },
          { year: "2020-2023", img: CBR1000RR2023 }
-       ] 
+       ],
+       "900":[
+        {year: "1998-1999", img: CBR9001999 },      
+       ],
+       "600":[
+        { year: "1987-1989", img: CBR6001987 },
+        { year: "1991-1994", img: CBR6001994 },
+        { year: "1995-1997", img: CBR6001997 },
+        { year: "1999-2002", img: CBR6002002 },
+        { year: "2003-2006", img: CBR6002006 },
+        { year: "2007-2015", img: CBR6002015 }
+       ]
     }
     
 };
