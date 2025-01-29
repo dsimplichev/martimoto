@@ -90,6 +90,14 @@ const modelDetailsData = {
         { name: "2020-2021", img: YZFR120202021 },
 
     ],
+    "YZF R6": [
+        { name: "1999-2002",   },
+        { name: "2003-2005", },
+        { name: "2006-2007", },
+        { name: "2008-2016", }, 
+        { name: "20017-2020", },
+       
+    ],
     "MT": [
         { name: "MT 10", img: MT10 },
         { name: "MT 07", img: MT07 },
