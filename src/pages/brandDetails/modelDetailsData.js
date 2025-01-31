@@ -65,6 +65,9 @@ import S1000RR2018 from "../../assets/BMW/S1000RR2018.png"
 import S1000RR2024 from "../../assets/BMW/S1000RR2024.png"
 
 import YZFR62002 from "../../assets/Yamaha/YZFR62002.png"
+import YZFR62055 from "../../assets/Yamaha/YZFR62055.png"
+import YZFR62007 from "../../assets/Yamaha/YZFR62007.png"
+
 
 const modelDetailsData = {
     "GSX-R": [
@@ -94,8 +97,8 @@ const modelDetailsData = {
     ],
     "YZF R6": [
         { name: "1999-2002", img: YZFR62002 },
-        { name: "2003-2005", },
-        { name: "2006-2007", },
+        { name: "2003-2005", img: YZFR62055 },
+        { name: "2006-2007", img: YZFR62007 },
         { name: "2008-2016", }, 
         { name: "20017-2020", },
        
