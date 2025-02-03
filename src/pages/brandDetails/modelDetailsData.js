@@ -105,11 +105,11 @@ const modelDetailsData = {
        
     ],
     "MT": [
-        { name: "MT 10", img: MT10 },
-        { name: "MT 07", img: MT07 },
-        { name: "MT 09", img: MT09 },
-        { name: "MT 09 TRACER", img: MT09T }, 
-        { name: "MT 125", img: MT125 },
+        { name: "10", img: MT10 },
+        { name: "07", img: MT07 },
+        { name: "09", img: MT09 },
+        { name: "09 TRACER", img: MT09T }, 
+        { name: "125", img: MT125 },
        
     ],
     "CBR": [
@@ -134,13 +134,13 @@ const modelDetailsData = {
    
     ],
     "ZX": [
-        { name: "ZX-6R", img: KAWASAKIZ6R },
-        { name: "ZX-6R 636", img: KAWASAKIZ6R363 },
-        { name: "ZX-7R", img: KAWASAKIZ7R },
-        { name: "ZX-9R", img: KAWASAKIZ9R },
-        { name: "ZX-10R", img: KAWASAKIZ10R },
-        { name: "ZX-12R", img: KAWASAKIZ12R },
-        { name: "ZX-14R", img: KAWASAKIZ14R },
+        { name: "6R", img: KAWASAKIZ6R },
+        { name: "6R 636", img: KAWASAKIZ6R363 },
+        { name: "7R", img: KAWASAKIZ7R },
+        { name: "9R", img: KAWASAKIZ9R },
+        { name: "10R", img: KAWASAKIZ10R },
+        { name: "12R", img: KAWASAKIZ12R },
+        { name: "14R", img: KAWASAKIZ14R },
     ],
     "Z": [
         { name: "Z-1000", img: KAWASAKIZ1000 },

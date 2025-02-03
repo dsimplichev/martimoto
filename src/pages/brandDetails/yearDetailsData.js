@@ -33,6 +33,8 @@ import CBR6002002 from "../../assets/HONDA/CBR6002002.png"
 import CBR6002006 from "../../assets/HONDA/CBR6002006.png"
 import CBR6002015 from "../../assets/HONDA/CBR6002015.png"
 
+import MT072018 from "../../assets/Yamaha/MT072018.png"
+
 const yearDetailsData = {
     "GSX-R": {
         "600": [
@@ -82,6 +84,12 @@ const yearDetailsData = {
         { year: "2003-2006", img: CBR6002006 },
         { year: "2007-2015", img: CBR6002015 }
        ]
+    },
+    "MT": {
+        "07": [
+        { year: "2018-2020", img: MT072018 },
+        { year: "1991-1994",  },
+        ]
     }
     
 };
