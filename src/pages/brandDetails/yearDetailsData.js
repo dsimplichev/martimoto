@@ -38,6 +38,15 @@ import MT072014 from "../../assets/Yamaha/MT072014.png"
 import MT092016 from "../../assets/Yamaha/MT092016.png"
 import MT092023 from "../../assets/Yamaha/MT092023.png"
 
+import KAWASAKIZ61994 from "../../assets/KAWASAKI/KAWASAKIZ61994.png"
+import KAWASAKIZ61998 from "../../assets/KAWASAKI/KAWASAKIZ61998png"
+import KAWASAKIZ62000 from "../../assets/KAWASAKI/KAWASAKIZ62000.png"
+import KAWASAKIZ62004 from "../../assets/KAWASAKI/KAWASAKIZ62004.png"
+import KAWASAKIZ61994 from "../../assets/KAWASAKI/KAWASAKIZ61994.png"
+import KAWASAKIZ61994 from "../../assets/KAWASAKI/KAWASAKIZ61994.png"
+import KAWASAKIZ61994 from "../../assets/KAWASAKI/KAWASAKIZ61994.png"
+import KAWASAKIZ61994 from "../../assets/KAWASAKI/KAWASAKIZ61994.png"
+
 const yearDetailsData = {
     "GSX-R": {
         "600": [
@@ -96,6 +105,19 @@ const yearDetailsData = {
         "09": [
             { year: "2014-2016", img: MT092016 },
             { year: "2021-2023", img: MT092023 },
+        ]
+    },
+    "ZR": {
+        "6R": [
+            { year: "1994-1997", img: KAWASAKIZ61994 },
+            { year: "1998-1999", img: KAWASAKIZ61998 },
+            { year: "2000-2002", img: GSXR10002006 },
+            { year: "2003-2004", img: GSXR10002020 }, 
+            { year: "2005-2006", img: GSXR10002008 },
+            { year: "2007-2008", img: GSXR10002011 },
+            { year: "2009-2012", img: GSXR10002015 },
+            { year: "2013-2017", img: GSXR10002020 },
+            
         ]
     }
     
