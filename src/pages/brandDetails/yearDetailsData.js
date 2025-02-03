@@ -47,6 +47,10 @@ import KAWASAKIZ62012 from "../../assets/KAWASAKI/KAWASAKIZ62012.png"
 import KAWASAKIZ62017 from "../../assets/KAWASAKI/KAWASAKIZ62017.png"
 import KAWASAKIZ61998 from "../../assets/KAWASAKI/KAWASAKIZ61998.png"
 
+import KAWASAKIZ91997 from "../../assets/KAWASAKI/KAWASAKIZ91997.png"
+import KAWASAKIZ91998 from "../../assets/KAWASAKI/KAWASAKIZ91998.png"
+import KAWASAKIZ92004 from "../../assets/KAWASAKI/KAWASAKIZ92004.png"
+
 const yearDetailsData = {
     "GSX-R": {
         "600": [
@@ -118,6 +122,11 @@ const yearDetailsData = {
             { year: "2009-2012", img: KAWASAKIZ62012 },
             { year: "2013-2017", img: KAWASAKIZ62017 },
             
+        ],
+        "9R": [
+            { year: "1994-1997", img: KAWASAKIZ91997 },
+            { year: "1998-1999", img: KAWASAKIZ91998 },
+            { year: "2000-2004", img: KAWASAKIZ92004 },
         ]
     }
     
