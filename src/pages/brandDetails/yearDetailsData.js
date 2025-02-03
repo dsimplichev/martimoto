@@ -107,7 +107,7 @@ const yearDetailsData = {
             { year: "2021-2023", img: MT092023 },
         ]
     },
-    "ZR": {
+    "ZX": {
         "6R": [
             { year: "1994-1997", img: KAWASAKIZ61994 },
             { year: "1998-1999", img: KAWASAKIZ61998 },
