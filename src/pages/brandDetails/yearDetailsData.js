@@ -145,6 +145,13 @@ const yearDetailsData = {
             { year: "2011-2015", img: KAWASAKIZ102015 },
             { year: "2016-2020", img: KAWASAKIZ102020 },
         ]
+    },
+    "Z":{
+        "1000" [
+            { year: "2004-2006", img: KAWASAKIZ101988 },
+            { year: "2007-2009", img: KAWASAKIZ92004 },
+            { year: "2010-2013", img: KAWASAKIZ102007 },
+        ]
     }
     
     
