@@ -56,8 +56,8 @@ import KAWASAKIZ101988 from "../../assets/KAWASAKI/KAWASAKIZ101988.png"
 import KAWASAKIZ102004 from "../../assets/KAWASAKI/KAWASAKIZ102004.png"
 import KAWASAKIZ102007 from "../../assets/KAWASAKI/KAWASAKIZ102007.png"
 import KAWASAKIZ102010 from "../../assets/KAWASAKI/KAWASAKIZ102010.png"
-import KAWASAKIZ91998 from "../../assets/KAWASAKI/KAWASAKIZ91998.png"
-import KAWASAKIZ92004 from "../../assets/KAWASAKI/KAWASAKIZ92004.png"
+import KAWASAKIZ102015 from "../../assets/KAWASAKI/KAWASAKIZ102015.png"
+import KAWASAKIZ102020 from "../../assets/KAWASAKI/KAWASAKIZ102020.png"
 
 
 const yearDetailsData = {
@@ -141,9 +141,9 @@ const yearDetailsData = {
             { year: "1988-1989", img: KAWASAKIZ101988 },
             { year: "2004-2005", img: KAWASAKIZ92004 },
             { year: "2006-2007", img: KAWASAKIZ102007 },
-            { year: "2008-2010", img: KAWASAKIZ91997 },
-            { year: "2011-2015", img: KAWASAKIZ91998 },
-            { year: "2016-2020", img: KAWASAKIZ92004 },
+            { year: "2008-2010", img: KAWASAKIZ102010 },
+            { year: "2011-2015", img: KAWASAKIZ102015 },
+            { year: "2016-2020", img: KAWASAKIZ102020 },
         ]
     }
     
