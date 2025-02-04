@@ -51,6 +51,15 @@ import KAWASAKIZ91997 from "../../assets/KAWASAKI/KAWASAKIZ91997.png"
 import KAWASAKIZ91998 from "../../assets/KAWASAKI/KAWASAKIZ91998.png"
 import KAWASAKIZ92004 from "../../assets/KAWASAKI/KAWASAKIZ92004.png"
 
+
+import KAWASAKIZ101988 from "../../assets/KAWASAKI/KAWASAKIZ101988.png"
+import KAWASAKIZ102004 from "../../assets/KAWASAKI/KAWASAKIZ102004.png"
+import KAWASAKIZ102007 from "../../assets/KAWASAKI/KAWASAKIZ102007.png"
+import KAWASAKIZ102010 from "../../assets/KAWASAKI/KAWASAKIZ102010.png"
+import KAWASAKIZ91998 from "../../assets/KAWASAKI/KAWASAKIZ91998.png"
+import KAWASAKIZ92004 from "../../assets/KAWASAKI/KAWASAKIZ92004.png"
+
+
 const yearDetailsData = {
     "GSX-R": {
         "600": [
@@ -127,6 +136,14 @@ const yearDetailsData = {
             { year: "1994-1997", img: KAWASAKIZ91997 },
             { year: "1998-1999", img: KAWASAKIZ91998 },
             { year: "2000-2004", img: KAWASAKIZ92004 },
+        ],
+        "10R": [
+            { year: "1988-1989", img: KAWASAKIZ101988 },
+            { year: "2004-2005", img: KAWASAKIZ92004 },
+            { year: "2006-2007", img: KAWASAKIZ102007 },
+            { year: "2008-2010", img: KAWASAKIZ91997 },
+            { year: "2011-2015", img: KAWASAKIZ91998 },
+            { year: "2016-2020", img: KAWASAKIZ92004 },
         ]
     }
     
