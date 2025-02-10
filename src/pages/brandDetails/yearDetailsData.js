@@ -70,6 +70,9 @@ import KAWASAKIZ9002022 from "../../assets/KAWASAKI/KAWASAKIZ9002022.png"
 import KAWASAKIZ7502004 from "../../assets/KAWASAKI/KAWASAKIZ7502004.png"
 import KAWASAKIZ7502012 from "../../assets/KAWASAKI/KAWASAKIZ7502012.png"
 
+import PANIGALEV42018 from "../../assets/Ducati/PANIGALEV42018.png"
+import PANIGALEV42022 from "../../assets/Ducati/PANIGALEV42022.png"
+
 
 const yearDetailsData = {
     "GSX-R": {
@@ -172,6 +175,12 @@ const yearDetailsData = {
             { year: "2007-2012", img: KAWASAKIZ7502012 },
         ]
     },
+    "PANIGALE": {
+        "V4": [
+            { year: "2018-2020", img: PANIGALEV42018 },
+            { year: "2020-2022", img: PANIGALEV42022 },
+        ]
+    }
    
     
     

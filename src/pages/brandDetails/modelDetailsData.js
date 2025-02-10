@@ -73,6 +73,10 @@ import YZFR62020 from "../../assets/Yamaha/YZFR62020.png"
 
 import PANIGALEV4 from "../../assets/Ducati/PANIGALEV4.png"
 import PANIGALEV2 from "../../assets/Ducati/PANIGALEV2.png"
+import PANIGALE1299 from "../../assets/Ducati/PANIGALE1299.png"
+import PANIGALE959 from "../../assets/Ducati/PANIGALE959.png"
+import PANIGALE1199 from "../../assets/Ducati/PANIGALE1199.png"
+import PANIGALE899 from "../../assets/Ducati/PANIGALE899.png"
 
 const modelDetailsData = {
     "GSX-R": [
@@ -187,10 +191,10 @@ const modelDetailsData = {
     "PANIGALE": [
         { name: "V4", img: PANIGALEV4 },
         { name: "V2", img: PANIGALEV2 },
-        { name: "1299", img: },
-        { name: "959", img: },
-        { name: "1199", img: },
-        { name: "899", img: },
+        { name: "1299", img: PANIGALE1299 },
+        { name: "959", img: PANIGALE959 },
+        { name: "1199", img: PANIGALE1199 },
+        { name: "899", img: PANIGALE899 }
         
     ]
     
