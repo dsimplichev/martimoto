@@ -171,7 +171,8 @@ const yearDetailsData = {
             { year: "2004-2006", img: KAWASAKIZ7502004 },
             { year: "2007-2012", img: KAWASAKIZ7502012 },
         ]
-    }
+    },
+   
     
     
 };

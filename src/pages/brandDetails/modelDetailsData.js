@@ -48,6 +48,7 @@ import KAWASAKIZ750 from "../../assets/KAWASAKI/KAWASAKIZ750.png"
 import KAWASAKIZ650 from "../../assets/KAWASAKI/KAWASAKIZ650.png"
 import KAWASAKIZ400 from "../../assets/KAWASAKI/KAWASAKIZ400.png"
 import KAWASAKIZ300 from "../../assets/KAWASAKI/KAWASAKIZ300.png"
+import KAWASAKIH22020 from "../../assets/KAWASAKI/KAWASAKIH22020.png"
 
 import RSV42009 from "../../assets/APRILIA/RSV42009.png"
 import RSV42020 from "../../assets/APRILIA/RSV42020.png"
@@ -176,6 +177,9 @@ const modelDetailsData = {
         { name: "2015-2016", img: S1000RR2016 },
         { name: "2017-2018", img: S1000RR2018 },
         { name: "2023-2024", img: S1000RR2024 }, 
+    ],
+    "NINJA H2": [
+        { name: "2018-2020", img: KAWASAKIH22020 },
     ],
     
 };
