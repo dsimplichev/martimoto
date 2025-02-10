@@ -150,7 +150,7 @@ const yearDetailsData = {
         ],
         "10R": [
             { year: "1988-1989", img: KAWASAKIZ101988 },
-            { year: "2004-2005", img: KAWASAKIZ92004 },
+            { year: "2004-2005", img: KAWASAKIZ102004 },
             { year: "2006-2007", img: KAWASAKIZ102007 },
             { year: "2008-2010", img: KAWASAKIZ102010 },
             { year: "2011-2015", img: KAWASAKIZ102015 },

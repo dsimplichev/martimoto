@@ -71,6 +71,9 @@ import YZFR62007 from "../../assets/Yamaha/YZFR62007.png"
 import YZFR62016 from "../../assets/Yamaha/YZFR62016.png"
 import YZFR62020 from "../../assets/Yamaha/YZFR62020.png"
 
+import PANIGALEV4 from "../../assets/Ducati/PANIGALEV4.png"
+import PANIGALEV2 from "../../assets/Ducati/PANIGALEV2.png"
+
 const modelDetailsData = {
     "GSX-R": [
         { name: "600", img: S600 },
@@ -181,6 +184,15 @@ const modelDetailsData = {
     "NINJA H2": [
         { name: "2018-2020", img: KAWASAKIH22020 },
     ],
+    "PANIGALE": [
+        { name: "V4", img: PANIGALEV4 },
+        { name: "V2", img: PANIGALEV2 },
+        { name: "1299", img: },
+        { name: "959", img: },
+        { name: "1199", img: },
+        { name: "899", img: },
+        
+    ]
     
 };
 
