@@ -94,7 +94,8 @@ function AddPart() {
                         <option value="BMW">BMW</option>
                         <option value="Ducati">Ducati</option>
                         <option value="Suzuki">Suzuki</option>
-                        <option value="Suzuki">KAWASAKI</option>
+                        <option value="Kawasaki">KAWASAKI</option>
+                        <option value="Honda">Honda</option>
                     </select>
                 </div>
 
