@@ -35,17 +35,17 @@ function AddPart() {
         setCylinder('');
         setYear('');
 
-        // Извличане на налични кубатури (ако има)
+       
         const cylinders = brands[brand]?.cylinderOptions?.[selectedModel] || [];
         setAvailableCylinders(cylinders);
 
-        // Извличане на налични години
+        
         let years = [];
         if (Array.isArray(brands[brand]?.years?.[selectedModel])) {
-            // Ако годините са списък (както при BMW)
+            
             years = brands[brand]?.years?.[selectedModel] || [];
         } else {
-            // Ако годините са вложен обект (както при Suzuki)
+           
             years = brands[brand]?.years?.[selectedModel]?.[cylinder] || [];
         }
         setAvailableYears(years);
@@ -56,13 +56,13 @@ function AddPart() {
         setCylinder(selectedCylinder);
         setYear('');
 
-        // Извличане на години според кубатурата (ако има)
+        
         let yearsForCylinder = [];
         if (Array.isArray(brands[brand]?.years?.[model])) {
-            // Ако годините са списък (както при BMW)
+            
             yearsForCylinder = brands[brand]?.years?.[model] || [];
         } else {
-            // Ако годините са вложен обект (както при Suzuki)
+            
             yearsForCylinder = brands[brand]?.years?.[model]?.[selectedCylinder] || [];
         }
         setAvailableYears(yearsForCylinder);
@@ -94,6 +94,7 @@ function AddPart() {
                         <option value="BMW">BMW</option>
                         <option value="Ducati">Ducati</option>
                         <option value="Suzuki">Suzuki</option>
+                        <option value="Suzuki">KAWASAKI</option>
                     </select>
                 </div>
 
