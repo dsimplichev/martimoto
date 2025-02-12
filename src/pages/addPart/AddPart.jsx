@@ -13,8 +13,7 @@ function AddPart() {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
-    const [imageUrl, setImageUrl] = useState(''); 
-
+    const [images, setImages] = useState([]); 
     const [availableModels, setAvailableModels] = useState([]);
     const [availableCylinders, setAvailableCylinders] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
@@ -61,31 +60,25 @@ function AddPart() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!brand || !model || !partName || !description || !price) {
-            setMessage("Моля, попълнете всички полета!");
+        if (!brand || !model || !partName || !description || !price || images.length === 0) {
+            setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
         setMessage("Частта е добавена успешно!");
     };
 
-    const handleImageChange = async (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('image', file);
-
-            try {
-                const response = await fetch('http://localhost:5000/upload', {
-                    method: 'POST',
-                    body: formData,
-                });
-                const data = await response.json();
-                setImageUrl(data.imageUrl); 
-                console.log('URL на изображението:', data.imageUrl);
-            } catch (error) {
-                console.error('Грешка при качването на изображението:', error);
-            }
+    const handleImageChange = (e) => {
+        const selectedFiles = Array.from(e.target.files);
+        if (selectedFiles.length + images.length <= 4) {
+            setImages([...images, ...selectedFiles]);
+        } else {
+            alert('Можете да качите максимум 4 снимки!');
         }
+    };
+
+    const handleRemoveImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
@@ -183,17 +176,28 @@ function AddPart() {
 
                 <div>
                     <label htmlFor="image-upload" className="upload-label">
-                    <i className="fas fa-upload">
-                    </i> Добави изображение </label>
-                        
+                        <i className="fas fa-upload"></i> Добави изображения
+                    </label>
                     <input
                         id="image-upload"
                         type="file"
                         accept="image/*"
                         className="upload-button"
                         onChange={handleImageChange}
+                        multiple
                     />
-                    {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '100px', marginTop: '10px' }} />}
+                    <div className="image-previews">
+                        {images.map((image, index) => (
+                            <div key={index} className="image-preview">
+                                <img
+                                    src={URL.createObjectURL(image)}
+                                    alt={`Uploaded ${index}`}
+                                    style={{ width: '100px', marginTop: '10px' }}
+                                />
+                                <button type="button" onClick={() => handleRemoveImage(index)}>Изтрий</button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 <button type="submit">Добави частта</button>
