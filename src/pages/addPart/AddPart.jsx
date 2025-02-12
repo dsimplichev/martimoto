@@ -13,6 +13,7 @@ function AddPart() {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
+    const [imageUrl, setImageUrl] = useState(''); 
 
     const [availableModels, setAvailableModels] = useState([]);
     const [availableCylinders, setAvailableCylinders] = useState([]);
@@ -34,18 +35,12 @@ function AddPart() {
         setModel(selectedModel);
         setCylinder('');
         setYear('');
-
-       
         const cylinders = brands[brand]?.cylinderOptions?.[selectedModel] || [];
         setAvailableCylinders(cylinders);
-
-        
         let years = [];
         if (Array.isArray(brands[brand]?.years?.[selectedModel])) {
-            
             years = brands[brand]?.years?.[selectedModel] || [];
         } else {
-           
             years = brands[brand]?.years?.[selectedModel]?.[cylinder] || [];
         }
         setAvailableYears(years);
@@ -55,14 +50,10 @@ function AddPart() {
         const selectedCylinder = e.target.value;
         setCylinder(selectedCylinder);
         setYear('');
-
-        
         let yearsForCylinder = [];
         if (Array.isArray(brands[brand]?.years?.[model])) {
-            
             yearsForCylinder = brands[brand]?.years?.[model] || [];
         } else {
-            
             yearsForCylinder = brands[brand]?.years?.[model]?.[selectedCylinder] || [];
         }
         setAvailableYears(yearsForCylinder);
@@ -70,13 +61,31 @@ function AddPart() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (!brand || !model || !partName || !description || !price) {
             setMessage("Моля, попълнете всички полета!");
             return;
         }
-
         setMessage("Частта е добавена успешно!");
+    };
+
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch('http://localhost:5000/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+                setImageUrl(data.imageUrl); 
+                console.log('URL на изображението:', data.imageUrl);
+            } catch (error) {
+                console.error('Грешка при качването на изображението:', error);
+            }
+        }
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
@@ -170,6 +179,21 @@ function AddPart() {
                         onChange={(e) => setPrice(e.target.value)}
                         required
                     />
+                </div>
+
+                <div>
+                    <label htmlFor="image-upload" className="upload-label">
+                    <i className="fas fa-upload">
+                    </i> Добави изображение </label>
+                        
+                    <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/*"
+                        className="upload-button"
+                        onChange={handleImageChange}
+                    />
+                    {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '100px', marginTop: '10px' }} />}
                 </div>
 
                 <button type="submit">Добави частта</button>
