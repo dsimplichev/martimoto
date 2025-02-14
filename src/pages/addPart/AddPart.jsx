@@ -10,7 +10,7 @@ function AddPart() {
     const [model, setModel] = useState('');
     const [cylinder, setCylinder] = useState('');
     const [year, setYear] = useState('');
-    const [title, setTitle] = useState(''); // Променено от partName на title
+    const [title, setTitle] = useState(''); 
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
@@ -71,11 +71,11 @@ function AddPart() {
         formData.append('model', model);
         formData.append('cylinder', cylinder);
         formData.append('year', year);
-        formData.append('title', title); // Променено от partName на title
+        formData.append('title', title); 
         formData.append('description', description);
         formData.append('price', price);
-        images.forEach((image, index) => {
-            formData.append('images', image); // Изпращане на множество изображения
+        images.forEach((image) => {
+            formData.append('images', image);  
         });
 
         try {
@@ -175,7 +175,7 @@ function AddPart() {
                     <label>Име на частта</label>
                     <input
                         type="text"
-                        value={title} // Променено от partName на title
+                        value={title} 
                         onChange={(e) => setTitle(e.target.value)}
                         required
                     />
