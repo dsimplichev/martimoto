@@ -1,19 +1,20 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../../Context/AuthContext'; 
-import { brands } from './data'; 
+import { AuthContext } from '../../Context/AuthContext';
+import { brands } from './data';
+import axios from 'axios';
 import "./addpart.css";
 
 function AddPart() {
-    const { user, isLoggedIn } = useContext(AuthContext); 
+    const { user, isLoggedIn } = useContext(AuthContext);
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
     const [cylinder, setCylinder] = useState('');
     const [year, setYear] = useState('');
-    const [partName, setPartName] = useState('');
+    const [title, setTitle] = useState(''); // Променено от partName на title
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
-    const [images, setImages] = useState([]); 
+    const [images, setImages] = useState([]);
     const [availableModels, setAvailableModels] = useState([]);
     const [availableCylinders, setAvailableCylinders] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
@@ -25,8 +26,8 @@ function AddPart() {
         setCylinder('');
         setYear('');
         setAvailableModels(brands[selectedBrand]?.models || []);
-        setAvailableCylinders([]); 
-        setAvailableYears([]); 
+        setAvailableCylinders([]);
+        setAvailableYears([]);
     };
 
     const handleModelChange = (e) => {
@@ -58,13 +59,38 @@ function AddPart() {
         setAvailableYears(yearsForCylinder);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!brand || !model || !partName || !description || !price || images.length === 0) {
+        if (!brand || !model || !title || !description || !price || images.length === 0) {
             setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
-        setMessage("Частта е добавена успешно!");
+
+        const formData = new FormData();
+        formData.append('brand', brand);
+        formData.append('model', model);
+        formData.append('cylinder', cylinder);
+        formData.append('year', year);
+        formData.append('title', title); // Променено от partName на title
+        formData.append('description', description);
+        formData.append('price', price);
+        images.forEach((image, index) => {
+            formData.append('images', image); // Изпращане на множество изображения
+        });
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/parts/add', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            setMessage('Частта е добавена успешно!');
+            console.log('Частта е добавена успешно:', response.data);
+        } catch (error) {
+            console.error('Грешка при добавяне на част:', error);
+            setMessage('Грешка при добавяне на част!');
+        }
     };
 
     const handleImageChange = (e) => {
@@ -82,7 +108,7 @@ function AddPart() {
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
-        return <p>Нямате права да достъпвате тази страница.</p>; 
+        return <p>Нямате права да достъпвате тази страница.</p>;
     }
 
     return (
@@ -149,8 +175,8 @@ function AddPart() {
                     <label>Име на частта</label>
                     <input
                         type="text"
-                        value={partName}
-                        onChange={(e) => setPartName(e.target.value)}
+                        value={title} // Променено от partName на title
+                        onChange={(e) => setTitle(e.target.value)}
                         required
                     />
                 </div>
