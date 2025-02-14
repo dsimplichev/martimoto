@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../../Context/AuthContext';
-import "./addaccessory.css"
+import { AuthContext } from '../../Context/AuthContext'; 
+import "./addaccessory.css";
 
 function AddAccessory() {
     const { user, isLoggedIn } = useContext(AuthContext);
@@ -9,25 +9,38 @@ function AddAccessory() {
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
     const [message, setMessage] = useState('');
+    const [images, setImages] = useState([]); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        
-        if (!title || !description || !price || !category) {
-            setMessage("Моля, попълнете всички полета!");
+        if (!title || !description || !price || !category || images.length === 0) {
+            setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
-
         
-        setMessage("Аксесоарът е добавен успешно! (тук ще добавим бекенд връзка)");
+        setMessage("Аксесоарът е добавен успешно!");
+        //изпращане на данните и изображенията към бекенд или Cloudinary
+    };
 
-        
+    const handleImageChange = (e) => {
+        const selectedFiles = Array.from(e.target.files);
+        if (selectedFiles.length + images.length <= 4) {
+            setImages([...images, ...selectedFiles]);
+        } else {
+            alert('Можете да качите максимум 4 снимки!');
+        }
+    };
+
+    const handleRemoveImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
-        return <p>Нямате права да достъпвате тази страница.</p>; 
+        return <p>Нямате права да достъпвате тази страница.</p>;
     }
+
     return (
         <div>
             <h2>Добави аксесоар</h2>
@@ -43,6 +56,7 @@ function AddAccessory() {
                         <option value="ръкохватки">Ръкохватки</option>
                     </select>
                 </div>
+
                 <div>
                     <label>Заглавие</label>
                     <input
@@ -51,6 +65,7 @@ function AddAccessory() {
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
+
                 <div>
                     <label>Описание</label>
                     <textarea
@@ -58,6 +73,7 @@ function AddAccessory() {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
+
                 <div>
                     <label>Цена</label>
                     <input
@@ -66,6 +82,33 @@ function AddAccessory() {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
+
+                <div>
+                    <label htmlFor="image-upload" className="upload-label">
+                        <i className="fas fa-upload"></i> Добави изображения
+                    </label>
+                    <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/*"
+                        className="upload-button"
+                        onChange={handleImageChange}
+                        multiple
+                    />
+                    <div className="image-previews">
+                        {images.map((image, index) => (
+                            <div key={index} className="image-preview">
+                                <img
+                                    src={URL.createObjectURL(image)}
+                                    alt={`Uploaded ${index}`}
+                                    style={{ width: '100px', marginTop: '10px' }}
+                                />
+                                <button type="button" onClick={() => handleRemoveImage(index)}>Изтрий</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 <button type="submit">Добави аксесоар</button>
             </form>
 
@@ -73,6 +116,5 @@ function AddAccessory() {
         </div>
     );
 }
-
 
 export default AddAccessory;
