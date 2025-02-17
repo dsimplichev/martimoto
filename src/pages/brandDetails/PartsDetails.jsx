@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaSearch, FaHeart, FaShoppingBasket } from "react-icons/fa";
+import axios from 'axios'; 
 import './partsDetails.css';
 
 function PartsDetails() {
@@ -15,18 +16,18 @@ function PartsDetails() {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetch(`/api/parts/${brandName}/${modelName}/${subModelName}/${yearRange}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Parts fetched:", data);
-            setParts(data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error('Грешка при извличането на данни:', error);
-            setLoading(false);
-          });
-      }, [brandName, modelName, subModelName, yearRange]);
+        
+        axios.get(`/api/parts/${brandName}/${modelName}/${subModelName}/${yearRange}`)
+            .then((response) => {
+                console.log("Parts fetched:", response.data);
+                setParts(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Грешка при извличането на данни:', error);
+                setLoading(false);
+            });
+    }, [brandName, modelName, subModelName, yearRange]);
    
     const indexOfLastPart = currentPage * partsPerPage;
     const indexOfFirstPart = indexOfLastPart - partsPerPage;

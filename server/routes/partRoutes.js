@@ -51,7 +51,7 @@ router.get('/:brandName/:modelName/:subModelName/:yearRange', async (req, res) =
       subModel: subModelName, 
       year: { $gte: startYear, $lte: endYear },
     });
-
+    console.log('Parts found:', parts);
     if (!parts.length) {
       return res.status(404).json({ message: 'Части не са намерени' });
     }

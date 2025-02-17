@@ -8,10 +8,8 @@ const userRoutes = require('./routes/userRoutes');
 const partRoutes = require('./routes/partRoutes');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const upload = multer(); 
 const app = express();
-const fs = require('fs');
-
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -27,15 +25,27 @@ app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/api/parts', partRoutes);  
 
+
 app.post('/upload', upload.single('image'), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+
     try {
-        const filePath = req.file.path;
-        const result = await cloudinary.uploader.upload(filePath);
-
         
-        fs.unlinkSync(filePath);
+        const result = await cloudinary.uploader.upload_stream(
+            { resource_type: 'auto' }, 
+            (error, result) => {
+                if (error) {
+                    return res.status(500).send('Грешка при качването на изображението.');
+                }
+                res.status(200).json({ imageUrl: result.secure_url });
+            }
+        );
+        
+        
+        result.end(req.file.buffer); 
 
-        res.status(200).json({ imageUrl: result.url });
     } catch (error) {
         console.error('Грешка при качването на изображението:', error);
         res.status(500).send('Грешка при качването на изображението.');
