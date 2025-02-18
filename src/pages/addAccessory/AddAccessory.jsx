@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom"; // ✅ Добави тук!
+import { useNavigate } from "react-router-dom"; 
 import { AuthContext } from '../../Context/AuthContext'; 
 import "./addaccessory.css";
 
 function AddAccessory() {
     const { user, isLoggedIn } = useContext(AuthContext);
-    const navigate = useNavigate(); // ✅ Добави тук!
+    const navigate = useNavigate(); 
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');

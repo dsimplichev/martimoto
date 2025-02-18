@@ -18,7 +18,7 @@ function Accessories() {
                     <img src={balansior} alt="Балансьори" className="category-image"/>
                     <p>Балансьори</p>
                 </Link>
-                <Link to="/accessories/Краш%20тапи" className="category">
+                <Link to="/accessories/Краш-тапи" className="category">
                     <img src={krashtapi} alt="Краш тапи" className="category-image"/>
                     <p>Краш тапи</p>
                 </Link>
