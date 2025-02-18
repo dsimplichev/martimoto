@@ -6,10 +6,13 @@ const { PORT, MONGO_URI } = require('./config');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const partRoutes = require('./routes/partRoutes');
+const accessoryRoutes = require('./routes/accessoryRoutes'); 
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
+
 const upload = multer(); 
 const app = express();
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -21,9 +24,11 @@ app.use(cookieParser());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 
+
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
-app.use('/api/parts', partRoutes);  
+app.use('/api/parts', partRoutes);
+app.use('/api/accessories', accessoryRoutes); // 
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {
@@ -32,20 +37,12 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     }
 
     try {
-        
-        const result = await cloudinary.uploader.upload_stream(
-            { resource_type: 'auto' }, 
-            (error, result) => {
-                if (error) {
-                    return res.status(500).send('Грешка при качването на изображението.');
-                }
-                res.status(200).json({ imageUrl: result.secure_url });
+        cloudinary.uploader.upload_stream({ resource_type: 'auto' }, (error, result) => {
+            if (error) {
+                return res.status(500).send('Грешка при качването на изображението.');
             }
-        );
-        
-        
-        result.end(req.file.buffer); 
-
+            res.status(200).json({ imageUrl: result.secure_url });
+        }).end(req.file.buffer);
     } catch (error) {
         console.error('Грешка при качването на изображението:', error);
         res.status(500).send('Грешка при качването на изображението.');
@@ -55,6 +52,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 app.get('/', (req, res) => {
     res.send('Сървърът работи!');
 });
+
 
 mongoose
     .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -1,9 +1,12 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom"; // ✅ Добави тук!
 import { AuthContext } from '../../Context/AuthContext'; 
 import "./addaccessory.css";
 
 function AddAccessory() {
     const { user, isLoggedIn } = useContext(AuthContext);
+    const navigate = useNavigate(); // ✅ Добави тук!
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -11,30 +14,43 @@ function AddAccessory() {
     const [message, setMessage] = useState('');
     const [images, setImages] = useState([]); 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         if (!title || !description || !price || !category || images.length === 0) {
             setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
-        
-        setMessage("Аксесоарът е добавен успешно!");
-        //изпращане на данните и изображенията към бекенд или Cloudinary
-    };
 
-    const handleImageChange = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-        if (selectedFiles.length + images.length <= 4) {
-            setImages([...images, ...selectedFiles]);
-        } else {
-            alert('Можете да качите максимум 4 снимки!');
+        try {
+            
+            const formData = new FormData();
+            images.forEach(image => formData.append('images', image));
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('price', price);
+            formData.append('category', category);
+
+            
+            const response = await fetch("http://localhost:5000/api/accessories", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error("Неуспешно качване!");
+            }
+
+            setMessage("Аксесоарът е добавен успешно!");
+            
+            
+            setTimeout(() => {
+                navigate("/accessories"); 
+            }, 1500);
+            
+        } catch (error) {
+            setMessage("Грешка при качването!");
         }
-    };
-
-    const handleRemoveImage = (index) => {
-        const updatedImages = images.filter((_, i) => i !== index);
-        setImages(updatedImages);
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
@@ -92,7 +108,14 @@ function AddAccessory() {
                         type="file"
                         accept="image/*"
                         className="upload-button"
-                        onChange={handleImageChange}
+                        onChange={(e) => {
+                            const selectedFiles = Array.from(e.target.files);
+                            if (selectedFiles.length + images.length <= 4) {
+                                setImages([...images, ...selectedFiles]);
+                            } else {
+                                alert('Можете да качите максимум 4 снимки!');
+                            }
+                        }}
                         multiple
                     />
                     <div className="image-previews">
@@ -103,7 +126,9 @@ function AddAccessory() {
                                     alt={`Uploaded ${index}`}
                                     style={{ width: '100px', marginTop: '10px' }}
                                 />
-                                <button type="button" onClick={() => handleRemoveImage(index)}>Изтрий</button>
+                                <button type="button" onClick={() => {
+                                    setImages(images.filter((_, i) => i !== index));
+                                }}>Изтрий</button>
                             </div>
                         ))}
                     </div>
