@@ -10,11 +10,13 @@ import BrandDetails from "./pages/brandDetails/BrandDetails";
 import ModelDetails from "./pages/brandDetails/ModelDetails";
 import YearDetails from "./pages/brandDetails/YearDetails";
 import Accessories from "./pages/accessories/Accessories";
+import AccessoryDetails from "./pages/brandDetails/AccessoryDetails";
 import PartsDetails from "./pages/brandDetails/PartsDetails";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import AddAccessory from "./pages/addAccessory/AddAccessory";
 import AddPart from "./pages/addPart/AddPart";
+
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
@@ -36,6 +38,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/partssearch" element={<PartsSearch />} />
         <Route path="/accessories" element={<Accessories />} />
+        <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} />
         <Route path="/brands/:brandName" element={<BrandDetails />} />
         <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
         <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
