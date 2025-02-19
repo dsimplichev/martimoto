@@ -48,6 +48,8 @@
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
 }
 
 .category:hover {
@@ -62,7 +64,9 @@
     margin-bottom: 10px;
 }
 
-.category p {
+.category-name {
     font-size: 1rem;
     font-weight: bold;
+    text-decoration: none;
+    
 }

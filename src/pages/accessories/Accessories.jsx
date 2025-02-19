@@ -16,23 +16,23 @@ function Accessories() {
             <div className="accessory-categories">
                 <Link to="/accessories/Балансьори" className="category">
                     <img src={balansior} alt="Балансьори" className="category-image"/>
-                    <p>Балансьори</p>
+                    <p className="category-name">Балансьори</p>
                 </Link>
                 <Link to="/accessories/Краш-тапи" className="category">
                     <img src={krashtapi} alt="Краш тапи" className="category-image"/>
-                    <p>Краш тапи</p>
+                    <p className="category-name">Краш тапи</p>
                 </Link>
                 <Link to="/accessories/Гараж" className="category">
                     <img src={garaj} alt="Гараж" className="category-image"/>
-                    <p>Гараж</p>
+                    <p className="category-name">Гараж</p>
                 </Link>
                 <Link to="/accessories/Лепенки" className="category">
                     <img src={lepenki} alt="Лепенки" className="category-image"/>
-                    <p>Лепенки</p>
+                    <p className="category-name">Лепенки</p>
                 </Link>
                 <Link to="/accessories/Ръкохватки" className="category">
                     <img src={rukohvatki} alt="Ръкохватки" className="category-image"/>
-                    <p>Ръкохватки</p>
+                    <p className="category-name">Ръкохватки</p>
                 </Link>
             </div>
         </div>

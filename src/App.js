@@ -10,7 +10,7 @@ import BrandDetails from "./pages/brandDetails/BrandDetails";
 import ModelDetails from "./pages/brandDetails/ModelDetails";
 import YearDetails from "./pages/brandDetails/YearDetails";
 import Accessories from "./pages/accessories/Accessories";
-import AccessoryDetails from "./pages/brandDetails/AccessoryDetails";
+import AccessoryDetails from "./pages/accessories/AccessoryDetails";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import AddAccessory from "./pages/addAccessory/AddAccessory";
