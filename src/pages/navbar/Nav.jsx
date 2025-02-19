@@ -12,25 +12,17 @@ function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
-    const [showCart, setShowCart] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: "Продукт 1", img: "path/to/image1.jpg", price: "20 лв." },
-        { id: 2, name: "Продукт 2", img: "path/to/image2.jpg", price: "30 лв." }
-    ]);
+    const [showCartDropdown, setShowCartDropdown] = useState(false); // Добавено състояние за количката
 
     const toggleForms = () => {
         setShowLogin(false);
         setShowRegister(true);
     };
 
-    const toggleCart = () => setShowCart(prev => !prev);
-
     const toggleDropdown = () => setShowDropdown(prev => !prev);
 
-    const removeItemFromCart = (id) => {
-        setCartItems(prev => prev.filter(item => item.id !== id));
-    };
+    const toggleCartDropdown = () => setShowCartDropdown(prev => !prev); // Функция за показване на падащото меню на количката
 
     const handleLogout = () => {
         logout();
@@ -41,7 +33,7 @@ function Nav({ onLogout }) {
         if (isLoggedIn)
             axios.get('http://localhost:5000/user/user', { withCredentials: true })
                 .then(response => {
-                    console.log(response); // Добави логване на отговор
+                    console.log(response); 
                     setUser(response.data.user);
                 })
                 .catch(error => {
@@ -78,6 +70,7 @@ function Nav({ onLogout }) {
                                                 <>
                                                     <li><Link to="/add-part">Добави част</Link></li>
                                                     <li><Link to="/add-accessory">Добави аксесоари</Link></li>
+                                                    <li><Link to="/delivery-order">Поръчки за изпращане</Link></li>
                                                 </>
                                             )}
                                             <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
@@ -99,9 +92,14 @@ function Nav({ onLogout }) {
                         </>
                     )}
 
-                    <button className="ShoppingCart" onClick={toggleCart}>
+                    <button className="ShoppingCart" onClick={toggleCartDropdown}>
                         <FaShoppingCart />
                     </button>
+                    {showCartDropdown && (
+                        <div className="cart-dropdown show"> 
+                            <p className='cart-order'>Кошницата ви е празна!</p>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -110,29 +108,6 @@ function Nav({ onLogout }) {
                     МартиМото ви пожелава весело и незабравимо изкарване на Коледните и Новогодишни празници!
                 </p>
             </div>
-
-            {showCart && (
-                <div className="cart-dropdown">
-                    {cartItems.length === 0 ? (
-                        <p>Количката е празна</p>
-                    ) : (
-                        <ul>
-                            {cartItems.map((item) => (
-                                <li key={item.id} className="cart-item">
-                                    <img src={item.img} alt={item.name} className="cart-item-img" />
-                                    <div className="cart-item-info">
-                                        <p>{item.name}</p>
-                                        <p>{item.price}</p>
-                                    </div>
-                                    <button className="remove-item" onClick={() => removeItemFromCart(item.id)}>
-                                        X
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-            )}
 
             {showRegister && <Register onClose={() => setShowRegister(false)} />}
             {showLogin && <Login onClose={() => setShowLogin(false)} onCreateAccountClick={toggleForms} />}

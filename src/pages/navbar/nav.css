@@ -75,28 +75,29 @@
 }
 
 
-/* css за количката с продукти */
+
 .cart-dropdown {
     position: absolute;
-    right: 10px;
-    top: 60px;
-    width: 300px;
+    top: 100px;
+    right: 90px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 10px;
-    z-index: 1000;
-    opacity: 0; 
-    transform: translateY(-20px); 
-    transition: opacity 0.3s ease, transform 0.3s ease; 
-    margin-top: 15px;
-    margin-right: 170px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    display: none; 
     
 }
 
+.cart-order {
+    color: black;
+    text-align: center;
+    font-size: 10;
+}
+
 .cart-dropdown.show {
-    opacity: 1; 
-    transform: translateY(0); 
+    display: block; 
+    
 }
 
 .cart-item {
@@ -137,7 +138,7 @@
     text-align: center;
     overflow: hidden; 
     position: relative;
-    width: 70%;
+    width: 50%;
 }
 
 .info-text {
