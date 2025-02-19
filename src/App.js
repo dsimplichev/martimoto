@@ -11,7 +11,6 @@ import ModelDetails from "./pages/brandDetails/ModelDetails";
 import YearDetails from "./pages/brandDetails/YearDetails";
 import Accessories from "./pages/accessories/Accessories";
 import AccessoryDetails from "./pages/brandDetails/AccessoryDetails";
-import PartsDetails from "./pages/brandDetails/PartsDetails";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import AddAccessory from "./pages/addAccessory/AddAccessory";
@@ -42,7 +41,6 @@ function App() {
         <Route path="/brands/:brandName" element={<BrandDetails />} />
         <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
         <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
-        <Route path="/brands/:brandName/models/:modelName/:subModelName/:yearRange" element={<PartsDetails />} />
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
       </Routes>

@@ -54,14 +54,6 @@ router.post('/', upload.array('images', 5), async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
-    try {
-        const accessories = await Accessory.find();
-        res.status(200).json(accessories);
-    } catch (error) {
-        console.error('Грешка при взимането на аксесоарите:', error);
-        res.status(500).json({ message: 'Грешка при зареждането на аксесоари!' });
-    }
-});
+
 
 module.exports = router;
