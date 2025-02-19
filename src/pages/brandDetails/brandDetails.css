@@ -43,6 +43,8 @@
     background-color: white;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; 
+    color: inherit;
 }
 
 
@@ -59,7 +61,7 @@
     font-size: 1.1rem;
     color: #000000;
     position: relative;
-   
+    text-decoration: none;
     padding: 10px;
    
 }
