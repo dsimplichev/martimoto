@@ -22,13 +22,13 @@
     background-color: #f39c12;
 }
 
-.model-grid {
+.model-grid2 {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
-.model-card {
+.model-card2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,6 +36,8 @@
     background-color: white;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; 
+    color: inherit;
 }
 
 .model-image {
@@ -45,14 +47,16 @@
     margin-bottom: 10px;
 }
 
-.model-name {
+.model-name2 {
     font-size: 1.1rem;
     color: #000000;
     position: relative;
     padding: 10px;
+    text-align: center;
+    text-decoration: none
 }
 
-.model-name::after {
+.model-name2::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -63,7 +67,7 @@
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-.model-card:hover .model-name::after {
+.model-card2:hover .model-name2::after {
     width: 100%;
     left: 0;
 }

@@ -12,12 +12,12 @@ function ModelDetails() {
         <div className="model-details">
             <h1 className="model-title">{modelName}</h1>
             <div className="title-underline"></div>
-            <div className="model-grid">
+            <div className="model-grid2">
                 {subModels.map((subModel, index) => (
-                    <div key={index} className="model-card">
+                    <div key={index} className="model-card2">
                         <Link to={`/brands/${brandName}/models/${modelName}/${subModel.name}`}>
                             <img src={subModel.img} alt={subModel.name} className="model-image" />
-                            <p className="model-name">{subModel.name}</p>
+                            <p className="model-name2">{subModel.name}</p>
                         </Link>
                     </div>
                 ))}
