@@ -1,0 +1,101 @@
+.accessories-page {
+  padding: 20px;
+}
+
+.header-section-acc h1 {
+  font-size: 28px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.accessory-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+  grid-auto-rows: 1fr;
+}
+
+.accessory-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.accessory-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.accessory-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.accessory-card h3 {
+  display: -webkit-box;
+  font-size: 16px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.price {
+  font-size: 1rem;
+  color: #0078d4;
+  font-weight: 700;
+  font-family: "Zilla Sans Condensed", Roboto, Arial, sans-serif;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.no-accessories {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #0078d4;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 1.2rem;
+  color: #333;
+}
