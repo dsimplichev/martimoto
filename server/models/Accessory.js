@@ -1,11 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const AccessorySchema = new mongoose.Schema({
-    title: { type: String, required: true },
+const accessorySchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    category: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    category: { type: String, required: true },
-    images: { type: [String], required: true },
+    imageUrl: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Accessory', AccessorySchema);
+const Accessory = mongoose.model("Accessory", accessorySchema);
+
+module.exports = Accessory;

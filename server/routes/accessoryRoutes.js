@@ -51,6 +51,18 @@ router.post('/', upload.array('images', 5), async (req, res) => {
         console.error('Грешка при добавянето на аксесоар:', error);
         res.status(500).json({ message: 'Грешка при създаването на аксесоар!' });
     }
+
+    router.get('/accessories/:category', async (req, res) => {
+        try {
+            const category = req.params.category;
+            const accessories = await Accessory.find({ category });
+            res.json(accessories);
+        } catch (error) {
+            console.error("Грешка при получаването на аксесоари:", error);
+            res.status(500).json({ message: "Грешка при зареждането на аксесоарите." });
+        }
+    });
+
 });
 
 

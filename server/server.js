@@ -9,6 +9,8 @@ const partRoutes = require('./routes/partRoutes');
 const accessoryRoutes = require('./routes/accessoryRoutes'); 
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
+const Accessory = require('./models/Accessory')
+
 
 const upload = multer(); 
 const app = express();
@@ -61,4 +63,19 @@ mongoose
 
 app.listen(PORT, () => {
     console.log(`Сървърът работи на порт ${PORT}`);
+});
+
+app.get("/accessories/:category", async (req, res) => {
+    try {
+        const category = decodeURIComponent(req.params.category); 
+        const accessories = await Accessory.find({ category: category });
+
+        if (accessories.length === 0) {
+            return res.status(404).json({ message: "Няма аксесоари в тази категория" });
+        }
+
+        res.json(accessories);
+    } catch (error) {
+        res.status(500).json({ message: "Грешка при зареждане на аксесоарите" });
+    }
 });
