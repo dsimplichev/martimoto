@@ -16,40 +16,41 @@ function AddAccessory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+    
         if (!title || !description || !price || !category || images.length === 0) {
             setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
-
+    
         try {
-            
             const formData = new FormData();
             images.forEach(image => formData.append('images', image));
             formData.append('title', title);
             formData.append('description', description);
             formData.append('price', price);
             formData.append('category', category);
-
             
+    
             const response = await fetch("http://localhost:5000/api/accessories", {
                 method: "POST",
                 body: formData
             });
-
+    
             if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Грешка при качването:", errorData);
                 throw new Error("Неуспешно качване!");
             }
-
+    
             setMessage("Аксесоарът е добавен успешно!");
             
-            
             setTimeout(() => {
-                navigate("/accessories"); 
+                navigate("/accessories");
             }, 1500);
             
         } catch (error) {
             setMessage("Грешка при качването!");
+            console.error(error);
         }
     };
 

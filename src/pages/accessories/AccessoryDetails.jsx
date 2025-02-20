@@ -10,7 +10,7 @@ function AccessoryDetails() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/accessories/${encodeURIComponent(accessoryName)}`)
+        axios.get(`http://localhost:5000/accessories/${encodeURIComponent(accessoryName.toLowerCase())}`)
             .then(response => {
                 setAccessories(response.data);
                 setLoading(false);
