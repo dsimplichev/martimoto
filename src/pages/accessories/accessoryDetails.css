@@ -11,11 +11,11 @@
 }
 
 .accessory-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
-  grid-auto-rows: 1fr;
 }
 
 .accessory-card {
@@ -26,7 +26,8 @@
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
-  width: 200px;
+  width: calc(25% - 20px); /* 4 елемента на ред, изваждаме gap-а */
+  max-width: 150px; /* За да не стават прекалено големи */
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
