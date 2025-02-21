@@ -48,7 +48,7 @@ function AccessoryDetails() {
                 {paginatedAccessories.length > 0 ? (
                     paginatedAccessories.map((acc) => (
                         <div key={acc._id} className="accessory-card">
-                            <img src={acc.imageUrl} alt={acc.name} />
+                            <img src={acc.images[0]} alt={acc.name} />
                             <h3>{acc.title}</h3>
                             <h3>{acc.name}</h3>
                             {/* <p>{acc.description}</p> */}
@@ -60,7 +60,7 @@ function AccessoryDetails() {
                 )}
             </div>
 
-            {/* Pagination Controls */}
+            
             <div className="pagination">
                 <button 
                     disabled={currentPage === 1} 
