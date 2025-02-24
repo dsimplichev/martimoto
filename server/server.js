@@ -79,3 +79,20 @@ app.get("/accessories/:category", async (req, res) => {
         res.status(500).json({ message: "Грешка при зареждане на аксесоарите" });
     }
 });
+
+app.get('/accessories/detail/:id', (req, res) => {
+    const { id } = req.params;
+    
+    
+    Accessory.findById(id)
+        .then(accessory => {
+            if (!accessory) {
+                return res.status(404).json({ message: "Аксесоарът не е намерен." });
+            }
+            res.json(accessory);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
+        });
+});

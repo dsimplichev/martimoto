@@ -60,4 +60,23 @@ router.get('/accessories/:category', async (req, res) => {
     }
 });
 
+router.get('/accessories/detail/:id', async (req, res) => {
+    const { id } = req.params; 
+
+    try {
+        
+        const accessory = await Accessory.findById(id);
+
+        if (!accessory) {
+            return res.status(404).json({ message: "Аксесоарът не е намерен." });
+        }
+
+        
+        res.json(accessory);
+    } catch (error) {
+        console.error("Грешка при заявката:", error);
+        res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
+    }
+});
+
 module.exports = router;

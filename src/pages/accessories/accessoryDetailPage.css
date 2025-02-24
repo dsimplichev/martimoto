@@ -1,0 +1,36 @@
+.accessory-detail-page {
+    margin: 20px;
+}
+
+.accessory-detail-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.main-image img {
+    width: 400px;
+    height: auto;
+}
+
+.thumbnail-images img {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.accessory-info {
+    max-width: 400px;
+}
+
+.add-to-cart-btn {
+    background-color: #f0c14b;
+    border: 1px solid #a88734;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ddb347;
+}
