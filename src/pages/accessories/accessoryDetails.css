@@ -89,17 +89,17 @@
 }
 
 .pagination .MuiPaginationItem-root {
-  color: #000; /* Черен текст */
-  background-color: #fff; /* Бял фон */
-  border: 1px solid #ccc; /* Сива граница */
+  color: #000; 
+  background-color: #fff; 
+  border: 1px solid #ccc; 
 }
 
 .pagination .MuiPaginationItem-root.Mui-selected {
-  background-color: #333; /* Тъмен фон за активния бутон */
-  color: #fff; /* Бял текст */
+  background-color: #333; 
+  color: #fff; 
   border-color: #666;
 }
 
 .pagination .MuiPaginationItem-root:hover {
-  background-color: #ddd; /* Светъл фон при ховър */
+  background-color: #ddd; 
 }
