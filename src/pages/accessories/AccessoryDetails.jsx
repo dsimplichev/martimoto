@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./accessoryDetails.css";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import "./accessoryDetails.css"; 
 
 function AccessoryDetails() {
     const { accessoryName } = useParams();
@@ -26,7 +28,7 @@ function AccessoryDetails() {
 
     const totalPages = Math.ceil(accessories.length / itemsPerPage);
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (_, page) => {
         setCurrentPage(page);
     };
 
@@ -48,10 +50,8 @@ function AccessoryDetails() {
                 {paginatedAccessories.length > 0 ? (
                     paginatedAccessories.map((acc) => (
                         <div key={acc._id} className="accessory-card">
-                            <img src={acc.images[0]} alt={acc.name} />
+                            <img src={acc.images[0]} alt={acc.title} />
                             <h3>{acc.title}</h3>
-                            <h3>{acc.name}</h3>
-                            {/* <p>{acc.description}</p> */}
                             <p className="price">{acc.price} лв.</p>
                         </div>
                     ))
@@ -61,19 +61,16 @@ function AccessoryDetails() {
             </div>
 
             
-            <div className="pagination">
-                <button 
-                    disabled={currentPage === 1} 
-                    onClick={() => handlePageChange(currentPage - 1)}>
-                    Предишна
-                </button>
-                <span>{currentPage} от {totalPages}</span>
-                <button 
-                    disabled={currentPage === totalPages} 
-                    onClick={() => handlePageChange(currentPage + 1)}>
-                    Следваща
-                </button>
-            </div>
+            <Stack spacing={2} alignItems="center" marginTop={2} className="pagination-container">
+                <Pagination 
+                    count={totalPages} 
+                    page={currentPage} 
+                    onChange={handlePageChange} 
+                    variant="outlined"
+                    shape="rounded"
+                    className="pagination"
+                />
+            </Stack>
         </div>
     );
 }

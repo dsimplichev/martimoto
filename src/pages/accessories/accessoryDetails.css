@@ -84,29 +84,22 @@
   color: #999;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.pagination-container {
   margin-top: 20px;
 }
 
-.pagination button {
-  background-color: #0078d4;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  margin: 0 5px;
-  cursor: pointer;
+.pagination .MuiPaginationItem-root {
+  color: #000; /* Черен текст */
+  background-color: #fff; /* Бял фон */
+  border: 1px solid #ccc; /* Сива граница */
 }
 
-.pagination button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.pagination .MuiPaginationItem-root.Mui-selected {
+  background-color: #333; /* Тъмен фон за активния бутон */
+  color: #fff; /* Бял текст */
+  border-color: #666;
 }
 
-.pagination span {
-  font-size: 1.2rem;
-  color: #333;
+.pagination .MuiPaginationItem-root:hover {
+  background-color: #ddd; /* Светъл фон при ховър */
 }
