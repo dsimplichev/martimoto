@@ -1,5 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -49,11 +50,15 @@ function AccessoryDetails() {
             <div className="accessory-list">
                 {paginatedAccessories.length > 0 ? (
                     paginatedAccessories.map((acc) => (
-                        <div key={acc._id} className="accessory-card">
+                       
+                       <div key={acc._id} className="accessory-card">
+                         <Link    to={`/accessories/detail/${acc._id}`} className="accessory-link">
                             <img src={acc.images[0]} alt={acc.title} />
                             <h3>{acc.title}</h3>
                             <p className="price">{acc.price} лв.</p>
+                         </Link>
                         </div>
+                       
                     ))
                 ) : (
                     <p className="no-accessories">Няма налични аксесоари в тази категория.</p>
