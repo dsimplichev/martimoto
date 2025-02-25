@@ -8,12 +8,13 @@ function AccessoryDetailPage() {
     const [accessory, setAccessory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [mainImage, setMainImage] = useState(null); 
 
     useEffect(() => {
-        
         axios.get(`http://localhost:5000/accessories/detail/${id}`)
             .then(response => {
                 setAccessory(response.data);
+                setMainImage(response.data.images[0]); 
                 setLoading(false);
             })
             .catch(error => {
@@ -21,7 +22,7 @@ function AccessoryDetailPage() {
                 setError("Неуспешно зареждане на аксесоара.");
                 setLoading(false);
             });
-    }, [id]); 
+    }, [id]);
 
     if (loading) return <p>Зареждане...</p>;
     if (error) return <p>{error}</p>;
@@ -30,13 +31,18 @@ function AccessoryDetailPage() {
         <div className="accessory-detail-page">
             <h1>{accessory.title}</h1>
             <div className="accessory-detail-container">
-                <div className="main-image">
-                    <img src={accessory.images[0]} alt={accessory.title} />
-                </div>
                 <div className="thumbnail-images">
                     {accessory.images.slice(1, 5).map((image, index) => (
-                        <img key={index} src={image} alt={`thumbnail-${index}`} />
+                        <img 
+                            key={index} 
+                            src={image} 
+                            alt={`thumbnail-${index}`} 
+                            onClick={() => setMainImage(image)} 
+                        />
                     ))}
+                </div>
+                <div className="main-image">
+                    <img src={mainImage} alt={accessory.title} />
                 </div>
                 <div className="accessory-info">
                     <p>{accessory.description}</p>
