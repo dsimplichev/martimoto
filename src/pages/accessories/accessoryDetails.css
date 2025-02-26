@@ -58,7 +58,7 @@
   align-self: flex-start;
   margin-left: 4px;
   margin-top: 10px;
-  
+  text-decoration: none;
 }
 
 .price {
@@ -74,7 +74,7 @@
   margin-top: 0px;
   font-family: "Zilla Slab", Roboto, Arial, sans-serif;
   font-weight: 700;
-  
+  text-decoration: none;
   
 }
 

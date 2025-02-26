@@ -48,7 +48,7 @@ function AccessoryDetailPage() {
                 </div>
             </div>
 
-
+            <div className="main-info">
             <div className="product-images">
                 <img src={accessory.images[0]} alt={accessory.title} className="main-image" />
                 <div className="thumbnail-images">
@@ -80,6 +80,7 @@ function AccessoryDetailPage() {
                     <button className="add-to-cart-btn">Добави в количката</button>
                 </div>
             </div>
+        </div>
         </div>
     );
 }
