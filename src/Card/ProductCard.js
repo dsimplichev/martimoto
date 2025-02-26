@@ -8,8 +8,8 @@ function ProductCard({ img, title }) {
             <img src={img} alt={title} />
             <p>{title}</p>
             <div className="product-buttons">
-                <button className="details-btn">Details</button>
-                <button className="add-to-cart-btn">Add to cart</button>
+                <button className="details-btn1">Разгледай</button>
+                <button className="add-to-cart-btn">Добави в количка</button>
             </div>
         </div>
     );

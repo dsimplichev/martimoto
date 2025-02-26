@@ -62,10 +62,10 @@
     cursor: pointer;
 }
 
-.details-btn {
+.details-btn1 {
     border-radius: 5px;
     border: solid #f39c12;
-    color: black;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     
 }
