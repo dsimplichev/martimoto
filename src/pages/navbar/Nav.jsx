@@ -13,7 +13,8 @@ function Nav({ onLogout }) {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showCartDropdown, setShowCartDropdown] = useState(false); // Добавено състояние за количката
+    const [showCartDropdown, setShowCartDropdown] = useState(false);
+    const [cart, setCart] = useState([]); 
 
     const toggleForms = () => {
         setShowLogin(false);
@@ -22,11 +23,16 @@ function Nav({ onLogout }) {
 
     const toggleDropdown = () => setShowDropdown(prev => !prev);
 
-    const toggleCartDropdown = () => setShowCartDropdown(prev => !prev); // Функция за показване на падащото меню на количката
+    const toggleCartDropdown = () => setShowCartDropdown(prev => !prev); 
 
     const handleLogout = () => {
         logout();
         onLogout?.();
+    };
+
+   
+    const addToCart = (product) => {
+        setCart([...cart, product]);
     };
 
     useEffect(() => {
@@ -94,10 +100,26 @@ function Nav({ onLogout }) {
 
                     <button className="ShoppingCart" onClick={toggleCartDropdown}>
                         <FaShoppingCart />
+                        {cart.length > 0 && (  
+                            <span className="cart-badge">{cart.length}</span>
+                        )}
                     </button>
+
                     {showCartDropdown && (
-                        <div className="cart-dropdown show"> 
-                            <p className='cart-order'>Кошницата ви е празна!</p>
+                        <div className="cart-dropdown show">
+                            {cart.length > 0 ? (  
+                                <ul>
+                                    {cart.map((product, index) => (
+                                        <li key={index}>
+                                            <img src={product.mainImage} alt={product.name} className="cart-item-img" />
+                                            <span>{product.name}</span>
+                                            <span>{product.price} лв</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className='cart-order'>Кошницата ви е празна!</p>
+                            )}
                         </div>
                     )}
                 </div>
