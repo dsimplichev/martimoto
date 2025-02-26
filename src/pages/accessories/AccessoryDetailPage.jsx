@@ -52,16 +52,17 @@ function AccessoryDetailPage() {
             <div className="product-images">
                 <img src={accessory.images[0]} alt={accessory.title} className="main-image" />
                 <div className="thumbnail-images">
-                    {accessory.images.slice(1, 5).map((image, index) => (
-                        <img
-                            key={index}
-                            src={image}
-                            alt={`thumbnail-${index}`}
-                            onClick={() => setMainImage(image)}
-                            className="thumbnail-image"
-                        />
-                    ))}
-                </div>
+    {accessory.images.slice(1, 5).map((image, index) => (
+        <img
+            key={index}
+            src={image}
+            alt={`thumbnail-${index}`}
+            onMouseEnter={() => setMainImage(image)}  
+            onClick={() => setMainImage(image)}  
+            className="thumbnail-image"
+        />
+    ))}
+</div>
             </div>
 
             <div className="product-info">

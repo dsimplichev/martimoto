@@ -11,10 +11,11 @@
 }
 
 .accessory-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-rows: auto;
+  gap: 10px;
   justify-content: center;
-  gap: 20px;
   padding: 20px;
 }
 
@@ -27,7 +28,7 @@
   border-radius: 10px;
   background-color: #f9f9f9;
   max-height: 240;
-  max-width: 150px; 
+  max-width: 150px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
@@ -75,7 +76,6 @@
   font-family: "Zilla Slab", Roboto, Arial, sans-serif;
   font-weight: 700;
   text-decoration: none;
-  
 }
 
 .no-accessories {
@@ -89,17 +89,35 @@
 }
 
 .pagination .MuiPaginationItem-root {
-  color: #000; 
-  background-color: #fff; 
-  border: 1px solid #ccc; 
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 
 .pagination .MuiPaginationItem-root.Mui-selected {
-  background-color: #333; 
-  color: #fff; 
+  background-color: #333;
+  color: #fff;
   border-color: #666;
 }
 
 .pagination .MuiPaginationItem-root:hover {
-  background-color: #ddd; 
+  background-color: #ddd;
+}
+
+@media (max-width: 1200px) {
+  .accessory-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .accessory-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .accessory-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

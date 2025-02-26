@@ -111,10 +111,10 @@ function AddAccessory() {
                         className="upload-button"
                         onChange={(e) => {
                             const selectedFiles = Array.from(e.target.files);
-                            if (selectedFiles.length + images.length <= 4) {
+                            if (selectedFiles.length + images.length <= 5) {
                                 setImages([...images, ...selectedFiles]);
                             } else {
-                                alert('Можете да качите максимум 4 снимки!');
+                                alert('Можете да качите максимум 5 снимки!');
                             }
                         }}
                         multiple
