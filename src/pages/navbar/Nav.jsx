@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
+import { CartContext } from '../../Context/CartContext'; // Импортирай контекста за количката
 import axios from 'axios';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
@@ -10,36 +11,23 @@ import Login from '../login/Login';
 
 function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
-    const [showRegister, setShowRegister] = useState(false);
+    const { cart } = useContext(CartContext); 
     const [showLogin, setShowLogin] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showCartDropdown, setShowCartDropdown] = useState(false);
-    const [cart, setCart] = useState([]); 
-
-    const toggleForms = () => {
-        setShowLogin(false);
-        setShowRegister(true);
-    };
 
     const toggleDropdown = () => setShowDropdown(prev => !prev);
-
-    const toggleCartDropdown = () => setShowCartDropdown(prev => !prev); 
+    const toggleCartDropdown = () => setShowCartDropdown(prev => !prev);
 
     const handleLogout = () => {
         logout();
         onLogout?.();
     };
 
-   
-    const addToCart = (product) => {
-        setCart([...cart, product]);
-    };
-
     useEffect(() => {
         if (isLoggedIn)
             axios.get('http://localhost:5000/user/user', { withCredentials: true })
                 .then(response => {
-                    console.log(response); 
                     setUser(response.data.user);
                 })
                 .catch(error => {
@@ -68,7 +56,7 @@ function Nav({ onLogout }) {
                                 <p className="greeting">Здравейте</p>
                                 <p className="username">{user?.username}</p>
                                 {showDropdown && (
-                                    <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
+                                    <div className="dropdown-menu show">
                                         <ul>
                                             <li><Link to="/profile">Моят профил</Link></li>
                                             <li><Link to="/order-history">История на поръчките</Link></li>
@@ -91,13 +79,12 @@ function Nav({ onLogout }) {
                             </button>
                         </>
                     ) : (
-                        <>
-                            <button className='user' onClick={() => setShowLogin(true)}>
-                                <FaUserCircle />
-                            </button>
-                        </>
+                        <button className='user' onClick={() => setShowLogin(true)}>
+                            <FaUserCircle />
+                        </button>
                     )}
 
+                    {/* Бутон за количката */}
                     <button className="ShoppingCart" onClick={toggleCartDropdown}>
                         <FaShoppingCart />
                         {cart.length > 0 && (  
@@ -107,7 +94,7 @@ function Nav({ onLogout }) {
 
                     {showCartDropdown && (
                         <div className="cart-dropdown show">
-                            {cart.length > 0 ? (  
+                            {cart.length > 0 ? (
                                 <ul>
                                     {cart.map((product, index) => (
                                         <li key={index}>
@@ -131,8 +118,7 @@ function Nav({ onLogout }) {
                 </p>
             </div>
 
-            {showRegister && <Register onClose={() => setShowRegister(false)} />}
-            {showLogin && <Login onClose={() => setShowLogin(false)} onCreateAccountClick={toggleForms} />}
+            {showLogin && <Login onClose={() => setShowLogin(false)} />}
         </div>
     );
 }

@@ -50,6 +50,7 @@
   padding: 20px;
   background-color: #f4f9fb;
   margin-left: 100px;
+  padding-top: 70px;
 }
 
 .product-images {
@@ -61,8 +62,8 @@
 }
 
 .main-image {
-  width: 100%;
-  height: auto;
+  width: 476px; 
+  height: 424px;
   border-radius: 10px;
 }
 
