@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
-import { CartContext } from '../../Context/CartContext'; // Импортирай контекста за количката
-import axios from 'axios';
+import { CartContext } from '../../Context/CartContext'; 
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import './nav.css';
 import logo from '../../assets/logo.png';
 import Register from '../register/Register';
 import Login from '../login/Login';
+import axios from 'axios';
 
 function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
@@ -34,6 +34,9 @@ function Nav({ onLogout }) {
                     console.log('Грешка при заявка към /user:', error);
                 });
     }, [setUser, isLoggedIn]);
+
+    
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
     return (
         <div className="navbar">
@@ -84,11 +87,11 @@ function Nav({ onLogout }) {
                         </button>
                     )}
 
-                    {/* Бутон за количката */}
+                    
                     <button className="ShoppingCart" onClick={toggleCartDropdown}>
                         <FaShoppingCart />
-                        {cart.length > 0 && (  
-                            <span className="cart-badge">{cart.length}</span>
+                        {totalItems > 0 && (  
+                            <span className="cart-badge">{totalItems}</span>
                         )}
                     </button>
 
@@ -103,6 +106,9 @@ function Nav({ onLogout }) {
                                             <span>{product.price} лв</span>
                                         </li>
                                     ))}
+                                    <li>
+                                        <Link to="/cart" className="view-cart">Прегледай количката</Link>
+                                    </li>
                                 </ul>
                             ) : (
                                 <p className='cart-order'>Кошницата ви е празна!</p>

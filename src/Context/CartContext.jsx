@@ -1,33 +1,53 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { AuthContext } from './AuthContext'; 
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
+  const { user } = useContext(AuthContext); 
+  const [cart, setCart] = useState([]);
+  
+  
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    if (user) {
+      axios.get(`/api/cart/${user.id}`)
+        .then(response => {
+          setCart(response.data);
+        })
+        .catch(error => {
+          console.error("Грешка при зареждане на количката:", error);
+        });
+    }
+  }, [user]); 
 
+  
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find(item => item.id === product.id);
+    if (user) {
+      axios.post(`/api/cart/${user.id}`, { product })
+        .then(response => {
+          setCart(response.data); 
+        })
+        .catch(error => {
+          console.error("Грешка при добавяне на продукт в количката:", error);
+        });
+    } else {
       
-      if (existingProduct) {
-        return prevCart.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
+      console.log("Моля, влезте в акаунта си!");
+    }
   };
 
-  const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter(item => item.id !== id));
+  
+  const removeFromCart = (productId) => {
+    if (user) {
+      axios.delete(`/api/cart/${user.id}/product/${productId}`)
+        .then(response => {
+          setCart(response.data); 
+        })
+        .catch(error => {
+          console.error("Грешка при премахване на продукт от количката:", error);
+        });
+    }
   };
 
   return (

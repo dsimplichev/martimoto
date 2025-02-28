@@ -16,6 +16,7 @@ import Register from "./pages/register/Register";
 import AddAccessory from "./pages/addAccessory/AddAccessory";
 import AddPart from "./pages/addPart/AddPart";
 import AccessoryDetailPage from "./pages/accessories/AccessoryDetailPage";
+import Cart from "./pages/Cart/Cart";
 
 
 import React, { useState, useContext } from 'react';
@@ -45,6 +46,7 @@ function App() {
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
         <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
 
       <Brand />

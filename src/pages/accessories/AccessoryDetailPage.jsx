@@ -9,11 +9,12 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 function AccessoryDetailPage() {
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext); 
   const [accessory, setAccessory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mainImage, setMainImage] = useState(null);
+  const [quantity, setQuantity] = useState(1); 
 
   useEffect(() => {
     axios.get(`http://localhost:5000/accessories/detail/${id}`)
@@ -31,6 +32,31 @@ function AccessoryDetailPage() {
 
   if (loading) return <p>Зареждане...</p>;
   if (error) return <p>{error}</p>;
+
+  const handleAddToCart = async (productId, quantity) => {
+    const userId = "ID_на_потребителя";  
+  
+    try {
+      const response = await axios.post(`http://localhost:5000/cart/${userId}`, { 
+        productId, 
+        quantity 
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  
+        },
+      });
+  
+      if (response.status === 200) {
+        alert('Продуктът беше успешно добавен в количката!');
+        console.log(response.data);  
+      } else {
+        alert('Грешка при добавяне в количката!');
+      }
+    } catch (error) {
+      console.error('Грешка при добавяне в количката:', error);
+      alert('Неуспешно добавяне в количката.');
+    }
+  };
 
   return (
     <div className="accessory-detail-page">
@@ -74,14 +100,18 @@ function AccessoryDetailPage() {
           </div>
 
           <div className="add-to-cart">
-            <select className="quantity-selector">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+            <select 
+              className="quantity-selector"
+              value={quantity} 
+              onChange={(e) => setQuantity(e.target.value)} 
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
             </select>
             <button
               className="add-to-cart-btn"
-              onClick={() => addToCart({ id: accessory.id, title: accessory.title, price: accessory.price })}
+              onClick={handleAddToCart} 
             >
               Добави в количката
             </button>
