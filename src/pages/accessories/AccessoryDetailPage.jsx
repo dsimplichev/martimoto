@@ -9,12 +9,12 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 function AccessoryDetailPage() {
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext); 
+  const { addToCart } = useContext(CartContext);
   const [accessory, setAccessory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mainImage, setMainImage] = useState(null);
-  const [quantity, setQuantity] = useState(1); 
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     axios.get(`http://localhost:5000/accessories/detail/${id}`)
@@ -33,28 +33,43 @@ function AccessoryDetailPage() {
   if (loading) return <p>Зареждане...</p>;
   if (error) return <p>{error}</p>;
 
-  const handleAddToCart = async (productId, quantity) => {
-    const userId = "ID_на_потребителя";  
-  
-    try {
-      const response = await axios.post(`http://localhost:5000/cart/${userId}`, { 
-        productId, 
-        quantity 
-      }, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,  
-        },
-      });
-  
-      if (response.status === 200) {
-        alert('Продуктът беше успешно добавен в количката!');
-        console.log(response.data);  
-      } else {
-        alert('Грешка при добавяне в количката!');
+  const handleAddToCart = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    const productId = accessory._id;
+
+    if (userId && token) {
+      
+      try {
+        const response = await axios.post(`http://localhost:5000/cart/${userId}`, {
+          productId,
+          quantity: Number(quantity),
+        }, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 200) {
+          alert('Продуктът беше успешно добавен в количката!');
+        }
+      } catch (error) {
+        console.error('Грешка при добавяне в количката:', error);
+        alert('Неуспешно добавяне в количката.');
       }
-    } catch (error) {
-      console.error('Грешка при добавяне в количката:', error);
-      alert('Неуспешно добавяне в количката.');
+    } else {
+      
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.productId === productId);
+
+      if (existingItem) {
+        existingItem.quantity += Number(quantity);
+      } else {
+        cart.push({ productId, title: accessory.title, price: accessory.price, quantity: Number(quantity) });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Продуктът беше добавен в количката! (Гост)');
     }
   };
 
@@ -84,7 +99,7 @@ function AccessoryDetailPage() {
                 key={index}
                 src={image}
                 alt={`thumbnail-${index}`}
-                onClick={() => setMainImage(image)} 
+                onClick={() => setMainImage(image)}
                 className="thumbnail-image"
               />
             ))}
@@ -100,10 +115,10 @@ function AccessoryDetailPage() {
           </div>
 
           <div className="add-to-cart">
-            <select 
+            <select
               className="quantity-selector"
-              value={quantity} 
-              onChange={(e) => setQuantity(e.target.value)} 
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -111,7 +126,7 @@ function AccessoryDetailPage() {
             </select>
             <button
               className="add-to-cart-btn"
-              onClick={handleAddToCart} 
+              onClick={handleAddToCart}
             >
               Добави в количката
             </button>

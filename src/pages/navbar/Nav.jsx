@@ -89,10 +89,12 @@ function Nav({ onLogout }) {
 
                     
                     <button className="ShoppingCart" onClick={toggleCartDropdown}>
+                        <Link to='cart'>
                         <FaShoppingCart />
                         {totalItems > 0 && (  
                             <span className="cart-badge">{totalItems}</span>
                         )}
+                        </Link>
                     </button>
 
                     {showCartDropdown && (

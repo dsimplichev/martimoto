@@ -1,58 +1,42 @@
-import { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { AuthContext } from './AuthContext'; 
+import { createContext, useState, useEffect } from "react";
+import axios from "axios";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const { user } = useContext(AuthContext); 
-  const [cart, setCart] = useState([]);
-  
-  
-  useEffect(() => {
-    if (user) {
-      axios.get(`/api/cart/${user.id}`)
-        .then(response => {
-          setCart(response.data);
-        })
-        .catch(error => {
-          console.error("Грешка при зареждане на количката:", error);
-        });
-    }
-  }, [user]); 
+    const [cart, setCart] = useState([]);
 
-  
-  const addToCart = (product) => {
-    if (user) {
-      axios.post(`/api/cart/${user.id}`, { product })
-        .then(response => {
-          setCart(response.data); 
-        })
-        .catch(error => {
-          console.error("Грешка при добавяне на продукт в количката:", error);
-        });
-    } else {
-      
-      console.log("Моля, влезте в акаунта си!");
-    }
-  };
+    useEffect(() => {
+        axios.get("http://localhost:5000/cart", { withCredentials: true })
+            .then(response => {
+                setCart(response.data.items || []);
+            })
+            .catch(error => console.error("Error fetching cart:", error));
+    }, []);
 
-  
-  const removeFromCart = (productId) => {
-    if (user) {
-      axios.delete(`/api/cart/${user.id}/product/${productId}`)
-        .then(response => {
-          setCart(response.data); 
-        })
-        .catch(error => {
-          console.error("Грешка при премахване на продукт от количката:", error);
-        });
-    }
-  };
+    const addToCart = async (product) => {
+        try {
+            const response = await axios.post(`http://localhost:5000/cart`, product, { withCredentials: true });
 
-  return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
-      {children}
-    </CartContext.Provider>
-  );
+            if (response.status === 200) {
+                setCart(prevCart => [...prevCart, product]); 
+            }
+        } catch (error) {
+            console.error("Грешка при добавяне в количката:", error);
+        }
+    };
+
+    const removeFromCart = (productId) => {
+        axios.delete(`http://localhost:5000/cart/${productId}`, { withCredentials: true })
+            .then(() => {
+                setCart(prevCart => prevCart.filter(item => item.id !== productId));
+            })
+            .catch(error => console.error("Error removing item:", error));
+    };
+
+    return (
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+            {children}
+        </CartContext.Provider>
+    );
 };

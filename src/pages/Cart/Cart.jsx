@@ -1,47 +1,27 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext } from "react";
+import { CartContext } from "../../Context/CartContext";
 
 const Cart = () => {
-    const [cart, setCart] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
-
+    const { cart, removeFromCart } = useContext(CartContext);
     
-    useEffect(() => {
-        axios.get('http://localhost:5000/cart', { withCredentials: true })
-            .then(response => {
-                setCart(response.data.items || []); 
-            })
-            .catch(error => console.error('Error fetching cart:', error));
-    }, []);
-
-    
-    useEffect(() => {
-        const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-        setTotalPrice(total);
-    }, [cart]);
-
-    
-    const removeFromCart = (productId) => {
-        axios.delete(`http://localhost:5000/cart/${productId}`, { withCredentials: true })
-            .then(() => {
-                setCart(cart.filter(item => item.id !== productId)); 
-            })
-            .catch(error => console.error('Error removing item:', error));
-    };
+    const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
         <div className="cart-container">
+            <div className="section-cart">
             <h2>Вашата количка</h2>
+            </div>
+            <div className="divider-cart"></div>
             {cart.length > 0 ? (
                 <>
                     <ul className="cart-list">
                         {cart.map(item => (
-                            <li key={item.id} className="cart-item">
-                                <img src={item.mainImage} alt={item.name} className="cart-img" />
-                                <span>{item.name}</span>
+                            <li key={item.productId} className="cart-item">
+                                <img src={item.mainImage} alt={item.title} className="cart-img" />
+                                <span>{item.title}</span>
                                 <span>{item.price} лв</span>
-                                <span>Количеството: {item.quantity}</span>
-                                <button onClick={() => removeFromCart(item.id)}>Премахни</button>
+                                <span>Количество: {item.quantity}</span>
+                                <button onClick={() => removeFromCart(item.productId)}>Премахни</button>
                             </li>
                         ))}
                     </ul>
