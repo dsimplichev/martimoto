@@ -14,11 +14,7 @@ function Nav({ onLogout }) {
     const { cart } = useContext(CartContext); 
     const [showLogin, setShowLogin] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showCartDropdown, setShowCartDropdown] = useState(false);
-
-    const toggleDropdown = () => setShowDropdown(prev => !prev);
-    const toggleCartDropdown = () => setShowCartDropdown(prev => !prev);
-
+    
     const handleLogout = () => {
         logout();
         onLogout?.();
@@ -35,7 +31,6 @@ function Nav({ onLogout }) {
                 });
     }, [setUser, isLoggedIn]);
 
-    
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
     return (
@@ -53,7 +48,7 @@ function Nav({ onLogout }) {
                     {isLoggedIn ? (
                         <>
                             <div className="profile-section">
-                                <span className="profile-header" onClick={toggleDropdown}>
+                                <span className="profile-header" onClick={() => setShowDropdown(prev => !prev)}>
                                     Моят профил <FaChevronDown className="chevron-down" />
                                 </span>
                                 <p className="greeting">Здравейте</p>
@@ -86,37 +81,17 @@ function Nav({ onLogout }) {
                             <FaUserCircle />
                         </button>
                     )}
-
                     
-                    <button className="ShoppingCart" onClick={toggleCartDropdown}>
-                        <Link to='cart'>
-                        <FaShoppingCart />
-                        {totalItems > 0 && (  
-                            <span className="cart-badge">{totalItems}</span>
-                        )}
+                    
+                    <button className="ShoppingCart">
+                        <Link to='/cart'>
+                            <FaShoppingCart />
+                            {totalItems > 0 && (  
+                                <span className="cart-badge">{totalItems}</span>
+                            )}
                         </Link>
                     </button>
 
-                    {showCartDropdown && (
-                        <div className="cart-dropdown show">
-                            {cart.length > 0 ? (
-                                <ul>
-                                    {cart.map((product, index) => (
-                                        <li key={index}>
-                                            <img src={product.mainImage} alt={product.name} className="cart-item-img" />
-                                            <span>{product.name}</span>
-                                            <span>{product.price} лв</span>
-                                        </li>
-                                    ))}
-                                    <li>
-                                        <Link to="/cart" className="view-cart">Прегледай количката</Link>
-                                    </li>
-                                </ul>
-                            ) : (
-                                <p className='cart-order'>Кошницата ви е празна!</p>
-                            )}
-                        </div>
-                    )}
                 </div>
             </div>
 
