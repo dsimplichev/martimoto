@@ -12,9 +12,12 @@
 
 .btn {
     display: flex;
-    gap: 10px; 
+    gap: 10px;
     margin-left: auto;
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
 }
+
 
 .navbar-content {
     display: flex;
@@ -64,8 +67,10 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s, transform 0.3s;
+    min-width: 40px; 
+    height: 40px; 
+    width: 40px; 
 }
-
 
 .user:hover, .ShoppingCart:hover, .FaHeart:hover {
     background-color: #f39c12;
@@ -127,6 +132,47 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+.dropdown-menu {
+    display: none; /* Скрито по подразбиране */
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: #fff;  /* Бял фон */
+    border: 1px solid #ddd; /* Сив кант */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Сянка */
+    padding: 10px 0;
+    width: 200px;
+    z-index: 10;
+}
+
+.dropdown-menu.show {
+    display: block; /* Показване при клик */
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #333;  /* Цвят на текста */
+}
+
+.dropdown-menu li:hover {
+    background-color: #f4f4f4; /* Леко осветление при ховър */
+}
+
+
+
+.logout-btn:hover {
+    background-color: #f4f4f4;
+}
+
 
 @keyframes scroll {
     from {
