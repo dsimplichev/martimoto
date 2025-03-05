@@ -16,15 +16,17 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = async (product) => {
         try {
-            const response = await axios.post(`http://localhost:5000/cart`, product, { withCredentials: true });
-
-            if (response.status === 200) {
-                setCart(prevCart => [...prevCart, product]); 
-            }
+          const response = await axios.post("http://localhost:5000/cart", product, {
+            withCredentials: true,
+          });
+      
+          if (response.status === 200) {
+            setCart((prevCart) => [...prevCart, product]); 
+          }
         } catch (error) {
-            console.error("Грешка при добавяне в количката:", error);
+          console.error("Грешка при добавяне в количката:", error);
         }
-    };
+      };
 
     const removeFromCart = (productId) => {
         axios.delete(`http://localhost:5000/cart/${productId}`, { withCredentials: true })

@@ -1,42 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./cart.css";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "BT Moto Intake Flapper Removal Kit",
-      sku: "10360831",
-      price: 100.0,
-      image: "flapper-kit.jpg",
-      status: "In Stock",
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Kriega R20 Backpack",
-      sku: "B28431",
-      price: 179.99,
-      image: "kriega-r20.jpg",
-      status: "Out of Stock",
-      quantity: 1,
-    },
-    {
-      id: 3,
-      name: "Rizoma Cut Edge Mirrors",
-      sku: "10315482",
-      price: 180.95,
-      image: "rizoma-mirror.jpg",
-      status: "In Stock",
-      quantity: 1,
-    },
-  ]);
-
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+  const [cartItems, setCartItems] = useState([]);
 
   
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart"));
+    if (savedCart) {
+      setCartItems(savedCart);
+    }
+  }, []);
+
+  const removeItem = (id) => {
+    const updatedCart = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));  
+  };
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -54,18 +34,18 @@ const Cart = () => {
           <div className="cart-item" key={item.id}>
             <img src={item.image} alt={item.name} className="item-image" />
             <div className="item-details">
-              <h3>{item.name}</h3>
+              <h3>{item.title}</h3>
               <button onClick={() => removeItem(item.id)} className="remove-btn">
                 Премахни
               </button>
             </div>
-            <p className="price">${item.price.toFixed(2)}</p>
+            <p className="price">{item.price.toFixed(2)} лв.</p>
           </div>
         ))}
       </div>
       <div className="order-summary">
         <p>
-          <strong>Общо:</strong> {totalPrice.toFixed(2)}
+          <strong>Общо:</strong> {totalPrice.toFixed(2)} лв.
         </p>
       </div>
       <button className="checkout-btn">Поръчай</button>

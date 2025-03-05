@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { CartContext } from '../../Context/CartContext';
+import { CartContext } from '../../Context/CartContext'; // Импортиране на CartContext
 import './accessoryDetailPage.css';
 import { FaTruckFast } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
@@ -9,7 +9,7 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 function AccessoryDetailPage() {
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext); // Извикване на addToCart от контекста
   const [accessory, setAccessory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,36 +36,27 @@ function AccessoryDetailPage() {
   const handleAddToCart = async () => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-    const productId = accessory._id;
+    const product = {
+      id: accessory._id,
+      title: accessory.title,
+      price: accessory.price,
+      quantity: Number(quantity),
+      image: accessory.images[0], 
+    };
 
     if (userId && token) {
       
-      try {
-        const response = await axios.post(`http://localhost:5000/cart/${userId}`, {
-          productId,
-          quantity: Number(quantity),
-        }, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        if (response.status === 200) {
-          alert('Продуктът беше успешно добавен в количката!');
-        }
-      } catch (error) {
-        console.error('Грешка при добавяне в количката:', error);
-        alert('Неуспешно добавяне в количката.');
-      }
+      addToCart(product); 
+      alert('Продуктът беше успешно добавен в количката!');
     } else {
       
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const existingItem = cart.find(item => item.productId === productId);
+      const existingItem = cart.find(item => item.id === product.id);
 
       if (existingItem) {
         existingItem.quantity += Number(quantity);
       } else {
-        cart.push({ productId, title: accessory.title, price: accessory.price, quantity: Number(quantity) });
+        cart.push(product);
       }
 
       localStorage.setItem('cart', JSON.stringify(cart));
