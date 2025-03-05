@@ -36,13 +36,7 @@ const Cart = () => {
     setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
-  const updateQuantity = (id, quantity) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
-      )
-    );
-  };
+  
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -52,7 +46,7 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <div className="header-section-cart">
-        <h1>MY CART</h1>
+        <h1>Моята количка</h1>
       </div>
       <div className="divider-cart"></div>
       <div className="cart-items">
@@ -62,7 +56,7 @@ const Cart = () => {
             <div className="item-details">
               <h3>{item.name}</h3>
               <button onClick={() => removeItem(item.id)} className="remove-btn">
-                Remove
+                Премахни
               </button>
             </div>
             <p className="price">${item.price.toFixed(2)}</p>
@@ -71,10 +65,10 @@ const Cart = () => {
       </div>
       <div className="order-summary">
         <p>
-          <strong>Estimated Total:</strong> ${totalPrice.toFixed(2)}
+          <strong>Общо:</strong> {totalPrice.toFixed(2)}
         </p>
       </div>
-      <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+      <button className="checkout-btn">Поръчай</button>
     </div>
   );
 };

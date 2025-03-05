@@ -10,20 +10,24 @@
     align-items: center;
     margin-bottom: 5px;
     padding-top: 80px;
-    margin-right: 200px;
-    margin-left: 180px;
+    width: 97%;
+    margin-left: auto;
 }
 
 .divider-cart {
     height: 2px;
     background-color: #f39c12;
     margin-bottom: 20px;
+    width: 97%;
+    margin-left: auto;
 }
 
 .cart-items {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 97%;
+    margin-left: auto;
 }
 
 .cart-item {
