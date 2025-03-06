@@ -1,0 +1,51 @@
+
+.order-container {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button.selected {
+  background-color: #28a745;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.confirm-btn {
+  background-color: #28a745;
+  width: 100%;
+}
+
+.delivery-options button {
+  margin-right: 10px;
+}
+
+.delivery-options button.selected {
+  background-color: #28a745;
+}

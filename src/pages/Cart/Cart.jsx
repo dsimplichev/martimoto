@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";  
 import "./cart.css";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();  
 
-  
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
     if (savedCart) {
@@ -22,6 +23,11 @@ const Cart = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  
+  const handleCheckout = () => {
+    navigate("/order");  
+  };
 
   return (
     <div className="cart-container">
@@ -48,7 +54,9 @@ const Cart = () => {
           <strong>Общо:</strong> {totalPrice.toFixed(2)} лв.
         </p>
       </div>
-      <button className="checkout-btn">Поръчай</button>
+      <button onClick={handleCheckout} className="checkout-btn">
+        Поръчай
+      </button>
     </div>
   );
 };

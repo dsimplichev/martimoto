@@ -17,11 +17,10 @@ import AddAccessory from "./pages/addAccessory/AddAccessory";
 import AddPart from "./pages/addPart/AddPart";
 import AccessoryDetailPage from "./pages/accessories/AccessoryDetailPage";
 import Cart from "./pages/Cart/Cart";
-
+import Order from "./pages/Order/Order"; 
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
-
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -47,6 +46,7 @@ function App() {
         <Route path="/add-part" element={<AddPart />} />
         <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<Order />} /> 
       </Routes>
 
       <Brand />
