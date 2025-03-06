@@ -1,4 +1,3 @@
-
 .order-container {
   padding: 20px;
 }
@@ -12,12 +11,22 @@ label {
   font-weight: bold;
 }
 
+.input-group {
+  display: flex;
+  gap: 10px; 
+}
+
 input,
 textarea {
-  width: 100%;
   padding: 8px;
   margin-top: 5px;
   box-sizing: border-box;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"] {
+  width: calc(50% - 5px); /* Разделяме полетата на половина */
 }
 
 button {

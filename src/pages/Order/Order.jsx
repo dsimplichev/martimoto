@@ -32,11 +32,10 @@ const Order = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Име *</label>
-          <input type="text" required />
-        </div>
-        <div className="form-group">
-          <label>Фамилия *</label>
-          <input type="text" required />
+          <div className="input-group">
+            <input type="text" placeholder="Име" required />
+            <input type="text" placeholder="Фамилия" required />
+          </div>
         </div>
         <div className="form-group">
           <label>Имейл *</label>
