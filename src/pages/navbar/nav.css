@@ -10,14 +10,6 @@
     z-index: 1000;
 }
 
-.btn {
-    display: flex;
-    gap: 10px;
-    margin-left: auto;
-    flex-wrap: wrap; 
-    justify-content: flex-start; 
-}
-
 
 .navbar-content {
     display: flex;
@@ -26,6 +18,7 @@
     width: 100%;
     margin-right: 170px;
 }
+
 
 .logo {
     height: 90px; 
@@ -44,10 +37,10 @@
 }
 
 .nav-links li a {
-    text-decoration: none; 
-    color: wheat; 
+    text-decoration: none;
+    color: wheat;
     font-size: 16px;
-    transition: color 0.3s; 
+    transition: color 0.3s;
 }
 
 .nav-links li a:hover {
@@ -55,7 +48,14 @@
 }
 
 
-.user, .ShoppingCart, .FaHeart {
+.btn {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; 
+}
+
+
+.user, .ShoppingCart {
     background-color: black;
     color: white;
     border-radius: 50%;
@@ -67,23 +67,38 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s, transform 0.3s;
-    min-width: 40px; 
-    height: 40px; 
-    width: 40px; 
 }
 
-.user:hover, .ShoppingCart:hover, .FaHeart:hover {
+.user:hover, .ShoppingCart:hover {
     background-color: #f39c12;
     transform: scale(1.1);
 }
 
 
-.FaHeart a, .ShoppingCart a, .user a {
-    color: inherit; 
-    text-decoration: none; 
+
+.cart-dropdown {
+    position: absolute;
+    top: 100px;
+    right: 90px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    display: none; 
+    
 }
 
+.cart-order {
+    color: black;
+    text-align: center;
+    font-size: 10;
+}
 
+.cart-dropdown.show {
+    display: block; 
+    
+}
 
 .cart-item {
     display: flex;
@@ -114,71 +129,155 @@
     color: darkred;
 }
 
-/* Информация в info-bar */
+
+/* CSS за инфо бара */
 .info-bar {
-    background-color: black;
+    background-color: black; 
     color: wheat;
     padding: 10px 0;
     text-align: center;
-    overflow: hidden;
+    overflow: hidden; 
     position: relative;
     width: 50%;
 }
 
 .info-text {
     display: flex;
-    white-space: nowrap;
-    animation: scroll 10s linear infinite;
+    white-space: nowrap; 
+    animation: scroll 10s linear infinite; 
     font-size: 16px;
     font-weight: bold;
 }
 
+.FaHeart{
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid #f39c12;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.FaHeart a {
+    color: inherit; 
+    text-decoration: none; 
+}
+
+.FaHeart:hover{
+    background-color: #f39c12;
+    transform: scale(1.1);
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profile-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+
+.greeting,
+.username {
+    margin: 0;
+    font-size: 10px;
+    color: white;
+}
+
+.chevron-down {
+    font-size: 12px;
+    margin-left: 3px;
+   
+}
+
+.profile-section {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #fdfdfd;
+}
+
 .dropdown-menu {
-    display: none; /* Скрито по подразбиране */
     position: absolute;
-    top: 30px;
-    left: 0;
-    background-color: #fff;  /* Бял фон */
-    border: 1px solid #ddd; /* Сив кант */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Сянка */
-    padding: 10px 0;
-    width: 200px;
-    z-index: 10;
+    top: 100%; 
+    left: auto; 
+    right: 0; 
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    list-style: none;
+    width: 200px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    z-index: 1000;
+    margin-top: 5px;
+    
 }
 
-.dropdown-menu.show {
-    display: block; /* Показване при клик */
-}
-
-.dropdown-menu ul {
+.dropdown-menu li {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.dropdown-menu li {
+.dropdown-menu li a {
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+    display: block;
     padding: 10px;
-    padding-left: 20px;
-    font-size: 14px;
-    color: #333;  /* Цвят на текста */
+    text-align: left;
 }
 
-.dropdown-menu li:hover {
-    background-color: #f4f4f4; /* Леко осветление при ховър */
+.dropdown-menu li:first-child a {
+    
+    color: black;
+    
 }
 
-
-
+.dropdown-menu li:hover a,
 .logout-btn:hover {
-    background-color: #f4f4f4;
+    background-color: orange;
+    color: white;
 }
 
+.dropdown-menu ul {
+    padding: 0;
+    
+}
+
+
+
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    color: black;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: left;
+    padding: 10px;
+    width: 100%;
+}
 
 @keyframes scroll {
     from {
-        transform: translateX(80%);
+        transform: translateX(80%); 
     }
     to {
-        transform: translateX(-80%);
+        transform: translateX(-80%); 
     }
 }
