@@ -22,7 +22,6 @@ const Order = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // обработка на данни от формата
     console.log("Форма изпратена");
   };
 
@@ -31,22 +30,24 @@ const Order = () => {
       <h1>Вашите данни</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Име *</label>
           <div className="input-group">
-            <input type="text" placeholder="Име" required />
-            <input type="text" placeholder="Фамилия" required />
+            <label><span className="red-star">*</span>Име</label>
+            <input type="text"  required />
+            <label><span className="red-star">*</span>Фамилия</label>
+            <input type="text"  required />
           </div>
         </div>
+
         <div className="form-group">
-          <label>Имейл *</label>
-          <input type="email" required />
-        </div>
-        <div className="form-group">
-          <label>Телефонен номер *</label>
-          <input type="tel" required />
+          <div className="input-group">
+            <label><span className="red-star">*</span>Имейл</label>
+            <input type="email" required />
+            <label><span className="red-star">*</span>Телефонен номер</label>
+            <input type="tel" required />
+          </div>
         </div>
 
-        <p>Полетата отбелязани със "*" са задължителни</p>
+        <p>Полетата отбелязани със"<span className="red-star">*</span>"са задължителни</p>
         <hr />
 
         <h2>Начин на доставка</h2>
@@ -70,17 +71,12 @@ const Order = () => {
         {deliveryMethod && (
           <>
             <div className="form-group">
-              <label>Въведи вашият град *</label>
+              <label><span className="red-star">*</span>Въведи вашият град</label>
               <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label>Изберете офис *</label>
-              <input
-                type="text"
-                value={office}
-                onChange={(e) => setOffice(e.target.value)}
-                required
-              />
+              <label><span className="red-star">*</span>Изберете офис</label>
+              <input type="text" value={office} onChange={(e) => setOffice(e.target.value)} required />
             </div>
           </>
         )}
@@ -95,40 +91,20 @@ const Order = () => {
         {isInvoice && (
           <>
             <div className="form-group">
-              <label>Име на фирмата *</label>
-              <input
-                type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                required
-              />
+              <label><span className="red-star">*</span>Име на фирмата</label>
+              <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label>Мол *</label>
-              <input
-                type="text"
-                value={companyReg}
-                onChange={(e) => setCompanyReg(e.target.value)}
-                required
-              />
+              <label><span className="red-star">*</span>Мол</label>
+              <input type="text" value={companyReg} onChange={(e) => setCompanyReg(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label>ЕИК *</label>
-              <input
-                type="text"
-                value={companyEIK}
-                onChange={(e) => setCompanyEIK(e.target.value)}
-                required
-              />
+              <label><span className="red-star">*</span>ЕИК</label>
+              <input type="text" value={companyEIK} onChange={(e) => setCompanyEIK(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label>Адрес на фирмата *</label>
-              <input
-                type="text"
-                value={companyAddress}
-                onChange={(e) => setCompanyAddress(e.target.value)}
-                required
-              />
+              <label><span className="red-star">*</span>Адрес на фирмата</label>
+              <input type="text" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} required />
             </div>
           </>
         )}
