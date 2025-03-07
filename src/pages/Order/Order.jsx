@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./order.css";
+import { RiIdCardLine } from "react-icons/ri";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaRegCreditCard } from "react-icons/fa";
 
 const Order = () => {
   const [isInvoice, setIsInvoice] = useState(false);
@@ -27,7 +30,7 @@ const Order = () => {
 
   return (
     <div className="order-container">
-      <h1>Вашите данни</h1>
+      <h1 classname='order-title'><RiIdCardLine />Вашите данни</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <div className="input-group">
@@ -50,7 +53,7 @@ const Order = () => {
         <p>Полетата отбелязани със"<span className="red-star">*</span>"са задължителни</p>
         <hr />
 
-        <h2>Начин на доставка</h2>
+        <h2 classname='order-title'><TbTruckDelivery />Начин на доставка</h2>
         <div className="delivery-options">
           <button
             type="button"
@@ -118,7 +121,7 @@ const Order = () => {
 
         <hr />
 
-        <h2>Начин на плащане</h2>
+        <h2 classname='order-title'><FaRegCreditCard />Начин на плащане</h2>
         <p>Пратката се заплаща на куриерската фирма, след преглед и тест.</p>
 
         <button type="submit" className="confirm-btn">
