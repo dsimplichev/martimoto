@@ -35,9 +35,9 @@ const Order = () => {
         <div className="form-group">
           <div className="input-group">
             <label><span className="red-star">*</span>Име</label>
-            <input type="text"  required />
+            <input type="text" required />
             <label><span className="red-star">*</span>Фамилия</label>
-            <input type="text"  required />
+            <input type="text" required />
           </div>
         </div>
 
@@ -84,11 +84,9 @@ const Order = () => {
           </>
         )}
 
-        <div className="form-group">
-          <label>
-            <input type="checkbox" checked={isInvoice} onChange={handleInvoiceChange} />
-            Желая фактура
-          </label>
+        <div className="invoice-checkbox">
+          <input type="checkbox" id="invoice" checked={isInvoice} onChange={handleInvoiceChange} />
+          <label htmlFor="invoice">Желая фактура</label>
         </div>
 
         {isInvoice && (
