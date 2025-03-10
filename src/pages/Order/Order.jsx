@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -14,6 +15,29 @@ const Order = () => {
   const [companyEIK, setCompanyEIK] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const [comment, setComment] = useState("");
+  const [offices, setOffices] = useState([]);
+
+  
+  useEffect(() => {
+    if (city.length > 2) {
+      axios
+        .get('https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json')
+        .then((response) => {
+          console.log("Отговор от API-то:", response.data);  
+          const filteredOffices = response.data.offices.filter((office) =>
+            office.city.name.toLowerCase().includes(city.toLowerCase())
+          );
+          console.log("Филтрирани офиси:", filteredOffices);  
+          setOffices(filteredOffices);
+        })
+        .catch((error) => {
+          console.error('Грешка при зареждане на офисите:', error);
+          setOffices([]);
+        });
+    } else {
+      setOffices([]);
+    }
+  }, [city]); 
 
   const handleDeliveryChange = (method) => {
     setDeliveryMethod(method);
@@ -26,11 +50,12 @@ const Order = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Форма изпратена");
+    
   };
 
   return (
     <div className="order-container">
-      <h1 classname='order-title'><RiIdCardLine />Вашите данни</h1>
+      <h1 className="order-title"><RiIdCardLine />Вашите данни</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <div className="input-group">
@@ -53,7 +78,7 @@ const Order = () => {
         <p>Полетата отбелязани със"<span className="red-star">*</span>"са задължителни</p>
         <hr />
 
-        <h2 classname='order-title'><TbTruckDelivery />Начин на доставка</h2>
+        <h2 className="order-title"><TbTruckDelivery />Начин на доставка</h2>
         <div className="delivery-options">
           <button
             type="button"
@@ -75,11 +100,26 @@ const Order = () => {
           <>
             <div className="form-group">
               <label><span className="red-star">*</span>Въведи вашият град</label>
-              <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
+              <input 
+                type="text" 
+                value={city} 
+                onChange={(e) => setCity(e.target.value)} 
+                required 
+                placeholder="Напишете град"
+              />
             </div>
             <div className="form-group">
               <label><span className="red-star">*</span>Изберете офис</label>
-              <input type="text" value={office} onChange={(e) => setOffice(e.target.value)} required />
+              <select value={office} onChange={(e) => setOffice(e.target.value)} required>
+                <option value="">Изберете офис</option>
+                {offices.length > 0 ? (
+                  offices.map((office) => (
+                    <option key={office.id} value={office.name}>{office.name}</option>
+                  ))
+                ) : (
+                  <option value="">Няма офиси за този град</option>
+                )}
+              </select>
             </div>
           </>
         )}
@@ -119,7 +159,7 @@ const Order = () => {
 
         <hr />
 
-        <h2 classname='order-title'><FaRegCreditCard />Начин на плащане</h2>
+        <h2 className="order-title"><FaRegCreditCard />Начин на плащане</h2>
         <p>Пратката се заплаща на куриерската фирма, след преглед и тест.</p>
 
         <button type="submit" className="confirm-btn">
