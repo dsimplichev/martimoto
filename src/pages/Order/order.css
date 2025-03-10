@@ -123,3 +123,25 @@ input[type="checkbox"] {
  margin-bottom: 10px;
  
 }
+
+.order-container {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.order-left {
+  width: 75%;
+}
+
+.order-right {
+  width: 30%;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.cart-total {
+  margin-top: 20px;
+  font-weight: bold;
+}
