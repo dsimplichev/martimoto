@@ -1,6 +1,6 @@
 
 .order-container {
-  max-width: 600px;
+  max-width: 750px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 8px;
@@ -125,23 +125,32 @@ input[type="checkbox"] {
 }
 
 .order-container {
-  display: flex;
-  justify-content: space-between;
-  
+  display: grid;
+  grid-template-columns: 2fr 1fr; 
+  align-items: start; 
+  gap: 20px;
 }
 
 .order-left {
-  width: 75%;
+  flex: 2; 
 }
 
 .order-right {
-  width: 30%;
-  background-color: #f4f4f4;
+  flex: 1; 
+  align-self: flex-start; 
   padding: 20px;
-  border-radius: 8px;
+  position: relative;
+  top: -10px; 
+}
+
+.order-right h2 {
+  margin-left: 0; 
+  text-align: left; 
 }
 
 .cart-total {
   margin-top: 20px;
   font-weight: bold;
+  margin-left: 6px; 
+  text-align: left; 
 }

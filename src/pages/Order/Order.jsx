@@ -4,6 +4,7 @@ import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaRegCreditCard } from "react-icons/fa";
+import { IoIosCart } from "react-icons/io";
 
 const Order = () => {
   const [isInvoice, setIsInvoice] = useState(false);
