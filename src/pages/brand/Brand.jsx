@@ -24,7 +24,7 @@ function Brand() {
        
         <div className="container">
         <div className="header-section">
-            <h2 className="title">SHOP BY BRANDS</h2>    
+            <h2 className="title-brand">SHOP BY BRANDS</h2>    
         </div>
 
         <div className="divider-brand"></div>
