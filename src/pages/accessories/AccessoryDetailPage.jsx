@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { CartContext } from '../../Context/CartContext'; // Импортиране на CartContext
+import { CartContext } from '../../Context/CartContext'; 
 import './accessoryDetailPage.css';
 import { FaTruckFast } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
@@ -9,7 +9,7 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 function AccessoryDetailPage() {
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext); // Извикване на addToCart от контекста
+  const { addToCart } = useContext(CartContext); 
   const [accessory, setAccessory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

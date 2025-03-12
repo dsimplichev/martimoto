@@ -22,6 +22,12 @@ const Order = () => {
   const totalAmount = cart.reduce((total, product) => total + product.price, 0);
 
   useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(savedCart);
+  }, []);
+
+
+  useEffect(() => {
     if (city.length > 2) {
       axios
         .get('https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json')
@@ -60,7 +66,7 @@ const Order = () => {
       <div className="order-left">
         <h1 className="order-title"><RiIdCardLine />Вашите данни</h1>
         <form onSubmit={handleSubmit}>
-         
+
           <div className="form-group">
             <div className="input-group">
               <label><span className="red-star">*</span>Име</label>
@@ -176,8 +182,12 @@ const Order = () => {
         <h2>Вашата количка</h2>
         <ul>
           {cart.map((product) => (
-            <li key={product.id}>
-              {product.name} - {product.price} лв.
+            <li key={product.id} className="cart-item">
+              <img src={product.image} alt={product.title} className="cart-item-image" />
+              <div className="cart-item-details">
+                <p>{product.title}</p>
+                <p>{product.price} лв. x {product.quantity}</p>
+              </div>
             </li>
           ))}
         </ul>
