@@ -173,3 +173,9 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
 }
+
+/* .shipping-note {
+  font-size: 0.6rem;
+  color: #888;
+  margin-top: 5px;
+} */

@@ -4,7 +4,8 @@ import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaRegCreditCard } from "react-icons/fa";
-import { IoIosCart } from "react-icons/io";
+import { FaTrash } from "react-icons/fa";
+
 
 const Order = () => {
   const [isInvoice, setIsInvoice] = useState(false);
@@ -193,6 +194,7 @@ const Order = () => {
         </ul>
         <div className="cart-total">
           <p><strong>Обща сума: {totalAmount} лв.</strong></p>
+          {/* <p className="shipping-note">Цената е без включена доставка</p> */}
         </div>
       </div>
     </div>
