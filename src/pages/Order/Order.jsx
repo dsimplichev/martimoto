@@ -20,7 +20,7 @@ const Order = () => {
   const [offices, setOffices] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const totalAmount = cart.reduce((total, product) => total + product.price, 0);
+  const totalAmount = cart.reduce((total, product) => total + product.price * product.quantity, 0);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -187,7 +187,7 @@ const Order = () => {
               <img src={product.image} alt={product.title} className="cart-item-image" />
               <div className="cart-item-details">
                 <p>{product.title}</p>
-                <p>{product.price} лв. x {product.quantity}</p>
+                <p>{product.price} лв. x {product.quantity} </p>
               </div>
             </li>
           ))}
