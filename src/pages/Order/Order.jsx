@@ -61,6 +61,12 @@ const Order = () => {
     e.preventDefault();
     console.log("Форма изпратена");
   };
+  
+  const handleRemoveItem = (id) => {
+    const updatedCart = cart.filter(item => item.id !== id);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
 
   return (
     <div className="order-container">
@@ -189,6 +195,9 @@ const Order = () => {
                 <p>{product.title}</p>
                 <p>{product.price} лв. x {product.quantity} </p>
               </div>
+              <button className="remove-btn" onClick={() => handleRemoveItem(product.id)}>
+                <FaTrash />
+              </button>
             </li>
           ))}
         </ul>

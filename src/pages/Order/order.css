@@ -160,6 +160,10 @@ input[type="checkbox"] {
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+  justify-content: space-between;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+
 }
 
 .cart-item-image {
@@ -179,3 +183,25 @@ input[type="checkbox"] {
   color: #888;
   margin-top: 5px;
 } */
+
+
+.remove-btn {
+  background-color: #28a745;
+  color: white;
+  font-size: 13px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 70px;
+}
+
+.remove-btn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.remove-btn:active {
+  transform: scale(0.98);
+}
