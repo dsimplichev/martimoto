@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaRegCreditCard } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-
 
 const Order = () => {
   const [isInvoice, setIsInvoice] = useState(false);
@@ -20,32 +19,32 @@ const Order = () => {
   const [offices, setOffices] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const totalAmount = cart.reduce((total, product) => total + product.price * product.quantity, 0);
+  const totalAmount = cart.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
   }, []);
 
-
   useEffect(() => {
     if (city.length > 2) {
       axios
-        .get('https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json')
+        .get("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json")
         .then((response) => {
-          console.log("Отговор от API-то:", response.data);
           const filteredOffices = response.data.offices.filter((office) =>
             office.city.name.toLowerCase().includes(city.toLowerCase())
           );
-          console.log("Филтрирани офиси:", filteredOffices);
           setOffices(filteredOffices);
         })
         .catch((error) => {
-          console.error('Грешка при зареждане на офисите:', error);
+          console.error("Грешка при зареждане на офисите:", error);
           setOffices([]);
         });
     } else {
-      setOffices([]);
+      setOffices([]); 
     }
   }, [city]);
 
@@ -61,9 +60,9 @@ const Order = () => {
     e.preventDefault();
     console.log("Форма изпратена");
   };
-  
+
   const handleRemoveItem = (id) => {
-    const updatedCart = cart.filter(item => item.id !== id);
+    const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
@@ -71,31 +70,47 @@ const Order = () => {
   return (
     <div className="order-container">
       <div className="order-left">
-        <h1 className="order-title"><RiIdCardLine />Вашите данни</h1>
+        <h1 className="order-title">
+          <RiIdCardLine />
+          Вашите данни
+        </h1>
         <form onSubmit={handleSubmit}>
-
           <div className="form-group">
             <div className="input-group">
-              <label><span className="red-star">*</span>Име</label>
+              <label>
+                <span className="red-star">*</span>Име
+              </label>
               <input type="text" required />
-              <label><span className="red-star">*</span>Фамилия</label>
+              <label>
+                <span className="red-star">*</span>Фамилия
+              </label>
               <input type="text" required />
             </div>
           </div>
 
           <div className="form-group">
             <div className="input-group">
-              <label><span className="red-star">*</span>Имейл</label>
+              <label>
+                <span className="red-star">*</span>Имейл
+              </label>
               <input type="email" required />
-              <label><span className="red-star">*</span>Телефонен номер</label>
+              <label>
+                <span className="red-star">*</span>Телефонен номер
+              </label>
               <input type="tel" required />
             </div>
           </div>
 
-          <p>Полетата отбелязани със"<span className="red-star">*</span>"са задължителни</p>
+          <p>
+            Полетата отбелязани със"<span className="red-star">*</span>"са
+            задължителни
+          </p>
           <hr />
 
-          <h2 className="order-title"><TbTruckDelivery />Начин на доставка</h2>
+          <h2 className="order-title">
+            <TbTruckDelivery />
+            Начин на доставка
+          </h2>
           <div className="delivery-options">
             <button
               type="button"
@@ -116,7 +131,9 @@ const Order = () => {
           {deliveryMethod && (
             <>
               <div className="form-group">
-                <label><span className="red-star">*</span>Въведи вашият град</label>
+                <label>
+                  <span className="red-star">*</span>Въведи вашият град
+                </label>
                 <input
                   type="text"
                   value={city}
@@ -126,12 +143,20 @@ const Order = () => {
                 />
               </div>
               <div className="form-group">
-                <label><span className="red-star">*</span>Изберете офис</label>
-                <select value={office} onChange={(e) => setOffice(e.target.value)} required>
+                <label>
+                  <span className="red-star">*</span>Изберете офис
+                </label>
+                <select
+                  value={office}
+                  onChange={(e) => setOffice(e.target.value)}
+                  required
+                >
                   <option value="">Изберете офис</option>
                   {offices.length > 0 ? (
                     offices.map((office) => (
-                      <option key={office.id} value={office.name}>{office.name}</option>
+                      <option key={office.id} value={office.name}>
+                        {office.name}
+                      </option>
                     ))
                   ) : (
                     <option value="">Няма офиси за този град</option>
@@ -142,27 +167,60 @@ const Order = () => {
           )}
 
           <div className="invoice-checkbox">
-            <input type="checkbox" id="invoice" checked={isInvoice} onChange={handleInvoiceChange} />
+            <input
+              type="checkbox"
+              id="invoice"
+              checked={isInvoice}
+              onChange={handleInvoiceChange}
+            />
             <label htmlFor="invoice">Желая фактура</label>
           </div>
 
           {isInvoice && (
             <>
               <div className="form-group">
-                <label><span className="red-star">*</span>Име на фирмата</label>
-                <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
+                <label>
+                  <span className="red-star">*</span>Име на фирмата
+                </label>
+                <input
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  required
+                />
               </div>
               <div className="form-group">
-                <label><span className="red-star">*</span>Мол</label>
-                <input type="text" value={companyReg} onChange={(e) => setCompanyReg(e.target.value)} required />
+                <label>
+                  <span className="red-star">*</span>Мол
+                </label>
+                <input
+                  type="text"
+                  value={companyReg}
+                  onChange={(e) => setCompanyReg(e.target.value)}
+                  required
+                />
               </div>
               <div className="form-group">
-                <label><span className="red-star">*</span>ЕИК</label>
-                <input type="text" value={companyEIK} onChange={(e) => setCompanyEIK(e.target.value)} required />
+                <label>
+                  <span className="red-star">*</span>ЕИК
+                </label>
+                <input
+                  type="text"
+                  value={companyEIK}
+                  onChange={(e) => setCompanyEIK(e.target.value)}
+                  required
+                />
               </div>
               <div className="form-group">
-                <label><span className="red-star">*</span>Адрес на фирмата</label>
-                <input type="text" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} required />
+                <label>
+                  <span className="red-star">*</span>Адрес на фирмата
+                </label>
+                <input
+                  type="text"
+                  value={companyAddress}
+                  onChange={(e) => setCompanyAddress(e.target.value)}
+                  required
+                />
               </div>
             </>
           )}
@@ -176,7 +234,10 @@ const Order = () => {
 
           <hr />
 
-          <h2 className="order-title"><FaRegCreditCard />Начин на плащане</h2>
+          <h2 className="order-title">
+            <FaRegCreditCard />
+            Начин на плащане
+          </h2>
           <p>Пратката се заплаща на куриерската фирма, след преглед и тест.</p>
 
           <button type="submit" className="confirm-btn">
@@ -190,20 +251,30 @@ const Order = () => {
         <ul>
           {cart.map((product) => (
             <li key={product.id} className="cart-item">
-              <img src={product.image} alt={product.title} className="cart-item-image" />
+              <img
+                src={product.image}
+                alt={product.title}
+                className="cart-item-image"
+              />
               <div className="cart-item-details">
                 <p>{product.title}</p>
-                <p>{product.price} лв. x {product.quantity} </p>
+                <p>
+                  {product.price} лв. x {product.quantity}
+                </p>
               </div>
-              <button className="remove-btn" onClick={() => handleRemoveItem(product.id)}>
+              <button
+                className="remove-btn"
+                onClick={() => handleRemoveItem(product.id)}
+              >
                 <FaTrash />
               </button>
             </li>
           ))}
         </ul>
         <div className="cart-total">
-          <p><strong>Обща сума: {totalAmount} лв.</strong></p>
-          {/* <p className="shipping-note">Цената е без включена доставка</p> */}
+          <p>
+            <strong>Обща сума: {totalAmount} лв.</strong>
+          </p>
         </div>
       </div>
     </div>
