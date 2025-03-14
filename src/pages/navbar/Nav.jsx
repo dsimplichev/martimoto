@@ -62,7 +62,7 @@ function Nav({ onLogout }) {
                                                 <>
                                                     <li><Link to="/add-part">Добави част</Link></li>
                                                     <li><Link to="/add-accessory">Добави аксесоари</Link></li>
-                                                    <li><Link to="/delivery-order">Поръчки за изпращане</Link></li>
+                                                    <li><Link to="/admin/orders">Поръчки за изпращане</Link></li>
                                                 </>
                                             )}
                                             <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>

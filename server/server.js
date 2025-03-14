@@ -14,7 +14,7 @@ const Accessory = require('./models/Accessory')
 
 const upload = multer(); 
 const app = express();
-
+const orderRoutes = require("./routes/orders");  
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -25,14 +25,14 @@ cloudinary.config({
 app.use(cookieParser());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
-app.use("/api/orders", orderRoutes);
+
 
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/api/parts', partRoutes);
 app.use('/api/accessories', accessoryRoutes);
-const orderRoutes = require("./routes/orders");  
+app.use("/api/orders", orderRoutes);
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {
