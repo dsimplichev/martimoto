@@ -56,9 +56,36 @@ const Order = () => {
     setIsInvoice(!isInvoice);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Форма изпратена");
+
+    const orderData = {
+      firstName: document.querySelector("input[name='firstName']").value,
+      lastName: document.querySelector("input[name='lastName']").value,
+      email: document.querySelector("input[name='email']").value,
+      phone: document.querySelector("input[name='phone']").value,
+      deliveryMethod,
+      city,
+      office,
+      companyName: isInvoice ? companyName : "",
+      companyReg: isInvoice ? companyReg : "",
+      companyEIK: isInvoice ? companyEIK : "",
+      companyAddress: isInvoice ? companyAddress : "",
+      comment,
+      cart,
+      totalAmount,
+    };
+
+    try {
+      const response = await axios.post("/api/orders/create", orderData);
+      if (response.status === 201) {
+        alert("Поръчката е направена успешно!");
+        localStorage.removeItem("cart"); // Изчистване на количката след поръчка
+        setCart([]);
+      }
+    } catch (error) {
+      console.error("Грешка при запис на поръчката:", error);
+    }
   };
 
   const handleRemoveItem = (id) => {
@@ -80,11 +107,11 @@ const Order = () => {
               <label>
                 <span className="red-star">*</span>Име
               </label>
-              <input type="text" required />
+              <input type="text" name="firstName" required />
               <label>
                 <span className="red-star">*</span>Фамилия
               </label>
-              <input type="text" required />
+              <input type="text" name="lastName" required />
             </div>
           </div>
 
@@ -93,11 +120,11 @@ const Order = () => {
               <label>
                 <span className="red-star">*</span>Имейл
               </label>
-              <input type="email" required />
+              <input type="email" name="email" required />
               <label>
                 <span className="red-star">*</span>Телефонен номер
               </label>
-              <input type="tel" required />
+              <input type="tel" name="phone" required />
             </div>
           </div>
 
@@ -165,80 +192,6 @@ const Order = () => {
               </div>
             </>
           )}
-
-          <div className="invoice-checkbox">
-            <input
-              type="checkbox"
-              id="invoice"
-              checked={isInvoice}
-              onChange={handleInvoiceChange}
-            />
-            <label htmlFor="invoice">Желая фактура</label>
-          </div>
-
-          {isInvoice && (
-            <>
-              <div className="form-group">
-                <label>
-                  <span className="red-star">*</span>Име на фирмата
-                </label>
-                <input
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>
-                  <span className="red-star">*</span>Мол
-                </label>
-                <input
-                  type="text"
-                  value={companyReg}
-                  onChange={(e) => setCompanyReg(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>
-                  <span className="red-star">*</span>ЕИК
-                </label>
-                <input
-                  type="text"
-                  value={companyEIK}
-                  onChange={(e) => setCompanyEIK(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>
-                  <span className="red-star">*</span>Адрес на фирмата
-                </label>
-                <input
-                  type="text"
-                  value={companyAddress}
-                  onChange={(e) => setCompanyAddress(e.target.value)}
-                  required
-                />
-              </div>
-            </>
-          )}
-
-          {!isInvoice && (
-            <div className="form-group">
-              <label>Коментар към поръчката</label>
-              <textarea value={comment} onChange={(e) => setComment(e.target.value)} />
-            </div>
-          )}
-
-          <hr />
-
-          <h2 className="order-title">
-            <FaRegCreditCard />
-            Начин на плащане
-          </h2>
-          <p>Пратката се заплаща на куриерската фирма, след преглед и тест.</p>
 
           <button type="submit" className="confirm-btn">
             Потвърди
