@@ -71,12 +71,15 @@ const Order = () => {
       companyEIK: isInvoice ? companyEIK : "",
       companyAddress: isInvoice ? companyAddress : "",
       comment,
-      cart,
+      cart: cart.map((item) => ({
+        productId: item.id,  
+        quantity: item.quantity,
+      })),
       totalAmount,
     };
 
     try {
-      const response = await axios.post("/api/orders/create", orderData);
+      const response = await axios.post("http://localhost:5000/api/orders/create", orderData);
       if (response.status === 201) {
         alert("Поръчката е направена успешно!");
         localStorage.removeItem("cart"); 
