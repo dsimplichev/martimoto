@@ -3,7 +3,6 @@ import axios from "axios";
 import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
-import { FaRegCreditCard } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 const Order = () => {
