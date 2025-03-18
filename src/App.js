@@ -19,6 +19,7 @@ import AccessoryDetailPage from "./pages/accessories/AccessoryDetailPage";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order"; 
 import AdminOrder from "./pages/adminOrder/AdminOrder";
+import OrderDetails from "./pages/orderDetails/OrderDetails";
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
@@ -49,6 +50,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrder />} /> 
+        <Route path="/order/:orderId" element={<OrderDetails />} />
       </Routes>
 
       <Brand />

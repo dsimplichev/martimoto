@@ -1,0 +1,28 @@
+.order-details-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+    text-align: center;
+}
+
+.cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-items li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
