@@ -3,6 +3,7 @@ import './adminOrder.css';
 
 const AdminOrder = () => {
     const [orders, setOrders] = useState([]);
+    const [expandedOrder, setExpandedOrder] = useState(null); 
 
     useEffect(() => {
         fetch('http://localhost:5000/api/orders/pending', { credentials: 'include' })
@@ -15,9 +16,7 @@ const AdminOrder = () => {
         try {
             const response = await fetch(`http://localhost:5000/api/orders/update/${orderId}`, {
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus }),
             });
             if (response.ok) {
@@ -44,14 +43,35 @@ const AdminOrder = () => {
                 <ul className="orders-list">
                     {orders.map(order => (
                         <li key={order._id} className="order-item">
-                            <p className="order-id">Поръчка № {order._id}</p>
-                            <p className="customer-name">Клиент: {order.firstName} {order.lastName}</p>
-                            <p className="order-status">Статус: {order.status}</p>
-                            {/* Бутон за промяна на статуса */}
-                            {order.status === "Pending" && (
-                                <button onClick={() => handleStatusUpdate(order._id, "Shipped")}>
-                                    Промени на Изпратена
+                            <p className="order-id"><strong>Поръчка №:</strong> {order._id}</p>
+                            <p className="customer-name"><strong>Клиент:</strong> {order.firstName} {order.lastName}</p>
+                            <p className="customer-phone"><strong>Телефон:</strong> {order.phone}</p>
+                            <p className="order-status"><strong>Статус:</strong> {order.status}</p>
+                            
+                            <div className="button-group">
+                                {order.status === "Pending" && (
+                                    <button className="status-button" onClick={() => handleStatusUpdate(order._id, "Shipped")}>
+                                        Промени на Изпратена
+                                    </button>
+                                )}
+                                <button className="details-button" onClick={() => setExpandedOrder(expandedOrder === order._id ? null : order._id)}>
+                                    {expandedOrder === order._id ? "Скрий детайли" : "Преглед на поръчката"}
                                 </button>
+                            </div>
+
+                            {expandedOrder === order._id && (
+                                <div className="order-details">
+                                    <p><strong>Адрес:</strong> {order.address}</p>
+                                    <p><strong>Имейл:</strong> {order.email}</p>
+                                    <p><strong>Продукти:</strong></p>
+                                    <ul>
+                                        {order.items.map((item, index) => (
+                                            <li key={index}>
+                                                {item.productName} - {item.quantity} бр.
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             )}
                         </li>
                     ))}
