@@ -44,7 +44,7 @@ const AdminOrder = () => {
                 <ul className="orders-list">
                     {orders.map((order, index) => (
                         <li key={order._id} className="order-item">
-                            <p className="order-id"><strong>Поръчка №:</strong> {index + 1}</p>
+                            <p className="order-id"><strong>Поръчка №:</strong> {order._id}</p>
                             <p className="customer-name"><strong>Клиент:</strong> {order.firstName} {order.lastName}</p>
                             <p className="customer-phone"><strong>Телефон:</strong> {order.phone}</p>
                             <p className="order-status"><strong>Статус:</strong> {order.status}</p>

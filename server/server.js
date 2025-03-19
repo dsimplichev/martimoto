@@ -98,3 +98,4 @@ app.get('/accessories/detail/:id', (req, res) => {
             res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
         });
 });
+

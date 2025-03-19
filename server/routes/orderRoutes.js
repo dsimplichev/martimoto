@@ -62,16 +62,17 @@ router.patch('/update/:id', async (req, res) => {
 });
 
 
-router.get('/api/orders/:orderId', async (req, res) => {
+router.get("/:orderId", async (req, res) => {
+  const { orderId } = req.params;
+  
   try {
-    const order = await Order.findById(req.params.orderId).populate("cart.productId");
-    if (!order) {
-      return res.status(404).json({ message: "Поръчката не е намерена" });
-    }
-    res.json(order);
+      const order = await Order.findById(orderId);
+      if (!order) {
+          return res.status(404).json({ message: "Поръчката не е намерена" });
+      }
+      res.json(order);
   } catch (error) {
-    console.error("Грешка при зареждане на поръчката:", error);
-    res.status(500).json({ message: "Възникна грешка" });
+      res.status(500).json({ message: "Грешка при търсене на поръчката" });
   }
 });
 
