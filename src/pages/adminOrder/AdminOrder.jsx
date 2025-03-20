@@ -7,7 +7,7 @@ const AdminOrder = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/orders", { credentials: "include" })
+        fetch("http://localhost:5000/api/orders/pending", { credentials: "include" })
             .then((res) => res.json())
             .then((data) => setOrders(data))
             .catch((error) => console.error("Грешка при зареждане на поръчките:", error));
@@ -22,7 +22,6 @@ const AdminOrder = () => {
                 },
                 body: JSON.stringify({ status: newStatus }),
             });
-
             if (response.ok) {
                 const updatedOrder = await response.json();
                 setOrders((prevOrders) =>
@@ -36,32 +35,14 @@ const AdminOrder = () => {
         }
     };
 
-    const handleDeleteOrder = async (orderId) => {
-        if (!window.confirm("Сигурни ли сте, че искате да изтриете тази поръчка?")) return;
-
-        try {
-            const response = await fetch(`http://localhost:5000/api/orders/delete/${orderId}`, {
-                method: "DELETE",
-            });
-
-            if (response.ok) {
-                setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
-            } else {
-                console.error("Грешка при изтриване на поръчката.");
-            }
-        } catch (error) {
-            console.error("Грешка при изпращане на заявката за изтриване:", error);
-        }
-    };
-
     return (
         <div className="admin-orders-container">
             <h2 className="admin-orders-title">Поръчки за изпращане</h2>
             {orders.length === 0 ? (
-                <p className="no-orders-message">Няма поръчки.</p>
+                <p className="no-orders-message">Няма чакащи поръчки.</p>
             ) : (
                 <ul className="orders-list">
-                    {orders.map((order) => (
+                    {orders.map((order, index) => (
                         <li key={order._id} className="order-item">
                             <p className="order-id"><strong>Поръчка №:</strong> {order._id}</p>
                             <p className="customer-name"><strong>Клиент:</strong> {order.firstName} {order.lastName}</p>
@@ -69,19 +50,12 @@ const AdminOrder = () => {
                             <p className="order-status"><strong>Статус:</strong> {order.status}</p>
 
                             <div className="order-buttons">
-                                {order.status !== "Shipped" && (
-                                    <button className="status-button" onClick={() => handleStatusUpdate(order._id, "Shipped")}>
-                                        Промени на Изпратена
-                                    </button>
-                                )}
+                                <button className="status-button" onClick={() => handleStatusUpdate(order._id, "Shipped")}>
+                                    Промени на Изпратена
+                                </button>
                                 <button className="view-button" onClick={() => navigate(`/order/${order._id}`)}>
                                     Преглед на поръчката
                                 </button>
-                                {order.status === "Shipped" && (
-                                    <button className="delete-button" onClick={() => handleDeleteOrder(order._id)}>
-                                     Изтрий поръчката
-                                    </button>
-                                )}
                             </div>
                         </li>
                     ))}

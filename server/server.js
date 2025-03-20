@@ -11,7 +11,6 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const Accessory = require('./models/Accessory')
 const orderRoutes = require('./routes/orderRoutes');
-const Order = require('./models/Order')
 
 const upload = multer(); 
 const app = express();
@@ -98,21 +97,5 @@ app.get('/accessories/detail/:id', (req, res) => {
             console.error(err);
             res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
         });
-});
-
-app.delete("/api/orders/delete/:orderId", async (req, res) => {
-    try {
-        const { orderId } = req.params;
-        const deletedOrder = await Order.findByIdAndDelete(orderId);
-
-        if (!deletedOrder) {
-            return res.status(404).json({ message: "Поръчката не е намерена." });
-        }
-
-        res.json({ message: "Поръчката е изтрита успешно.", orderId });
-    } catch (error) {
-        console.error("Грешка при изтриване на поръчката:", error);
-        res.status(500).json({ message: "Грешка при изтриване на поръчката." });
-    }
 });
 

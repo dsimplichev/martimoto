@@ -39,7 +39,7 @@ router.post('/:userId', checkAuth, async (req, res) => {
     }
   });
 
-router.delete('/:userId/product/:productId', checkAuth, async (req, res) => {
+  router.delete('/:userId/product/:productId', checkAuth, async (req, res) => {
     try {
       const cart = await Cart.findOne({ userId: req.params.userId });
   
@@ -47,7 +47,6 @@ router.delete('/:userId/product/:productId', checkAuth, async (req, res) => {
         return res.status(404).json({ message: "Количката не е намерена." });
       }
   
-      
       cart.items = cart.items.filter(item => item.productId.toString() !== req.params.productId);
       await cart.save();
   
@@ -55,6 +54,6 @@ router.delete('/:userId/product/:productId', checkAuth, async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Грешка при премахване на продукт." });
     }
-
+});
 
 module.exports = router;
