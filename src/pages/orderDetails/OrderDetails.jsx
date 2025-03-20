@@ -5,11 +5,11 @@ import "./orderDetails.css";
 const OrderDetails = () => {
     const { orderId } = useParams();
     const [order, setOrder] = useState(null);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         console.log("Изпращане на заявка за поръчка:", orderId);
-        
+
         fetch(`http://localhost:5000/api/orders/${orderId}`, { credentials: "include" })
             .then((res) => {
                 console.log("Статус на отговора:", res.status);
@@ -18,15 +18,15 @@ const OrderDetails = () => {
             .then((data) => {
                 console.log("Получени данни:", data);
                 setOrder(data);
-                setLoading(false); 
+                setLoading(false);
             })
             .catch((error) => {
                 console.error("Грешка при зареждане на поръчката:", error);
-                setLoading(false); 
+                setLoading(false);
             });
     }, [orderId]);
 
-    
+
     if (loading) return <p>Зареждане на поръчката...</p>;
     if (!order) return <p>Грешка при зареждане на поръчката или поръчката не съществува!</p>;
 
@@ -55,8 +55,9 @@ const OrderDetails = () => {
             <ul className="cart-items">
                 {order.cart && order.cart.length > 0 ? (
                     order.cart.map((item, index) => (
-                        <li key={index}>
-                            <p><strong>Продукт ID:</strong> {item.productId}</p>
+                        <li key={index} className="cart-item">
+                            <img src={item.productId.image} alt={item.productId.title} className="product-image" />
+                            <p><strong>{item.productId.title}</strong></p>
                             <p><strong>Количество:</strong> {item.quantity}</p>
                         </li>
                     ))

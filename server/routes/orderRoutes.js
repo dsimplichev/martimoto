@@ -66,7 +66,9 @@ router.get("/:orderId", async (req, res) => {
   const { orderId } = req.params;
   
   try {
-      const order = await Order.findById(orderId);
+      const order = await Order.findById(orderId)
+      .populate("cart.productId", "title image");
+     
       if (!order) {
           return res.status(404).json({ message: "Поръчката не е намерена" });
       }
