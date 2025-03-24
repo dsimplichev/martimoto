@@ -15,7 +15,7 @@ const OrderDetails = () => {
                 setOrder(data);
                 setLoading(false);
 
-                // След като получим поръчката, взимаме информацията за аксесоарите
+                
                 if (data.cart) {
                     fetchAccessoryDetails(data.cart);
                 }
