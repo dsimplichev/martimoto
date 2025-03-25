@@ -4,6 +4,7 @@ import "./orderDetails.css";
 
 const OrderDetails = () => {
     const { orderId } = useParams();
+    console.log("Получен orderId:", orderId);
     const [order, setOrder] = useState(null);
     const [accessories, setAccessories] = useState({});
     const [loading, setLoading] = useState(true);

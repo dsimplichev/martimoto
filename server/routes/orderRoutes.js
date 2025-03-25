@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
+const mongoose = require("mongoose");
 
 router.post("/create", async (req, res) => {
   try {
@@ -91,18 +92,15 @@ router.get("/:orderId", async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    const order = await Order.findById(orderId)
-      .populate({
-        path: "cart.productId",
-        select: "title image",
-      })
-      .exec();
-
+    const order = await Order.findById(orderId); 
     if (!order) {
       return res.status(404).json({ message: "Поръчката не е намерена" });
     }
+
+    console.log("Намерена поръчка:", order); 
     res.json(order);
   } catch (error) {
+    console.error("Грешка при търсене на поръчката:", error.message);
     res.status(500).json({ message: "Грешка при търсене на поръчката" });
   }
 });
