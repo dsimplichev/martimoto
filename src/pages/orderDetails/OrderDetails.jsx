@@ -4,7 +4,6 @@ import "./orderDetails.css";
 
 const OrderDetails = () => {
     const { orderId } = useParams();
-    console.log("Получен orderId:", orderId);
     const [order, setOrder] = useState(null);
     const [accessories, setAccessories] = useState({});
     const [loading, setLoading] = useState(true);
@@ -62,6 +61,7 @@ const OrderDetails = () => {
                 {order.cart && order.cart.length > 0 ? (
                     order.cart.map((item, index) => {
                         const accessory = accessories[item.productId];
+                        console.log('Product ID:', item.productId);
                         return (
                             <li key={index} className="cart-item">
                                 {accessory ? (
@@ -70,7 +70,7 @@ const OrderDetails = () => {
                                         <p><strong>{accessory.title}</strong></p>
                                     </>
                                 ) : (
-                                    <p><strong>Продукт ID:</strong> {item.productId} (Информацията не е налична)</p>
+                                    <p><strong>Продукт ID:</strong> {item.productId}</p>
                                 )}
                                 <p><strong>Количество:</strong> {item.quantity}</p>
                             </li>
