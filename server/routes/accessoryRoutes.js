@@ -60,17 +60,18 @@ router.get('/accessories/:category', async (req, res) => {
     }
 });
 
-router.get('/detail/:id', async (req, res) => {
+router.get('/accessories/detail/:id', async (req, res) => {
     const { id } = req.params; 
 
     try {
+        
         const accessory = await Accessory.findById(id);
-        console.log('Accessory found:', accessory);
 
         if (!accessory) {
             return res.status(404).json({ message: "Аксесоарът не е намерен." });
         }
 
+        
         res.json(accessory);
     } catch (error) {
         console.error("Грешка при заявката:", error);

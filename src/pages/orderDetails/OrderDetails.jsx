@@ -61,7 +61,6 @@ const OrderDetails = () => {
                 {order.cart && order.cart.length > 0 ? (
                     order.cart.map((item, index) => {
                         const accessory = accessories[item.productId];
-                        console.log('Product ID:', item.productId);
                         return (
                             <li key={index} className="cart-item">
                                 {accessory ? (
