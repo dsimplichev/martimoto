@@ -90,15 +90,22 @@
 }
 
 .delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    margin-left: 10px;
-    border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  font-size: 13px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  
 }
 
 .delete-button:hover {
-    background-color: darkred;
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.delete-button:active {
+    transform: scale(0.98);
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./adminOrder.css";
+import { FaTrash } from "react-icons/fa";
 
 const AdminOrder = () => {
     const [orders, setOrders] = useState([]);
@@ -35,6 +36,21 @@ const AdminOrder = () => {
         }
     };
 
+    const handleDeleteOrder = async (orderId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/orders/delete/${orderId}`, {
+                method: "DELETE",
+            });
+            if (response.ok) {
+                setOrders((prevOrders) => prevOrders.filter((order) => order._id !== orderId));
+            } else {
+                console.error("Грешка при изтриване на поръчката.");
+            }
+        } catch (error) {
+            console.error("Грешка при изпращане на заявката за изтриване:", error);
+        }
+    };
+
     return (
         <div className="admin-orders-container">
             <h2 className="admin-orders-title">Поръчки за изпращане</h2>
@@ -55,6 +71,9 @@ const AdminOrder = () => {
                                 </button>
                                 <button className="view-button" onClick={() => navigate(`/order/${order._id}`)}>
                                     Преглед на поръчката
+                                </button>
+                                <button className="delete-button" onClick={() => handleDeleteOrder(order._id)}>
+                                 <FaTrash />
                                 </button>
                             </div>
                         </li>
