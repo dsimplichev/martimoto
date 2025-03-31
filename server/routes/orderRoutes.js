@@ -105,4 +105,25 @@ router.get("/:orderId", async (req, res) => {
   }
 });
 
+router.patch("/delete/:id", async (req, res) => {
+  try {
+    const orderId = req.params.id;
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { status: "Deleted" },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Поръчката не беше намерена." });
+    }
+
+    res.json({ message: "Поръчката беше маркирана като 'Deleted'." });
+  } catch (error) {
+    console.error("Грешка при маркиране на поръчката:", error);
+    res.status(500).json({ message: "Възникна грешка при изтриването на поръчката." });
+  }
+});
+
 module.exports = router;

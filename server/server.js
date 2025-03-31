@@ -100,20 +100,3 @@ app.get('/accessories/detail/:id', (req, res) => {
         });
 });
 
-app.delete("/api/orders/delete/:id", async (req, res) => {
-    try {
-        const orderId = req.params.id;
-
-        
-        const deletedOrder = await Order.findByIdAndDelete(orderId);
-
-        if (!deletedOrder) {
-            return res.status(404).json({ message: "Поръчката не беше намерена." });
-        }
-
-        res.json({ message: "Поръчката беше изтрита успешно." });
-    } catch (error) {
-        console.error("Грешка при изтриване на поръчка:", error);
-        res.status(500).json({ message: "Възникна грешка при изтриването на поръчката." });
-    }
-});
