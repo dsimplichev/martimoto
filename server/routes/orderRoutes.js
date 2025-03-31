@@ -76,11 +76,23 @@ router.get("/pending", async (req, res) => {
 router.patch("/update/:id", async (req, res) => {
   try {
     const { status } = req.body;
+
+    
+    const validStatuses = ["Pending", "Shipped", "Completed", "Deleted"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: "Невалиден статус." });
+    }
+
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
       { status },
       { new: true }
     );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Поръчката не е намерена." });
+    }
+
     res.json(updatedOrder);
   } catch (error) {
     console.error("Грешка при актуализиране на поръчката:", error);

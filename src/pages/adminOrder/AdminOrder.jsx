@@ -8,11 +8,11 @@ const AdminOrder = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/orders/pending", { credentials: "include" })
-            .then((res) => res.json())
-            .then((data) => setOrders(data))
-            .catch((error) => console.error("Грешка при зареждане на поръчките:", error));
-    }, []);
+        fetch("http://localhost:5000/api/orders")
+          .then((res) => res.json())
+          .then((data) => setOrders(data))
+          .catch((error) => console.error("Грешка при зареждане на поръчките:", error));
+      }, []);
 
     const handleStatusUpdate = async (orderId, newStatus) => {
         try {
@@ -23,10 +23,14 @@ const AdminOrder = () => {
                 },
                 body: JSON.stringify({ status: newStatus }),
             });
+
             if (response.ok) {
                 const updatedOrder = await response.json();
+                
                 setOrders((prevOrders) =>
-                    prevOrders.map((order) => (order._id === updatedOrder._id ? updatedOrder : order))
+                    prevOrders.map((order) =>
+                        order._id === updatedOrder._id ? updatedOrder : order
+                    )
                 );
             } else {
                 console.error("Грешка при актуализиране на поръчката.");
@@ -61,7 +65,7 @@ const AdminOrder = () => {
         <div className="admin-orders-container">
             <h2 className="admin-orders-title">Поръчки за изпращане</h2>
             {orders
-                .filter(order => order.status !== "Deleted") // Скриваме изтритите
+                .filter(order => order.status !== "Deleted") 
                 .map((order) => (
                     <li key={order._id} className="order-item">
                         <p className="order-id"><strong>Поръчка №:</strong> {order._id}</p>
