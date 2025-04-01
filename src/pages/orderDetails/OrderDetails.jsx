@@ -14,8 +14,6 @@ const OrderDetails = () => {
             .then((data) => {
                 setOrder(data);
                 setLoading(false);
-
-                
                 if (data.cart) {
                     fetchAccessoryDetails(data.cart);
                 }
@@ -26,10 +24,8 @@ const OrderDetails = () => {
             });
     }, [orderId]);
 
-    
     const fetchAccessoryDetails = async (cartItems) => {
         const accessoryDetails = {};
-    
         for (const item of cartItems) {
             try {
                 const response = await fetch(`http://localhost:5000/accessories/detail/${item.productId}`);
@@ -39,7 +35,6 @@ const OrderDetails = () => {
                 console.error(`Грешка при зареждане на аксесоар ${item.productId}:`, error);
             }
         }
-    
         setAccessories(accessoryDetails);
     };
 
@@ -55,6 +50,16 @@ const OrderDetails = () => {
             <p><strong>Доставка:</strong> {order.deliveryMethod || "Не е посочено"}</p>
             <p><strong>Град:</strong> {order.city || "Не е посочено"}</p>
             <p><strong>Офис:</strong> {order.office || "Не е посочено"}</p>
+
+            {order.companyName && (
+                <div className="company-details">
+                    <h3>Данни за фирма</h3>
+                    <p><strong>Име на фирмата:</strong> {order.companyName}</p>
+                    <p><strong>Регистрационен номер:</strong> {order.companyReg}</p>
+                    <p><strong>ЕИК:</strong> {order.companyEIK}</p>
+                    <p><strong>Адрес на фирмата:</strong> {order.companyAddress}</p>
+                </div>
+            )}
 
             <h3>Продукти в поръчката</h3>
             <ul className="cart-items">

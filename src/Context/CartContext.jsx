@@ -40,7 +40,7 @@ export const CartProvider = ({ children }) => {
         if (guestCartData) {
             const now = new Date().getTime();
             if (now > guestCartData.expiry) {
-                localStorage.removeItem("guest_cart"); // Изтриваме количката ако е изтекла
+                localStorage.removeItem("guest_cart"); 
                 setCart([]);
             } else {
                 setCart(guestCartData.items);
