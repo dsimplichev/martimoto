@@ -9,13 +9,12 @@ const partRoutes = require('./routes/partRoutes');
 const accessoryRoutes = require('./routes/accessoryRoutes'); 
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
-const Accessory = require('./models/Accessory')
+const Accessory = require('./models/Accessory');
 const orderRoutes = require('./routes/orderRoutes');
-const Order = require('./models/Order')
+const Order = require('./models/Order');
 
 const upload = multer(); 
 const app = express();
-
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -27,14 +26,11 @@ app.use(cookieParser());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 
-
-
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/api/parts', partRoutes);
 app.use('/api/accessories', accessoryRoutes);
 app.use("/api/orders", orderRoutes);
-
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {
@@ -57,7 +53,6 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 app.get('/', (req, res) => {
     res.send('Сървърът работи!');
 });
-
 
 mongoose
     .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -86,7 +81,6 @@ app.get("/accessories/:category", async (req, res) => {
 app.get('/accessories/detail/:id', (req, res) => {
     const { id } = req.params;
     
-    
     Accessory.findById(id)
         .then(accessory => {
             if (!accessory) {
@@ -99,4 +93,6 @@ app.get('/accessories/detail/:id', (req, res) => {
             res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
         });
 });
+
+
 

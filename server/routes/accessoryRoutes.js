@@ -79,4 +79,14 @@ router.get('/accessories/detail/:id', async (req, res) => {
     }
 });
 
+router.get('/last', async (req, res) => {
+    try {
+        const lastProducts = await Accessory.find().sort({ createdAt: -1 }).limit(4);
+        res.json(lastProducts);
+    } catch (error) {
+        console.error("Грешка при зареждане на последните аксесоари:", error);
+        res.status(500).json({ message: "Грешка при зареждане на последните аксесоари." });
+    }
+});
+
 module.exports = router;

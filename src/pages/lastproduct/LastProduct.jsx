@@ -1,22 +1,17 @@
-import React from 'react';
-import ProductCard from '../../Card/ProductCard';
-import './lastproduct.css'; 
-import yamahalights from '../../assets/yamahalights.png'; // Добави импортирането на снимките
-import dunlop from '../../assets/dunlop.png';
-import brakes from '../../assets/brakes.png';
-import Akrapovic from '../../assets/Akrapovic.png';
-
-
- const products = [
-    { img: yamahalights, title: "Yamaha Lights" },
-    { img: dunlop, title: "Dunlop Tyres" },
-    { img: brakes, title: "Brake Disc EBC" },
-    { img: Akrapovic, title: "Exaust Akrapovic" },
-  
-];
-
+import React, { useEffect, useState } from "react";
+import ProductCard from "../../Card/ProductCard";
+import "./lastproduct.css";
 
 function LastProduct() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/api/accessories/last") 
+            .then((res) => res.json())
+            .then((data) => setProducts(data))
+            .catch((error) => console.error("Грешка при зареждане на продуктите:", error));
+    }, []);
+
     return (
         <div className="container">
             <div className="header-section">
@@ -26,9 +21,17 @@ function LastProduct() {
             <div className="divider-last"></div>
 
             <div className="products-grid">
-                {products.map((product, index) => (
-                    <ProductCard key={index} img={product.img} title={product.title} />
-                ))}
+                {products.length > 0 ? (
+                    products.map((product, index) => (
+                        <ProductCard 
+                            key={index} 
+                            img={product.images[0]}  
+                            title={product.title} 
+                        />
+                    ))
+                ) : (
+                    <p>Все още няма нови продукти.</p>
+                )}
             </div>
         </div>
     );

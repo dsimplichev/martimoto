@@ -1,6 +1,6 @@
 .admin-orders-container {
-    max-width: 800px; /* Ограничава ширината */
-    margin: 20px auto; /* Центрира съдържанието */
+    max-width: 800px; 
+    margin: 20px auto; 
     padding: 20px;
     font-family: Arial, sans-serif;
 }
@@ -82,6 +82,8 @@
     align-self: flex-start;
     
 }
+
+ 
 
 .order-buttons {
     display: flex;
