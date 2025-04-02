@@ -127,7 +127,7 @@ function AddAccessory() {
                                     alt={`Uploaded ${index}`}
                                     style={{ width: '100px', marginTop: '10px' }}
                                 />
-                                <button type="button" onClick={() => {
+                                <button className="accbtn"type="button" onClick={() => {
                                     setImages(images.filter((_, i) => i !== index));
                                 }}>Изтрий</button>
                             </div>
