@@ -27,6 +27,7 @@ function LastProduct() {
                             key={index} 
                             img={product.images[0]}  
                             title={product.title} 
+                            id={product._id} 
                         />
                     ))
                 ) : (
