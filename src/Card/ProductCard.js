@@ -2,7 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./product.css";
 
-function ProductCard({ img, title, id }) {
+function ProductCard({ img, title, id, price }) {
+  const addToCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct = cart.find((item) => item.id === id);
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({
+        id,
+        title,
+        price,
+        image: img,
+        quantity: 1,
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Продуктът е добавен в количката!");
+  };
+
   return (
     <div className="product">
       <img src={img} alt={title} />
@@ -11,7 +32,9 @@ function ProductCard({ img, title, id }) {
         <Link to={`/accessories/detail/${id}`}>
           <button className="details-btn1">Разгледай</button>
         </Link>
-        <button className="add-to-cart-btn1">Добави в количка</button>
+        <button className="add-to-cart-btn1" onClick={addToCart}>
+          Добави в количка
+        </button>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@
     margin-left: auto;
 }
 
-.cart-items {
+.cart-items2 {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -30,7 +30,7 @@
     margin-left: auto;
 }
 
-.cart-item {
+.cart-item2 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -45,11 +45,11 @@
    
 }
 
-.item-details {
+.item-details2 {
     flex-grow: 1;
 }
 
-.price {
+.price2 {
     display: block;
     font-weight: bold;   
     color: #e67e22;

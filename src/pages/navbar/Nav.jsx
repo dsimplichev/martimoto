@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import { CartContext } from '../../Context/CartContext'; 
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
@@ -14,7 +14,8 @@ function Nav({ onLogout }) {
     const { cart } = useContext(CartContext); 
     const [showLogin, setShowLogin] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    
+    const dropdownRef = useRef(null); 
+
     const handleLogout = () => {
         logout();
         onLogout?.();
@@ -33,6 +34,23 @@ function Nav({ onLogout }) {
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
+    
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+
+        if (showDropdown) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showDropdown]);
+
     return (
         <div className="navbar">
             <div className="navbar-content">
@@ -47,7 +65,7 @@ function Nav({ onLogout }) {
                 <div className="btn">
                     {isLoggedIn ? (
                         <>
-                            <div className="profile-section">
+                            <div className="profile-section" ref={dropdownRef}>
                                 <span className="profile-header" onClick={() => setShowDropdown(prev => !prev)}>
                                     Моят профил <FaChevronDown className="chevron-down" />
                                 </span>
@@ -56,16 +74,16 @@ function Nav({ onLogout }) {
                                 {showDropdown && (
                                     <div className="dropdown-menu show">
                                         <ul>
-                                            <li><Link to="/profile">Моят профил</Link></li>
-                                            <li><Link to="/order-history">История на поръчките</Link></li>
+                                            <li><Link to="/profile" onClick={() => setShowDropdown(false)}>Моят профил</Link></li>
+                                            <li><Link to="/order-history" onClick={() => setShowDropdown(false)}>История на поръчките</Link></li>
                                             {user?.role === 'admin' && (
                                                 <>
-                                                    <li><Link to="/add-part">Добави част</Link></li>
-                                                    <li><Link to="/add-accessory">Добави аксесоари</Link></li>
-                                                    <li><Link to="/admin/orders">Поръчки за изпращане</Link></li>
+                                                    <li><Link to="/add-part" onClick={() => setShowDropdown(false)}>Добави част</Link></li>
+                                                    <li><Link to="/add-accessory" onClick={() => setShowDropdown(false)}>Добави аксесоари</Link></li>
+                                                    <li><Link to="/admin/orders" onClick={() => setShowDropdown(false)}>Поръчки за изпращане</Link></li>
                                                 </>
                                             )}
-                                            <li><button className="logout-btn" onClick={handleLogout}>Изход</button></li>
+                                            <li><button className="logout-btn" onClick={() => { handleLogout(); setShowDropdown(false); }}>Изход</button></li>
                                         </ul>
                                     </div>
                                 )}
@@ -81,7 +99,6 @@ function Nav({ onLogout }) {
                             <FaUserCircle />
                         </button>
                     )}
-                    
                     
                     <button className="ShoppingCart">
                         <Link to='/cart'>
