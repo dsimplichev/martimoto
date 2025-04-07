@@ -38,15 +38,15 @@ const Cart = () => {
       <div className="cart-items">
         {cartItems.map((item) => (
           <div className="cart-item" key={item.id}>
-            <img src={item.image} alt={item.name} className="item-image" />
-            <div className="item-details">
-              <h3>{item.title}</h3>
-              <button onClick={() => removeItem(item.id)} className="remove-btn">
-                Премахни
-              </button>
-            </div>
-            <p className="price">{item.price.toFixed(2)} лв.</p>
+          <img src={item.image} alt={item.name} className="item-image" />
+          <div className="item-details">
+            <h3>{item.title}</h3>
+            <button onClick={() => removeItem(item.id)} className="remove-btn">
+              Премахни
+            </button>
           </div>
+          <p className="price2">{item.price.toFixed(2)} лв.</p>
+        </div>
         ))}
       </div>
       <div className="order-summary">

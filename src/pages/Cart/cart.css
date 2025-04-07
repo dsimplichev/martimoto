@@ -47,6 +47,11 @@
 
 .item-details2 {
     flex-grow: 1;
+    
+}
+
+.item-details {
+    margin-bottom: 15px;
 }
 
 .price2 {
@@ -97,15 +102,18 @@
 }
 
 .checkout-btn {
-    display: block;
-    width: 20%;
-    padding: 15px;
-    background: orange;
+    background-color: #f39c12;
     color: white;
+    padding: 12px 25px;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 18px;
     margin-top: 20px;
-    margin-left: auto;
-    text-align: center;
+    float: right;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #d35400;
 }
