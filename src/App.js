@@ -21,6 +21,7 @@ import Order from "./pages/Order/Order";
 import AdminOrder from "./pages/adminOrder/AdminOrder";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
 import UserProfile from "./pages/userProfile/UserProfile";
+import ChangePassword from "./pages/changePassword/ChangePassword";
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
@@ -53,6 +54,7 @@ function App() {
         <Route path="/admin/orders" element={<AdminOrder />} /> 
         <Route path="/order/:orderId" element={<OrderDetails />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profile/password" element={<ChangePassword />} />
       </Routes>
 
       <Brand />
