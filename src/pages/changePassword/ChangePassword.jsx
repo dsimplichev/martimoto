@@ -7,7 +7,7 @@ const ChangePassword = () => {
     const [repeatPassword, setRepeatPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (password !== repeatPassword) {
@@ -15,7 +15,29 @@ const ChangePassword = () => {
             return;
         }
 
-        console.log("Нова парола:", password);
+        try {
+            const token = localStorage.getItem("token"); 
+            const response = await fetch("http://localhost:5000/api/users/change-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({ newPassword: password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Паролата беше успешно променена.");
+                navigate('/profile');
+            } else {
+                alert(data.message || "Грешка при промяна на паролата.");
+            }
+        } catch (error) {
+            console.error("Грешка при заявка:", error);
+            alert("Сървърна грешка. Опитай по-късно.");
+        }
     };
 
     const handleBack = () => {

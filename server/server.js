@@ -10,6 +10,9 @@ const accessoryRoutes = require('./routes/accessoryRoutes');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const Accessory = require('./models/Accessory');
+const User = require('./models/User'); 
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const orderRoutes = require('./routes/orderRoutes');
 const Order = require('./models/Order');
 
@@ -31,6 +34,43 @@ app.use('/user', userRoutes);
 app.use('/api/parts', partRoutes);
 app.use('/api/accessories', accessoryRoutes);
 app.use("/api/orders", orderRoutes);
+
+
+app.post('/api/users/change-password', async (req, res) => {
+    try {
+        const { newPassword } = req.body;
+
+        
+        const token = req.headers['authorization']?.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({ message: 'Не е предоставен токен.' });
+        }
+
+        
+        const decoded = jwt.verify(token, 'your_secret_key'); 
+        if (!decoded) {
+            return res.status(401).json({ message: 'Невалиден токен.' });
+        }
+
+        
+        const user = await User.findById(decoded.userId);
+        if (!user) {
+            return res.status(404).json({ message: 'Потребителят не беше намерен.' });
+        }
+
+        
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Паролата беше успешно променена.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Сървърна грешка. Опитайте по-късно.' });
+    }
+});
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {
@@ -93,6 +133,5 @@ app.get('/accessories/detail/:id', (req, res) => {
             res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
         });
 });
-
 
 
