@@ -41,7 +41,6 @@ router.post('/change-password', async (req, res) => {
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        
         const user = await User.findById(decoded.id);
         if (!user) {
             return res.status(404).json({ message: 'Потребителят не беше намерен.' });
@@ -49,6 +48,9 @@ router.post('/change-password', async (req, res) => {
 
         
         const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        
+        console.log('Хешираната парола:', hashedPassword);
 
         
         user.password = hashedPassword;

@@ -11,7 +11,7 @@
 }
 
 .accessory-list {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-template-rows: auto;
   gap: 10px;
