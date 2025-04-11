@@ -6,10 +6,17 @@ function LastProduct() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/accessories/last") 
+        console.log("Изпраща се заявка за последни продукти...");
+
+        fetch("http://localhost:5000/api/accessories/last")
             .then((res) => res.json())
-            .then((data) => setProducts(data))
-            .catch((error) => console.error("Грешка при зареждане на продуктите:", error));
+            .then((data) => {
+                console.log("Получени последни продукти:", data);
+                setProducts(data);
+            })
+            .catch((error) => {
+                console.error("Грешка при зареждане на продуктите:", error);
+            });
     }, []);
 
     return (
