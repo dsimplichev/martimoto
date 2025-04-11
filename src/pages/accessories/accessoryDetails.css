@@ -11,12 +11,12 @@
 }
 
 .accessory-list {
-  display: flex;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-template-rows: auto;
-  gap: 10px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 5px; 
+  justify-items: center; 
   padding: 20px;
+  margin-left: 100px;
 }
 
 .accessory-card {
@@ -27,8 +27,8 @@
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
-  max-height: 240;
-  max-width: 150px;
+  max-height: 240px;
+  max-width: 140px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
@@ -106,18 +106,18 @@
 
 @media (max-width: 1200px) {
   .accessory-list {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr); 
   }
 }
 
 @media (max-width: 900px) {
   .accessory-list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); 
   }
 }
 
 @media (max-width: 600px) {
   .accessory-list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
