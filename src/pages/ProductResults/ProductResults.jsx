@@ -21,8 +21,15 @@ function ProductResults() {
 
     return (
         <div className="product-results-container">
-            <h2>Резултат от търсенето: {query}</h2>
+            
+            <div className="header-section2">
+                <h2 className="title-parts-search">Резултат от търсенето: {query}</h2>
+            </div>
+            
+            
             <div className="divider-parts3"></div>
+
+            
             <div className="product-results">
                 {accessories.length > 0 ? (
                     accessories.map((accessory, index) => (
