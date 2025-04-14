@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../Context/CartContext';
 import './product.css'
 
 
 
-function ProductCard({ img, title, id }) {
+function ProductCard({ img, title, id, price }) {
     const navigate = useNavigate();
+    const { addToCart } = useContext(CartContext);
     
     const handleNavigate = () => {
         navigate(`/accessories/detail/${id}`); 
     };
 
+    const handleAddToCart = () => {
+        const product = {
+            id: id,
+            title: title,
+            price: price,  
+            image: img,         
+        };
+
+        addToCart(product); 
+        alert('Продуктът беше добавен в количката!');
+    };
+
     return (
         <div className="product">
             <img src={img} alt={title} />
-            <p>{title}</p>
+            <p className='card-titel-product' >{title}</p>
             <div className="product-buttons">
                 <button className="details-btn1" onClick={handleNavigate} >Разгледай</button>
-                <button className="add-to-cart-btn1">Добави в количка</button>
+                <button className="add-to-cart-btn1" onClick={handleAddToCart} >Добави в количка</button>
             </div>
         </div>
     );

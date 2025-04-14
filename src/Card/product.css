@@ -28,6 +28,11 @@
     margin-right: 200px;
 }
 
+.card-titel-product{
+    display: flex;
+    
+}
+
 .products-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
