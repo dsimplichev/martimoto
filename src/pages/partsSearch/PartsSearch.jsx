@@ -1,60 +1,36 @@
-
 import React, { useState } from "react";
 import './PartsSearch.css';
-import SelectDropdown from "../../Card/SelectDropdown";
 
 function PartsSearch() {
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const makes = [
-        { value: 'BMW', label: 'BMW' },
-        { value: 'Yamaha', label: 'Yamaha' }
-    ];
-
-    const allModels = {
-        'BMW': [{ value: 's1000rr', label: 'S1000RR' }, { value: 'f800gs', label: 'F800GS' }],
-        'Yamaha': [{ value: 'r1', label: 'R1' }, { value: 'mt09', label: 'MT-09' }]
-    };
-
-    const years = [
-        { value: '2024', label: '2024' },
-        { value: '2023', label: '2023' }
-    ];
-
-    const [selectedMake, setSelectedMake] = useState("");
-    const [filteredModels, setFilteredModels] = useState([]);
-
-    const handleMakeChange = (make) => {
-        setSelectedMake(make);
-        setFilteredModels(allModels[make] || []);
+    const handleSearch = (e) => {
+        e.preventDefault();
+        console.log("Търсене на:", searchQuery);
     };
 
     return (
         <div className="parts-search-container">
-
-
-            <div className="filter-buttons">
-                <button className="filter-button">NEW</button>
-                <button className="filter-button">USED</button>
-                <button className="filter-button">SHOP ALL</button>
+            <div className="header-section2">
+                <h2 className="title-parts-search">Потърси</h2>
+                
             </div>
+            <div className="divider-parts"></div>
 
-            <div className="search-now">
-                <div className="search-title-container">
-                    <h2 className="search-title">SEARCH NOW</h2>
+            <form className="search-form" onSubmit={handleSearch}>
+                <div className="search-input-container">
+                    <input
+                        type="text"
+                        className="search-input2"
+                        placeholder="Намери лесно"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button type="submit" className="search-button">Търси</button>
                 </div>
-                <form className="search-form">
-
-                    <SelectDropdown className="select-year" label="Year" options={years} />
-                    <SelectDropdown className="select-make" label="Make" options={makes} onChange={(e) =>
-                        handleMakeChange(e.target.value)} />
-                    <SelectDropdown className="select-model" label="Model" options={filteredModels} />
-
-                    <button type="submit" className="search-button">Search</button>
-                </form>
-            </div>
+            </form>
         </div>
     );
-
 }
 
 export default PartsSearch;
