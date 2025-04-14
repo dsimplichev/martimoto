@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './PartsSearch.css';
 
 function PartsSearch() {
     const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
 
     const handleSearch = (e) => {
         e.preventDefault();
-        console.log("Търсене на:", searchQuery);
+        navigate(`/search-results?query=${searchQuery}`);
     };
 
     return (

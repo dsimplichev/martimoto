@@ -79,6 +79,27 @@ router.get('/accessories/detail/:id', async (req, res) => {
     }
 });
 
+router.get('/accessories/search', async (req, res) => {
+    const { query } = req.query;
+    console.log("Търсене за: ", query);
+
+    try {
+        const accessories = await Accessory.find({
+            $or: [
+                { title: { $regex: query, $options: 'i' } }, 
+                { description: { $regex: query, $options: 'i' } }, 
+                { category: { $regex: query, $options: 'i' } } 
+            ]
+        });
+        console.log("Намерени аксесоари: ", accessories);
+
+        res.json(accessories);
+    } catch (error) {
+        console.error("Грешка при търсенето на аксесоари:", error);
+        res.status(500).json({ message: "Грешка при търсенето на аксесоарите." });
+    }
+});
+
 router.get('/last', async (req, res) => {
     try {
         console.log("Започва зареждането на последните продукти...");
