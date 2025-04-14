@@ -54,8 +54,8 @@ function AccessoryDetails() {
                        <div key={acc._id} className="accessory-card">
                          <Link    to={`/accessories/detail/${acc._id}`} className="accessory-link">
                             <img src={acc.images[0]} alt={acc.title} />
-                            <h3>{acc.title}</h3>
-                            <p className="price">{acc.price} лв.</p>
+                            <h3 className="acc-title">{acc.title}</h3>
+                            <p className="price-accessories">{acc.price} лв.</p>
                          </Link>
                         </div>
                        

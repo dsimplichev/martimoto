@@ -50,7 +50,7 @@
   margin-bottom: 3px;
 }
 
-.accessory-card h3 {
+.acc-title {
   display: flex;
   font-size: 13px;
   font-weight: 300;
@@ -62,7 +62,7 @@
   text-decoration: none;
 }
 
-.price {
+.price-accessories {
   color: #f39c12;
   margin-top: 10px;
   padding: 1px;
