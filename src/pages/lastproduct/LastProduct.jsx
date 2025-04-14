@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "../../Card/ProductCard";
 import "./lastproduct.css";
 
 function LastProduct() {
     const [products, setProducts] = useState([]);
-    const [startIndex, setStartIndex] = useState(0);
-    const visibleCount = 4;
+    const scrollRef = useRef(null);
 
     useEffect(() => {
         fetch("http://localhost:5000/api/accessories/last")
@@ -14,17 +13,35 @@ function LastProduct() {
             .catch((error) => console.error("Грешка при зареждане на продуктите:", error));
     }, []);
 
-    const handlePrev = () => {
-        setStartIndex((prevIndex) => Math.max(prevIndex - visibleCount, 0));
+    
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+        isDown = true;
+        scrollRef.current.classList.add('active');
+        startX = e.pageX - scrollRef.current.offsetLeft;
+        scrollLeft = scrollRef.current.scrollLeft;
     };
 
-    const handleNext = () => {
-        setStartIndex((prevIndex) => 
-            Math.min(prevIndex + visibleCount, products.length - visibleCount)
-        );
+    const handleMouseLeave = () => {
+        isDown = false;
+        scrollRef.current.classList.remove('active');
     };
 
-    const visibleProducts = products.slice(startIndex, startIndex + visibleCount);
+    const handleMouseUp = () => {
+        isDown = false;
+        scrollRef.current.classList.remove('active');
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX) * 2;
+        scrollRef.current.scrollLeft = scrollLeft - walk;
+    };
 
     return (
         <div className="container">
@@ -35,25 +52,24 @@ function LastProduct() {
             <div className="divider-last"></div>
 
             {products.length > 0 ? (
-                <>
-                   
-
-                    <div className="products-grid">
-                        {visibleProducts.map((product, index) => (
-                            <ProductCard 
-                                key={index} 
-                                img={product.images[0]}  
-                                title={product.title} 
-                                id={product._id}
-                                price={product.price}
-                            />
-                        ))}
-                    </div>
-                    <div className="slider-controls">
-                        <button onClick={handlePrev} disabled={startIndex === 0}>◀</button>
-                        <button onClick={handleNext} disabled={startIndex + visibleCount >= products.length}>▶</button>
-                    </div>
-                </>
+                <div
+                    ref={scrollRef}
+                    className="products-scroll-container"
+                    onMouseDown={handleMouseDown}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseUp={handleMouseUp}
+                    onMouseMove={handleMouseMove}
+                >
+                    {products.slice(0, 12).map((product, index) => (
+                        <ProductCard 
+                            key={index} 
+                            img={product.images[0]}  
+                            title={product.title} 
+                            id={product._id}
+                            price={product.price}
+                        />
+                    ))}
+                </div>
             ) : (
                 <p>Все още няма нови продукти.</p>
             )}
