@@ -46,7 +46,7 @@ function LastProduct() {
     return (
         <div className="container">
             <div className="header-section">
-                <h2 className="title-last-product">Last Products</h2>
+                <h2 className="title-last-product">Последно добавени</h2>
             </div>
 
             <div className="divider-last"></div>

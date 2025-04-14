@@ -2,7 +2,11 @@ import React from 'react';
 import './product.css'
 
 
+
 function ProductCard({ img, title }) {
+    
+    
+    
     return (
         <div className="product">
             <img src={img} alt={title} />

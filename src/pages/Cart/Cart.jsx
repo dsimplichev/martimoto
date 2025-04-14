@@ -32,7 +32,7 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <div className="header-section-cart">
-        <h1>Моята количка</h1>
+        <h1 className="cart-title">Моята количка</h1>
       </div>
       <div className="divider-cart"></div>
       <div className="cart-items">
