@@ -21,9 +21,9 @@ function PartsSearch() {
 
             <form className="search-form" onSubmit={handleSearch}>
                 <div className="search-input-container">
-                    <input
+                    <input className="search-input2"
                         type="text"
-                        className="search-input2"
+                       
                         placeholder="Намери лесно"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}

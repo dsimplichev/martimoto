@@ -100,8 +100,8 @@ function Nav({ onLogout }) {
                         </button>
                     )}
                     
-                    <button className="ShoppingCart">
-                        <Link to='/cart'>
+                    <button className="ShoppingCart2">
+                        <Link className='cart2' to='/cart'>
                             <FaShoppingCart />
                             {totalItems > 0 && (  
                                 <span className="cart-badge">{totalItems}</span>
