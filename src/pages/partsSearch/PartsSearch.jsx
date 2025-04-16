@@ -14,7 +14,7 @@ function PartsSearch() {
     return (
         <div className="parts-search-container">
             <div className="header-section2">
-                <h2 className="title-parts-search">Потърси</h2>
+                <h2 className="title-parts-search2">Потърси</h2>
                 
             </div>
             <div className="divider-parts"></div>
