@@ -23,6 +23,7 @@ import OrderDetails from "./pages/orderDetails/OrderDetails";
 import UserProfile from "./pages/userProfile/UserProfile";
 import ChangePassword from "./pages/changePassword/ChangePassword";
 import ProductResults from './pages/ProductResults/ProductResults';
+import ScrollToTopButton from "./pages/scrollToTopButton/scrollToTopButton";
 
 
 import React, { useState, useContext } from 'react';
@@ -64,6 +65,7 @@ function App() {
       <LastProduct />
       <About />
       <Footer />
+      <ScrollToTopButton />
 
       {isLoginOpen && (
         <Login
