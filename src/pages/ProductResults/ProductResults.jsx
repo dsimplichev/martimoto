@@ -40,7 +40,7 @@ function ProductResults() {
                         />
                     ))
                 ) : (
-                    <p>Няма намерени аксесоари.</p>
+                    <div className='product-results2'>Няма намерени аксесоари.</div>
                 )}
             </div>
         </div>
