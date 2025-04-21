@@ -14,9 +14,11 @@ function BrandDetails() {
             <div className="model-grid">
                 {models.map((model, index) => (
                     <div key={index} className="model-card">
-                        <Link to={`/brands/${brandName}/models/${model.name}`}>
+                        <Link className="model-link"
+
+                         to={`/brands/${brandName}/models/${model.name}`}>
                             <img src={model.img} alt={model.name} className="model-image" />
-                            <p className="model-name">{model.name}</p>
+                            <p className="model-name2">{model.name}</p>
                         </Link>
                     </div>
                 ))}

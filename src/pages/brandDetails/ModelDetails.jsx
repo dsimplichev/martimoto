@@ -15,7 +15,7 @@ function ModelDetails() {
             <div className="model-grid2">
                 {subModels.map((subModel, index) => (
                     <div key={index} className="model-card2">
-                        <Link to={`/brands/${brandName}/models/${modelName}/${subModel.name}`}>
+                        <Link className="model-link" to={`/brands/${brandName}/models/${modelName}/${subModel.name}`}>
                             <img src={subModel.img} alt={subModel.name} className="model-image" />
                             <p className="model-name">{subModel.name}</p>
                         </Link>

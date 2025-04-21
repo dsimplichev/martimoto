@@ -24,6 +24,7 @@ import UserProfile from "./pages/userProfile/UserProfile";
 import ChangePassword from "./pages/changePassword/ChangePassword";
 import ProductResults from './pages/ProductResults/ProductResults';
 import ScrollToTopButton from "./pages/scrollToTopButton/scrollToTopButton";
+import AdminMessages from "./pages/adminMessages/AdminMessages";
 
 
 import React, { useState, useContext } from 'react';
@@ -59,6 +60,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/profile/password" element={<ChangePassword />} />
         <Route path="/search-results" element={<ProductResults />} />
+        <Route path="/admin/messages" element={<AdminMessages />} />
       </Routes>
 
       <Brand />

@@ -6,7 +6,8 @@ const { PORT, MONGO_URI } = require('./config');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const partRoutes = require('./routes/partRoutes');
-const accessoryRoutes = require('./routes/accessoryRoutes'); 
+const accessoryRoutes = require('./routes/accessoryRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const Accessory = require('./models/Accessory');
@@ -31,6 +32,7 @@ app.use('/user', userRoutes);
 app.use('/api/parts', partRoutes);
 app.use('/api/accessories', accessoryRoutes);
 app.use("/api/orders", orderRoutes);
+app.use('/api/messages', messageRoutes);
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {

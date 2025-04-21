@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './contactForm.css';
 
-function ContactForm({onClose}) {
+function ContactForm({ onClose }) {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
+        phone: '',
         query: '',
         message: ''
     });
@@ -16,10 +17,25 @@ function ContactForm({onClose}) {
         });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        console.log("Message sent:", formData);
-        setFormData({ fullName: '', email: '', query: '', message: '' });
+
+        try {
+            await fetch('http://localhost:5000/api/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            alert('Съобщението е изпратено успешно!');
+            setFormData({ fullName: '', email: '', query: '', message: '' });
+            onClose();
+        } catch (error) {
+            alert('Възникна грешка. Опитайте отново.');
+            console.error('Error sending message:', error);
+        }
     };
 
     const handleOverlayClick = (e) => {
@@ -29,13 +45,13 @@ function ContactForm({onClose}) {
     };
 
     return (
-   
+
         <div className="contact-form-overlay" onClick={handleOverlayClick}>
             <div className="contact-form-container">
-                <h3 className="contact-form-title">Get in Touch</h3>
+                <h3 className="contact-form-title">Свържи се с нас</h3>
                 <hr className="title-underline" />
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="fullName">Full Name</label>
+                    <label htmlFor="fullName">Име</label>
                     <input
                         type="text"
                         id="fullName"
@@ -45,7 +61,7 @@ function ContactForm({onClose}) {
                         required
                     />
 
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">Е-поща</label>
                     <input
                         type="email"
                         id="email"
@@ -55,7 +71,18 @@ function ContactForm({onClose}) {
                         required
                     />
 
-                    <label htmlFor="query">Short description</label>
+                    <label htmlFor="phone">Телефон:</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={onChange}
+                        required
+                        placeholder=""
+                    />
+
+                    <label htmlFor="query">Кратко описание</label>
                     <input
                         type="text"
                         id="query"
@@ -65,7 +92,7 @@ function ContactForm({onClose}) {
                         required
                     />
 
-                    <label htmlFor="message">Message</label>
+                    <label htmlFor="message">Съобщение</label>
                     <textarea
                         id="message"
                         name="message"
@@ -75,11 +102,11 @@ function ContactForm({onClose}) {
                         required
                     ></textarea>
 
-                    <button type="submit" className="send-button">Send</button>
+                    <button type="submit" className="send-button">Изпрати</button>
                 </form>
             </div>
         </div>
-    
+
     );
 }
 

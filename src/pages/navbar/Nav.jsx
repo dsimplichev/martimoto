@@ -81,6 +81,7 @@ function Nav({ onLogout }) {
                                                     <li><Link to="/add-part" onClick={() => setShowDropdown(false)}>Добави част</Link></li>
                                                     <li><Link to="/add-accessory" onClick={() => setShowDropdown(false)}>Добави аксесоари</Link></li>
                                                     <li><Link to="/admin/orders" onClick={() => setShowDropdown(false)}>Поръчки за изпращане</Link></li>
+                                                    <li><Link to="/admin/messages" onClick={() => setShowDropdown(false)}>Съобщения</Link></li>
                                                 </>
                                             )}
                                             <li><button className="logout-btn" onClick={() => { handleLogout(); setShowDropdown(false); }}>Изход</button></li>
