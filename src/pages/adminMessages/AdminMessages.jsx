@@ -17,7 +17,7 @@ function AdminMessages() {
 
     return (
         <div className="admin-messages-container">
-            <h2>Получени съобщения</h2>
+            <h2 className='msg-recived'>Получени съобщения</h2>
             <ul className="message-list">
                 {messages.map((msg) => (
                     <li key={msg._id} className="message-card">
