@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './yearDetails.css';
+import yearDetailsData from './yearDetailsData'; 
 
 function YearDetails() {
     const { brandName, modelName, subModelName, yearRange } = useParams();
+    const yearsData = yearDetailsData[modelName]?.[subModelName] || []; 
     const [parts, setParts] = useState([]);
-    const [yearsData, setYearsData] = useState([]);
+    
+
+    console.log(brandName, modelName, subModelName, yearRange); 
     
     
     useEffect(() => {
         const fetchParts = async () => {
             try {
+                console.log('Sending request to:', `/api/parts/${brandName}/${modelName}/${subModelName}/${yearRange}`);
                 const response = await fetch(`/api/parts/brands/${brandName}/models/${modelName}/${subModelName}/${yearRange}`);
                 const data = await response.json();
+
+                console.log('Response data:', data);
                 
                 if (Array.isArray(data)) {
                     setParts(data);  

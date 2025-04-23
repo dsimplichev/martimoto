@@ -39,9 +39,11 @@ router.post('/add', upload.array('images'), async (req, res) => {
 
 router.get('/brands/:brandName/models/:modelName/:subModelName/:yearRange', async (req, res) => {
   const { brandName, modelName, subModelName, yearRange } = req.params;
+  console.log('API GET params:', req.params);
 
   try {
     const [startYear, endYear] = yearRange.split('-').map(Number);
+    console.log('Parsed year range:', startYear, endYear);
 
     const parts = await Part.find({
       brand: brandName,
@@ -49,6 +51,8 @@ router.get('/brands/:brandName/models/:modelName/:subModelName/:yearRange', asyn
       subModel: subModelName, 
       year: { $gte: startYear, $lte: endYear },
     });
+
+    console.log('Parts found:', parts);
 
     console.log('Parts found:', parts);
     if (!parts.length) {
