@@ -1,12 +1,11 @@
 import './login.css';
 import React, { useState, useContext } from 'react';
-import { auth, googleProvider, facebookProvider } from '../../firebase';
-import { signInWithPopup } from 'firebase/auth';
 import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
 import { AuthContext } from '../../Context/AuthContext';
+import Register from '../register/Register'; 
 
-function Login({ onClose, onCreateAccountClick }) {
+function Login({ onClose }) {
     const { login } = useContext(AuthContext);
     
     const [formData, setFormData] = useState({
@@ -14,6 +13,7 @@ function Login({ onClose, onCreateAccountClick }) {
         password: '',
     });
     const [error, setError] = useState(null);
+    const [isRegistering, setIsRegistering] = useState(false); // Състояние за контролиране на изгледа
 
     const onChange = (e) => {
         setFormData({
@@ -44,96 +44,64 @@ function Login({ onClose, onCreateAccountClick }) {
         }
     };
 
-    const handleGoogleLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
-    
-            await fetch('http://localhost:5000/api/auth/oauth-login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: user.email,
-                    name: user.displayName,
-                    provider: 'google',
-                    uid: user.uid
-                })
-            });
-    
-            onClose();
-        } catch (err) {
-            setError("Грешка при вход с Google.");
-        }
+    const handleCreateAccountClick = () => {
+        setIsRegistering(true); // Превключваме на форма за регистрация
     };
-    
-    const handleFacebookLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, facebookProvider);
-            const user = result.user;
-    
-            await fetch('http://localhost:5000/api/auth/oauth-login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: user.email,
-                    name: user.displayName,
-                    provider: 'facebook',
-                    uid: user.uid
-                })
-            });
-    
-            onClose();
-        } catch (err) {
-            setError("Грешка при вход с Facebook.");
-        }
+
+    const handleLoginClick = () => {
+        setIsRegistering(false); // Превключваме обратно на форма за вход
     };
 
     return (
         <div className="modal__login" onClick={handleOverlayClick}>
             <div className="login__container">
-                <div className="login__form">
-                    <h2 className="login__title">Вход</h2>
-                    <div className="social-login">
-                        <ul className="social__wrap">
-                            <li className="google">
-                                <a href="#"><ImGoogle2 className="google__icon" />Вход с Google</a>
-                            </li>
-                            <li className="fb">
-                                <a href="#"><FaFacebook className="facebook__icon" />Вход с Facebook</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="or">или</div>
-                    {error && <p className="error-message">{error}</p>}
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="email">Имейл</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            value={formData.email}
-                            onChange={onChange}
-                            autoComplete="email"
-                        />
-                        <label htmlFor="password">Парола</label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            value={formData.password}
-                            onChange={onChange}
-                            autoComplete="current-password"
-                        />
-                        <button className="btn__login" type="submit">Вход</button>
-                    </form>
+                {isRegistering ? (
+                    <Register onClose={onClose} onLoginClick={handleLoginClick} /> // Показваме регистрационната форма
+                ) : (
+                    <div className="login__form">
+                        <h2 className="login__title">Вход</h2>
+                        <div className="social-login">
+                            <ul className="social__wrap">
+                                <li className="google">
+                                    <a href="#"><ImGoogle2 className="google__icon" />Вход с Google</a>
+                                </li>
+                                <li className="fb">
+                                    <a href="#"><FaFacebook className="facebook__icon" />Вход с Facebook</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="or">или</div>
+                        {error && <p className="error-message">{error}</p>}
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="email">Имейл</label>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                value={formData.email}
+                                onChange={onChange}
+                                autoComplete="email"
+                            />
+                            <label htmlFor="password">Парола</label>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={formData.password}
+                                onChange={onChange}
+                                autoComplete="current-password"
+                            />
+                            <button className="btn__login" type="submit">Вход</button>
+                        </form>
 
-                    <div className="register-prompt">
-                        Нямате акаунт?{' '}
-                        <span className="create-account" onClick={onCreateAccountClick}>
-                            Регистрация
-                        </span>
+                        <div className="register-prompt">
+                            Нямате акаунт?{' '}
+                            <span className="create-account" onClick={handleCreateAccountClick}>
+                                Регистрация
+                            </span>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );
