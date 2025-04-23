@@ -68,9 +68,9 @@ function Register({ onClose, onLoginClick }) {
     return (
         <div className="modal-overlay" onClick={handleOverlayClick}>
             <div className="form-container">
-                <h2>Signup</h2>
+                <h2>Регистрация</h2>
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username">Потребителско име</label>
                     <input
                         type="text"
                         id="username"
@@ -80,7 +80,7 @@ function Register({ onClose, onLoginClick }) {
                         required
                     />
 
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">Е-поща</label>
                     <input
                         type="email"
                         id="email"
@@ -90,7 +90,7 @@ function Register({ onClose, onLoginClick }) {
                         required
                     />
 
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Парола</label>
                     <input
                         type="password"
                         id="password"
@@ -100,7 +100,7 @@ function Register({ onClose, onLoginClick }) {
                         required
                     />
 
-                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <label htmlFor="confirmPassword">Потвърди паролата</label>
                     <input
                         type="password"
                         id="confirmPassword"

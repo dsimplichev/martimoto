@@ -10,14 +10,12 @@ router.post('/add', upload.array('images'), async (req, res) => {
   try {
     const { title, description, price, category, brand, model, cylinder, year } = req.body;
 
-    
     const images = [];
     for (const file of req.files) {
       const result = await cloudinary.uploader.upload(file.path);
       images.push(result.secure_url);
     }
 
-    
     const newPart = new Part({
       title,
       description,
@@ -39,7 +37,7 @@ router.post('/add', upload.array('images'), async (req, res) => {
 });
 
 
-router.get('/:brandName/:modelName/:subModelName/:yearRange', async (req, res) => {
+router.get('/brands/:brandName/models/:modelName/:subModelName/:yearRange', async (req, res) => {
   const { brandName, modelName, subModelName, yearRange } = req.params;
 
   try {
@@ -51,6 +49,7 @@ router.get('/:brandName/:modelName/:subModelName/:yearRange', async (req, res) =
       subModel: subModelName, 
       year: { $gte: startYear, $lte: endYear },
     });
+
     console.log('Parts found:', parts);
     if (!parts.length) {
       return res.status(404).json({ message: 'Части не са намерени' });
