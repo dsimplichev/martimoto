@@ -1,5 +1,7 @@
 import './login.css';
 import React, { useState, useContext } from 'react';
+import { auth, googleProvider, facebookProvider } from '../../firebase';
+import { signInWithPopup } from 'firebase/auth';
 import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
 import { AuthContext } from '../../Context/AuthContext';
@@ -39,6 +41,50 @@ function Login({ onClose, onCreateAccountClick }) {
     const handleOverlayClick = (e) => {
         if (e.target.classList.contains('modal__login')) {
             onClose();
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+    
+            await fetch('http://localhost:5000/api/auth/oauth-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: user.email,
+                    name: user.displayName,
+                    provider: 'google',
+                    uid: user.uid
+                })
+            });
+    
+            onClose();
+        } catch (err) {
+            setError("Грешка при вход с Google.");
+        }
+    };
+    
+    const handleFacebookLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, facebookProvider);
+            const user = result.user;
+    
+            await fetch('http://localhost:5000/api/auth/oauth-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: user.email,
+                    name: user.displayName,
+                    provider: 'facebook',
+                    uid: user.uid
+                })
+            });
+    
+            onClose();
+        } catch (err) {
+            setError("Грешка при вход с Facebook.");
         }
     };
 
