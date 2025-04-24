@@ -16,7 +16,7 @@ function YearDetails() {
             <div className="year-underline"></div>
             <div className="year-grid">
             {yearsData.map((yearItem, index) => {
-                    console.log(yearItem.year);  
+                     
 
                     return (
                         <div key={index} className="year-card">
