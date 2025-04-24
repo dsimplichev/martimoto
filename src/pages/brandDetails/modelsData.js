@@ -4,10 +4,14 @@ import s1000rr from "../../assets/BMW/s1000rr.png";
 import Streetfighter from "../../assets/Ducati/Streetfighter.png";
 import Ducati from "../../assets/Ducati/Ducati.png";
 import D999 from "../../assets/Ducati/D999.png";
-import GSXR from "../../assets/SUZUKI/GSXR.png";
-import GSX from "../../assets/SUZUKI/GSX.png";
+
+import S600 from "../../assets/SUZUKI/S600.png";
+import GSXR1000 from "../../assets/SUZUKI/GSXR1000.png";
+import GSXR1100 from "../../assets/SUZUKI/GSXR1100.png";
 import GSXS from "../../assets/SUZUKI/GSXS.png";
 import GSXS750 from "../../assets/SUZUKI/GSXS750.png";
+
+
 import HAYABUSA from "../../assets/SUZUKI/HAYABUSA.png";
 import yamaha from "../../assets/Yamaha/yamaha.png";
 import YZFR6 from "../../assets/Yamaha/YZFR6.png";
@@ -54,6 +58,19 @@ import MT09 from "../../assets/Yamaha/MT09.png";
 import MT09T from "../../assets/Yamaha/MT09T.png";
 import MT125 from "../../assets/Yamaha/MT125.png";
 
+import CBR1100 from "../../assets/HONDA/CBR1100.png";
+import CBRR1100 from "../../assets/HONDA/CBRR1100.png";
+import CBRRR from "../../assets/HONDA/CBRRR.png";
+import CBR954 from "../../assets/HONDA/CBR954.png";
+import CBR929 from "../../assets/HONDA/CBR929.png";
+import CBR900 from "../../assets/HONDA/CBR900.png";
+import CBR650 from "../../assets/HONDA/CBR650.png";
+import CBR600 from "../../assets/HONDA/CBR600.png";
+import CBR600FS from "../../assets/HONDA/CBR600FS.png";
+import CBR500R from "../../assets/HONDA/CBR500R.png";
+import CBR250R from "../../assets/HONDA/CBR250R.png";
+import CBR125 from "../../assets/HONDA/CBR125.png";
+
 const modelsData = {
   BMW: [
     { name: "S1000R", img: s1000r },
@@ -71,9 +88,15 @@ const modelsData = {
     { name: "749 /999SBK", img: D999 },
   ],
   SUZUKI: [
-    { name: "GSX-R", img: GSXR },
-    { name: "GSX", img: GSX },
-    { name: "GSX-S", img: GSXS },
+    
+    { name: "GSXR-600", img: S600 },
+    { name: "GSXR-1000", img: GSXR1000 },
+    { name: "GSXR-1100", img: GSXR1100 },
+    { name: "GSX-750 ", img: S600 },
+    { name: "GSX-1200 ", img: GSXR1000 },
+    { name: "GSX-1400 ", img: GSXR1100 },
+    { name: "GSXS-750", img: GSXS750 },
+    { name: "GSXS-1000", img: GSXS },
     { name: "HAYABUSA", img: HAYABUSA },
   ],
   YAMAHA: [
@@ -88,7 +111,19 @@ const modelsData = {
     { name: "MT-125", img: MT125 },
   ],
   HONDA: [
-    { name: "CBR", img: yamaha },
+    { name: "CBR-1100XX", img: CBR1100 },
+    { name: "CBR-1100", img: CBR1100 },
+    { name: "CBR-1000F", img: CBRR1100 },
+    { name: "CBR-1000RR", img: CBRRR },
+    { name: "CBR-954", img: CBR954 },
+    { name: "CBR-929", img: CBR929 },
+    { name: "CBR-900", img: CBR900 },
+    { name: "CBR-650", img: CBR650 },
+    { name: "CBR-600", img: CBR600 },
+    { name: "CBR-600FS", img: CBR600FS },
+    { name: "CBR-500R", img: CBR500R },
+    { name: "CBR-250R", img: CBR250R },
+    { name: "CBR-125", img: CBR125 },
     { name: "CBF", img: YZFR6 },
     { name: "CB", img: YZFR125 },
     { name: "HORNET", img: XJ6 },

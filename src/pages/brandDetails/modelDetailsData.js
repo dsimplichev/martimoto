@@ -1,9 +1,3 @@
-import S600 from "../../assets/SUZUKI/S600.png";
-import GSXR750 from "../../assets/SUZUKI/GSXR750.png";
-import GSXR1000 from "../../assets/SUZUKI/GSXR1000.png";
-import GSXR1100 from "../../assets/SUZUKI/GSXR1100.png";
-import GSXS750 from "../../assets/SUZUKI/GSXS750.png";
-import GSXS from "../../assets/SUZUKI/GSXS.png";
 import yamaha from "../../assets/Yamaha/yamaha.png";
 import YZFR120022003 from "../../assets/Yamaha/YZFR120022003.png";
 import YZFR120042006 from "../../assets/Yamaha/YZFR120042006.png";
@@ -12,19 +6,18 @@ import YZFR120072008 from "../../assets/Yamaha/YZFR120072008.png";
 import YZFR120152017 from "../../assets/Yamaha/YZFR120152017.png";
 import YZFR120202021 from "../../assets/Yamaha/YZFR120202021.png";
 
-
-import CBR1100 from "../../assets/HONDA/CBR1100.png";
-import CBRR1100 from "../../assets/HONDA/CBRR1100.png";
-import CBRRR from "../../assets/HONDA/CBRRR.png";
-import CBR954 from "../../assets/HONDA/CBR954.png";
-import CBR929 from "../../assets/HONDA/CBR929.png";
-import CBR900 from "../../assets/HONDA/CBR900.png";
-import CBR650 from "../../assets/HONDA/CBR650.png";
-import CBR600 from "../../assets/HONDA/CBR600.png";
-import CBR600FS from "../../assets/HONDA/CBR600FS.png";
-import CBR500R from "../../assets/HONDA/CBR500R.png";
-import CBR250R from "../../assets/HONDA/CBR250R.png";
-import CBR125 from "../../assets/HONDA/CBR125.png";
+import CBR1000RR2004 from "../../assets/HONDA/CBR1000RR2004.png";
+import CBR1000RR2011 from "../../assets/HONDA/CBR1000RR2011.png";
+import CBR1000RR2015 from "../../assets/HONDA/CBR1000RR2015.png";
+import CBR1000RR2019 from "../../assets/HONDA/CBR1000RR2019.png";
+import CBR1000RR2023 from "../../assets/HONDA/CBR1000RR2023.png";
+import CBR9001999 from "../../assets/HONDA/CBR9001999.png";
+import CBR6001987 from "../../assets/HONDA/CBR6001987.png"
+import CBR6001994 from "../../assets/HONDA/CBR6001994.png"
+import CBR6001997 from "../../assets/HONDA/CBR6001997.png"
+import CBR6002002 from "../../assets/HONDA/CBR6002002.png"
+import CBR6002006 from "../../assets/HONDA/CBR6002006.png"
+import CBR6002015 from "../../assets/HONDA/CBR6002015.png"
 
 import NINJA250 from "../../assets/KAWASAKI/NINJA250.png";
 import KAWASAKININJA from "../../assets/KAWASAKI/KAWASAKININJA.png";
@@ -66,41 +59,49 @@ import KAWASAKIZ61998 from "../../assets/KAWASAKI/KAWASAKIZ61998.png";
 import KAWASAKIZ91997 from "../../assets/KAWASAKI/KAWASAKIZ91997.png";
 import KAWASAKIZ91998 from "../../assets/KAWASAKI/KAWASAKIZ91998.png";
 import KAWASAKIZ92004 from "../../assets/KAWASAKI/KAWASAKIZ92004.png";
-import KAWASAKIZ101988 from "../../assets/KAWASAKI/KAWASAKIZ101988.png"
-import KAWASAKIZ102004 from "../../assets/KAWASAKI/KAWASAKIZ102004.png"
-import KAWASAKIZ102007 from "../../assets/KAWASAKI/KAWASAKIZ102007.png"
-import KAWASAKIZ102010 from "../../assets/KAWASAKI/KAWASAKIZ102010.png"
-import KAWASAKIZ102015 from "../../assets/KAWASAKI/KAWASAKIZ102015.png"
-import KAWASAKIZ102020 from "../../assets/KAWASAKI/KAWASAKIZ102020.png"
-import KAWASAKIZ10002009 from "../../assets/KAWASAKI/KAWASAKIZ10002009.png"
-import KAWASAKIZ10002013 from "../../assets/KAWASAKI/KAWASAKIZ10002013.png"
-import KAWASAKIZ2004 from "../../assets/KAWASAKI/KAWASAKIZ2004.png"
-import KAWASAKIZ9002017 from "../../assets/KAWASAKI/KAWASAKIZ9002017.png"
-import KAWASAKIZ9002022 from "../../assets/KAWASAKI/KAWASAKIZ9002022.png"
-import KAWASAKIZ7502004 from "../../assets/KAWASAKI/KAWASAKIZ7502004.png"
-import KAWASAKIZ7502012 from "../../assets/KAWASAKI/KAWASAKIZ7502012.png"
+import KAWASAKIZ101988 from "../../assets/KAWASAKI/KAWASAKIZ101988.png";
+import KAWASAKIZ102004 from "../../assets/KAWASAKI/KAWASAKIZ102004.png";
+import KAWASAKIZ102007 from "../../assets/KAWASAKI/KAWASAKIZ102007.png";
+import KAWASAKIZ102010 from "../../assets/KAWASAKI/KAWASAKIZ102010.png";
+import KAWASAKIZ102015 from "../../assets/KAWASAKI/KAWASAKIZ102015.png";
+import KAWASAKIZ102020 from "../../assets/KAWASAKI/KAWASAKIZ102020.png";
+import KAWASAKIZ10002009 from "../../assets/KAWASAKI/KAWASAKIZ10002009.png";
+import KAWASAKIZ10002013 from "../../assets/KAWASAKI/KAWASAKIZ10002013.png";
+import KAWASAKIZ2004 from "../../assets/KAWASAKI/KAWASAKIZ2004.png";
+import KAWASAKIZ9002017 from "../../assets/KAWASAKI/KAWASAKIZ9002017.png";
+import KAWASAKIZ9002022 from "../../assets/KAWASAKI/KAWASAKIZ9002022.png";
+import KAWASAKIZ7502004 from "../../assets/KAWASAKI/KAWASAKIZ7502004.png";
+import KAWASAKIZ7502012 from "../../assets/KAWASAKI/KAWASAKIZ7502012.png";
 
-import MT072018 from "../../assets/Yamaha/MT072018.png"
-import MT072014 from "../../assets/Yamaha/MT072014.png"
-import MT092016 from "../../assets/Yamaha/MT092016.png"
-import MT092023 from "../../assets/Yamaha/MT092023.png"
+import MT072018 from "../../assets/Yamaha/MT072018.png";
+import MT072014 from "../../assets/Yamaha/MT072014.png";
+import MT092016 from "../../assets/Yamaha/MT092016.png";
+import MT092023 from "../../assets/Yamaha/MT092023.png";
+
+import GSXR9600 from "../../assets/SUZUKI/GSXR9600.png";
+import GSXR20012003 from "../../assets/SUZUKI/GSXR20012003.png";
+import GSXR20042005 from "../../assets/SUZUKI/GSXR20042005.png";
+import GSXR20062007 from "../../assets/SUZUKI/GSXR20062007.png";
+import GSXR20082010 from "../../assets/SUZUKI/GSXR20082010.png";
+
+import GSXR75019851987 from "../../assets/SUZUKI/GSXR75019851987.png";
+import GSXR19881989 from "../../assets/SUZUKI/GSXR19881989.png";
+import GSXR19941995 from "../../assets/SUZUKI/GSXR19941995.png";
+import GSXR19961997 from "../../assets/SUZUKI/GSXR19961997.png";
+import GSXR19982000 from "../../assets/SUZUKI/GSXR19982000.png";
+import GSXR20002003 from "../../assets/SUZUKI/GSXR20002003.png";
+import GSXR200420055 from "../../assets/SUZUKI/GSXR200420055.png";
+import GSXR20112016 from "../../assets/SUZUKI/GSXR20112016.png";
+
+import GSXR10002002 from "../../assets/SUZUKI/GSXR10002002.png";
+import GSXR10002004 from "../../assets/SUZUKI/GSXR10002004.png";
+import GSXR10002006 from "../../assets/SUZUKI/GSXR10002006.png";
+import GSXR10002008 from "../../assets/SUZUKI/GSXR10002008.png";
+import GSXR10002011 from "../../assets/SUZUKI/GSXR10002011.png";
+import GSXR10002015 from "../../assets/SUZUKI/GSXR10002015.png";
+import GSXR10002020 from "../../assets/SUZUKI/GSXR10002020.png";
 
 const modelDetailsData = {
-  "GSX-R": [
-    { name: "600", img: S600 },
-    { name: "750", img: GSXR750 },
-    { name: "1000", img: GSXR1000 },
-    { name: "1100", img: GSXR1100 },
-  ],
-  GSX: [
-    { name: "750 GSX", img: S600 },
-    { name: "1200 GSX", img: GSXR1000 },
-    { name: "1400 GSX", img: GSXR1100 },
-  ],
-  "GSX-S": [
-    { name: "750", img: GSXS750 },
-    { name: "1000", img: GSXS },
-  ],
   "YZF R1": [
     { name: "1998-2001", img: yamaha },
     { name: "2002-2003", img: YZFR120022003 },
@@ -118,71 +119,83 @@ const modelDetailsData = {
     { name: "20017-2020", img: YZFR62020 },
   ],
   "MT-09": [
-        { name: "2014-2016", img: MT092016 },
-        { name: "2021-2023", img: MT092023 },
-    ],
-    "MT-07": [
-    { year: "2014-2017", img: MT072014 },
-    { year: "2018-2020", img: MT072018 },
-    ],
-  
-  CBR: [
-    { name: "1100 XX", img: CBR1100 },
-    { name: "1100", img: CBR1100 },
-    { name: "1000 F", img: CBRR1100 },
-    { name: "1000 RR", img: CBRRR },
-    { name: "954", img: CBR954 },
-    { name: "929", img: CBR929 },
-    { name: "900", img: CBR900 },
-    { name: "650", img: CBR650 },
-    { name: "600", img: CBR600 },
-    { name: "600 FS", img: CBR600FS },
-    { name: "500 R", img: CBR500R },
-    { name: "250 R", img: CBR250R },
-    { name: "125", img: CBR125 },
+    { name: "2014-2016", img: MT092016 },
+    { name: "2021-2023", img: MT092023 },
   ],
+  "MT-07": [
+    { name: "2014-2017", img: MT072014 },
+    { name: "2018-2020", img: MT072018 },
+  ],
+  "GSXR-600": [
+    { name: "1996-2000", img: GSXR9600 },
+    { name: "2001-2003", img: GSXR20012003 },
+    { name: "2004-2005", img: GSXR20042005 },
+    { name: "2006-2007", img: GSXR20062007 },
+    { name: "2008-2010", img: GSXR20082010 },
+  ],
+  "GSXR-750": [
+    { name: "1985-1987", img: GSXR75019851987 },
+    { name: "1988-1989", img: GSXR19881989 },
+    { name: "1994-1995", img: GSXR19941995 },
+    { name: "1996-1997", img: GSXR19961997 },
+    { name: "1998-2000", img: GSXR19982000 },
+    { name: "2000-2003", img: GSXR20002003 },
+    { name: "2004-2005", img: GSXR200420055 },
+    { name: "2006-2007", img: GSXR20062007 },
+    { name: "2011-2016", img: GSXR20112016 },
+  ],
+  "GSXR-1000": [
+    { name: "2001-2002", img: GSXR10002002 },
+    { name: "2003-2004", img: GSXR10002004 },
+    { name: "2005-2006", img: GSXR10002006 },
+    { name: "2007-2008", img: GSXR10002008 },
+    { name: "2009-2011", img: GSXR10002011 },
+    { name: "2012-2015", img: GSXR10002015 },
+    { name: "2018-2020", img: GSXR10002020 },
+  ],
+
   NINJA: [
     { name: "NINJA 400", img: KAWASAKININJA },
     { name: "NINJA 250", img: NINJA250 },
   ],
   "ZX-6R": [
-    { year: "1994-1997", img: KAWASAKIZ61994 },
-    { year: "1998-1999", img: KAWASAKIZ61998 },
-    { year: "2000-2002", img: KAWASAKIZ62000 },
-    { year: "2003-2004", img: KAWASAKIZ62004 },
-    { year: "2005-2006", img: KAWASAKIZ62005 },
-    { year: "2007-2008", img: KAWASAKIZ62008 },
-    { year: "2009-2012", img: KAWASAKIZ62012 },
-    { year: "2013-2017", img: KAWASAKIZ62017 },
+    { name: "1994-1997", img: KAWASAKIZ61994 },
+    { name: "1998-1999", img: KAWASAKIZ61998 },
+    { name: "2000-2002", img: KAWASAKIZ62000 },
+    { name: "2003-2004", img: KAWASAKIZ62004 },
+    { name: "2005-2006", img: KAWASAKIZ62005 },
+    { name: "2007-2008", img: KAWASAKIZ62008 },
+    { name: "2009-2012", img: KAWASAKIZ62012 },
+    { name: "2013-2017", img: KAWASAKIZ62017 },
   ],
 
   "ZX-9R": [
-    { year: "1994-1997", img: KAWASAKIZ91997 },
-    { year: "1998-1999", img: KAWASAKIZ91998 },
-    { year: "2000-2004", img: KAWASAKIZ92004 },
+    { name: "1994-1997", img: KAWASAKIZ91997 },
+    { name: "1998-1999", img: KAWASAKIZ91998 },
+    { name: "2000-2004", img: KAWASAKIZ92004 },
   ],
   "ZX-10R": [
-    { year: "1988-1989", img: KAWASAKIZ101988 },
-    { year: "2004-2005", img: KAWASAKIZ102004 },
-    { year: "2006-2007", img: KAWASAKIZ102007 },
-    { year: "2008-2010", img: KAWASAKIZ102010 },
-    { year: "2011-2015", img: KAWASAKIZ102015 },
-    { year: "2016-2020", img: KAWASAKIZ102020 },
+    { name: "1988-1989", img: KAWASAKIZ101988 },
+    { name: "2004-2005", img: KAWASAKIZ102004 },
+    { name: "2006-2007", img: KAWASAKIZ102007 },
+    { name: "2008-2010", img: KAWASAKIZ102010 },
+    { name: "2011-2015", img: KAWASAKIZ102015 },
+    { name: "2016-2020", img: KAWASAKIZ102020 },
   ],
 
-  "Z1000":[
-        { year: "2004-2006", img: KAWASAKIZ2004 },
-        { year: "2007-2009", img: KAWASAKIZ10002009 },
-        { year: "2010-2013", img: KAWASAKIZ10002013 },
-    ],
-    "Z900": [
-    { year: "2017-2019", img: KAWASAKIZ9002017 },
-    { year: "2020-2022", img: KAWASAKIZ9002022 },
-    ],
-    "Z750": [
-    { year: "2004-2006", img: KAWASAKIZ7502004 },
-    { year: "2007-2012", img: KAWASAKIZ7502012 },
-    ],
+  Z1000: [
+    { name: "2004-2006", img: KAWASAKIZ2004 },
+    { name: "2007-2009", img: KAWASAKIZ10002009 },
+    { name: "2010-2013", img: KAWASAKIZ10002013 },
+  ],
+  Z900: [
+    { name: "2017-2019", img: KAWASAKIZ9002017 },
+    { name: "2020-2022", img: KAWASAKIZ9002022 },
+  ],
+  Z750: [
+    { name: "2004-2006", img: KAWASAKIZ7502004 },
+    { name: "2007-2012", img: KAWASAKIZ7502012 },
+  ],
   "RSV 4": [
     { name: "2009-2015", img: RSV42009 },
     { name: "2015-2020", img: RSV42020 },
@@ -205,10 +218,30 @@ const modelDetailsData = {
     { name: "2017-2018", img: S1000RR2018 },
     { name: "2023-2024", img: S1000RR2024 },
   ],
-  "NINJA H2": [{ name: "2018-2020", img: KAWASAKIH22020 }],
+  "NINJA H2": [
+    { name: "2018-2020", img: KAWASAKIH22020 }
+   ],
   "PANIGALE V4": [
-    { year: "2018-2020", img: PANIGALEV42018 },
-    { year: "2020-2022", img: PANIGALEV42022 },
+    { name: "2018-2020", img: PANIGALEV42018 },
+    { name: "2020-2022", img: PANIGALEV42022 },
+  ],
+  "CBR-1000RR": [
+    { name: "2004-2007", img: CBR1000RR2004 },
+    { name: "2008-2011", img: CBR1000RR2011 },
+    { name: "2012-2015", img: CBR1000RR2015 },
+    { name: "2017-2019", img: CBR1000RR2019 },
+    { name: "2020-2023", img: CBR1000RR2023 },
+  ],
+  "CBR-900": [
+    { name: "1998-1999", img: CBR9001999 }
+   ],
+  "CBR-600": [
+    { name: "1987-1989", img: CBR6001987 },
+    { name: "1991-1994", img: CBR6001994 },
+    { name: "1995-1997", img: CBR6001997 },
+    { name: "1999-2002", img: CBR6002002 },
+    { name: "2003-2006", img: CBR6002006 },
+    { name: "2007-2015", img: CBR6002015 },
   ],
 };
 

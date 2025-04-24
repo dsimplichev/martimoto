@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import yearDetailsData from './yearDetailsData';  
+import modelDetailsData from './modelDetailsData';
 import './yearDetails.css';
 
 function YearDetails() {
     const { brandName, modelName, subModelName, yearRange } = useParams();  
-    const yearsData = yearDetailsData[modelName]?.[subModelName] || []; 
+    const yearsData = modelDetailsData[modelName]?.[subModelName] || []; 
     
     
 
