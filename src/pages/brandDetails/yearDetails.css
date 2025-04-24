@@ -57,6 +57,10 @@
     text-decoration: none; 
 }
 
+.year-name2 {
+    text-decoration: none;
+}
+
 .year-name::after {
     content: "";
     position: absolute;
