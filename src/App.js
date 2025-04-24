@@ -49,7 +49,7 @@ function App() {
         <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} />
         <Route path="/brands/:brandName" element={<BrandDetails />} />
         <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-        <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
+        <Route path="/brands/:brandName/models/:modelName/:subModelName/" element={<YearDetails />} />
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
         <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
