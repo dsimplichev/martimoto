@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import modelDetailsData from './modelDetailsData';
+import { useParams } from 'react-router-dom';
 import './yearDetails.css';
 
 function YearDetails() {
-    const { brandName, modelName, subModelName, yearRange } = useParams();
+    const { brandName, modelName, subModelName } = useParams(); 
     const [parts, setParts] = useState([]);
-
-    const yearsData = modelDetailsData[modelName]?.[subModelName] || [];
 
     useEffect(() => {
         const fetchParts = async () => {
             try {
-                const res = await fetch(`/brands/:brandName/models/:modelName/:subModelName/:yearRange'`);
+                const res = await fetch(`/api/parts?brand=${brandName}&model=${modelName}&year=${subModelName}`);
                 const data = await res.json();
                 setParts(data);
             } catch (err) {
@@ -21,26 +18,14 @@ function YearDetails() {
         };
 
         fetchParts();
-    }, [brandName, modelName, subModelName, yearRange]);
+    }, [brandName, modelName, subModelName]);
 
     return (
         <div className="year-details">
             <h1 className="year-title">{modelName} {subModelName}</h1>
             <div className="year-underline"></div>
 
-            <div className="year-grid">
-                {yearsData.map((yearItem, index) => (
-                    <div key={index} className="year-card">
-                        <Link className="year-name2" to={`/brands/${brandName}/models/${modelName}/${subModelName}/${yearItem.year}`}>
-                            <img src={yearItem.img} alt={yearItem.year} className="year-image" />
-                            <p className="year-name">{yearItem.year}</p>
-                        </Link>
-                    </div>
-                ))}
-            </div>
-
             <div className="parts-section">
-
                 <div className="parts-grid">
                     {parts.length > 0 ? (
                         parts.map((part) => (
