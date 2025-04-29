@@ -8,7 +8,6 @@ import Footer from "./pages/footer/Footer";
 import PartsSearch from "./pages/partsSearch/PartsSearch";
 import BrandDetails from "./pages/brandDetails/BrandDetails";
 import ModelDetails from "./pages/brandDetails/ModelDetails";
-import YearDetails from "./pages/brandDetails/YearDetails";
 import Accessories from "./pages/accessories/Accessories";
 import AccessoryDetails from "./pages/accessories/AccessoryDetails";
 import Login from "./pages/login/Login";
@@ -25,6 +24,7 @@ import ChangePassword from "./pages/changePassword/ChangePassword";
 import ProductResults from './pages/ProductResults/ProductResults';
 import ScrollToTopButton from "./pages/scrollToTopButton/scrollToTopButton";
 import AdminMessages from "./pages/adminMessages/AdminMessages";
+import PartsByYear from "./pages/brandDetails/PartsByYear";
 
 
 import React, { useState, useContext } from 'react';
@@ -41,7 +41,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Search />} />
-        <Route path="/brand" element={<Brand />} />
+        <Route path="/model" element={<Brand />} />
         <Route path="/last-product" element={<LastProduct />} />
         <Route path="/about" element={<About />} />
         <Route path="/partssearch" element={<PartsSearch />} />
@@ -49,7 +49,7 @@ function App() {
         <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} />
         <Route path="/brands/:brandName" element={<BrandDetails />} />
         <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-        <Route path="/brands/:brandName/models/:modelName/:subModelName" element={<YearDetails />} />
+        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />} />
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
         <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />

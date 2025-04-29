@@ -5,7 +5,9 @@ import modelsData from './modelsData';
 
 function BrandDetails() {
     const { brandName } = useParams();
+    console.log('Brand Name:', brandName);
     const models = modelsData[brandName] || [];
+    console.log(models);
 
     return (
         <div className="brand-details">

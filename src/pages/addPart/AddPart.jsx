@@ -8,7 +8,7 @@ function AddPart() {
     const { user, isLoggedIn } = useContext(AuthContext);
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
-    const [year, setYear] = useState(''); // Премахваме cylinder
+    const [year, setYear] = useState(''); 
     const [title, setTitle] = useState(''); 
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');

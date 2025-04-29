@@ -7,7 +7,7 @@ const upload = multer({ dest: 'uploads/' });
 
 router.post('/add', upload.array('images'), async (req, res) => {
   try {
-    const { title, description, price, category, brand, model, cylinder, year } = req.body;
+    const { title, description, price, category, brand, model, year } = req.body;
 
     const images = [];
     for (const file of req.files) {
@@ -21,8 +21,7 @@ router.post('/add', upload.array('images'), async (req, res) => {
       price,
       category,
       brand,
-      model,
-      cylinder,  
+      model,  
       year,
       images,
     });
@@ -36,25 +35,20 @@ router.post('/add', upload.array('images'), async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const { brand, model, year } = req.query;  
-
   try {
-    
-    const parts = await Part.find({
-      brand,
-      model,
-      cylinder: year,  
-    });
+    const { brand, model, year } = req.query;
 
-    if (!parts.length) {
-      return res.status(404).json({ message: 'Части не са намерени' });
-    }
+    const query = {};
+    if (brand) query.brand = brand;
+    if (model) query.model = model;
+    if (year) query.year = year;
 
-    res.json(parts);
+    const parts = await Part.find(query);
+    res.status(200).json(parts);
   } catch (error) {
-    console.error(error);
+    console.error('Грешка при извличане на части:', error);
     res.status(500).json({ message: 'Грешка при извличане на части' });
   }
-});
 
+});
 module.exports = router;
