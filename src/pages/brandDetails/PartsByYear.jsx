@@ -13,7 +13,7 @@ function PartsByYear() {
 
 
     useEffect(() => {
-        console.log(brandName, modelName, year);
+       
         
         const fetchParts = async () => {
             try {
@@ -22,7 +22,7 @@ function PartsByYear() {
                 );
 
                 const data = await response.json();
-                console.log(data);
+                
                 setParts(data);
             } catch (error) {
                 console.error('Грешка при зареждане на части:', error);

@@ -30,9 +30,10 @@
 }
 
 .part-image {
-  width: 100%;
+  width: 80%;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain; 
+  object-position: center;
 }
 
 .part-title {
