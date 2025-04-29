@@ -71,38 +71,35 @@ export const brands = {
    
   },
   Honda: {
-    models: ["CBR-1100XX",'CBR-1100','CBR-1000F',"CBR-1000RR",'CBR-954','CBR-929','CBR-900','CBR-650','CBR-600',"CBR-600FS","CBR-500R","CBR-250R",'CBR-125', "CBF", "CB", "HORNET", "VFR"],
+    models: [
+      "CBR-1100XX", "CBR-1100", "CBR-1000F", "CBR-1000RR", "CBR-954",
+      "CBR-929", "CBR-900", "CBR-650", "CBR-600", "CBR-600FS",
+      "CBR-500R", "CBR-250R", "CBR-125", "CBF", "CB", "HORNET", "VFR"
+    ],
     years: {
-      
-        "CBR-1100XX": [],
-        'CBR-1100': [],
-        "CBR-1000F": [],
-        "CBR-1000RR": [
-          "2004-2007",
-          "2008-2011",
-          "2012-2015",
-          "2017-2019",
-          "2020-2023",
-        ],
-        'CBR-954': [],
-        'CBR-929': [],
-        'CBR-900': [],
-        'CBR-650': [],
-        'CBR-600': [],
-        "CBR-600FS": [],
-        "CBR-500R": [],
-        "CBR-250R": [],
-        'CBR-125': [],
-      },
-      CBF: [],
-      CB: [],
-      HORNET: [],
-      VFR: [],
-    },
-    
+      "CBR-1100XX": [],
+      "CBR-1100": [],
+      "CBR-1000F": [],
+      "CBR-1000RR": [
+        "2004-2007", "2008-2011", "2012-2015", "2017-2019", "2020-2023"
+      ],
+      "CBR-954": [],
+      "CBR-929": [],
+      "CBR-900": [],
+      "CBR-650": [],
+      "CBR-600": [],
+      "CBR-600FS": [],
+      "CBR-500R": [],
+      "CBR-250R": [],
+      "CBR-125": [],
+      "CBF": [],
+      "CB": [],
+      "HORNET": [],
+      "VFR": []
+    }
   },
   Yamaha: {
-    models: ["YZF R1", "YZF R6", "YZF R125", "XJ6", "MT"],
+    models: ["YZF R1", "YZF R6", "YZF R125", "XJ6", "MT07","MT09", "MT09 TRACER", "MT125"],
     years: {
       "YZF R1": [
         "1998-2001",
@@ -122,15 +119,9 @@ export const brands = {
       ],
       "YZF R125": [],
       XJ6: [],
-      MT: ["07", "09", "09 TRACER", "125"],
+      
     },
-    cylinderOptions: {
-      "YZF R1": [],
-      "YZF R6": [],
-      "YZF R125": [],
-      XJ6: [],
-      MT: [],
-    },
+   
   },
   Aprilia: {
     models: [
@@ -155,16 +146,6 @@ export const brands = {
       "TUONO 125": [],
       "SL 1000 FALCAO": [],
     },
-    cylinderOptions: {
-      "RSV 4": [],
-      "RSV 1000": [],
-      "RSV TUONO": [],
-      "TUONO V4": [],
-      "RS 660": [],
-      "RS 250": [],
-      "RS 125": [],
-      "TUONO 125": [],
-      "SL 1000 FALCAO": [],
-    },
+  
   },
 };
