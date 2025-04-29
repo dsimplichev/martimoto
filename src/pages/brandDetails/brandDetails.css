@@ -19,12 +19,12 @@
 }
 
 
-.title-underline {
-    width: 100%;
+.title-underline3 {
     height: 2px;
     background-color: #f39c12;
-   
-
+    margin-bottom: 20px; 
+    margin-right: 200px;
+    width: 102%;
 }
 
 

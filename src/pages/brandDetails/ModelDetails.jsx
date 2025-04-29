@@ -10,7 +10,7 @@ function ModelDetails() {
     return (
         <div className="model-details">
             <h1 className="model-title">{modelName}</h1>
-            <div className="title-underline"></div>
+            <div className="title-underline2"></div>
             <div className="model-grid2">
                 {subModels.map((subModel, index) => {
                      console.log(subModel);

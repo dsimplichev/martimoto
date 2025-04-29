@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './partsByYear.css';
+import Divider from '../../Card/Divider';
 
 
 
@@ -32,8 +33,8 @@ function PartsByYear() {
 
     return (
         <div className="parts-by-year">
-            <h1>Части за {modelName} ({year})</h1>
-            <div className="title-underline"></div>
+            <h1 className="brand-title5">Части за {brandName} {modelName} ({year})</h1>
+            <Divider />
 
             {loading ? (
                 <p>Зареждане...</p>
