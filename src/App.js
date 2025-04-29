@@ -25,6 +25,7 @@ import ProductResults from './pages/ProductResults/ProductResults';
 import ScrollToTopButton from "./pages/scrollToTopButton/scrollToTopButton";
 import AdminMessages from "./pages/adminMessages/AdminMessages";
 import PartsByYear from "./pages/brandDetails/PartsByYear";
+import SinglePartPage from "./pages/singlePartPage/SinglePartPage";
 
 
 import React, { useState, useContext } from 'react';
@@ -61,6 +62,7 @@ function App() {
         <Route path="/profile/password" element={<ChangePassword />} />
         <Route path="/search-results" element={<ProductResults />} />
         <Route path="/admin/messages" element={<AdminMessages />} />
+        <Route path="/parts/:id" element={<SinglePartPage />} />
       </Routes>
 
       <Brand />

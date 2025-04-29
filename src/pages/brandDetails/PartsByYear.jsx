@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './partsByYear.css';
 import Divider from '../../Card/Divider';
 
@@ -7,12 +7,14 @@ import Divider from '../../Card/Divider';
 
 
 function PartsByYear() {
-    const { brandName, modelName, year } = useParams(); 
+    const { brandName, modelName, year } = useParams();
     const [parts, setParts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    
+
     useEffect(() => {
+        console.log(brandName, modelName, year);
+        
         const fetchParts = async () => {
             try {
                 const response = await fetch(
@@ -20,6 +22,7 @@ function PartsByYear() {
                 );
 
                 const data = await response.json();
+                console.log(data);
                 setParts(data);
             } catch (error) {
                 console.error('Грешка при зареждане на части:', error);
@@ -29,7 +32,7 @@ function PartsByYear() {
         };
 
         fetchParts();
-    }, [brandName, modelName, year]); 
+    }, [brandName, modelName, year]);
 
     return (
         <div className="parts-by-year">
@@ -39,20 +42,23 @@ function PartsByYear() {
             {loading ? (
                 <p>Зареждане...</p>
             ) : parts.length === 0 ? (
-                <p>Няма намерени части за този модел и година.</p>
+                <p className='noparts'>Няма намерени части за този модел и година.</p>
             ) : (
                 <div className="parts-grid">
                     {parts.map((part) => (
-                        <div key={part._id} className="part-card">
-                            <img 
-                                src={part.images[0]} 
-                                alt={part.title} 
-                                className="part-image" 
-                            />
-                            <h3>{part.title}</h3>
-                            <p>{part.description}</p>
-                            <p className="part-price">{part.price} лв.</p>
-                        </div>
+                        <Link to={`/parts/${part._id}`} key={part._id} className="part-card-link">
+                            <div className="part-card">
+                                <img
+                                    src={part.images[0]}
+                                    alt={part.title}
+                                    className="part-image"
+                                />
+                                <div className="part-info">
+                                    <h3 className="part-title">{part.title}</h3>
+                                    <p className="part-price">{part.price} лв.</p>
+                                </div>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             )}

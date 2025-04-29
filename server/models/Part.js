@@ -11,7 +11,7 @@ const partSchema = new mongoose.Schema({
   images: { type: Array, required: false }, 
 }, { timestamps: true });
 
-
+partSchema.index({ brand: 1, model: 1, year: 1 });
 const Part = mongoose.model('Part', partSchema);
 
 
