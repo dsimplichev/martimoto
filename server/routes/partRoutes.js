@@ -5,7 +5,6 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const upload = multer({ dest: 'uploads/' });
 
-
 router.post('/add', upload.array('images'), async (req, res) => {
   try {
     const { title, description, price, category, brand, model, cylinder, year } = req.body;
@@ -23,7 +22,7 @@ router.post('/add', upload.array('images'), async (req, res) => {
       category,
       brand,
       model,
-      cylinder,
+      cylinder,  
       year,
       images,
     });
@@ -36,15 +35,15 @@ router.post('/add', upload.array('images'), async (req, res) => {
   }
 });
 
-
 router.get('/', async (req, res) => {
-  const { brand, model, year } = req.query; 
+  const { brand, model, year } = req.query;  
 
   try {
+    
     const parts = await Part.find({
       brand,
       model,
-      subModel: year, 
+      cylinder: year,  
     });
 
     if (!parts.length) {

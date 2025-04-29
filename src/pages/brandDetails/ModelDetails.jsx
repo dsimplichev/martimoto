@@ -13,7 +13,7 @@ function ModelDetails() {
             <div className="title-underline"></div>
             <div className="model-grid2">
                 {subModels.map((subModel, index) => {
-                    
+                     console.log(subModel);
                     return (
                         <div key={index} className="model-card2">
                             <Link className="model-link" to={`/brands/${brandName}/models/${modelName}/${subModel.name}`}>

@@ -7,7 +7,6 @@ const partSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   brand: { type: String, required: true },
   model: { type: String, required: true },
-  cylinder: { type: String, required: false },
   year: { type: String, required: false },
   images: { type: Array, required: false }, 
 }, { timestamps: true });

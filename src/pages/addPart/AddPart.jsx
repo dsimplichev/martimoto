@@ -8,55 +8,30 @@ function AddPart() {
     const { user, isLoggedIn } = useContext(AuthContext);
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
-    const [cylinder, setCylinder] = useState('');
-    const [year, setYear] = useState('');
+    const [year, setYear] = useState(''); // Премахваме cylinder
     const [title, setTitle] = useState(''); 
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
     const [images, setImages] = useState([]);
     const [availableModels, setAvailableModels] = useState([]);
-    const [availableCylinders, setAvailableCylinders] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
 
     const handleBrandChange = (e) => {
         const selectedBrand = e.target.value;
         setBrand(selectedBrand);
         setModel('');
-        setCylinder('');
         setYear('');
         setAvailableModels(brands[selectedBrand]?.models || []);
-        setAvailableCylinders([]);
         setAvailableYears([]);
     };
 
     const handleModelChange = (e) => {
         const selectedModel = e.target.value;
         setModel(selectedModel);
-        setCylinder('');
         setYear('');
-        const cylinders = brands[brand]?.cylinderOptions?.[selectedModel] || [];
-        setAvailableCylinders(cylinders);
-        let years = [];
-        if (Array.isArray(brands[brand]?.years?.[selectedModel])) {
-            years = brands[brand]?.years?.[selectedModel] || [];
-        } else {
-            years = brands[brand]?.years?.[selectedModel]?.[cylinder] || [];
-        }
+        const years = brands[brand]?.years?.[selectedModel] || [];
         setAvailableYears(years);
-    };
-
-    const handleCylinderChange = (e) => {
-        const selectedCylinder = e.target.value;
-        setCylinder(selectedCylinder);
-        setYear('');
-        let yearsForCylinder = [];
-        if (Array.isArray(brands[brand]?.years?.[model])) {
-            yearsForCylinder = brands[brand]?.years?.[model] || [];
-        } else {
-            yearsForCylinder = brands[brand]?.years?.[model]?.[selectedCylinder] || [];
-        }
-        setAvailableYears(yearsForCylinder);
     };
 
     const handleSubmit = async (e) => {
@@ -69,8 +44,7 @@ function AddPart() {
         const formData = new FormData();
         formData.append('brand', brand);
         formData.append('model', model);
-        formData.append('cylinder', cylinder);
-        formData.append('year', year);
+        formData.append('year', year); // Вече няма cylinder
         formData.append('title', title); 
         formData.append('description', description);
         formData.append('price', price);
@@ -143,21 +117,7 @@ function AddPart() {
                     </div>
                 )}
 
-                {model && availableCylinders.length > 0 && (
-                    <div>
-                        <label>Кубатура</label>
-                        <select value={cylinder} onChange={handleCylinderChange}>
-                            <option value="">Изберете кубатура</option>
-                            {availableCylinders.map((cylinderOption) => (
-                                <option key={cylinderOption} value={cylinderOption}>
-                                    {cylinderOption}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                )}
-
-                {availableYears.length > 0 && (
+                {model && availableYears.length > 0 && (
                     <div>
                         <label>Година</label>
                         <select value={year} onChange={(e) => setYear(e.target.value)}>

@@ -4,6 +4,8 @@ import './yearDetails.css';
 
 function YearDetails() {
     const { brandName, modelName, subModelName } = useParams(); 
+    console.log('subModelName:', subModelName);
+
     const [parts, setParts] = useState([]);
 
     useEffect(() => {
