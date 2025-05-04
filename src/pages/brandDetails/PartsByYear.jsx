@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './partsByYear.css';
 import Divider from '../../Card/Divider';
+import { MdAddShoppingCart } from "react-icons/md";
 
 
 
@@ -13,8 +14,8 @@ function PartsByYear() {
 
 
     useEffect(() => {
-       
-        
+
+
         const fetchParts = async () => {
             try {
                 const response = await fetch(
@@ -22,7 +23,7 @@ function PartsByYear() {
                 );
 
                 const data = await response.json();
-                
+
                 setParts(data);
             } catch (error) {
                 console.error('Грешка при зареждане на части:', error);
@@ -55,7 +56,10 @@ function PartsByYear() {
                                 />
                                 <div className="part-info">
                                     <h3 className="part-title">{part.title}</h3>
-                                    <p className="part-price">{part.price} лв.</p>
+                                    <div className="price-and-cart">
+                                        <p className="part-price">{part.price} лв.</p>
+                                        <MdAddShoppingCart className="cart-icon" />
+                                    </div>
                                 </div>
                             </div>
                         </Link>

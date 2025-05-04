@@ -63,3 +63,29 @@
     display: flex;
     justify-content: center;
 }
+
+.part-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+
+.price-and-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cart-icon {
+  font-size: 18px;
+  color: #888; 
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cart-icon:hover {
+  color: #2e7d32; 
+}
