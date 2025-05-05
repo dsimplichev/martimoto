@@ -90,7 +90,7 @@
 
 
 
-.user:hover, .ShoppingCart:hover {
+.user:hover, .ShoppingCart2:hover {
     background-color: #f39c12;
     transform: scale(1.1);
 }
@@ -151,7 +151,7 @@
 }
 
 
-/* CSS за инфо бара */
+
 .info-bar {
     background-color: black; 
     color: wheat;
