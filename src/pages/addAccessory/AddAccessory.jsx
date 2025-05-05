@@ -11,13 +11,14 @@ function AddAccessory() {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
+    const [type, setType] = useState(''); 
     const [message, setMessage] = useState('');
     const [images, setImages] = useState([]); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        if (!title || !description || !price || !category || images.length === 0) {
+        if (!title || !description || !price || !category || !type || images.length === 0) {
             setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
@@ -29,8 +30,8 @@ function AddAccessory() {
             formData.append('description', description);
             formData.append('price', price);
             formData.append('category', category);
+            formData.append('type', type); // Добавяме типа на продукта
             
-    
             const response = await fetch("http://localhost:5000/api/accessories", {
                 method: "POST",
                 body: formData
@@ -71,6 +72,15 @@ function AddAccessory() {
                         <option value="гараж">Гараж</option>
                         <option value="лепенки">Лепенки</option>
                         <option value="ръкохватки">Ръкохватки</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Тип на продукта</label>
+                    <select value={type} onChange={(e) => setType(e.target.value)}>
+                        <option value="">Изберете тип</option>
+                        <option value="accessory">Аксесоар</option>
+                        <option value="part">Част</option>
                     </select>
                 </div>
 
@@ -127,7 +137,7 @@ function AddAccessory() {
                                     alt={`Uploaded ${index}`}
                                     style={{ width: '100px', marginTop: '10px' }}
                                 />
-                                <button className="accbtn"type="button" onClick={() => {
+                                <button className="accbtn" type="button" onClick={() => {
                                     setImages(images.filter((_, i) => i !== index));
                                 }}>Изтрий</button>
                             </div>

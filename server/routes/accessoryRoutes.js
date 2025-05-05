@@ -23,9 +23,9 @@ const upload = multer({ storage });
 
 router.post('/', upload.array('images', 5), async (req, res) => {
     try {
-        const { title, description, price, category } = req.body;
+        const { title, description, price, category, type } = req.body;
 
-        if (!title || !description || !price || !category || req.files.length === 0 ) {
+        if (!title || !description || !price || !category || !type || req.files.length === 0) {
             return res.status(400).json({ message: 'Моля, попълнете всички полета и качете поне едно изображение!' });
         }
 
@@ -36,6 +36,7 @@ router.post('/', upload.array('images', 5), async (req, res) => {
             description,
             price,
             category,
+            type, 
             images: imageUrls,
         });
 

@@ -80,7 +80,7 @@ const AdminOrder = () => {
                             <button className="view-button" onClick={() => navigate(`/order/${order._id}`)}>
                                 Преглед на поръчката
                             </button>
-                            <button className="delete-button" onClick={() => handleDeleteOrder(order._id)}>
+                            <button className="delete-button2" onClick={() => handleDeleteOrder(order._id)}>
                                 <FaTrash />
                             </button>
                         </div>

@@ -72,6 +72,7 @@ const OrderDetails = () => {
                                     <>
                                         <img src={accessory.images[0]} alt={accessory.title} className="product-image" />
                                         <p><strong>{accessory.title}</strong></p>
+                                        <p><strong>Цена:</strong> {accessory.price} лв.</p>
                                     </>
                                 ) : (
                                     <p><strong>Продукт ID:</strong> {item.productId}</p>

@@ -13,8 +13,8 @@ const Cart = () => {
     }
   }, []);
 
-  const removeItem = (id) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
+  const removeItem = (id, type) => {
+    const updatedCart = cartItems.filter((item) => !(item.id === id && item.type === type));
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));  
   };
@@ -41,7 +41,7 @@ const Cart = () => {
           <img src={item.image} alt={item.name} className="item-image" />
           <div className="item-details">
             <h3>{item.title}</h3>
-            <button onClick={() => removeItem(item.id)} className="remove-btn">
+            <button onClick={() => removeItem(item.id, item.type)} className="remove-btn">
               Премахни
             </button>
           </div>

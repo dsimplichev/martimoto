@@ -26,8 +26,30 @@ function SinglePartPage() {
     }, [id]);
 
     const handleAddToCart = () => {
+        const cartItem = {
+            id: part._id,
+            title: part.title,
+            image: part.images[0],
+            price: part.price,
+            quantity: Number(quantity),
+            type: "part" 
+        };
+    
+        const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    
         
-        console.log(`Добавена ${quantity} бр. от ${part.title}`);
+        const existingIndex = existingCart.findIndex(item => item.id === cartItem.id && item.type === "part");
+    
+        if (existingIndex !== -1) {
+            
+            existingCart[existingIndex].quantity += cartItem.quantity;
+        } else {
+            
+            existingCart.push(cartItem);
+        }
+    
+        localStorage.setItem("cart", JSON.stringify(existingCart));
+        alert("Продуктът беше добавен в количката!");
     };
 
     if (!part) return <p>Зареждане...</p>;

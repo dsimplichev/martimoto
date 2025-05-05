@@ -12,6 +12,7 @@ function AddPart() {
     const [title, setTitle] = useState(''); 
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [type, setType] = useState('');  // Добавено поле за тип
     const [message, setMessage] = useState('');
     const [images, setImages] = useState([]);
     const [availableModels, setAvailableModels] = useState([]);
@@ -36,7 +37,16 @@ function AddPart() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!brand || !model || !title || !description || !price || images.length === 0) {
+
+        console.log('Brand:', brand);
+        console.log('Model:', model);
+        console.log('Year:', year);
+        console.log('Title:', title);
+        console.log('Description:', description);
+        console.log('Price:', price);
+        console.log('Type:', type);
+
+        if (!brand || !model || !title || !description || !price || !type || images.length === 0) {
             setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
@@ -44,10 +54,11 @@ function AddPart() {
         const formData = new FormData();
         formData.append('brand', brand);
         formData.append('model', model);
-        formData.append('year', year); // Вече няма cylinder
+        formData.append('year', year); 
         formData.append('title', title); 
         formData.append('description', description);
         formData.append('price', price);
+        formData.append('type', type);  
         images.forEach((image) => {
             formData.append('images', image);  
         });
@@ -158,6 +169,15 @@ function AddPart() {
                         onChange={(e) => setPrice(e.target.value)}
                         required
                     />
+                </div>
+
+                <div>
+                    <label>Тип на продукта</label>
+                    <select value={type} onChange={(e) => setType(e.target.value)}>
+                        <option value="">Изберете тип</option>
+                        <option value="part">Част</option>
+                        <option value="accessory">Аксесоар</option>
+                    </select>
                 </div>
 
                 <div>

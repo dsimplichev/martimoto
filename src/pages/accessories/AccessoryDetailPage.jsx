@@ -42,6 +42,7 @@ function AccessoryDetailPage() {
       price: accessory.price,
       quantity: Number(quantity),
       image: accessory.images[0], 
+       type: "accessory"
     };
 
     if (userId && token) {
