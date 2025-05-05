@@ -135,7 +135,7 @@ function AddAccessory() {
                     </div>
                 </div>
 
-                <button type="submit">Добави аксесоар</button>
+                <button className='add-acc-btn' type="submit">Добави аксесоар</button>
             </form>
 
             {message && <p>{message}</p>}

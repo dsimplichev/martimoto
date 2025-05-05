@@ -1,10 +1,10 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import "./accessoryDetails.css"; 
+import { MdAddShoppingCart } from "react-icons/md";  // Импортиране на иконата
+import "./accessoryDetails.css";
 
 function AccessoryDetails() {
     const { accessoryName } = useParams();
@@ -13,6 +13,14 @@ function AccessoryDetails() {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
+
+    
+    const handleAddToCart = (e, accessory) => {
+        
+        e.stopPropagation();
+        console.log("Добавен към кошницата: ", accessory);
+        
+    };
 
     useEffect(() => {
         axios.get(`http://localhost:5000/accessories/${encodeURIComponent(accessoryName.toLowerCase())}`)
@@ -50,27 +58,34 @@ function AccessoryDetails() {
             <div className="accessory-list">
                 {paginatedAccessories.length > 0 ? (
                     paginatedAccessories.map((acc) => (
-                       
-                       <div key={acc._id} className="accessory-card">
-                         <Link    to={`/accessories/detail/${acc._id}`} className="accessory-link">
-                            <img src={acc.images[0]} alt={acc.title} />
-                            <h3 className="acc-title">{acc.title}</h3>
-                            <p className="price-accessories">{acc.price} лв.</p>
-                         </Link>
+                        <div key={acc._id} className="part-card">
+                            <img
+                                src={acc.images[0]}
+                                alt={acc.title}
+                                className="part-image2"
+                            />
+                            <div className="part-info">
+                                <h3 className="part-title">{acc.title}</h3>
+                                <div className="price-and-cart">
+                                    <p className="part-price">{acc.price} лв.</p>
+                                    <MdAddShoppingCart
+                                        className="cart-icon"
+                                        onClick={(e) => handleAddToCart(e, acc)}  
+                                    />
+                                </div>
+                            </div>
                         </div>
-                       
                     ))
                 ) : (
                     <p className="no-accessories">Няма налични аксесоари в тази категория.</p>
                 )}
             </div>
 
-            
             <Stack spacing={2} alignItems="center" marginTop={2} className="pagination-container">
-                <Pagination 
-                    count={totalPages} 
-                    page={currentPage} 
-                    onChange={handlePageChange} 
+                <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
                     variant="outlined"
                     shape="rounded"
                     className="pagination"
@@ -80,4 +95,4 @@ function AccessoryDetails() {
     );
 }
 
-export default AccessoryDetails;
+export default AccessoryDetails

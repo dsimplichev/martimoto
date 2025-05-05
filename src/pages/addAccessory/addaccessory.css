@@ -10,21 +10,27 @@ input, select, textarea {
     border: 1px solid #ccc;
 }
 
-.accbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
 
-.accbtn:hover {
-    background-color: #45a049;
-}
 
 .add-accessory-form {
     border: 2px solid #333; 
     padding: 20px; 
     border-radius: 8px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-  }
+}
+
+.add-acc-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.add-acc-btn:hover {
+    background-color: #218838;
+}
