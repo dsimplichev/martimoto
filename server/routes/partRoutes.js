@@ -37,31 +37,18 @@ router.post('/add', upload.array('images'), async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const { brand, model, year } = req.query;
-    console.log('Получени параметри:', brand, model, year);
+
     const query = {};
-    if (brand) query.brand = new RegExp(brand, 'i'); 
-    if (model) query.model = new RegExp(model, 'i');
-    if (year) query.year = new RegExp(year, 'i');
-    
+    if (brand) query.brand = brand;
+    if (model) query.model = model;
+    if (year) query.year = year;
+
     const parts = await Part.find(query);
-    console.log('Намерени части:', parts); 
     res.status(200).json(parts);
   } catch (error) {
     console.error('Грешка при извличане на части:', error);
     res.status(500).json({ message: 'Грешка при извличане на части' });
   }
 
-});
-
-router.get('/:id', async (req, res) => {
-  try {
-      const part = await Part.findById(req.params.id);
-      if (!part) {
-          return res.status(404).json({ message: 'Частта не е намерена' });
-      }
-      res.json(part);
-  } catch (error) {
-      res.status(500).json({ message: 'Сървърна грешка' });
-  }
 });
 module.exports = router;

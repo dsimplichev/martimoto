@@ -16,10 +16,31 @@ function AccessoryDetails() {
 
     
     const handleAddToCart = (e, accessory) => {
-        
         e.stopPropagation();
         console.log("Добавен към кошницата: ", accessory);
+    
         
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        
+        const existingItemIndex = cart.findIndex(item => item.id === accessory._id);
+        
+        if (existingItemIndex !== -1) {
+            
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            
+            cart.push({
+                id: accessory._id,
+                title: accessory.title,
+                price: accessory.price,
+                image: accessory.images[0],
+                quantity: 1,  
+            });
+        }
+    
+        
+        localStorage.setItem("cart", JSON.stringify(cart));
     };
 
     useEffect(() => {
