@@ -17,10 +17,10 @@ function Footer() {
                             <FaFacebook className="social-icon" />
                         </a>
                         <a href="mailto:info@example.com">
-                            <FaEnvelope className="social-icon" /> {/* Икона за имейл */}
+                            <FaEnvelope className="social-icon" /> 
                         </a>
                         <a href="tel:+123456789">
-                            <FaPhone className="social-icon" /> {/* Икона за телефон */}
+                            <FaPhone className="social-icon" /> 
                         </a>
                     </div>
                 </div>
@@ -28,7 +28,7 @@ function Footer() {
             
             
             <div className="privacy-policy-container">
-                <p>© 2024 MARTIMOTO. All rights reserved. <a href="/privacy-policy">Privacy Policy</a></p>
+                <p>© {new Date().getFullYear()} MARTIMOTO. All rights reserved. <a href="/privacy-policy">Privacy Policy</a></p>
             </div>
         </div>
     );

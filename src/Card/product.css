@@ -30,7 +30,7 @@
 
 .card-titel-product{
     display: flex;
-    
+    margin-left: 15px;
 }
 
 .products-grid {
