@@ -29,23 +29,39 @@ const Order = () => {
   }, []);
 
   useEffect(() => {
-    if (city.length > 2) {
-      axios
-        .get("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json")
-        .then((response) => {
-          const filteredOffices = response.data.offices.filter((office) =>
-            office.city.name.toLowerCase().includes(city.toLowerCase())
-          );
+  if (deliveryMethod === "Еконт" && city.length > 2) {
+    axios
+      .get("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json", {
+        params: {
+          city: city
+        }
+      })
+      .then((response) => {
+        
+        console.log("Получени данни за офисите:", response.data.offices);
+
+        if (response.data && response.data.offices) {
+          const filteredOffices = response.data.offices.filter((office) => {
+            if (office.city && office.city.name) {
+              return office.city.name.toLowerCase().includes(city.toLowerCase());
+            }
+            return false;
+          });
+          console.log("Филтрирани офиси:", filteredOffices);
           setOffices(filteredOffices);
-        })
-        .catch((error) => {
-          console.error("Грешка при зареждане на офисите:", error);
+        } else {
+          console.error("Няма данни за офисите.");
           setOffices([]);
-        });
-    } else {
-      setOffices([]); 
-    }
-  }, [city]);
+        }
+      })
+      .catch((error) => {
+        console.error("Грешка при зареждане на офисите:", error);
+        setOffices([]);
+      });
+  } else {
+    setOffices([]);
+  }
+}, [city, deliveryMethod]);
 
   const handleDeliveryChange = (method) => {
     setDeliveryMethod(method);
@@ -72,7 +88,7 @@ const Order = () => {
       companyAddress: isInvoice ? companyAddress : "",
       comment,
       cart: cart.map((item) => ({
-        productId: item.id,  
+        productId: item.id,
         quantity: item.quantity,
       })),
       totalAmount,
@@ -82,7 +98,7 @@ const Order = () => {
       const response = await axios.post("http://localhost:5000/api/orders/create", orderData);
       if (response.status === 201) {
         alert("Поръчката е направена успешно!");
-        localStorage.removeItem("cart"); 
+        localStorage.removeItem("cart");
         setCart([]);
       }
     } catch (error) {
@@ -148,16 +164,9 @@ const Order = () => {
             >
               До офис на Еконт
             </button>
-            <button
-              type="button"
-              className={deliveryMethod === "Спиди" ? "selected" : ""}
-              onClick={() => handleDeliveryChange("Спиди")}
-            >
-              До офис на Спиди
-            </button>
           </div>
 
-          {deliveryMethod && (
+          {deliveryMethod === "Еконт" && (
             <>
               <div className="form-group">
                 <label>
@@ -166,7 +175,7 @@ const Order = () => {
                 <input
                   type="text"
                   value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  onChange={(e) => setCity(e.target.value.trim())}
                   required
                   placeholder="Напишете град"
                 />
