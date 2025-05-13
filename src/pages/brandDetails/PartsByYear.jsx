@@ -89,7 +89,9 @@ function PartsByYear() {
                       <p className="part-price">{part.price} лв.</p>
                       <MdAddShoppingCart
                         className="cart-icon"
-                        onClick={(e) => handleAddToCart(e, part)}
+                        onClick={(e) => 
+                          
+                        handleAddToCart(e, part)}
                       />
                     </div>
                   </div>

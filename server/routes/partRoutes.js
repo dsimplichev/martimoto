@@ -51,4 +51,17 @@ router.get('/', async (req, res) => {
   }
 
 });
+
+router.get('/:id', async (req, res) => {
+  try {
+    const part = await Part.findById(req.params.id);
+    if (!part) {
+      return res.status(404).json({ message: 'Частта не е намерена' });
+    }
+    res.status(200).json(part);
+  } catch (error) {
+    console.error('Грешка при извличане на частта:', error);
+    res.status(500).json({ message: 'Грешка при извличане на частта' });
+  }
+});
 module.exports = router;
