@@ -16,6 +16,7 @@ function AddPart() {
     const [images, setImages] = useState([]);
     const [availableModels, setAvailableModels] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
+    const [formVisible, setFormVisible] = useState(true);
 
     const handleBrandChange = (e) => {
         const selectedBrand = e.target.value;
@@ -44,7 +45,7 @@ function AddPart() {
         const formData = new FormData();
         formData.append('brand', brand);
         formData.append('model', model);
-        formData.append('year', year); // Вече няма cylinder
+        formData.append('year', year); 
         formData.append('title', title); 
         formData.append('description', description);
         formData.append('price', price);
@@ -61,6 +62,7 @@ function AddPart() {
 
             setMessage('Частта е добавена успешно!');
             console.log('Частта е добавена успешно:', response.data);
+            setFormVisible(false);
         } catch (error) {
             console.error('Грешка при добавяне на част:', error);
             setMessage('Грешка при добавяне на част!');
@@ -86,112 +88,119 @@ function AddPart() {
     }
 
     return (
+        
+       
         <div>
-            <h2>Добави част</h2>
-            <form className="add-part-form" onSubmit={handleSubmit}>
-                <div>
-                    <label>Марка</label>
-                    <select value={brand} onChange={handleBrandChange}>
-                        <option value="">Изберете марка</option>
-                        <option value="BMW">BMW</option>
-                        <option value="Ducati">Ducati</option>
-                        <option value="Suzuki">Suzuki</option>
-                        <option value="Kawasaki">KAWASAKI</option>
-                        <option value="Honda">Honda</option>
-                        <option value="Yamaha">Yamaha</option>
-                        <option value="Aprilia">Aprilia</option>
-                    </select>
-                </div>
+            {formVisible ? (
+                <>
+                    <h2>Добави част</h2>
+                    <form className="add-part-form" onSubmit={handleSubmit}>
+                        <div>
+                            <label>Марка</label>
+                            <select value={brand} onChange={handleBrandChange}>
+                                <option value="">Изберете марка</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Ducati">Ducati</option>
+                                <option value="Suzuki">Suzuki</option>
+                                <option value="Kawasaki">KAWASAKI</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Yamaha">Yamaha</option>
+                                <option value="Aprilia">Aprilia</option>
+                            </select>
+                        </div>
 
-                {brand && (
-                    <div>
-                        <label>Модел</label>
-                        <select value={model} onChange={handleModelChange}>
-                            <option value="">Изберете модел</option>
-                            {availableModels.map((modelName) => (
-                                <option key={modelName} value={modelName}>
-                                    {modelName}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                )}
-
-                {model && availableYears.length > 0 && (
-                    <div>
-                        <label>Година</label>
-                        <select value={year} onChange={(e) => setYear(e.target.value)}>
-                            <option value="">Изберете година</option>
-                            {availableYears.map((yearOption) => (
-                                <option key={yearOption} value={yearOption}>
-                                    {yearOption}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                )}
-
-                <div>
-                    <label>Име на частта</label>
-                    <input
-                        type="text"
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Описание</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Цена</label>
-                    <input
-                        type="number"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="image-upload" className="upload-label">
-                        <i className="fas fa-upload"></i> Добави изображения
-                    </label>
-                    <input
-                        id="image-upload"
-                        type="file"
-                        accept="image/*"
-                        className="upload-button"
-                        onChange={handleImageChange}
-                        multiple
-                    />
-                    <div className="image-previews">
-                        {images.map((image, index) => (
-                            <div key={index} className="image-preview">
-                                <img
-                                    src={URL.createObjectURL(image)}
-                                    alt={`Uploaded ${index}`}
-                                    style={{ width: '100px', marginTop: '10px' }}
-                                />
-                                <button type="button" onClick={() => handleRemoveImage(index)}>Изтрий</button>
+                        {brand && (
+                            <div>
+                                <label>Модел</label>
+                                <select value={model} onChange={handleModelChange}>
+                                    <option value="">Изберете модел</option>
+                                    {availableModels.map((modelName) => (
+                                        <option key={modelName} value={modelName}>
+                                            {modelName}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
-                        ))}
-                    </div>
-                </div>
+                        )}
 
-                <button type="submit">Добави частта</button>
-            </form>
+                        {model && availableYears.length > 0 && (
+                            <div>
+                                <label>Година</label>
+                                <select value={year} onChange={(e) => setYear(e.target.value)}>
+                                    <option value="">Изберете година</option>
+                                    {availableYears.map((yearOption) => (
+                                        <option key={yearOption} value={yearOption}>
+                                            {yearOption}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
 
-            {message && <p>{message}</p>}
+                        <div>
+                            <label>Име на частта</label>
+                            <input
+                                type="text"
+                                value={title} 
+                                onChange={(e) => setTitle(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label>Описание</label>
+                            <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label>Цена</label>
+                            <input
+                                type="number"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="image-upload" className="upload-label">
+                                <i className="fas fa-upload"></i> Добави изображения
+                            </label>
+                            <input
+                                id="image-upload"
+                                type="file"
+                                accept="image/*"
+                                className="upload-button"
+                                onChange={handleImageChange}
+                                multiple
+                            />
+                            <div className="image-previews">
+                                {images.map((image, index) => (
+                                    <div key={index} className="image-preview">
+                                        <img
+                                            src={URL.createObjectURL(image)}
+                                            alt={`Uploaded ${index}`}
+                                            style={{ width: '100px', marginTop: '10px' }}
+                                        />
+                                        <button type="button" onClick={() => handleRemoveImage(index)}>Изтрий</button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <button type="submit">Добави частта</button>
+                    </form>
+                </>
+            ) : (
+                <p>{message}</p>
+            )}
         </div>
     );
+    
 }
 
 export default AddPart;
