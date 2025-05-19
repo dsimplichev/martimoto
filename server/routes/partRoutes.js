@@ -4,6 +4,7 @@ const Part = require('../models/Part');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const upload = multer({ dest: 'uploads/' });
+const mongoose = require('mongoose');
 
 router.post('/add', upload.array('images'), async (req, res) => {
   try {
@@ -54,6 +55,13 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
+    
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Невалидно ID' });
+    }
+    
     const part = await Part.findById(req.params.id);
     if (!part) {
       return res.status(404).json({ message: 'Частта не е намерена' });

@@ -34,7 +34,7 @@ const fetchAccessoryDetails = async (cartItems) => {
             if (item.type === 'accessory') {
                 url = `http://localhost:5000/accessories/detail/${item.productId}`;
             } else if (item.type === 'part') {
-                url = `http://localhost:5000/parts/detail/${item.productId}`;
+                url = `http://localhost:5000/api/parts/${item.productId}`;
             } else {
                 
                 try {
@@ -45,7 +45,7 @@ const fetchAccessoryDetails = async (cartItems) => {
                     continue; 
                 } catch (err) {
                     try {
-                        const response = await fetch(`http://localhost:5000/parts/detail/${item.productId}`);
+                        const response = await fetch(`http://localhost:5000/api/parts/${item.productId}`);
                         if (!response.ok) throw new Error('Не е част');
                         const productData = await response.json();
                         accessoryDetails[item.productId] = productData;
