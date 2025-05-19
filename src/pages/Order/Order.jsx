@@ -29,39 +29,39 @@ const Order = () => {
   }, []);
 
   useEffect(() => {
-  if (deliveryMethod === "Еконт" && city.length > 2) {
-    axios
-      .get("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json", {
-        params: {
-          city: city
-        }
-      })
-      .then((response) => {
-        
-        console.log("Получени данни за офисите:", response.data.offices);
+    if (deliveryMethod === "Еконт" && city.length > 2) {
+      axios
+        .get("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json", {
+          params: { city: city }
+        })
+        .then((response) => {
+          if (response.data && response.data.offices) {
+            const filteredOffices = response.data.offices.filter((office) =>
+              office.city?.name.toLowerCase().includes(city.toLowerCase())
+            );
+            setOffices(filteredOffices);
+          } else {
+            setOffices([]);
+          }
+        })
+        .catch(() => setOffices([]));
+    } else if (deliveryMethod === "Спиди" && city.length > 2) {
 
-        if (response.data && response.data.offices) {
-          const filteredOffices = response.data.offices.filter((office) => {
-            if (office.city && office.city.name) {
-              return office.city.name.toLowerCase().includes(city.toLowerCase());
-            }
-            return false;
-          });
-          console.log("Филтрирани офиси:", filteredOffices);
-          setOffices(filteredOffices);
-        } else {
-          console.error("Няма данни за офисите.");
-          setOffices([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Грешка при зареждане на офисите:", error);
-        setOffices([]);
-      });
-  } else {
-    setOffices([]);
-  }
-}, [city, deliveryMethod]);
+      axios
+        .get("https://api.speedi.example/getOffices", { params: { city } })
+        .then((response) => {
+          if (response.data && response.data.offices) {
+
+            setOffices(response.data.offices);
+          } else {
+            setOffices([]);
+          }
+        })
+        .catch(() => setOffices([]));
+    } else {
+      setOffices([]);
+    }
+  }, [city, deliveryMethod]);
 
   const handleDeliveryChange = (method) => {
     setDeliveryMethod(method);
@@ -164,9 +164,16 @@ const Order = () => {
             >
               До офис на Еконт
             </button>
+            <button
+              type="button"
+              className={deliveryMethod === "Спиди" ? "selected" : ""}
+              onClick={() => handleDeliveryChange("Спиди")}
+            >
+              До офис на Спиди
+            </button>
           </div>
 
-          {deliveryMethod === "Еконт" && (
+          {(deliveryMethod === "Еконт" || deliveryMethod === "Спиди") && (
             <>
               <div className="form-group">
                 <label>

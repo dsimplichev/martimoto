@@ -79,6 +79,13 @@ textarea {
   color: white;
 }
 
+.delivery-options button:hover {
+  background-color: #0056b3;
+  color: white;              
+  transform: scale(1.05);    
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
 
 .confirm-btn {
   width: 100%;
