@@ -24,19 +24,52 @@ const OrderDetails = () => {
             });
     }, [orderId]);
 
-    const fetchAccessoryDetails = async (cartItems) => {
-        const accessoryDetails = {};
-        for (const item of cartItems) {
-            try {
-                const response = await fetch(`http://localhost:5000/accessories/detail/${item.productId}`);
-                const accessory = await response.json();
-                accessoryDetails[item.productId] = accessory;
-            } catch (error) {
-                console.error(`Грешка при зареждане на аксесоар ${item.productId}:`, error);
+const fetchAccessoryDetails = async (cartItems) => {
+    const accessoryDetails = {};
+
+    for (const item of cartItems) {
+        try {
+            let url = '';
+
+            if (item.type === 'accessory') {
+                url = `http://localhost:5000/accessories/detail/${item.productId}`;
+            } else if (item.type === 'part') {
+                url = `http://localhost:5000/parts/detail/${item.productId}`;
+            } else {
+                
+                try {
+                    const response = await fetch(`http://localhost:5000/accessories/detail/${item.productId}`);
+                    if (!response.ok) throw new Error('Не е аксесоар');
+                    const productData = await response.json();
+                    accessoryDetails[item.productId] = productData;
+                    continue; 
+                } catch (err) {
+                    try {
+                        const response = await fetch(`http://localhost:5000/parts/detail/${item.productId}`);
+                        if (!response.ok) throw new Error('Не е част');
+                        const productData = await response.json();
+                        accessoryDetails[item.productId] = productData;
+                        continue;
+                    } catch (innerErr) {
+                        console.error(`Не може да се зареди продукт ${item.productId} от нито един тип.`);
+                        continue;
+                    }
+                }
             }
+
+            
+            if (url) {
+                const response = await fetch(url);
+                const productData = await response.json();
+                accessoryDetails[item.productId] = productData;
+            }
+        } catch (error) {
+            console.error(`Грешка при зареждане на продукт ${item.productId}:`, error);
         }
-        setAccessories(accessoryDetails);
-    };
+    }
+
+    setAccessories(accessoryDetails);
+};
 
     if (loading) return <p>Зареждане на поръчката...</p>;
     if (!order) return <p>Грешка при зареждане на поръчката или поръчката не съществува!</p>;
