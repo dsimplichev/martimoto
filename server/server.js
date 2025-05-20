@@ -11,6 +11,7 @@ const messageRoutes = require('./routes/messageRoutes');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const Accessory = require('./models/Accessory');
+const Part = require('./models/Part')
 const orderRoutes = require('./routes/orderRoutes');
 const Order = require('./models/Order');
 
@@ -94,4 +95,27 @@ app.get('/accessories/detail/:id', (req, res) => {
             console.error(err);
             res.status(500).json({ message: "Грешка при зареждане на аксесоара." });
         });
+});
+
+
+app.get('/api/search', async (req, res) => {
+  const query = req.query.query;
+
+  try {
+    const accessoriesPromise = Accessory.find({
+      title: { $regex: query, $options: 'i' }
+    });
+
+    const partsPromise = Part.find({
+      title: { $regex: query, $options: 'i' }
+    });
+
+    const [accessories, parts] = await Promise.all([accessoriesPromise, partsPromise]);
+
+    const results = [...accessories, ...parts];
+    res.json(results);
+  } catch (error) {
+    console.error('Грешка при глобално търсене:', error);
+    res.status(500).json({ message: 'Грешка при търсене на продукти' });
+  }
 });

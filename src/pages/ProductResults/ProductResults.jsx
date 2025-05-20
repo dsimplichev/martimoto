@@ -10,7 +10,7 @@ function ProductResults() {
 
     useEffect(() => {
         console.log(`Извършвам търсене за: ${query}`); 
-        fetch(`http://localhost:5000/api/accessories/search?query=${query}`)
+        fetch(`http://localhost:5000/api/search?query=${query}`)
             .then((res) => res.json())
             .then((data) => {
                 console.log("Резултати от търсенето: ", data); 
