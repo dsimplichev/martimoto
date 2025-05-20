@@ -31,3 +31,12 @@
     margin-left: 240px;
 }
 
+.product-results img {
+  width: 80%;
+  height: 200px;
+  object-fit: contain; 
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
