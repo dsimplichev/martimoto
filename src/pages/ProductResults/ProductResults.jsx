@@ -35,6 +35,7 @@ function ProductResults() {
                     accessories.map((accessory, index) => (
                         <ProductCard
                             key={index}
+                            id={accessory._id} 
                             img={accessory.images[0]}
                             title={accessory.title}
                             price={accessory.price}                

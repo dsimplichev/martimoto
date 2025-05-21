@@ -59,6 +59,7 @@ export const CartProvider = ({ children }) => {
 
     
     const addToCart = async (product) => {
+        console.log("addToCart функция:", addToCart);
         if (isLoggedIn) {
             try {
                 const response = await axios.post("http://localhost:5000/cart", { userId, product }, { withCredentials: true });

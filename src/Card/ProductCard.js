@@ -24,7 +24,7 @@ function ProductCard({ img, title, id, price, type }) {
             price: price,  
             image: img,         
         };
-
+        console.log("Добавям в количката:", product);
         addToCart(product); 
         alert('Продуктът беше добавен в количката!');
     };

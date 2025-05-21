@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../Context/CartContext"; 
 import "./cart.css";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const { cart, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart) {
-      setCartItems(savedCart);
-    }
-  }, []);
-
+  
   const removeItem = (id) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    removeFromCart(id);
   };
 
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+  
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * (item.quantity || 1),
     0
   );
-
 
   const handleCheckout = () => {
     navigate("/order");
@@ -36,21 +29,25 @@ const Cart = () => {
       </div>
       <div className="divider-cart"></div>
       <div className="cart-items">
-        {cartItems.map((item) => (
-          <div className="cart-item" key={item.id}>
-            <img src={item.image} alt={item.name} className="item-image" />
-            <div className="item-details">
-              <h3>{item.title}</h3>
-              <button onClick={() => removeItem(item.id)} className="remove-btn2">
-                Премахни
-              </button>
+        {cart.length === 0 ? (
+          <p>Количката е празна</p>
+        ) : (
+          cart.map((item) => (
+            <div className="cart-item" key={item.id}>
+              <img src={item.image || item.img} alt={item.title} className="item-image" />
+              <div className="item-details">
+                <h3>{item.title}</h3>
+                <button onClick={() => removeItem(item.id)} className="remove-btn2">
+                  Премахни
+                </button>
+              </div>
+              <div className="item-meta">
+                <p className="quantity">Количество: {item.quantity || 1}</p>
+                <p className="price2">{item.price.toFixed(2)} лв.</p>
+              </div>
             </div>
-            <div className="item-meta">
-              <p className="quantity">Количество: {item.quantity}</p>
-              <p className="price2">{item.price.toFixed(2)} лв.</p>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
       <div className="order-summary">
         <p>
