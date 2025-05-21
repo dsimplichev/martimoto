@@ -29,6 +29,7 @@ function AddAccessory() {
             formData.append('description', description);
             formData.append('price', price);
             formData.append('category', category);
+            formData.append('type', 'accessory')
             
     
             const response = await fetch("http://localhost:5000/api/accessories", {

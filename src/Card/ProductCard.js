@@ -5,12 +5,16 @@ import './product.css'
 
 
 
-function ProductCard({ img, title, id, price }) {
+function ProductCard({ img, title, id, price, type }) {
     const navigate = useNavigate();
     const { addToCart } = useContext(CartContext);
     
     const handleNavigate = () => {
-        navigate(`/accessories/detail/${id}`); 
+        if (type === 'part') {
+            navigate(`/parts/detail/${id}`);
+        } else {
+            navigate(`/accessories/detail/${id}`);
+        }
     };
 
     const handleAddToCart = () => {
