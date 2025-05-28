@@ -58,23 +58,50 @@ export const CartProvider = ({ children }) => {
     };
 
     
-    const addToCart = async (product) => {
-        console.log("addToCart функция:", addToCart);
-        if (isLoggedIn) {
-            try {
-                const response = await axios.post("http://localhost:5000/cart", { userId, product }, { withCredentials: true });
-                if (response.status === 200) {
-                    setCart((prevCart) => [...prevCart, product]);
-                }
-            } catch (error) {
-                console.error("Грешка при добавяне в количката:", error);
+   const addToCart = async (product) => {
+    if (isLoggedIn) {
+        try {
+            const response = await axios.post(
+                "http://localhost:5000/cart",
+                { userId, product },
+                { withCredentials: true }
+            );
+
+            if (response.status === 200) {
+                setCart((prevCart) => {
+                    const existingItem = prevCart.find(item => item.id === product.id);
+                    if (existingItem) {
+                        return prevCart.map(item =>
+                            item.id === product.id
+                                ? { ...item, quantity: item.quantity + 1 }
+                                : item
+                        );
+                    } else {
+                        return [...prevCart, { ...product, quantity: 1 }];
+                    }
+                });
             }
-        } else {
-            const updatedCart = [...cart, product];
-            setCart(updatedCart);
-            saveGuestCart(updatedCart);
+        } catch (error) {
+            console.error("Грешка при добавяне в количката:", error);
         }
-    };
+    } else {
+        const existingItem = cart.find(item => item.id === product.id);
+        let updatedCart;
+
+        if (existingItem) {
+            updatedCart = cart.map(item =>
+                item.id === product.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            );
+        } else {
+            updatedCart = [...cart, { ...product, quantity: 1 }];
+        }
+
+        setCart(updatedCart);
+        saveGuestCart(updatedCart);
+    }
+};
 
     
     const removeFromCart = async (productId) => {

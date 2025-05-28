@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { CartContext } from '../../Context/CartContext';
 import { useParams, Link } from 'react-router-dom';
 import './partsByYear.css';
 import Divider from '../../Card/Divider';
@@ -11,6 +12,7 @@ function PartsByYear() {
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const { addToCart } = useContext(CartContext);
  
   
 
@@ -28,36 +30,28 @@ function PartsByYear() {
         setLoading(false);
       }
     };
-    const user = localStorage.getItem("user");
+    
     
 
     fetchParts();
   }, [brandName, modelName, year]);
 
   const handleAddToCart = (e, part) => {
-    e.stopPropagation();    
-    e.preventDefault();     
+  e.stopPropagation();
+  e.preventDefault();
 
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingItem = existingCart.find((item) => item.id === part._id);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      existingCart.push({
-        id: part._id,
-        title: part.title,
-        price: part.price,
-        image: part.images[0],
-        quantity: 1,
-      });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(existingCart));
-
-    setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
-    setShowPopup(true);
+  const productToAdd = {
+    id: part._id,
+    title: part.title,
+    price: part.price,
+    image: part.images[0],
   };
+
+  addToCart(productToAdd);  
+
+  setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
+  setShowPopup(true);
+};
 
   return (
     <>
