@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { MdAddShoppingCart } from "react-icons/md";  // Импортиране на иконата
+import { MdAddShoppingCart } from "react-icons/md";
+import { CartContext } from "../../Context/CartContext"; 
 import "./accessoryDetails.css";
 
 function AccessoryDetails() {
@@ -14,33 +15,23 @@ function AccessoryDetails() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
 
-    
+    const { addToCart } = useContext(CartContext); 
     const handleAddToCart = (e, accessory) => {
         e.stopPropagation();
-        console.log("Добавен към кошницата: ", accessory);
-    
-        
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    
-        
-        const existingItemIndex = cart.findIndex(item => item.id === accessory._id);
-        
-        if (existingItemIndex !== -1) {
-            
-            cart[existingItemIndex].quantity += 1;
-        } else {
-            
-            cart.push({
-                id: accessory._id,
-                title: accessory.title,
-                price: accessory.price,
-                image: accessory.images[0],
-                quantity: 1,  
-            });
-        }
-    
-        
-        localStorage.setItem("cart", JSON.stringify(cart));
+        e.preventDefault();
+
+        const productToAdd = {
+            id: accessory._id,
+            title: accessory.title,
+            price: accessory.price,
+            image: accessory.images[0],
+            quantity: 1,
+            type: "accessory" 
+        };
+
+        addToCart(productToAdd);
+
+        alert(`Продуктът "${accessory.title}" беше добавен във вашата количка.`); 
     };
 
     useEffect(() => {
@@ -91,7 +82,7 @@ function AccessoryDetails() {
                                     <p className="part-price">{acc.price} лв.</p>
                                     <MdAddShoppingCart
                                         className="cart-icon"
-                                        onClick={(e) => handleAddToCart(e, acc)}  
+                                        onClick={(e) => handleAddToCart(e, acc)}
                                     />
                                 </div>
                             </div>
@@ -116,4 +107,4 @@ function AccessoryDetails() {
     );
 }
 
-export default AccessoryDetails
+export default AccessoryDetails;
