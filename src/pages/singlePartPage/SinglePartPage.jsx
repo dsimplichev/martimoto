@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaTruckFast, FaPhoneVolume } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
+import { CartContext } from '../../Context/CartContext';
 
 
 function SinglePartPage() {
@@ -9,6 +10,7 @@ function SinglePartPage() {
     const [part, setPart] = useState(null);
     const [mainImage, setMainImage] = useState('');
     const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useContext(CartContext);
 
     useEffect(() => {
         const fetchPart = async () => {
@@ -26,31 +28,19 @@ function SinglePartPage() {
     }, [id]);
 
     const handleAddToCart = () => {
-        const cartItem = {
-            id: part._id,
-            title: part.title,
-            image: part.images[0],
-            price: part.price,
-            quantity: Number(quantity),
-            type: "part" 
-        };
-    
-        const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    
-        
-        const existingIndex = existingCart.findIndex(item => item.id === cartItem.id && item.type === "part");
-    
-        if (existingIndex !== -1) {
-            
-            existingCart[existingIndex].quantity += cartItem.quantity;
-        } else {
-            
-            existingCart.push(cartItem);
-        }
-    
-        localStorage.setItem("cart", JSON.stringify(existingCart));
-        alert("Продуктът беше добавен в количката!");
+    const cartItem = {
+        id: part._id,
+        title: part.title,
+        image: part.images[0],
+        price: part.price,
+        quantity: Number(quantity),
+        type: "part" 
     };
+
+    addToCart(cartItem);
+
+    alert("Продуктът беше добавен в количката!");
+};
 
     if (!part) return <p>Зареждане...</p>;
 
