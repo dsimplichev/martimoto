@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { CartContext } from '../../Context/CartContext';
-import { useParams, Link } from 'react-router-dom';
+import { FavoritesContext } from '../../Context/FavoritesContext';
+import { AuthContext } from '../../Context/AuthContext';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import './partsByYear.css';
 import Divider from '../../Card/Divider';
 import { MdAddShoppingCart } from "react-icons/md";
 import { IoHeartOutline } from "react-icons/io5";
-
 
 function PartsByYear() {
   const { brandName, modelName, year } = useParams();
@@ -14,8 +15,9 @@ function PartsByYear() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const { addToCart } = useContext(CartContext);
-
-
+  const { addToFavorites } = useContext(FavoritesContext);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchParts = async () => {
@@ -31,8 +33,6 @@ function PartsByYear() {
         setLoading(false);
       }
     };
-
-
 
     fetchParts();
   }, [brandName, modelName, year]);
@@ -51,6 +51,21 @@ function PartsByYear() {
     addToCart(productToAdd);
 
     setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
+    setShowPopup(true);
+  };
+
+  const handleAddToFavorites = (e, part) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (!isLoggedIn) {
+      alert('Моля, влезте в профила си, за да добавяте в любими.');
+      navigate('/login');
+      return;
+    }
+
+    addToFavorites(part);
+    setPopupMessage(`Продуктът "${part.title}" беше добавен в любими.`);
     setShowPopup(true);
   };
 
@@ -83,7 +98,10 @@ function PartsByYear() {
                     <div className="price-and-cart">
                       <p className="part-price">{part.price} лв.</p>
                       <div className="icon-group">
-                        <IoHeartOutline className="heart-icon" />
+                        <IoHeartOutline
+                          className="heart-icon"
+                          onClick={(e) => handleAddToFavorites(e, part)}
+                        />
                         <MdAddShoppingCart
                           className="cart-icon"
                           onClick={(e) => handleAddToCart(e, part)}
