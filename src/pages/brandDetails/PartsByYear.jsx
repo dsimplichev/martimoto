@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import './partsByYear.css';
 import Divider from '../../Card/Divider';
 import { MdAddShoppingCart } from "react-icons/md";
+import { IoHeartOutline } from "react-icons/io5";
 
 
 function PartsByYear() {
@@ -13,8 +14,8 @@ function PartsByYear() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const { addToCart } = useContext(CartContext);
- 
-  
+
+
 
   useEffect(() => {
     const fetchParts = async () => {
@@ -30,35 +31,35 @@ function PartsByYear() {
         setLoading(false);
       }
     };
-    
-    
+
+
 
     fetchParts();
   }, [brandName, modelName, year]);
 
   const handleAddToCart = (e, part) => {
-  e.stopPropagation();
-  e.preventDefault();
+    e.stopPropagation();
+    e.preventDefault();
 
-  const productToAdd = {
-    id: part._id,
-    title: part.title,
-    price: part.price,
-    image: part.images[0],
+    const productToAdd = {
+      id: part._id,
+      title: part.title,
+      price: part.price,
+      image: part.images[0],
+    };
+
+    addToCart(productToAdd);
+
+    setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
+    setShowPopup(true);
   };
-
-  addToCart(productToAdd);  
-
-  setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
-  setShowPopup(true);
-};
 
   return (
     <>
       <div className="parts-by-year">
         <h1 className="brand-title5">Части за {brandName} {modelName} ({year})</h1>
         <Divider />
-  
+
         {loading ? (
           <p>Зареждане...</p>
         ) : parts.length === 0 ? (
@@ -81,12 +82,13 @@ function PartsByYear() {
                     <h3 className="part-title">{part.title}</h3>
                     <div className="price-and-cart">
                       <p className="part-price">{part.price} лв.</p>
-                      <MdAddShoppingCart
-                        className="cart-icon"
-                        onClick={(e) => 
-                          
-                        handleAddToCart(e, part)}
-                      />
+                      <div className="icon-group">
+                        <IoHeartOutline className="heart-icon" />
+                        <MdAddShoppingCart
+                          className="cart-icon"
+                          onClick={(e) => handleAddToCart(e, part)}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -95,7 +97,7 @@ function PartsByYear() {
           </div>
         )}
       </div>
-  
+
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-box">

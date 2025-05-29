@@ -80,6 +80,22 @@
   margin-top: 6px;
 }
 
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heart-icon {
+  font-size: 19px;
+  color: #888;
+  cursor: pointer;
+}
+
+.heart-icon:hover {
+  color: #2e7d32;
+}
+
 .cart-icon {
   font-size: 18px;
   color: #888; 
