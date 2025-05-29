@@ -153,3 +153,7 @@
 .checkout-btn:hover {
   background-color: #d35400;
 }
+
+.cart-items {
+  margin-left: 40px;
+}
