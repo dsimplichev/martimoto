@@ -6,7 +6,7 @@ export const FavoritesContext = createContext();
 export const FavoritesProvider = ({ children }) => {
   const { isLoggedIn } = useContext(AuthContext);
   const [favorites, setFavorites] = useState(() => {
-    // Зареждаме от localStorage като пример
+    
     const stored = localStorage.getItem('favorites');
     return stored ? JSON.parse(stored) : [];
   });
