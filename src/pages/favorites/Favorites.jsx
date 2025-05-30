@@ -7,10 +7,11 @@ function Favorites() {
   const { user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState([]);
 
+  console.log("AuthContext user:", user);
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/favorites/${user._id}`);
+        const response = await fetch(`http://localhost:5000/api/favorites/${user.email}`);
         const data = await response.json();
         setFavorites(data);
       } catch (error) {
@@ -18,7 +19,7 @@ function Favorites() {
       }
     };
 
-    if (user) {
+    if (user && user.email) {
       fetchFavorites();
     }
   }, [user]);
@@ -33,9 +34,9 @@ function Favorites() {
       ) : (
         <div className="favorites-grid">
           {favorites.map(part => (
-            <Link to={`/parts/${part._id}`} key={part._id} className="favorite-card-link">
+            <Link to={`/parts/${part.partId}`} key={part._id} className="favorite-card-link">
               <div className="favorite-card">
-                <img src={part.images[0]} alt={part.title} />
+                <img src={part.image} alt={part.title} />
                 <h3>{part.title}</h3>
                 <p>{part.price} лв.</p>
               </div>
