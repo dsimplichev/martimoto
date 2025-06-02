@@ -4,20 +4,60 @@ import { AuthContext } from './AuthContext';
 export const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState(() => {
-    
+
     const stored = localStorage.getItem('favorites');
     return stored ? JSON.parse(stored) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
+    const fetchFavorites = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/favorites/${user?.email}`);
+        const data = await res.json();
+        const mapped = data.map(fav => ({
+          id: fav.partId,
+          title: fav.title,
+          price: fav.price,
+          image: fav.image
+        }));
+        setFavorites(mapped);
+      } catch (err) {
+        console.error('Грешка при зареждане на любимите:', err);
+      }
+    };
 
-  const addToFavorites = (part) => {
+    if (user && user.email) {
+      fetchFavorites();
+    }
+  }, [user]);
+
+  const addToFavorites = async (part) => {
     if (!favorites.find(fav => fav.id === part._id)) {
-      setFavorites([...favorites, { id: part._id, title: part.title, price: part.price, image: part.images[0] }]);
+      const newFavorite = {
+        userEmail: user?.email,
+        partId: part._id,
+        title: part.title,
+        price: part.price,
+        image: part.images[0],
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/api/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newFavorite),
+        });
+
+        if (response.ok) {
+          setFavorites(prev => [...prev, { id: part._id, ...newFavorite }]);
+        } else {
+          console.error('Грешка при запис в MongoDB');
+        }
+      } catch (error) {
+        console.error('Грешка при заявката за добавяне в любими:', error);
+      }
     }
   };
 

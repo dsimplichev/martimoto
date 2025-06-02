@@ -14,7 +14,7 @@ const Accessory = require('./models/Accessory');
 const Part = require('./models/Part')
 const orderRoutes = require('./routes/orderRoutes');
 const Order = require('./models/Order');
-const favoriteRoutes = require('./routes/favoriteRoutes');
+const favoritesRoutes = require('./routes/favoritesRoutes');
 
 const upload = multer(); 
 const app = express();
@@ -35,7 +35,7 @@ app.use('/api/parts', partRoutes);
 app.use('/api/accessories', accessoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use('/api/messages', messageRoutes);
-app.use('/api/favorites', favoriteRoutes);
+app.use('/api/favorites', favoritesRoutes);
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {
