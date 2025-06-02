@@ -36,7 +36,7 @@ function Favorites() {
 
   const handleAddToCart = (part) => {
     console.log('Добавена в количката:', part.title);
-    // Тук може да извикаш контекст или логика за добавяне в количка
+    
   };
 
   if (!user) return <p>Моля, влезте в профила си.</p>;
@@ -52,7 +52,7 @@ function Favorites() {
             <div className="favorite-card" key={part._id}>
               <Link to={`/parts/${part.partId}`} className="favorite-card-link">
                 <img src={part.image} alt={part.title} />
-                <h3>{part.title}</h3>
+                <h3 className='favoritestitle-part'>{part.title}</h3>
               </Link>
               <p>{part.price} лв.</p>
               <div className="favorite-actions">
