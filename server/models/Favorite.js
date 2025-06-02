@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const favoriteSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  partId: { type: mongoose.Schema.Types.ObjectId, ref: 'Part', required: true },
+  userEmail: { type: String, required: true }, 
+  partId: { type: String, required: true },    
   title: String,
   price: Number,
   image: String

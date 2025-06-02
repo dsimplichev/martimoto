@@ -15,10 +15,12 @@ router.get('/:userEmail', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    console.log('Получено в /api/favorites:', req.body);
     const newFavorite = new Favorite(req.body);
     await newFavorite.save();
     res.status(201).json(newFavorite);
   } catch (err) {
+    console.error('ГРЕШКА ПРИ ЗАПИС В MONGODB:', err);
     res.status(500).json({ error: 'Грешка при запис' });
   }
 });

@@ -7,7 +7,6 @@ function Favorites() {
   const { user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState([]);
 
-  console.log("AuthContext user:", user);
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
@@ -24,6 +23,22 @@ function Favorites() {
     }
   }, [user]);
 
+  const removeFromFavorites = async (partId) => {
+    try {
+      await fetch(`http://localhost:5000/api/favorites/${user.email}/${partId}`, {
+        method: 'DELETE',
+      });
+      setFavorites(prev => prev.filter(part => part.partId !== partId));
+    } catch (error) {
+      console.error("Грешка при изтриване от любими:", error);
+    }
+  };
+
+  const handleAddToCart = (part) => {
+    console.log('Добавена в количката:', part.title);
+    // Тук може да извикаш контекст или логика за добавяне в количка
+  };
+
   if (!user) return <p>Моля, влезте в профила си.</p>;
 
   return (
@@ -34,13 +49,17 @@ function Favorites() {
       ) : (
         <div className="favorites-grid">
           {favorites.map(part => (
-            <Link to={`/parts/${part.partId}`} key={part._id} className="favorite-card-link">
-              <div className="favorite-card">
+            <div className="favorite-card" key={part._id}>
+              <Link to={`/parts/${part.partId}`} className="favorite-card-link">
                 <img src={part.image} alt={part.title} />
                 <h3>{part.title}</h3>
-                <p>{part.price} лв.</p>
+              </Link>
+              <p>{part.price} лв.</p>
+              <div className="favorite-actions">
+                <button onClick={() => handleAddToCart(part)}>Добави в количката</button>
+                <button className="remove" onClick={() => removeFromFavorites(part.partId)}>Премахни</button>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
