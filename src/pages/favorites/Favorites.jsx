@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import './favorites.css';
 import { Link } from 'react-router-dom';
+import { GoTrash } from "react-icons/go";
+import { MdAddShoppingCart } from "react-icons/md";
 
 function Favorites() {
   const { user } = useContext(AuthContext);
@@ -36,7 +38,7 @@ function Favorites() {
 
   const handleAddToCart = (part) => {
     console.log('Добавена в количката:', part.title);
-    
+
   };
 
   if (!user) return <p>Моля, влезте в профила си.</p>;
@@ -48,17 +50,39 @@ function Favorites() {
         <p className="no-favorites">Нямате добавени любими части.</p>
       ) : (
         <div className="favorites-grid">
-          {favorites.map(part => (
-            <div className="favorite-card" key={part._id}>
-              <Link to={`/parts/${part.partId}`} className="favorite-card-link">
-                <img src={part.image} alt={part.title} />
-                <h3 className='favoritestitle-part'>{part.title}</h3>
+          {favorites.map((part) => (
+            <div className="part-card" key={part.partId}>
+              <Link to={`/parts/${part.partId}`} className="part-card-link">
+                <img
+                  src={part.image}
+                  alt={part.title}
+                  className="part-image"
+                />
+                <div className="part-info">
+                  <h3 className="part-title">{part.title}</h3>
+                  <div className="price-and-cart">
+                    <p className="part-price">{part.price} лв.</p>
+                    <div className="icon-group">
+                      
+                      <GoTrash
+                        className="heart-icon"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removeFromFavorites(part.partId);
+                        }}
+                      />
+                  
+                      <MdAddShoppingCart
+                        className="cart-icon"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAddToCart(part);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </Link>
-              <p>{part.price} лв.</p>
-              <div className="favorite-actions">
-                <button onClick={() => handleAddToCart(part)}>Добави в количката</button>
-                <button className="remove" onClick={() => removeFromFavorites(part.partId)}>Премахни</button>
-              </div>
             </div>
           ))}
         </div>
