@@ -4,10 +4,12 @@ import './favorites.css';
 import { Link } from 'react-router-dom';
 import { GoTrash } from "react-icons/go";
 import { MdAddShoppingCart } from "react-icons/md";
+import { CartContext } from '../../Context/CartContext';
 
 function Favorites() {
   const { user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -37,9 +39,14 @@ function Favorites() {
   };
 
   const handleAddToCart = (part) => {
-    console.log('Добавена в количката:', part.title);
-
-  };
+  addToCart({
+    _id: part.partId,
+    title: part.title,
+    image: part.image,
+    price: part.price,
+    quantity: 1,
+  });
+};
 
   if (!user) return <p>Моля, влезте в профила си.</p>;
 
