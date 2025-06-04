@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
-import { CartContext } from '../../Context/CartContext'; 
+import { CartContext } from '../../Context/CartContext';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import './nav.css';
@@ -9,13 +9,16 @@ import Register from '../register/Register';
 import Login from '../login/Login';
 import axios from 'axios';
 
+
 function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
-    const { cart } = useContext(CartContext); 
+    const { cart } = useContext(CartContext);
     const [showLogin, setShowLogin] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null); 
-
+    const dropdownRef = useRef(null);
+    const { favorites } = useContext(CartContext);
+    const totalFavorites = favorites ? favorites.length : 0;
+    
     const handleLogout = () => {
         logout();
         onLogout?.();
@@ -34,7 +37,7 @@ function Nav({ onLogout }) {
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-    
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -90,8 +93,11 @@ function Nav({ onLogout }) {
                                 )}
                             </div>
                             <button className='FaHeart'>
-                                <Link to="/favorites">
+                                <Link to="/favorites" className="heart-link">
                                     <FaHeart />
+                                    {totalFavorites > 0 && (
+                                        <span className="heart-badge">{totalFavorites}</span>
+                                    )}
                                 </Link>
                             </button>
                         </>
@@ -100,11 +106,11 @@ function Nav({ onLogout }) {
                             <FaUserCircle />
                         </button>
                     )}
-                    
+
                     <button className="ShoppingCart2">
                         <Link className='cart2' to='/cart'>
                             <FaShoppingCart />
-                            {totalItems > 0 && (  
+                            {totalItems > 0 && (
                                 <span className="cart-badge">{totalItems}</span>
                             )}
                         </Link>

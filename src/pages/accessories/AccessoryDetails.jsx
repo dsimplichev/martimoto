@@ -4,8 +4,11 @@ import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { MdAddShoppingCart } from "react-icons/md";
-import { CartContext } from "../../Context/CartContext"; 
+import { CartContext } from "../../Context/CartContext";
 import "./accessoryDetails.css";
+import { IoHeartOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { FavoritesContext } from "../../Context/FavoritesContext";
 
 function AccessoryDetails() {
     const { accessoryName } = useParams();
@@ -14,8 +17,9 @@ function AccessoryDetails() {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
+    const { addToFavorites } = useContext(FavoritesContext);
 
-    const { addToCart } = useContext(CartContext); 
+    const { addToCart } = useContext(CartContext);
     const handleAddToCart = (e, accessory) => {
         e.stopPropagation();
         e.preventDefault();
@@ -26,12 +30,28 @@ function AccessoryDetails() {
             price: accessory.price,
             image: accessory.images[0],
             quantity: 1,
-            type: "accessory" 
+            type: "accessory"
         };
 
         addToCart(productToAdd);
 
-        alert(`Продуктът "${accessory.title}" беше добавен във вашата количка.`); 
+        alert(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
+    };
+
+    const handleAddToFavorites = (e, accessory) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const favoriteItem = {
+            id: accessory._id,
+            title: accessory.title,
+            price: accessory.price,
+            image: accessory.images[0],
+            type: "accessory"
+        };
+
+        addToFavorites(favoriteItem);
+        alert(`"${accessory.title}" беше добавен в Любими.`);
     };
 
     useEffect(() => {
@@ -67,26 +87,39 @@ function AccessoryDetails() {
                 <h1>{accessoryName}</h1>
             </div>
             <div className="divider-acc"></div>
-            <div className="accessory-list">
+
+            <div className="parts-grid">
                 {paginatedAccessories.length > 0 ? (
-                    paginatedAccessories.map((acc) => (
-                        <div key={acc._id} className="part-card">
-                            <img
-                                src={acc.images[0]}
-                                alt={acc.title}
-                                className="part-image2"
-                            />
-                            <div className="part-info">
-                                <h3 className="part-title">{acc.title}</h3>
-                                <div className="price-and-cart">
-                                    <p className="part-price">{acc.price} лв.</p>
-                                    <MdAddShoppingCart
-                                        className="cart-icon"
-                                        onClick={(e) => handleAddToCart(e, acc)}
-                                    />
+                    paginatedAccessories.map((part) => (
+                        <Link
+                            to={`/parts/${part._id}`}
+                            key={part._id}
+                            className="part-card-link"
+                        >
+                            <div className="part-card">
+                                <img
+                                    src={part.images[0]}
+                                    alt={part.title}
+                                    className="part-image"
+                                />
+                                <div className="part-info">
+                                    <h3 className="part-title">{part.title}</h3>
+                                    <div className="price-and-cart">
+                                        <p className="part-price">{part.price} лв.</p>
+                                        <div className="icon-group">
+                                            <IoHeartOutline
+                                                className="heart-icon"
+                                                onClick={(e) => handleAddToFavorites(e, part)}
+                                            />
+                                            <MdAddShoppingCart
+                                                className="cart-icon"
+                                                onClick={(e) => handleAddToCart(e, part)}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))
                 ) : (
                     <p className="no-accessories">Няма налични аксесоари в тази категория.</p>
