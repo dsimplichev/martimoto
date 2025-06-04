@@ -28,7 +28,7 @@ function AccessoryDetails() {
             id: accessory._id,
             title: accessory.title,
             price: accessory.price,
-            image: accessory.images[0],
+            image: accessory.images?.[0] || "/default-image.jpg",
             quantity: 1,
             type: "accessory"
         };
@@ -46,7 +46,7 @@ function AccessoryDetails() {
             id: accessory._id,
             title: accessory.title,
             price: accessory.price,
-            image: accessory.images[0],
+            image: accessory.images?.[0] || "/default-image.jpg",
             type: "accessory"
         };
 
@@ -98,7 +98,7 @@ function AccessoryDetails() {
                         >
                             <div className="part-card">
                                 <img
-                                    src={part.images[0]}
+                                    src={part.images?.[0] || "/default-image.jpg"}
                                     alt={part.title}
                                     className="part-image"
                                 />

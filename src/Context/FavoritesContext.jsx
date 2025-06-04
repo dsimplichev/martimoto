@@ -34,13 +34,13 @@ export const FavoritesProvider = ({ children }) => {
   }, [user]);
 
   const addToFavorites = async (part) => {
-    if (!favorites.find(fav => fav.id === part._id)) {
+    if (!favorites.find(fav => fav.id === part.id)) {
       const newFavorite = {
         userEmail: user?.email,
-        partId: part._id,
+        partId: part.id,
         title: part.title,
         price: part.price,
-        image: part.images[0],
+        image: part.image || "/default-image.jpg",
       };
 
       try {
@@ -51,7 +51,7 @@ export const FavoritesProvider = ({ children }) => {
         });
 
         if (response.ok) {
-          setFavorites(prev => [...prev, { id: part._id, ...newFavorite }]);
+          setFavorites(prev => [...prev, { id: part.id, ...newFavorite }]);
         } else {
           console.error('Грешка при запис в MongoDB');
         }
