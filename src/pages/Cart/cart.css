@@ -97,6 +97,7 @@
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .out-of-stock {
