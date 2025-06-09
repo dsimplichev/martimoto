@@ -42,7 +42,7 @@ function PartsByYear() {
     e.preventDefault();
 
     const productToAdd = {
-      id: part._id,
+      _id: part._id,
       title: part.title,
       price: part.price,
       image: part.images[0],

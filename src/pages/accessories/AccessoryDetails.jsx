@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { MdAddShoppingCart } from "react-icons/md";
-import { CartContext } from "../../Context/CartContext";
-import "./accessoryDetails.css";
 import { IoHeartOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+
+import { CartContext } from "../../Context/CartContext";
 import { FavoritesContext } from "../../Context/FavoritesContext";
+
+import "./accessoryDetails.css";
 
 function AccessoryDetails() {
     const { accessoryName } = useParams();
@@ -17,15 +18,31 @@ function AccessoryDetails() {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
-    const { addToFavorites } = useContext(FavoritesContext);
 
     const { addToCart } = useContext(CartContext);
+    const { addToFavorites } = useContext(FavoritesContext);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:5000/accessories/${encodeURIComponent(accessoryName.toLowerCase())}`)
+            .then((response) => {
+                setAccessories(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Грешка при заявката:", error);
+                setError("Неуспешно зареждане на аксесоарите.");
+                setLoading(false);
+            });
+    }, [accessoryName]);
+
     const handleAddToCart = (e, accessory) => {
-        e.stopPropagation();
         e.preventDefault();
+        e.stopPropagation();
 
         const productToAdd = {
-            id: accessory._id,
+            _id: accessory._id,
             title: accessory.title,
             price: accessory.price,
             image: accessory.images?.[0] || "/default-image.jpg",
@@ -34,13 +51,12 @@ function AccessoryDetails() {
         };
 
         addToCart(productToAdd);
-
         alert(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
     };
 
     const handleAddToFavorites = (e, accessory) => {
-        e.stopPropagation();
         e.preventDefault();
+        e.stopPropagation();
 
         const favoriteItem = {
             id: accessory._id,
@@ -54,32 +70,19 @@ function AccessoryDetails() {
         alert(`"${accessory.title}" беше добавен в Любими.`);
     };
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/accessories/${encodeURIComponent(accessoryName.toLowerCase())}`)
-            .then(response => {
-                setAccessories(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Грешка при заявката:", error);
-                setError("Неуспешно зареждане на аксесоарите.");
-                setLoading(false);
-            });
-    }, [accessoryName]);
-
     const totalPages = Math.ceil(accessories.length / itemsPerPage);
-
-    const handlePageChange = (_, page) => {
-        setCurrentPage(page);
-    };
 
     const paginatedAccessories = accessories.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
 
-    if (loading) return <p>Зареждане...</p>;
-    if (error) return <p>{error}</p>;
+    const handlePageChange = (_, page) => {
+        setCurrentPage(page);
+    };
+
+    if (loading) return <p className="loading-text">Зареждане...</p>;
+    if (error) return <p className="error-text">{error}</p>;
 
     return (
         <div className="accessories-page">
@@ -122,20 +125,24 @@ function AccessoryDetails() {
                         </Link>
                     ))
                 ) : (
-                    <p className="no-accessories">Няма налични аксесоари в тази категория.</p>
+                    <p className="no-accessories">
+                        Няма налични аксесоари в тази категория.
+                    </p>
                 )}
             </div>
 
-            <Stack spacing={2} alignItems="center" marginTop={2} className="pagination-container">
-                <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    onChange={handlePageChange}
-                    variant="outlined"
-                    shape="rounded"
-                    className="pagination"
-                />
-            </Stack>
+            {totalPages > 1 && (
+                <Stack spacing={2} alignItems="center" marginTop={2} className="pagination-container">
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        variant="outlined"
+                        shape="rounded"
+                        className="pagination"
+                    />
+                </Stack>
+            )}
         </div>
     );
 }
