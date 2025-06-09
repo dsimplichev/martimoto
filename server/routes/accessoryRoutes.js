@@ -49,7 +49,7 @@ router.post('/', upload.array('images', 5), async (req, res) => {
 });
 
 
-router.get('/accessories/:category', async (req, res) => {
+router.get('/category/:category', async (req, res) => {
     try {
         const category = req.params.category;
         const accessories = await Accessory.find({ category });
@@ -60,7 +60,7 @@ router.get('/accessories/:category', async (req, res) => {
     }
 });
 
-router.get('/accessories/detail/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params; 
 
     try {

@@ -1,9 +1,9 @@
+
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaTruckFast, FaPhoneVolume } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
 import { CartContext } from '../../Context/CartContext';
-
 
 function SinglePartPage() {
     const { id } = useParams();
@@ -11,37 +11,59 @@ function SinglePartPage() {
     const [mainImage, setMainImage] = useState('');
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
+    const [type, setType] = useState('part'); // За да знаем дали е част или аксесоар
 
     useEffect(() => {
-        const fetchPart = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/parts/${id}`);
-                const data = await response.json();
-                setPart(data);
-                setMainImage(data.images[0]);
+                
+                let response = await fetch(`http://localhost:5000/api/parts/${id}`);
+                let data = await response.json();
+
+                if (response.ok && data._id) {
+                    setPart(data);
+                    setMainImage(data.images?.[0] || "/default-image.jpg");
+                    setType('part');
+                } else {
+                    
+                    response = await fetch(`http://localhost:5000/api/accessories/${id}`);
+                    data = await response.json();
+
+                    if (response.ok && data._id) {
+                        setPart(data);
+                        setMainImage(data.images?.[0] || "/default-image.jpg");
+                        setType('accessory');
+                    } else {
+                        // Ако няма и аксесоар - няма продукт
+                        setPart(null);
+                    }
+                }
             } catch (error) {
-                console.error('Грешка при зареждане на частта:', error);
+                console.error('Грешка при зареждане:', error);
+                setPart(null);
             }
         };
 
-        fetchPart();
+        fetchData();
     }, [id]);
 
     const handleAddToCart = () => {
-    const cartItem = {
-        id: part._id,
-        title: part.title,
-        image: part.images[0],
-        price: part.price,
-        quantity: Number(quantity),
-        type: "part" 
+        if (!part) return;
+
+        const cartItem = {
+            id: part._id,
+            title: part.title,
+            image: mainImage,
+            price: part.price,
+            quantity: Number(quantity),
+            type: type,
+        };
+
+        addToCart(cartItem);
+        alert("Продуктът беше добавен в количката!");
     };
 
-    addToCart(cartItem);
-
-    alert("Продуктът беше добавен в количката!");
-};
-
+    if (part === null) return <p>Продуктът не е намерен.</p>;
     if (!part) return <p>Зареждане...</p>;
 
     return (
@@ -65,7 +87,7 @@ function SinglePartPage() {
                 <div className="product-images">
                     <img src={mainImage} alt={part.title} className="main-image" />
                     <div className="thumbnail-images">
-                        {part.images.slice(1, 5).map((img, index) => (
+                        {Array.isArray(part.images) && part.images.slice(1, 5).map((img, index) => (
                             <img
                                 key={index}
                                 src={img}
@@ -104,4 +126,5 @@ function SinglePartPage() {
         </div>
     );
 }
+
 export default SinglePartPage;
