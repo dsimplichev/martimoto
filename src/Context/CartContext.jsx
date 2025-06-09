@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
             .catch(error => console.error("Грешка при проверка на логина:", error));
     }, []);
 
-    
+
     const loadUserCart = async (userId) => {
         try {
             const response = await axios.get(`http://localhost:5000/cart/${userId}`, { withCredentials: true });
@@ -34,13 +34,13 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    
+
     const loadGuestCart = () => {
         const guestCartData = JSON.parse(localStorage.getItem("guest_cart"));
         if (guestCartData) {
             const now = new Date().getTime();
             if (now > guestCartData.expiry) {
-                localStorage.removeItem("guest_cart"); 
+                localStorage.removeItem("guest_cart");
                 setCart([]);
             } else {
                 setCart(guestCartData.items);
@@ -50,76 +50,76 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    
+
     const saveGuestCart = (cartItems) => {
         const expiry = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 часа напред
         const guestCartData = { items: cartItems, expiry };
         localStorage.setItem("guest_cart", JSON.stringify(guestCartData));
     };
 
-    
-   const addToCart = async (product) => {
-    if (isLoggedIn) {
-        try {
-            const response = await axios.post(
-                "http://localhost:5000/cart",
-                { userId, product },
-                { withCredentials: true }
-            );
 
-            if (response.status === 200) {
-                setCart((prevCart) => {
-                    const existingItem = prevCart.find(item => item.id === product.id);
-                    if (existingItem) {
-                        return prevCart.map(item =>
-                            item.id === product.id
-                                ? { ...item, quantity: item.quantity + 1 }
-                                : item
-                        );
-                    } else {
-                        return [...prevCart, { ...product, quantity: 1 }];
-                    }
-                });
+    const addToCart = async (product) => {
+        if (isLoggedIn) {
+            try {
+                const response = await axios.post(
+                    "http://localhost:5000/cart",
+                    { userId, product },
+                    { withCredentials: true }
+                );
+
+                if (response.status === 200) {
+                    setCart((prevCart) => {
+                        const existingItem = prevCart.find(item => item._id === product._id);
+                        if (existingItem) {
+                            return prevCart.map(item =>
+                                item._id === product._id
+                                    ? { ...item, quantity: item.quantity + 1 }
+                                    : item
+                            );
+                        } else {
+                            return [...prevCart, { ...product, quantity: 1 }];
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error("Грешка при добавяне в количката:", error);
             }
-        } catch (error) {
-            console.error("Грешка при добавяне в количката:", error);
-        }
-    } else {
-        const existingItem = cart.find(item => item.id === product.id);
-        let updatedCart;
-
-        if (existingItem) {
-            updatedCart = cart.map(item =>
-                item.id === product.id
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            );
         } else {
-            updatedCart = [...cart, { ...product, quantity: 1 }];
+            const existingItem = cart.find(item => item._id === product._id);
+            let updatedCart;
+
+            if (existingItem) {
+                updatedCart = cart.map(item =>
+                    item._id === product._id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                );
+            } else {
+                updatedCart = [...cart, { ...product, quantity: 1 }];
+            }
+
+            setCart(updatedCart);
+            saveGuestCart(updatedCart);
         }
-
-        setCart(updatedCart);
-        saveGuestCart(updatedCart);
     }
-};
 
-    
+
     const removeFromCart = async (productId) => {
         if (isLoggedIn) {
             try {
                 await axios.delete(`http://localhost:5000/cart/${userId}/${productId}`, { withCredentials: true });
-                setCart(prevCart => prevCart.filter(item => item.id !== productId));
+                setCart(prevCart => prevCart.filter(item => item._id !== productId)); // ⬅️ fix тук
             } catch (error) {
                 console.error("Грешка при премахване на продукт:", error);
             }
         } else {
-            const updatedCart = cart.filter(item => item.id !== productId);
+            const updatedCart = cart.filter(item => item._id !== productId); // ⬅️ fix тук
             setCart(updatedCart);
             saveGuestCart(updatedCart);
         }
     };
 
-   
+
     const handleLogout = () => {
         setCart([]);
         setIsLoggedIn(false);

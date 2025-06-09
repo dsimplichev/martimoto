@@ -1,18 +1,16 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../../Context/CartContext"; 
+import { CartContext } from "../../Context/CartContext";
 import "./cart.css";
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  
   const removeItem = (id) => {
     removeFromCart(id);
   };
 
-  
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
     0
@@ -33,11 +31,18 @@ const Cart = () => {
           <p>Количката е празна</p>
         ) : (
           cart.map((item) => (
-            <div className="cart-item" key={item.id}>
-              <img src={item.image || item.img} alt={item.title} className="item-image" />
+            <div className="cart-item" key={item._id}>
+              <img
+                src={item.image || item.img}
+                alt={item.title}
+                className="item-image"
+              />
               <div className="item-details">
                 <h3>{item.title}</h3>
-                <button onClick={() => removeItem(item.id)} className="remove-btn2">
+                <button
+                  onClick={() => removeItem(item._id)}
+                  className="remove-btn2"
+                >
                   Премахни
                 </button>
               </div>
