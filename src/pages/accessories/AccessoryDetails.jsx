@@ -22,6 +22,13 @@ function AccessoryDetails() {
     const { addToCart } = useContext(CartContext);
     const { addToFavorites } = useContext(FavoritesContext);
 
+    // Функция за коректен път към снимките
+    const getImageUrl = (image) => {
+        if (!image) return "/default-image.jpg";
+        if (image.startsWith("http")) return image;
+        return `http://localhost:5000/uploads/${image}`;
+    };
+
     useEffect(() => {
         setLoading(true);
         axios
@@ -45,7 +52,7 @@ function AccessoryDetails() {
             _id: accessory._id,
             title: accessory.title,
             price: accessory.price,
-            image: accessory.images?.[0] || "/default-image.jpg",
+            image: getImageUrl(accessory.images?.[0]),
             quantity: 1,
             type: "accessory"
         };
@@ -59,10 +66,10 @@ function AccessoryDetails() {
         e.stopPropagation();
 
         const favoriteItem = {
-            id: accessory._id,
+            _id: accessory._id,
             title: accessory.title,
             price: accessory.price,
-            image: accessory.images?.[0] || "/default-image.jpg",
+            image: getImageUrl(accessory.images?.[0]),
             type: "accessory"
         };
 
@@ -101,7 +108,7 @@ function AccessoryDetails() {
                         >
                             <div className="part-card">
                                 <img
-                                    src={part.images?.[0] || "/default-image.jpg"}
+                                    src={getImageUrl(part.images?.[0])}
                                     alt={part.title}
                                     className="part-image"
                                 />
