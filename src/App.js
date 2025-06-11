@@ -27,7 +27,7 @@ import AdminMessages from "./pages/adminMessages/AdminMessages";
 import PartsByYear from "./pages/brandDetails/PartsByYear";
 import SinglePartPage from "./pages/singlePartPage/SinglePartPage";
 import Favorites from "./pages/favorites/Favorites";
-
+import Contact from './pages/contact/Contact'
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
@@ -64,6 +64,7 @@ function App() {
         <Route path="/admin/messages" element={<AdminMessages />} />
         <Route path="/parts/:id" element={<SinglePartPage />} />
         <Route path="/favorites" element={<Favorites />} />
+         <Route path="/contact" element={<Contact />} />
       </Routes>
 
       <Brand />
