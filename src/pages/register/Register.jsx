@@ -122,7 +122,7 @@ function Register({ onClose, onLoginClick }) {
                     <div className="account-login-row">
                         <small>Вече имате акаунт?</small>
                         <button onClick={() => {
-                            onClose();
+                            
                             onLoginClick();
                         }}>
                             Login now
