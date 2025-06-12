@@ -119,13 +119,15 @@ function Register({ onClose, onLoginClick }) {
 
                     {message && <p className="message">{message}</p>}
 
-                    <small>Already have an account?</small>
-                    <button onClick={() => {
-                        onClose();
-                        onLoginClick();
-                    }}>
-                        Login now
-                    </button>
+                    <div className="account-login-row">
+                        <small>Вече имате акаунт?</small>
+                        <button onClick={() => {
+                            onClose();
+                            onLoginClick();
+                        }}>
+                            Login now
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
