@@ -30,10 +30,15 @@ function ProductCard({ img, title, id, price, type }) {
   };
 
   return (
-    <div className="product">
+    <div className="product2">
       <img src={img} alt={title} />
-      <div className="card-titel-product">
-        {title}
+
+      <div className="product-bottom-row">
+        <div className="product-info-left">
+          <p className="product-title">{title}</p>
+          <p className="product-price2">{price} лв.</p>
+        </div>
+
         <div className="product-buttons">
           <button
             className="details-btn1"

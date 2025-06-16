@@ -28,80 +28,74 @@
     margin-right: 200px;
 }
 
-.card-titel-product{
-    display: flex;
-    margin-left: 15px;
+.card-titel-product {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem;
 }
 
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 50px; 
-    margin-left: 80px;
-    margin-top: 70px;
-}
-
-.product {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    width: 250px;
-    height: auto;
-    border: solid 888;
+.product2 {
+  border: 1px solid #c0bdbd;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  max-width: 250px;
 }
 
 .product img {
-    width: 200px;
-    height: 250px;
-    object-fit: cover;
+  width: 80%;
+  border-radius: 6px;
 }
 
-.product {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+.product-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.card-titel-product {
-    font-weight: bold;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.product-info-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.product-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #000;
+  margin: 0;
+}
+
+.product-price2 {
+  font-size: 1rem;
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 4px;
 }
 
 .product-buttons {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0;
+  display: flex;
+  
 }
 
 .details-btn1,
 .add-to-cart-btn1 {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.2s ease-in-out;
 }
 
 .details-btn1:hover,
 .add-to-cart-btn1:hover {
-    color: #2e7d32;
+  color: #2e7d32;
 }
-
-.product-buttons  {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-
 
 @media (min-width: 1200px) {
     .products-grid {
