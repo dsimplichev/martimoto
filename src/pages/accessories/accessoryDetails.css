@@ -95,14 +95,23 @@
 }
 
 .pagination .MuiPaginationItem-root.Mui-selected {
-  background-color: #333;
+  background-color: #f39c12;
   color: #fff;
-  border-color: #666;
+  border-color: #ccc;
 }
+
+
 
 .pagination .MuiPaginationItem-root:hover {
   background-color: #ddd;
 }
+
+.pagination .MuiPagination-ul > li:first-child,
+.pagination .MuiPagination-ul > li:last-child {
+  display: none;
+}
+  
+
 
 @media (max-width: 1200px) {
   .accessory-list {
