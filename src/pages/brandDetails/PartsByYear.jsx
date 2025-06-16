@@ -19,6 +19,19 @@ function PartsByYear() {
   const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(parts.length / itemsPerPage);
+  const indexOfLastPart = currentPage * itemsPerPage;
+  const indexOfFirstPart = indexOfLastPart - itemsPerPage;
+  const currentParts = parts.slice(indexOfFirstPart, indexOfLastPart);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const fetchParts = async () => {
       try {
@@ -27,6 +40,7 @@ function PartsByYear() {
         );
         const data = await response.json();
         setParts(data);
+        setCurrentPage(1); 
       } catch (error) {
         console.error('Грешка при зареждане на части:', error);
       } finally {
@@ -49,7 +63,6 @@ function PartsByYear() {
     };
 
     addToCart(productToAdd);
-
     setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
     setShowPopup(true);
   };
@@ -80,39 +93,56 @@ function PartsByYear() {
         ) : parts.length === 0 ? (
           <p className='noparts'>Няма намерени части за този модел и година.</p>
         ) : (
-          <div className="parts-grid">
-            {parts.map((part) => (
-              <Link
-                to={`/parts/${part._id}`}
-                key={part._id}
-                className="part-card-link"
-              >
-                <div className="part-card">
-                  <img
-                    src={part.images[0]}
-                    alt={part.title}
-                    className="part-image"
-                  />
-                  <div className="part-info">
-                    <h3 className="part-title">{part.title}</h3>
-                    <div className="price-and-cart">
-                      <p className="part-price">{part.price} лв.</p>
-                      <div className="icon-group">
-                        <IoHeartOutline
-                          className="heart-icon"
-                          onClick={(e) => handleAddToFavorites(e, part)}
-                        />
-                        <MdAddShoppingCart
-                          className="cart-icon"
-                          onClick={(e) => handleAddToCart(e, part)}
-                        />
+          <>
+            <div className="parts-grid">
+              {currentParts.map((part) => (
+                <Link
+                  to={`/parts/${part._id}`}
+                  key={part._id}
+                  className="part-card-link"
+                >
+                  <div className="part-card">
+                    <img
+                      src={part.images[0]}
+                      alt={part.title}
+                      className="part-image"
+                    />
+                    <div className="part-info">
+                      <h3 className="part-title">{part.title}</h3>
+                      <div className="price-and-cart">
+                        <p className="part-price">{part.price} лв.</p>
+                        <div className="icon-group">
+                          <IoHeartOutline
+                            className="heart-icon"
+                            onClick={(e) => handleAddToFavorites(e, part)}
+                          />
+                          <MdAddShoppingCart
+                            className="cart-icon"
+                            onClick={(e) => handleAddToCart(e, part)}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+
+            
+            {totalPages > 1 && (
+              <div className="pagination2">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index + 1}
+                    onClick={() => handlePageChange(index + 1)}
+                    className={currentPage === index + 1 ? 'active-page' : ''}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 
