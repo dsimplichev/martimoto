@@ -18,3 +18,23 @@
 .scroll-to-top:hover {
     background-color: #388e3c; 
 }
+
+
+
+.cookie-icon {
+  position: fixed;
+  bottom: 85px;
+  left: 22px;
+  font-size: 24px;       
+  color: white;          
+  background-color: #f39c12; 
+  padding: 10px;          
+  border-radius: 50px;    
+  cursor: default;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.cookie-icon:hover {
+    background-color: #388e3c; 
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ScrollToTopButton.css'; 
-import { FaArrowUp } from "react-icons/fa";
+import { FaArrowUp, FaCookieBite } from "react-icons/fa";
 
 function ScrollToTopButton() {
     const [isVisible, setIsVisible] = useState(false);
@@ -29,11 +29,18 @@ function ScrollToTopButton() {
     };
 
     return (
-        isVisible && (
-            <button className="scroll-to-top" onClick={scrollToTop} aria-label="Scroll to top">
-               <FaArrowUp />
-            </button>
-        )
+        <>
+            {isVisible && (
+                <>
+                    <button className="scroll-to-top" onClick={scrollToTop} aria-label="Scroll to top">
+                        <FaArrowUp />
+                    </button>
+                    <div className="cookie-icon" aria-label="Cookies info">
+                        <FaCookieBite />
+                    </div>
+                </>
+            )}
+        </>
     );
 }
 

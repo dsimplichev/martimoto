@@ -22,6 +22,7 @@
   font-size: 36px;
   margin-bottom: 20px;
   color: white;
+  
   margin-left: 15px;
 }
 
@@ -36,6 +37,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
+
 }
 
 
