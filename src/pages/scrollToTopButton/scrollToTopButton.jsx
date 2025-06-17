@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ScrollToTopButton.css'; 
+import './ScrollToTopButton.css';
 import { FaArrowUp, FaCookieBite } from "react-icons/fa";
 
 function ScrollToTopButton() {
@@ -15,10 +15,7 @@ function ScrollToTopButton() {
         };
 
         window.addEventListener('scroll', toggleVisibility);
-
-        return () => {
-            window.removeEventListener('scroll', toggleVisibility);
-        };
+        return () => window.removeEventListener('scroll', toggleVisibility);
     }, []);
 
     const scrollToTop = () => {
@@ -30,16 +27,20 @@ function ScrollToTopButton() {
 
     return (
         <>
-            {isVisible && (
-                <>
-                    <button className="scroll-to-top" onClick={scrollToTop} aria-label="Scroll to top">
-                        <FaArrowUp />
-                    </button>
-                    <div className="cookie-icon" aria-label="Cookies info">
-                        <FaCookieBite />
-                    </div>
-                </>
-            )}
+            <div
+                className={`cookie-icon ${isVisible ? 'visible' : ''}`}
+                title="Бисквитки"
+            >
+                <FaCookieBite />
+            </div>
+
+            <button
+                className={`scroll-to-top ${isVisible ? 'visible' : ''}`}
+                onClick={scrollToTop}
+                aria-label="Scroll to top"
+            >
+                <FaArrowUp />
+            </button>
         </>
     );
 }

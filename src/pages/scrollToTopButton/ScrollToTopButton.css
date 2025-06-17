@@ -13,6 +13,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 999;
     transition: background-color 0.3s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .scroll-to-top:hover {
@@ -33,8 +34,26 @@
   cursor: default;
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+  
 }
 
 .cookie-icon:hover {
     background-color: #388e3c; 
 }
+
+.scroll-to-top,
+.cookie-icon {
+    position: fixed;
+    left: 20px;
+    z-index: 1000;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.scroll-to-top.visible,
+.cookie-icon.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
