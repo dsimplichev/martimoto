@@ -13,7 +13,7 @@ function Login({ onClose }) {
         password: '',
     });
     const [error, setError] = useState(null);
-    const [isRegistering, setIsRegistering] = useState(false); // Състояние за контролиране на изгледа
+    const [isRegistering, setIsRegistering] = useState(false); 
 
     const onChange = (e) => {
         setFormData({
@@ -45,18 +45,18 @@ function Login({ onClose }) {
     };
 
     const handleCreateAccountClick = () => {
-        setIsRegistering(true); // Превключваме на форма за регистрация
+        setIsRegistering(true); 
     };
 
     const handleLoginClick = () => {
-        setIsRegistering(false); // Превключваме обратно на форма за вход
+        setIsRegistering(false); 
     };
 
     return (
         <div className="modal__login" onClick={handleOverlayClick}>
             <div className="login__container">
                 {isRegistering ? (
-                    <Register onClose={onClose} onLoginClick={handleLoginClick} /> // Показваме регистрационната форма
+                    <Register onClose={onClose} onLoginClick={handleLoginClick} /> 
                 ) : (
                     <div className="login__form">
                         <h2 className="login__title">Вход</h2>

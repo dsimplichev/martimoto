@@ -34,11 +34,24 @@
   cursor: default;
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
-  
+  width: 25px;
+  height:25px; 
+  overflow: hidden; 
+  white-space: nowrap; 
+  transition: width 0.3s ease, background-color 0.3s ease;
+   display: flex;              
+  align-items: center;        
+  transition: width 0.3s ease, background-color 0.3s ease;
+   
 }
-
 .cookie-icon:hover {
     background-color: #388e3c; 
+}
+
+.cookie-icon svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
 }
 
 .scroll-to-top,d
@@ -55,5 +68,29 @@
 .cookie-icon.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.cookie-icon.visible {
+    
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cookie-tooltip {
+    margin-left: 10px;
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; 
+}
+
+
+.cookie-icon:hover {
+    width: 220px;
+}
+
+.cookie-icon:hover .cookie-tooltip {
+    opacity: 1;
 }
 

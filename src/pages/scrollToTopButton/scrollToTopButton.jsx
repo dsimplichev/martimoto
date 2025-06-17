@@ -27,11 +27,9 @@ function ScrollToTopButton() {
 
     return (
         <>
-            <div
-                className={`cookie-icon ${isVisible ? 'visible' : ''}`}
-                title="Бисквитки"
-            >
+            <div className={`cookie-icon ${isVisible ? 'visible' : ''}`} title="Бисквитки">
                 <FaCookieBite />
+                <span className="cookie-tooltip">Настройки на бисквитките</span>
             </div>
 
             <button
