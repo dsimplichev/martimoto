@@ -8,14 +8,14 @@ const mongoose = require('mongoose');
 
 router.post('/add', upload.array('images'), async (req, res) => {
   try {
-    const { title, description, price, category, brand, model, year } = req.body;
-
+    const { title, description, price, category, brand, model, year, type = 'part' } = req.body;
+    
     const images = [];
     for (const file of req.files) {
       const result = await cloudinary.uploader.upload(file.path);
       images.push(result.secure_url);
     }
-
+    
     const newPart = new Part({
       title,
       description,
@@ -25,6 +25,7 @@ router.post('/add', upload.array('images'), async (req, res) => {
       model,  
       year,
       images,
+      type,
     });
 
     await newPart.save();

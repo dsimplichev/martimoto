@@ -43,15 +43,6 @@
     align-items: center;
 }
 
-.search-input2 {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
 
 
 .search-input:focus {
@@ -74,10 +65,12 @@
     background-color: #d68910;
 }
 
-.search-input2 {
+.parts-search-container .search-input2 {
     flex: 1;
     padding: 12px 16px;
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: 8px;
+     
+    
 }

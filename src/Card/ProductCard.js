@@ -11,7 +11,7 @@ function ProductCard({ img, title, id, price, type }) {
 
   const handleNavigate = () => {
     if (type === "part") {
-      navigate(`/parts/detail/${id}`);
+      navigate(`/parts/${id}`);
     } else {
       navigate(`/accessories/detail/${id}`);
     }
