@@ -1,6 +1,6 @@
 .scroll-to-top {
     position: fixed;
-    bottom: 20px;
+    bottom: 85px;
     left: 20px;
     width: 45px;
     height: 45px;
@@ -24,8 +24,8 @@
 
 .cookie-icon {
   position: fixed;
-  bottom: 85px;
-  left: 22px;
+  bottom: 20px;
+  left: 20px;
   font-size: 24px;       
   color: white;          
   background-color: #f39c12; 

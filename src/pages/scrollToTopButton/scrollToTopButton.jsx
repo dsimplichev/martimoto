@@ -27,18 +27,19 @@ function ScrollToTopButton() {
 
     return (
         <>
-            <div className={`cookie-icon ${isVisible ? 'visible' : ''}`} title="Бисквитки">
-                <FaCookieBite />
-                <span className="cookie-tooltip">Настройки на бисквитките</span>
-            </div>
-
-            <button
+           <button
                 className={`scroll-to-top ${isVisible ? 'visible' : ''}`}
                 onClick={scrollToTop}
                 aria-label="Scroll to top"
             >
                 <FaArrowUp />
             </button>
+           
+            <div className={`cookie-icon ${isVisible ? 'visible' : ''}`} title="Бисквитки">
+                <FaCookieBite />
+                <span className="cookie-tooltip">Настройки на бисквитките</span>
+            </div>
+
         </>
     );
 }
