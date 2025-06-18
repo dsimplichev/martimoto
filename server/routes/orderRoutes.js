@@ -117,6 +117,16 @@ router.get("/:orderId", async (req, res) => {
   }
 });
 
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: mongoose.Types.ObjectId(req.params.userId) }).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error("Грешка при извличане на поръчки за потребител:", error);
+    res.status(500).json({ message: "Грешка при извличане на поръчките." });
+  }
+});
+
 router.patch("/delete/:id", async (req, res) => {
   try {
     const orderId = req.params.id;

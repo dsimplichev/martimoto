@@ -28,6 +28,7 @@ import PartsByYear from "./pages/brandDetails/PartsByYear";
 import SinglePartPage from "./pages/singlePartPage/SinglePartPage";
 import Favorites from "./pages/favorites/Favorites";
 import Contact from './pages/contact/Contact'
+import OrderHistory from "./pages/orderHistory/OrderHistory";
 
 
 import React, { useState, useContext } from 'react';
@@ -66,6 +67,7 @@ function App() {
         <Route path="/parts/:id" element={<SinglePartPage />} />
         <Route path="/favorites" element={<Favorites />} />
          <Route path="/contact" element={<Contact />} />
+         <Route path="/order-history" element={<OrderHistory />} />
       </Routes>
 
       <Brand />
