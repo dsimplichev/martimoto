@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaTrash } from "react-icons/fa";
+import { CartContext } from "../../Context/CartContext";
 
 const Order = () => {
+  const { cart, setCart } = useContext(CartContext);
+  
   const [isInvoice, setIsInvoice] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState("");
   const [city, setCity] = useState("");
@@ -16,17 +19,14 @@ const Order = () => {
   const [companyAddress, setCompanyAddress] = useState("");
   const [comment, setComment] = useState("");
   const [offices, setOffices] = useState([]);
-  const [cart, setCart] = useState([]);
+  
 
   const totalAmount = cart.reduce(
     (total, product) => total + product.price * product.quantity,
     0
   );
 
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(savedCart);
-  }, []);
+
 
   useEffect(() => {
     if (deliveryMethod === "Еконт" && city.length > 2) {
@@ -88,17 +88,20 @@ const Order = () => {
       companyAddress: isInvoice ? companyAddress : "",
       comment,
       cart: cart.map((item) => ({
-        productId: item.id,
+        productId: item._id,
         quantity: item.quantity,
       })),
       totalAmount,
     };
-
+    if (!cart.length) {
+      alert("Количката е празна!");
+      return;
+    }
+    console.log(orderData);
     try {
       const response = await axios.post("http://localhost:5000/api/orders/create", orderData);
       if (response.status === 201) {
-        alert("Поръчката е направена успешно!");
-        localStorage.removeItem("cart");
+        alert("Поръчката е направена успешно!"); 
         setCart([]);
       }
     } catch (error) {
@@ -109,7 +112,7 @@ const Order = () => {
   const handleRemoveItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    
   };
 
   return (

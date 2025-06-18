@@ -8,6 +8,17 @@ export const CartProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userId, setUserId] = useState(null);
 
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            const expiry = new Date().getTime() + 24 * 60 * 60 * 1000; 
+            const guestCartData = { items: cart, expiry };
+            localStorage.setItem("guest_cart", JSON.stringify(guestCartData));
+        } else {
+            localStorage.removeItem("guest_cart");
+        }
+    }, [cart, isLoggedIn]);
+
     useEffect(() => {
         axios.get("http://localhost:5000/auth/status", { withCredentials: true })
             .then(response => {

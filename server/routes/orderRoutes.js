@@ -4,6 +4,8 @@ const Order = require("../models/Order");
 const mongoose = require("mongoose");
 
 router.post("/create", async (req, res) => {
+  console.log("Получено от клиента:", req.body);
+
   try {
     const {
       firstName,
@@ -27,6 +29,16 @@ router.post("/create", async (req, res) => {
         .status(400)
         .json({ message: "Количката не може да бъде празна." });
     }
+
+    console.log("cart received:", cart);
+    cart.forEach((item) => {
+      console.log(
+        "productId valid?",
+        mongoose.Types.ObjectId.isValid(item.productId),
+        "productId:",
+        item.productId
+      );
+    });
 
     const newOrder = new Order({
       firstName,
@@ -77,7 +89,6 @@ router.patch("/update/:id", async (req, res) => {
   try {
     const { status } = req.body;
 
-    
     const validStatuses = ["Pending", "Shipped", "Completed", "Deleted"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ message: "Невалиден статус." });
@@ -104,26 +115,16 @@ router.get("/:orderId", async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    const order = await Order.findById(orderId); 
+    const order = await Order.findById(orderId);
     if (!order) {
       return res.status(404).json({ message: "Поръчката не е намерена" });
     }
 
-    console.log("Намерена поръчка:", order); 
+    console.log("Намерена поръчка:", order);
     res.json(order);
   } catch (error) {
     console.error("Грешка при търсене на поръчката:", error.message);
     res.status(500).json({ message: "Грешка при търсене на поръчката" });
-  }
-});
-
-router.get("/user/:userId", async (req, res) => {
-  try {
-    const orders = await Order.find({ userId: mongoose.Types.ObjectId(req.params.userId) }).sort({ createdAt: -1 });
-    res.json(orders);
-  } catch (error) {
-    console.error("Грешка при извличане на поръчки за потребител:", error);
-    res.status(500).json({ message: "Грешка при извличане на поръчките." });
   }
 });
 
@@ -144,7 +145,9 @@ router.patch("/delete/:id", async (req, res) => {
     res.json({ message: "Поръчката беше маркирана като 'Deleted'." });
   } catch (error) {
     console.error("Грешка при маркиране на поръчката:", error);
-    res.status(500).json({ message: "Възникна грешка при изтриването на поръчката." });
+    res
+      .status(500)
+      .json({ message: "Възникна грешка при изтриването на поръчката." });
   }
 });
 
