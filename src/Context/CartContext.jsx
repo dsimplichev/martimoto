@@ -130,6 +130,20 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+       const clearCart = async () => {
+        if (isLoggedIn) {
+            try {
+                
+                await axios.delete(`http://localhost:5000/cart/${userId}`, { withCredentials: true });
+            } catch (error) {
+                console.error("Грешка при изчистване на количката:", error);
+            }
+        }
+        
+        setCart([]);
+        saveGuestCart([]);
+    };
+
 
     const handleLogout = () => {
         setCart([]);
@@ -140,7 +154,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, handleLogout }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart,clearCart, handleLogout }}>
             {children}
         </CartContext.Provider>
     );

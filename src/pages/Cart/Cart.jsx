@@ -4,7 +4,7 @@ import { CartContext } from "../../Context/CartContext";
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, removeFromCart } = useContext(CartContext);
+  const { cart, removeFromCart,  clearCart  } = useContext(CartContext);
   const navigate = useNavigate();
 
   const removeItem = (id) => {
