@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ScrollToTopButton.css';
-import { FaArrowUp, FaCookieBite } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
 
 function ScrollToTopButton() {
     const [isVisible, setIsVisible] = useState(false);
@@ -35,10 +35,7 @@ function ScrollToTopButton() {
                 <FaArrowUp />
             </button>
            
-            <div className={`cookie-icon ${isVisible ? 'visible' : ''}`} title="Бисквитки">
-                <FaCookieBite />
-                <span className="cookie-tooltip">Настройки на бисквитките</span>
-            </div>
+            
 
         </>
     );

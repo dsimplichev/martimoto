@@ -28,7 +28,7 @@ import PartsByYear from "./pages/brandDetails/PartsByYear";
 import SinglePartPage from "./pages/singlePartPage/SinglePartPage";
 import Favorites from "./pages/favorites/Favorites";
 import Contact from './pages/contact/Contact'
-import CookieBanner from "./pages/cookieBanner/CookieBanner";
+
 
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
@@ -73,7 +73,7 @@ function App() {
       <About />
       <Footer />
       <ScrollToTopButton />
-      <CookieBanner />
+      
 
       {isLoginOpen && (
         <Login
