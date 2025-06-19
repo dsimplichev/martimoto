@@ -5,10 +5,11 @@ import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaTrash } from "react-icons/fa";
 import { CartContext } from "../../Context/CartContext";
+import NotificationCard from "../../Card/NotificationCard";
 
 const Order = () => {
   const { cart, setCart } = useContext(CartContext);
-  
+
   const [isInvoice, setIsInvoice] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState("");
   const [city, setCity] = useState("");
@@ -19,7 +20,8 @@ const Order = () => {
   const [companyAddress, setCompanyAddress] = useState("");
   const [comment, setComment] = useState("");
   const [offices, setOffices] = useState([]);
-  
+  const [notification, setNotification] = useState(null);
+
 
   const totalAmount = cart.reduce(
     (total, product) => total + product.price * product.quantity,
@@ -94,14 +96,22 @@ const Order = () => {
       totalAmount,
     };
     if (!cart.length) {
-      alert("Количката е празна!");
+      setNotification({ type: "error", message: "Количката е празна!" });
       return;
     }
     console.log(orderData);
     try {
       const response = await axios.post("http://localhost:5000/api/orders/create", orderData);
       if (response.status === 201) {
-        alert("Поръчката е направена успешно!"); 
+        setNotification({
+          type: "success",
+          message: (
+            <>
+              <h1>Благодарим за поръчката!</h1>
+              <p>Вашата поръчка беше направена успешно и ще бъде обработена скоро.</p>
+            </>
+          )
+        });
         setCart([]);
       }
     } catch (error) {
@@ -112,11 +122,21 @@ const Order = () => {
   const handleRemoveItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
-    
+
   };
 
   return (
+
+
     <div className="order-container">
+      {notification && (
+        <NotificationCard
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification(null)}
+        />
+      )}
+
       <div className="order-left">
         <h1 className="order-title">
           <RiIdCardLine />
@@ -321,6 +341,7 @@ const Order = () => {
       </div>
     </div>
   );
+
 };
 
 export default Order;
