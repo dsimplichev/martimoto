@@ -3,20 +3,14 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const { JWT_SECRET } = require('../config');
+const authenticateToken = require('../middleware/authMiddleware')
 
 const router = express.Router();
 
 
-router.get('/', async (req, res) => {
-    const token = req.cookies.token;
-
-    if (!token) {
-        return res.status(401).json({ message: 'Няма валиден токен.' });
-    }
-
+router.get('/', authenticateToken, async (req, res) => {
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        const user = await User.findById(decoded.id);
+        const user = await User.findById(req.user.id); 
 
         if (!user) {
             return res.status(404).json({ message: 'Потребителят не съществува.' });
@@ -24,8 +18,8 @@ router.get('/', async (req, res) => {
 
         res.status(200).json({ user: { email: user.email, username: user.username } });
     } catch (error) {
-        console.error('Грешка при валидиране на токена:', error);
-        res.status(401).json({ message: 'Невалиден токен.' });
+        console.error('Грешка при извличане на потребител:', error);
+        res.status(500).json({ message: 'Сървърна грешка.' });
     }
 });
 
