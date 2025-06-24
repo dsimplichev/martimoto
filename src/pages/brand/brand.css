@@ -19,5 +19,31 @@
     color: black;
 }
 
+@media (max-width: 768px) {
+  .header-section2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 50px;
+  }
 
+  .title-brand {
+    font-size: 1.5rem;
+    margin: 0 auto 10px auto;
+  }
 
+  .divider-brand {
+    width: 100%;      /* цялата ширина */
+    margin: 0 0 20px 0; /* без отстъпи от ляво и дясно, само отдолу */
+    background-color: #f39c12;
+    height: 2px;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    padding: 10px;
+    max-width: 400px;
+    width: 100%;
+  }
+}
