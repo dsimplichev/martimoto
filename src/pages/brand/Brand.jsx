@@ -22,8 +22,8 @@ const brands = [
 function Brand() {
     return (
        
-        <div className="container2">
-        <div className="header-section2">
+        <div className="container-brand">
+        <div className="header-section-brand">
             <h2 className="title-brand">SHOP BY BRANDS</h2>    
         </div>
 

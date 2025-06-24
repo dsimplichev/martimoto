@@ -1,40 +1,58 @@
+.container-brand {
+  width: 90%;
+  margin: 40px 200px 40px 200px;
+}
+
+.header-section-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding-top: 80px;
+  margin-right: 200px;
+}
 
 .divider-brand {
-    height: 2px;
-    background-color: #f39c12;
-    margin-bottom: 20px; 
-    margin-right: 200px;
+  height: 2px;
+  background-color: #f39c12;
+  margin-bottom: 20px;
+  margin-right: 200px;
 }
-
 
 .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr) ; 
-    grid-gap: 20px;
-    margin-right: 180px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-right: 180px;
+  padding: 20px;
 }
 
-.title-brand{
-    color: black;
+.title-brand {
+  color: black;
 }
 
 @media (max-width: 768px) {
-  .header-section2 {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 50px;
+  .container-brand {
+    margin: 40px 10px;
+    width: auto;
+  }
+
+  .header-section-brand {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px; 
+    margin-right: 0;
   }
 
   .title-brand {
     font-size: 1.5rem;
-    margin: 0 auto 10px auto;
+    margin: 0;
+    margin-bottom: 10px;
   }
 
   .divider-brand {
-    width: 100%;      /* цялата ширина */
-    margin: 0 0 20px 0; /* без отстъпи от ляво и дясно, само отдолу */
+    width: 100%;
+    margin: 0 0 20px 0;
     background-color: #f39c12;
     height: 2px;
   }
