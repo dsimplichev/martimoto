@@ -57,11 +57,11 @@
   .search-container {
     position: absolute;
     top: 70%;
-    right: 20px;  /* Преместваме цялото съдържание към лявата страна */
+    right: 20px;  
     transform: translateY(-50%);
-    text-align: right;  /* Подравняване в ляво */
+    text-align: right;  
     padding: 10px;
-    width: auto; /* може да е auto или зададеш max-width, ако искаш */
+    width: auto; 
   }
 
   .shop-text {
