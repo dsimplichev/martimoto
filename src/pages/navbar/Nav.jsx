@@ -18,7 +18,8 @@ function Nav({ onLogout }) {
     const dropdownRef = useRef(null);
     const { favorites } = useContext(CartContext);
     const totalFavorites = favorites ? favorites.length : 0;
-    
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     const handleLogout = () => {
         logout();
         onLogout?.();
@@ -58,12 +59,18 @@ function Nav({ onLogout }) {
         <div className="navbar">
             <div className="navbar-content">
                 <img src={logo} alt="Logo" className="logo" />
-                <ul className="nav-links">
-                    <li><Link to="/">НАЧАЛО</Link></li>
-                    <li><Link to="/model">ИЗБЕРИ МОДЕЛ</Link></li>
-                    <li><Link to="/accessories">АКСЕСОАРИ</Link></li>
-                    <li><Link to="/contact">КОНТАКТИ</Link></li>
-                    <li><Link to="/about">ЗА НАС</Link></li>
+                <div className="hamburger" onClick={() => setIsMobileMenuOpen(prev => !prev)}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul className={`nav-links ${isMobileMenuOpen ? "show" : ""}`}>
+                    <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>НАЧАЛО</Link></li>
+                    <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>ИЗБЕРИ МОДЕЛ</Link></li>
+                    <li><Link to="/accessories" onClick={() => setIsMobileMenuOpen(false)}>АКСЕСОАРИ</Link></li>
+                    <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>КОНТАКТИ</Link></li>
+                    <li><Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</Link></li>
                 </ul>
                 <div className="btn">
                     {isLoggedIn ? (

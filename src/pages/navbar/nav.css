@@ -334,3 +334,91 @@
         transform: translateX(-80%); 
     }
 }
+
+
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .navbar-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 0;
+        width: 100%;
+         position: relative;
+    }
+
+    .logo {
+        margin: 0;
+        height: 60px;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        margin-left: auto;
+        z-index: 1100;
+    }
+
+    .hamburger span {
+        height: 3px;
+        width: 25px;
+        background: wheat;
+        border-radius: 2px;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 30px;
+        flex-direction: column;
+        background-color: black;
+        padding: 15px 20px;
+        border-radius: 0px;
+        gap: 10px;
+        width: 150px;
+        z-index: 1000;
+    }
+
+    .nav-links.show {
+        display: flex;
+        margin-left: 120px;
+    }
+    
+
+    .btn {
+        display: none;
+    }
+
+    .info-bar {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .info-text {
+        font-size: 14px;
+    }
+
+    .profile-header,
+    .greeting,
+    .username,
+    .chevron-down {
+        font-size: 12px;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        right: auto;
+        left: 0;
+    }
+
+    .cart-dropdown {
+        width: 100%;
+        right: 0;
+    }
+}
