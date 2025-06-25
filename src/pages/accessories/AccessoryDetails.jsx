@@ -22,7 +22,7 @@ function AccessoryDetails() {
     const { addToCart } = useContext(CartContext);
     const { addToFavorites } = useContext(FavoritesContext);
 
-    // Функция за коректен път към снимките
+    
     const getImageUrl = (image) => {
         if (!image) return "/default-image.jpg";
         if (image.startsWith("http")) return image;
