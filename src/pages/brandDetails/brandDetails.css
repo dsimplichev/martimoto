@@ -66,15 +66,47 @@
    
 }
 
-
-
-
-
-
-
 .model-link {
     text-decoration: none;
     color: inherit;
+}
+
+@media (max-width: 768px) {
+  .brand-details {
+    margin: 40px 15px;
+    padding: 0;
+  }
+
+  .brand-title {
+    font-size: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+    .title-underline3 {
+      width: 100%;
+      margin: 0 auto 20px auto; 
+  }
+
+  .model-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .model-card {
+    padding: 8px;
+  }
+
+  .model-image {
+    width: 80%;
+  }
+
+  .model-name2 {
+    font-size: 1rem;
+    padding: 8px;
+  }
 }
 
 
