@@ -36,6 +36,16 @@
     transform: translateY(0);
 }
 
+@media (max-width: 768px) {
+  .scroll-to-top {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    bottom: 50px;
+    left: 10px;
+  }
+}
+
 
 
 

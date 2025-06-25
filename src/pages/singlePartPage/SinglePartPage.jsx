@@ -11,8 +11,7 @@ function SinglePartPage() {
     const [mainImage, setMainImage] = useState('');
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
-    const [type, setType] = useState('part'); // За да знаем дали е част или аксесоар
-
+    const [type, setType] = useState('part'); 
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -34,7 +33,7 @@ function SinglePartPage() {
                         setMainImage(data.images?.[0] || "/default-image.jpg");
                         setType('accessory');
                     } else {
-                        // Ако няма и аксесоар - няма продукт
+                        
                         setPart(null);
                     }
                 }
