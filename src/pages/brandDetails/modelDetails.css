@@ -72,3 +72,40 @@
     width: 100%;
     left: 0;
 }
+
+
+@media (max-width: 768px) {
+  .model-details {
+    margin: 40px 15px;
+    padding: 0;
+  }
+
+  .model-title {
+    font-size: 20px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .title-underline2 {
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+
+  .model-grid2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .model-card2 {
+    padding: 8px;
+  }
+
+  .model-image {
+    width: 80%;
+  }
+
+  .model-name2 {
+    font-size: 1rem;
+    padding: 8px;
+  }
+}
