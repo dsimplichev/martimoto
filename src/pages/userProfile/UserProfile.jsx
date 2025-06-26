@@ -14,7 +14,7 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile-container">
-      <div className="profile-header-section">
+      <div className="profile-header-section2">
         <h1 className='profile-title'>Моят профил</h1>
       </div>
       <div className="divider-profile"></div>
