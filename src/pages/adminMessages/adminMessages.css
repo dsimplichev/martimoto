@@ -40,3 +40,30 @@
 .delete-button:hover {
     background-color: #d35400;
 }
+
+@media (max-width: 768px) {
+  .admin-messages-container {
+    padding: 1rem;
+  }
+
+  .message-card {
+    margin-left: 0;
+    margin-right: 0;
+    border-left: 4px solid #f39c12;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  .delete-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .msg-recived {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
