@@ -8,7 +8,14 @@ import YZFR120202021 from "../../assets/Yamaha/YZFR120202021.png";
 import YZF20082013 from "../../assets/Yamaha/YZF20082013.png"
 import YZF20142018 from "../../assets/Yamaha/YZF20142018.png"
 import YZF20019 from "../../assets/Yamaha/YZF20019.png"
-
+import XJ62009 from "../../assets/Yamaha/XJ62009.png"
+import XJ62016 from "../../assets/Yamaha/XJ62016.png"
+import XJ62021 from "../../assets/Yamaha/XJ62021.png"
+import XJ62024 from "../../assets/Yamaha/XJ62024.png"
+import mt092017 from "../../assets/Yamaha/mt092017.png"
+import mt092019 from "../../assets/Yamaha/mt092019.png"
+import mt0920023 from "../../assets/Yamaha/mt0920023.png"
+import mt092024 from "../../assets/Yamaha/mt092024.png"
 
 import CBR1000RR2004 from "../../assets/HONDA/CBR1000RR2004.png";
 import CBR1000RR2011 from "../../assets/HONDA/CBR1000RR2011.png";
@@ -121,6 +128,20 @@ const modelDetailsData = {
     { name: "2006-2007", img: YZFR62007 },
     { name: "2008-2016", img: YZFR62016 },
     { name: "20017-2020", img: YZFR62020 },
+  ],
+   "XJ6": [
+    { name: "2009-2012", img: XJ62009 },
+    { name: "2013-2016", img: XJ62016},
+    { name: "2017-2021", img: XJ62021},
+    { name: "2022-", img: XJ62024 },
+    
+  ],
+     "MT-09 TRACER": [
+    { name: "2015-2017", img: mt092017 },
+    { name: "2010-2019", img: mt092019 },
+    { name: "2020-2023", img: mt0920023},
+    { name: "2024-", img: mt092024},
+    
   ],
   "MT-09": [
     { name: "2014-2016", img: MT092016 },
