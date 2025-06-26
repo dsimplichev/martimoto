@@ -118,6 +118,8 @@ import GSXR10002008 from "../../assets/SUZUKI/GSXR10002008.png";
 import GSXR10002011 from "../../assets/SUZUKI/GSXR10002011.png";
 import GSXR10002015 from "../../assets/SUZUKI/GSXR10002015.png";
 import GSXR10002020 from "../../assets/SUZUKI/GSXR10002020.png";
+import panigaleV22019 from "../../assets/Ducati/panigaleV22019.png"
+import panigale12992016 from "../../assets/Ducati/panigale12992016.png"
 
 const modelDetailsData = {
   "YZF R1": [
@@ -271,6 +273,12 @@ const modelDetailsData = {
     { name: "2018-2020", img: PANIGALEV42018 },
     { name: "2020-2022", img: PANIGALEV42022 },
   ],
+   "PANIGALE V2": [
+    { name: "2019-", img: panigaleV22019 }
+   ],
+   "PANIGALE 1299": [
+    { name: "2019-", img: panigale12992016 }
+   ],
   "CBR-1000RR": [
     { name: "2004-2007", img: CBR1000RR2004 },
     { name: "2008-2011", img: CBR1000RR2011 },
