@@ -16,6 +16,10 @@ import mt092017 from "../../assets/Yamaha/mt092017.png"
 import mt092019 from "../../assets/Yamaha/mt092019.png"
 import mt0920023 from "../../assets/Yamaha/mt0920023.png"
 import mt092024 from "../../assets/Yamaha/mt092024.png"
+import mt102019 from "../../assets/Yamaha/mt102019.png"
+import mt102023 from "../../assets/Yamaha/mt102023.png"
+import mt102024 from "../../assets/Yamaha/mt102024.png"
+
 
 import CBR1000RR2004 from "../../assets/HONDA/CBR1000RR2004.png";
 import CBR1000RR2011 from "../../assets/HONDA/CBR1000RR2011.png";
@@ -150,6 +154,11 @@ const modelDetailsData = {
   "MT-07": [
     { name: "2014-2017", img: MT072014 },
     { name: "2018-2020", img: MT072018 },
+  ],
+    "MT-10": [
+    { name: "2016-2019", img: mt102019 },
+    { name: "2020-2023", img: mt102023 },
+    { name: "2024- ", img: mt102024 }
   ],
    "YZF R125": [
     { name: "2008-2013", img: YZF20082013 },
