@@ -84,7 +84,6 @@ const modelsData = {
     { name: "PANIGALE 1199", img: PANIGALE1199 },
     { name: "PANIGALE 899", img: PANIGALE899 },
     { name: "STREETFIGHTER", img: Streetfighter },
-    { name: "848 /1098 /1198", img: Ducati },
     { name: "749 /999SBK", img: D999 },
   ],
   SUZUKI: [

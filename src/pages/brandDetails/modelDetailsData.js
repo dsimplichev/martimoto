@@ -119,7 +119,14 @@ import GSXR10002011 from "../../assets/SUZUKI/GSXR10002011.png";
 import GSXR10002015 from "../../assets/SUZUKI/GSXR10002015.png";
 import GSXR10002020 from "../../assets/SUZUKI/GSXR10002020.png";
 import panigaleV22019 from "../../assets/Ducati/panigaleV22019.png"
+
 import panigale12992016 from "../../assets/Ducati/panigale12992016.png"
+import panigale9592019 from "../../assets/Ducati/panigale9592019.png"
+import panigale11992014 from "../../assets/Ducati/panigale11992014.png"
+import panigale11992015 from "../../assets/Ducati/panigale11992015.png"
+import panigale8992015 from "../../assets/Ducati/panigale8992015.png"
+import Streetfighter from "../../assets/Ducati/Streetfighter.png";
+import streetfighter2020  from "../../assets/Ducati/streetfighter2020.png";
 
 const modelDetailsData = {
   "YZF R1": [
@@ -277,8 +284,23 @@ const modelDetailsData = {
     { name: "2019-", img: panigaleV22019 }
    ],
    "PANIGALE 1299": [
-    { name: "2019-", img: panigale12992016 }
+    { name: "2015-2016", img: panigale12992016 }
    ],
+   "PANIGALE 959": [
+    { name: "2016-2019", img: panigale9592019 }
+   ],
+   "PANIGALE 899": [
+    { name: "2013-2015", img: panigale8992015 }
+   ],
+   "PANIGALE 1199": [
+    { name: "2012-2014", img: panigale11992014 },
+    { name: "2014-2015", img: panigale11992015 },
+  ],
+   "STREETFIGHTER": [
+    { name: "2009-2011", img: Streetfighter },
+    { name: "2011-2014", img: Streetfighter },
+    { name: "2020-", img: streetfighter2020 },
+  ],
   "CBR-1000RR": [
     { name: "2004-2007", img: CBR1000RR2004 },
     { name: "2008-2011", img: CBR1000RR2011 },
