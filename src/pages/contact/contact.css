@@ -21,3 +21,20 @@
     font-size: 24px
 }
 
+@media (max-width: 768px) {
+  .header-section3 {
+    margin-right: 0 !important;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .contact-page {
+    padding: 1rem;
+  }
+
+  .contact-info {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0 1rem;
+  }
+}
