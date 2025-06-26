@@ -368,6 +368,7 @@
   .nav-links.show {
     display: flex;
     margin-left: 120px;
+    
   }
 
   .btn {
