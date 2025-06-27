@@ -143,6 +143,20 @@ import streetfighter2020  from "../../assets/Ducati/streetfighter2020.png";
 
 import CBR1100 from "../../assets/HONDA/CBR1100.png"
 import CBRR1100 from "../../assets/HONDA/CBRR1100.png"
+import CBR954 from "../../assets/HONDA/CBR954.png";
+import CBR929 from "../../assets/HONDA/CBR929.png";
+
+import cbr6502014 from "../../assets/HONDA/cbr6502014.png";
+import CBR650 from "../../assets/HONDA/CBR650.png";
+import CBR600FS from "../../assets/HONDA/CBR600FS.png";
+import CBR500R from "../../assets/HONDA/CBR500R.png";
+import CBR250R from "../../assets/HONDA/CBR250R.png";
+import CBR125 from "../../assets/HONDA/CBR125.png";
+import cbf2004 from "../../assets/HONDA/cbf2004.png";
+
+import hornet1998 from "../../assets/HONDA/hornet1998.png";
+import hornet2007 from "../../assets/HONDA/hornet2007.png";
+import hornet2018 from "../../assets/HONDA/hornet2018.png";
 
 const modelDetailsData = {
   
@@ -167,11 +181,42 @@ const modelDetailsData = {
    "GSXS-750": [
     { name: "2015-", img: gsxs7502015},
   ],
+   "CBR-125": [
+    { name: "2004-2016", img: CBR125},
+  ],
+   "CBF": [
+    { name: "2004-2013", img: cbf2004},
+    
+  ],
     "CBR-1100XX": [
     { name: "1996-2007", img: CBR1100 },
   ],
+    "CBR-500R": [
+    { name: "2013-", img: CBR500R },
+  ],
+    "CBR-250R": [
+    { name: "2011-2018", img: CBR250R },
+  ],
+   "CBR-600FS": [
+    { name: "1987-1990", img: CBR600FS },
+  ],
     "CBR-1000F": [
-    { name: "1996-2007", img: CBRR1100 },
+    { name: "1987-1996", img: CBRR1100 },
+  ],
+    "CBR-954": [
+    { name: "2002-2003", img: CBR954 },
+  ],
+    "CBR-929": [
+    { name: "2002-2003", img: CBR929 },
+  ],
+    "CBR-650": [
+    { name: "2014-2018", img: cbr6502014 },
+    { name: "2019-", img: CBR650 },
+  ],
+    "HORNET": [
+    { name: "1998-2006", img: hornet1998 },
+    { name: "2007-2013", img: hornet2007 },
+    { name: "2014-2018", img: hornet2018 },
   ],
   "YZF R6": [
     { name: "1999-2002", img: YZFR62002 },

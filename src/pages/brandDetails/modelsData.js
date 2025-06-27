@@ -70,6 +70,7 @@ import CBR600FS from "../../assets/HONDA/CBR600FS.png";
 import CBR500R from "../../assets/HONDA/CBR500R.png";
 import CBR250R from "../../assets/HONDA/CBR250R.png";
 import CBR125 from "../../assets/HONDA/CBR125.png";
+import cbf2004 from "../../assets/HONDA/cbf2004.png";
 
 import gsx12002008 from "../../assets/SUZUKI/gsx12002008.png";
 import gsx14002008 from "../../assets/SUZUKI/gsx14002008.png";
@@ -125,7 +126,7 @@ const modelsData = {
     { name: "CBR-500R", img: CBR500R },
     { name: "CBR-250R", img: CBR250R },
     { name: "CBR-125", img: CBR125 },
-    { name: "CBF", img: YZFR6 },
+    { name: "CBF", img: cbf2004 },
     { name: "HORNET", img: XJ6 },
   ],
   KAWASAKI: [
