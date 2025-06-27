@@ -114,7 +114,6 @@ const modelsData = {
   ],
   HONDA: [
     { name: "CBR-1100XX", img: CBR1100 },
-    { name: "CBR-1100", img: CBR1100 },
     { name: "CBR-1000F", img: CBRR1100 },
     { name: "CBR-1000RR", img: CBRRR },
     { name: "CBR-954", img: CBR954 },
@@ -127,7 +126,6 @@ const modelsData = {
     { name: "CBR-250R", img: CBR250R },
     { name: "CBR-125", img: CBR125 },
     { name: "CBF", img: YZFR6 },
-    { name: "CB", img: YZFR125 },
     { name: "HORNET", img: XJ6 },
   ],
   KAWASAKI: [

@@ -128,7 +128,9 @@ import gsx7502010 from "../../assets/SUZUKI/gsx7502010.png";
 import gsx7502011 from "../../assets/SUZUKI/gsx7502011.png";
 import gsx12002008 from "../../assets/SUZUKI/gsx12002008.png";
 import gsx14002008 from "../../assets/SUZUKI/gsx14002008.png";
-
+import gsxs7502015 from "../../assets/SUZUKI/gsxs7502015.png";
+import gsxs10002015 from "../../assets/SUZUKI/gsxs10002015.png";
+import gsxs10002021 from "../../assets/SUZUKI/gsxs10002021.png";
 
 import panigaleV22019 from "../../assets/Ducati/panigaleV22019.png"
 import panigale12992016 from "../../assets/Ducati/panigale12992016.png"
@@ -138,6 +140,9 @@ import panigale11992015 from "../../assets/Ducati/panigale11992015.png"
 import panigale8992015 from "../../assets/Ducati/panigale8992015.png"
 import Streetfighter from "../../assets/Ducati/Streetfighter.png";
 import streetfighter2020  from "../../assets/Ducati/streetfighter2020.png";
+
+import CBR1100 from "../../assets/HONDA/CBR1100.png"
+import CBRR1100 from "../../assets/HONDA/CBRR1100.png"
 
 const modelDetailsData = {
   
@@ -158,6 +163,15 @@ const modelDetailsData = {
     { name: "2004-2007", img: gsx7502007 },
     { name: "2008-2010", img: gsx7502010 },
     { name: "2011-", img: gsx7502011 },
+  ],
+   "GSXS-750": [
+    { name: "2015-", img: gsxs7502015},
+  ],
+    "CBR-1100XX": [
+    { name: "1996-2007", img: CBR1100 },
+  ],
+    "CBR-1000F": [
+    { name: "1996-2007", img: CBRR1100 },
   ],
   "YZF R6": [
     { name: "1999-2002", img: YZFR62002 },
@@ -238,6 +252,10 @@ const modelDetailsData = {
   ],
    "GSX-1400": [
     { name: "2001-2008", img: gsx14002008 },
+  ],
+   "GSXS-1000": [
+    { name: "2015-2021", img: gsxs10002015 },
+    { name: "2021-", img: gsxs10002021},   
   ],
 
   NINJA: [
