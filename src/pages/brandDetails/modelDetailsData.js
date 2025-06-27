@@ -127,7 +127,7 @@ import gsx7502007 from "../../assets/SUZUKI/gsx7502007.png";
 import gsx7502010 from "../../assets/SUZUKI/gsx7502010.png";
 import gsx7502011 from "../../assets/SUZUKI/gsx7502011.png";
 import gsx12002008 from "../../assets/SUZUKI/gsx12002008.png";
-
+import gsx14002008 from "../../assets/SUZUKI/gsx14002008.png";
 
 
 import panigaleV22019 from "../../assets/Ducati/panigaleV22019.png"
@@ -233,8 +233,11 @@ const modelDetailsData = {
     { name: "1986-1992", img: GSXR1100 },
     { name: "1993-1998", img: GSX11001998},   
   ],
-  "GSXR-1200": [
+  "GSX-1200": [
     { name: "2001-2008", img: gsx12002008 },
+  ],
+   "GSX-1400": [
+    { name: "2001-2008", img: gsx14002008 },
   ],
 
   NINJA: [

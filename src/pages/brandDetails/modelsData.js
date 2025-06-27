@@ -72,6 +72,7 @@ import CBR250R from "../../assets/HONDA/CBR250R.png";
 import CBR125 from "../../assets/HONDA/CBR125.png";
 
 import gsx12002008 from "../../assets/SUZUKI/gsx12002008.png";
+import gsx14002008 from "../../assets/SUZUKI/gsx14002008.png";
 
 const modelsData = {
   BMW: [
@@ -95,7 +96,7 @@ const modelsData = {
     { name: "GSXR-1100", img: GSXR1100 },
     { name: "GSX-750 ", img: S600 },
     { name: "GSX-1200 ", img: gsx12002008 },
-    { name: "GSX-1400 ", img: GSXR1100 },
+    { name: "GSX-1400 ", img: gsx14002008 },
     { name: "GSXS-750", img: GSXS750 },
     { name: "GSXS-1000", img: GSXS },
     { name: "HAYABUSA", img: HAYABUSA },
