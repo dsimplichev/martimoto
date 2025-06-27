@@ -118,8 +118,19 @@ import GSXR10002008 from "../../assets/SUZUKI/GSXR10002008.png";
 import GSXR10002011 from "../../assets/SUZUKI/GSXR10002011.png";
 import GSXR10002015 from "../../assets/SUZUKI/GSXR10002015.png";
 import GSXR10002020 from "../../assets/SUZUKI/GSXR10002020.png";
-import panigaleV22019 from "../../assets/Ducati/panigaleV22019.png"
+import GSXR1100 from "../../assets/SUZUKI/GSXR1100.png";
+import GSX11001998 from "../../assets/SUZUKI/GSX11001998.png";
+import gsx7501992 from "../../assets/SUZUKI/gsx7501992.png";
+import gsx7501999 from "../../assets/SUZUKI/gsx7501999.png";
+import gsx7502003 from "../../assets/SUZUKI/gsx7502003.png";
+import gsx7502007 from "../../assets/SUZUKI/gsx7502007.png";
+import gsx7502010 from "../../assets/SUZUKI/gsx7502010.png";
+import gsx7502011 from "../../assets/SUZUKI/gsx7502011.png";
+import gsx12002008 from "../../assets/SUZUKI/gsx12002008.png";
 
+
+
+import panigaleV22019 from "../../assets/Ducati/panigaleV22019.png"
 import panigale12992016 from "../../assets/Ducati/panigale12992016.png"
 import panigale9592019 from "../../assets/Ducati/panigale9592019.png"
 import panigale11992014 from "../../assets/Ducati/panigale11992014.png"
@@ -129,6 +140,8 @@ import Streetfighter from "../../assets/Ducati/Streetfighter.png";
 import streetfighter2020  from "../../assets/Ducati/streetfighter2020.png";
 
 const modelDetailsData = {
+  
+  
   "YZF R1": [
     { name: "1998-2001", img: yamaha },
     { name: "2002-2003", img: YZFR120022003 },
@@ -137,6 +150,14 @@ const modelDetailsData = {
     { name: "2009-2014", img: YZFR120092014 },
     { name: "2015-2017", img: YZFR120152017 },
     { name: "2020-2021", img: YZFR120202021 },
+  ],
+  "GSX-750": [
+    { name: "1992-1995", img: gsx7501992},
+    { name: "1996-1999", img: gsx7501999 },
+    { name: "2000-2003", img: gsx7502003 },
+    { name: "2004-2007", img: gsx7502007 },
+    { name: "2008-2010", img: gsx7502010 },
+    { name: "2011-", img: gsx7502011 },
   ],
   "YZF R6": [
     { name: "1999-2002", img: YZFR62002 },
@@ -207,6 +228,13 @@ const modelDetailsData = {
     { name: "2009-2011", img: GSXR10002011 },
     { name: "2012-2015", img: GSXR10002015 },
     { name: "2018-2020", img: GSXR10002020 },
+  ],
+  "GSXR-1100": [
+    { name: "1986-1992", img: GSXR1100 },
+    { name: "1993-1998", img: GSX11001998},   
+  ],
+  "GSXR-1200": [
+    { name: "2001-2008", img: gsx12002008 },
   ],
 
   NINJA: [
