@@ -175,12 +175,51 @@ import KAWASAKIZ800 from "../../assets/KAWASAKI/KAWASAKIZ800.png";
 import KAWASAKIZ650 from "../../assets/KAWASAKI/KAWASAKIZ650.png";
 import KAWASAKIZ300 from "../../assets/KAWASAKI/KAWASAKIZ300.png";
 
+import rsv2005 from "../../assets/APRILIA/rsv2005.png";
+import rsv2010 from "../../assets/APRILIA/rsv2010.png";
+import rsv2015 from "../../assets/APRILIA/rsv2015.png";
+import rsv2020 from "../../assets/APRILIA/rsv2020.png";
+import rsv2021 from "../../assets/APRILIA/rsv2021.png";
+
+import RS600 from "../../assets/APRILIA/RS600.png";
+import RS250 from "../../assets/APRILIA/RS250.png";
+import RS125 from "../../assets/APRILIA/RS125.png";
+import TUONO125 from "../../assets/APRILIA/TUONO125.png";
+import SL1000FALCO from "../../assets/APRILIA/SL1000FALCO.png";
+
 const modelDetailsData = {
   
+   "RSV TUONO": [
+    { name: "2002-2005", img: rsv2005 },
+    { name: "2006-2010", img: rsv2010 },
+    { name: "2011-2015", img: rsv2015 },
+    { name: "2016-2020", img: rsv2020 },
+    { name: "2021-", img: rsv2021 },
+  ],
+
+
     "ZX-7R": [
     { name: "1996-2003", img: KAWASAKIZ7R },
   ],
 
+    "RS 660": [
+    { name: "2020-", img: RS600 },
+  ],
+     "RS 250": [
+    { name: "1984-2009", img: RS250 },
+  ],
+   
+    "RS 125": [
+    { name: "1992-2020", img: RS125 },
+  ],
+
+  "TUONO 125": [
+    { name: "2017-2025", img: TUONO125 },
+  ],
+   
+  "SL 1000 FALCO": [
+    { name: "1999-2005", img: SL1000FALCO },
+  ],
    "ZX-12R": [
     { name: "2000-2006", img: KAWASAKIZ12R },
   ],
