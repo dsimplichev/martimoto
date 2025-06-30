@@ -28,42 +28,23 @@ const Order = () => {
     0
   );
 
-
-
   useEffect(() => {
     if (deliveryMethod === "Еконт" && city.length > 2) {
-      axios
-        .get("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json", {
-          params: { city: city }
-        })
+      axios.post("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json", {
+        params: { city }
+      })
         .then((response) => {
-          if (response.data && response.data.offices) {
-            const filteredOffices = response.data.offices.filter((office) =>
-              office.city?.name.toLowerCase().includes(city.toLowerCase())
-            );
-            setOffices(filteredOffices);
-          } else {
-            setOffices([]);
-          }
+          console.log("Цял отговор:", response);
+          console.log("Отговор data:", response.data);
+          setOffices(response.data?.offices || []);
         })
-        .catch(() => setOffices([]));
-    } else if (deliveryMethod === "Спиди" && city.length > 2) {
-
-      axios
-        .get("https://api.speedi.example/getOffices", { params: { city } })
-        .then((response) => {
-          if (response.data && response.data.offices) {
-
-            setOffices(response.data.offices);
-          } else {
-            setOffices([]);
-          }
-        })
-        .catch(() => setOffices([]));
-    } else {
-      setOffices([]);
+        .catch((error) => {
+          console.error("Грешка при заявката:", error);
+          setOffices([]);
+        });
     }
   }, [city, deliveryMethod]);
+
 
   const handleDeliveryChange = (method) => {
     setDeliveryMethod(method);
@@ -230,6 +211,9 @@ const Order = () => {
                     <option value="">Няма офиси за този град</option>
                   )}
                 </select>
+
+      
+              
               </div>
             </>
           )}
