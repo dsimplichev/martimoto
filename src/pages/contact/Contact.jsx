@@ -4,7 +4,7 @@ function Contact() {
     return (
         <div className="contact-page">
             <div className="header-section3">
-                <h2 className="contact-title">За контакти с нас</h2>
+                <h2 className="contact-title">За контакти</h2>
             </div>
             
             <div className="divider"></div>

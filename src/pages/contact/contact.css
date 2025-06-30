@@ -1,24 +1,24 @@
 .contact-page {
-    padding: 2rem;
-    text-align: center;
+  padding: 2rem;
+  text-align: center;
 }
 
 .contact-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-   
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  margin-right: 80px;
 }
 
 .contact-info {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #555;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
 }
 
 .header-section3 {
-    margin-right: 1000px;
-    font-size: 24px
+  margin-right: 1000px;
+  font-size: 24px;
 }
 
 @media (max-width: 768px) {
@@ -36,5 +36,10 @@
     font-size: 1rem;
     line-height: 1.5;
     padding: 0 1rem;
+  }
+
+   .contact-title {
+    margin-right: 0; 
+    text-align: center; 
   }
 }
