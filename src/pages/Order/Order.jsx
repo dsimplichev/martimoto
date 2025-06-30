@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
@@ -8,8 +9,8 @@ import { CartContext } from "../../Context/CartContext";
 import NotificationCard from "../../Card/NotificationCard";
 
 const Order = () => {
-  const { cart, setCart } = useContext(CartContext);
-
+  const { cart, removeFromCart, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
   const [isInvoice, setIsInvoice] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState("");
   const [city, setCity] = useState("");
@@ -34,8 +35,8 @@ const Order = () => {
         params: { city }
       })
         .then((response) => {
-          console.log("Цял отговор:", response);
-          console.log("Отговор data:", response.data);
+          console.log(response);
+          console.log(response.data);
           setOffices(response.data?.offices || []);
         })
         .catch((error) => {
@@ -93,7 +94,7 @@ const Order = () => {
             </>
           )
         });
-        setCart([]);
+        clearCart([]);
       }
     } catch (error) {
       console.error("Грешка при запис на поръчката:", error);
@@ -101,9 +102,7 @@ const Order = () => {
   };
 
   const handleRemoveItem = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
-    setCart(updatedCart);
-
+    removeFromCart(id);
   };
 
   return (
@@ -114,7 +113,11 @@ const Order = () => {
         <NotificationCard
           type={notification.type}
           message={notification.message}
-          onClose={() => setNotification(null)}
+          onClose={() => {
+            setNotification(null);
+            clearCart([]);
+            navigate("/");
+          }}
         />
       )}
 
@@ -212,8 +215,8 @@ const Order = () => {
                   )}
                 </select>
 
-      
-              
+
+
               </div>
             </>
           )}
