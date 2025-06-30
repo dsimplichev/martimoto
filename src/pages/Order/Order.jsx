@@ -298,22 +298,24 @@ const Order = () => {
       <div className="order-right">
         <h2>Вашата количка</h2>
         <ul>
-          {cart.map((product) => (
-            <li key={product.id} className="cart-item">
+          {cart.map((item) => (
+            <li key={item._id} className="cart-item">
               <img
-                src={product.image}
-                alt={product.title}
+                src={item.image}
+                alt={item.title}
                 className="cart-item-image"
               />
               <div className="cart-item-details">
-                <p>{product.title}</p>
+                <p>{item.title}</p>
                 <p>
-                  {product.price} лв. x {product.quantity}
+                  {item.price} лв. x {item.quantity}
                 </p>
               </div>
               <button
                 className="remove-btn"
-                onClick={() => handleRemoveItem(product.id)}
+                onClick={() => {  
+                  handleRemoveItem(item._id)
+                }}
               >
                 <FaTrash />
               </button>
