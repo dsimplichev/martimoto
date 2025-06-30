@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import { CartContext } from '../../Context/CartContext';
+import { FavoritesContext } from '../../Context/FavoritesContext';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import './nav.css';
@@ -16,7 +17,7 @@ function Nav({ onLogout }) {
     const [showLogin, setShowLogin] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
-    const { favorites } = useContext(CartContext);
+    const { favorites } = useContext(FavoritesContext);
     const totalFavorites = favorites ? favorites.length : 0;
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
