@@ -158,9 +158,61 @@ import hornet1998 from "../../assets/HONDA/hornet1998.png";
 import hornet2007 from "../../assets/HONDA/hornet2007.png";
 import hornet2018 from "../../assets/HONDA/hornet2018.png";
 
+import zx6r6361995 from "../../assets/KAWASAKI/zx6r6361995.png";
+import zx6r6362003 from "../../assets/KAWASAKI/zx6r6362003.png";
+import zx6r6362006 from "../../assets/KAWASAKI/zx6r6362006.png";
+import zx6r6362008 from "../../assets/KAWASAKI/zx6r6362008.png";
+import zx6r6362012 from "../../assets/KAWASAKI/zx6r6362012.png";
+import zx6r6362018 from "../../assets/KAWASAKI/zx6r6362018.png";
+import zx6r6362019 from "../../assets/KAWASAKI/zx6r6362019.png";
+
+import KAWASAKIZ7R from "../../assets/KAWASAKI/KAWASAKIZ7R.png";
+import KAWASAKIZ12R from "../../assets/KAWASAKI/KAWASAKIZ12R.png";
+import zx14r2006 from "../../assets/KAWASAKI/zx14r2006.png";
+import z4002018 from "../../assets/KAWASAKI/z4002018.png";
+import z4002023 from "../../assets/KAWASAKI/z4002023.png";
+import KAWASAKIZ800 from "../../assets/KAWASAKI/KAWASAKIZ800.png";
+import KAWASAKIZ650 from "../../assets/KAWASAKI/KAWASAKIZ650.png";
+import KAWASAKIZ300 from "../../assets/KAWASAKI/KAWASAKIZ300.png";
+
 const modelDetailsData = {
   
-  
+    "ZX-7R": [
+    { name: "1996-2003", img: KAWASAKIZ7R },
+  ],
+
+   "ZX-12R": [
+    { name: "2000-2006", img: KAWASAKIZ12R },
+  ],
+
+  "ZX-14R": [
+    { name: "2006-2020", img: zx14r2006 },
+  ],
+   
+  "Z800": [
+    { name: "2013-2016", img: KAWASAKIZ800 },
+  ],
+    
+  "Z650": [
+    { name: "2017-", img: KAWASAKIZ650 },
+  ],
+   
+   "Z300": [
+    { name: "2015-2017", img: KAWASAKIZ300 },
+  ],
+   "Z400": [
+    { name: "2018-2022", img: z4002018 },
+    { name: "2023-", img: z4002023 },
+  ],
+    "ZX-6R 636": [
+    { name: "1995-2002", img: zx6r6361995 },
+    { name: "2003-2004", img: zx6r6362003 },
+    { name: "2005-2006", img: zx6r6362006 },
+    { name: "2007-2008", img: zx6r6362008 },
+    { name: "2009-2012", img: zx6r6362012 },
+    { name: "2013-2018", img: zx6r6362018 },
+    { name: "2019-", img: zx6r6362019 },
+  ],
   "YZF R1": [
     { name: "1998-2001", img: yamaha },
     { name: "2002-2003", img: YZFR120022003 },
