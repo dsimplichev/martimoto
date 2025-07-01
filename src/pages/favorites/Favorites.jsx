@@ -1,52 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import './favorites.css';
 import { Link } from 'react-router-dom';
 import { GoTrash } from "react-icons/go";
 import { MdAddShoppingCart } from "react-icons/md";
 import { CartContext } from '../../Context/CartContext';
+import { FavoritesContext } from '../../Context/FavoritesContext';
 
 function Favorites() {
   const { user } = useContext(AuthContext);
-  const [favorites, setFavorites] = useState([]);
+  const { favorites, removeFromFavorites } = useContext(FavoritesContext);
   const { addToCart } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/favorites/${user.email}`);
-        const data = await response.json();
-        setFavorites(data);
-      } catch (error) {
-        console.error("Грешка при зареждане на любими части:", error);
-      }
-    };
-
-    if (user && user.email) {
-      fetchFavorites();
-    }
-  }, [user]);
-
-  const removeFromFavorites = async (partId) => {
-    try {
-      await fetch(`http://localhost:5000/api/favorites/${user.email}/${partId}`, {
-        method: 'DELETE',
-      });
-      setFavorites(prev => prev.filter(part => part.partId !== partId));
-    } catch (error) {
-      console.error("Грешка при изтриване от любими:", error);
-    }
-  };
-
   const handleAddToCart = (part) => {
-  addToCart({
-    _id: part.partId,
-    title: part.title,
-    image: part.image,
-    price: part.price,
-    quantity: 1,
-  });
-};
+    addToCart({
+      _id: part.partId,
+      title: part.title,
+      image: part.image,
+      price: part.price,
+      quantity: 1,
+    });
+  };
 
   if (!user) return <p>Моля, влезте в профила си.</p>;
 
@@ -58,8 +32,8 @@ function Favorites() {
       ) : (
         <div className="favorites-grid">
           {favorites.map((part) => (
-            <div className="part-card" key={part.partId}>
-              <Link to={`/parts/${part.partId}`} className="part-card-link">
+            <div className="part-card" key={part.id}>
+              <Link to={`/parts/${part.id}`} className="part-card-link">
                 <img
                   src={part.image}
                   alt={part.title}
@@ -70,15 +44,13 @@ function Favorites() {
                   <div className="price-and-cart">
                     <p className="part-price">{part.price} лв.</p>
                     <div className="icon-group">
-                      
                       <GoTrash
                         className="heart-icon"
                         onClick={(e) => {
                           e.preventDefault();
-                          removeFromFavorites(part.partId);
+                          removeFromFavorites(part.id);
                         }}
                       />
-                  
                       <MdAddShoppingCart
                         className="cart-icon"
                         onClick={(e) => {

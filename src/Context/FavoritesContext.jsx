@@ -62,9 +62,21 @@ export const FavoritesProvider = ({ children }) => {
     }
   };
 
-  const removeFromFavorites = (id) => {
-    setFavorites(favorites.filter(fav => fav.id !== id));
-  };
+ const removeFromFavorites = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/favorites/${user.email}/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      setFavorites(prev => prev.filter(fav => fav.id !== id));
+    } else {
+      console.error('Грешка при изтриване от любими');
+    }
+  } catch (error) {
+    console.error('Грешка при заявката за изтриване:', error);
+  }
+};
 
   return (
     <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites }}>
