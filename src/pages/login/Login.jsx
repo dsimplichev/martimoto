@@ -9,7 +9,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from "../../firebase-config"
 
 function Login({ onClose }) {
-    const { login } = useContext(AuthContext);
+    const { login, setUser } = useContext(AuthContext);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -59,6 +59,7 @@ function Login({ onClose }) {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
+            setUser(user);
             console.log("Успешен Google вход:", user);
             onClose(); 
         } catch (error) {
