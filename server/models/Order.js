@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
   deliveryMethod: { type: String, required: false },
   city: { type: String, required: false },
   office: { type: String, required: false },
+  deliveryAddress: { type: String, required: false },
   companyName: { type: String, required: false },
   companyReg: { type: String, required: false },
   companyEIK: { type: String, required: false },

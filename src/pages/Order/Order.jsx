@@ -13,6 +13,7 @@ const Order = () => {
   const navigate = useNavigate();
   const [isInvoice, setIsInvoice] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [city, setCity] = useState("");
   const [office, setOffice] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -66,6 +67,7 @@ const Order = () => {
       deliveryMethod,
       city,
       office,
+      deliveryAddress: deliveryMethod === "До Адрес" ? deliveryAddress : "",
       companyName: isInvoice ? companyName : "",
       companyReg: isInvoice ? companyReg : "",
       companyEIK: isInvoice ? companyEIK : "",
@@ -178,6 +180,13 @@ const Order = () => {
             >
               До офис на Спиди
             </button>
+            <button
+              type="button"
+              className={deliveryMethod === "До Адрес" ? "selected" : ""}
+              onClick={() => handleDeliveryChange("До Адрес")}
+            >
+              До Адрес
+            </button>
           </div>
 
           {(deliveryMethod === "Еконт" || deliveryMethod === "Спиди") && (
@@ -214,9 +223,34 @@ const Order = () => {
                     <option value="">Няма офиси за този град</option>
                   )}
                 </select>
-
-
-
+              </div>
+            </>
+          )}
+          {deliveryMethod === "До Адрес" && (
+            <>
+              <div className="form-group">
+                <label>
+                  <span className="red-star">*</span>Град
+                </label>
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  required
+                  placeholder="Въведете град"
+                />
+              </div>
+              <div className="form-group">
+                <label>
+                  <span className="red-star">*</span>Адрес за доставка
+                </label>
+                <input
+                  type="text"
+                  value={deliveryAddress}  
+                  onChange={(e) => setDeliveryAddress(e.target.value)}
+                  required
+                  placeholder="Въведете адрес"
+                />
               </div>
             </>
           )}
@@ -313,7 +347,7 @@ const Order = () => {
               </div>
               <button
                 className="remove-btn"
-                onClick={() => {  
+                onClick={() => {
                   handleRemoveItem(item._id)
                 }}
               >

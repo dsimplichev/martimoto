@@ -83,6 +83,7 @@ const fetchAccessoryDetails = async (cartItems) => {
             <p><strong>Доставка:</strong> {order.deliveryMethod || "Не е посочено"}</p>
             <p><strong>Град:</strong> {order.city || "Не е посочено"}</p>
             <p><strong>Офис:</strong> {order.office || "Не е посочено"}</p>
+            <p><strong>Адрес за доставка:</strong> {order.deliveryAddress || "Не е посочен адрес"}</p>
 
             {order.companyName && (
                 <div className="company-details">
