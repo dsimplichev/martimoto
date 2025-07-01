@@ -81,7 +81,7 @@ function Nav({ onLogout }) {
                                     Моят профил <FaChevronDown className="chevron-down" />
                                 </span>
                                 <p className="greeting">Здравейте</p>
-                                <p className="username">{user?.username}</p>
+                                <p className="username">{user?.displayName}</p>
                                 {showDropdown && (
                                     <div className="dropdown-menu show">
                                         <ul>

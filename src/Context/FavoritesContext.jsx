@@ -41,7 +41,7 @@ export const FavoritesProvider = ({ children }) => {
         partId: part._id,
         title: part.title,
         price: part.price,
-         image: (part.images && part.images.length > 0) ? part.images[0] : "/default-image.jpg",
+        image: (part.images && part.images.length > 0) ? part.images[0] : "/default-image.jpg",
       };
 
       try {

@@ -3,17 +3,20 @@ import React, { useState, useContext } from 'react';
 import { ImGoogle2 } from "react-icons/im";
 import { FaFacebook } from "react-icons/fa6";
 import { AuthContext } from '../../Context/AuthContext';
-import Register from '../register/Register'; 
+import Register from '../register/Register';
+
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from "../../firebase-config"
 
 function Login({ onClose }) {
     const { login } = useContext(AuthContext);
-    
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
     const [error, setError] = useState(null);
-    const [isRegistering, setIsRegistering] = useState(false); 
+    const [isRegistering, setIsRegistering] = useState(false);
 
     const onChange = (e) => {
         setFormData({
@@ -45,28 +48,46 @@ function Login({ onClose }) {
     };
 
     const handleCreateAccountClick = () => {
-        setIsRegistering(true); 
+        setIsRegistering(true);
     };
 
     const handleLoginClick = () => {
-        setIsRegistering(false); 
+        setIsRegistering(false);
     };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            console.log("Успешен Google вход:", user);
+            onClose(); 
+        } catch (error) {
+            console.error("Грешка при Google вход:", error);
+            setError("Възникна грешка при вход с Google.");
+        }
+    };
+
+
 
     return (
         <div className="modal__login" onClick={handleOverlayClick}>
             <div className="login__container">
                 {isRegistering ? (
-                    <Register onClose={onClose} onLoginClick={handleLoginClick} /> 
+                    <Register onClose={onClose} onLoginClick={handleLoginClick} />
                 ) : (
                     <div className="login__form">
                         <h2 className="login__title">Вход</h2>
                         <div className="social-login">
                             <ul className="social__wrap">
                                 <li className="google">
-                                    <a href="#"><ImGoogle2 className="google__icon" />Вход с Google</a>
+                                    <button type="button" onClick={handleGoogleLogin}>
+                                        <ImGoogle2 className="google__icon" />Вход с Google
+                                    </button>
                                 </li>
                                 <li className="fb">
-                                    <a href="#"><FaFacebook className="facebook__icon" />Вход с Facebook</a>
+                                    <button type="button" >
+                                        <FaFacebook className="facebook__icon" />Вход с Facebook
+                                    </button>
                                 </li>
                             </ul>
                         </div>
