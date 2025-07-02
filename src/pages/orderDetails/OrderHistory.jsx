@@ -23,7 +23,7 @@ function OrderHistory() {
   return (
     <div className="order-history">
       <h2>История на поръчките</h2>
-   
+      
       {orders.length === 0 ? (
         <p>Нямате направени поръчки.</p>
       ) : (

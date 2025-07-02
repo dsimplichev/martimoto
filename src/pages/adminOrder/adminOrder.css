@@ -3,6 +3,9 @@
     margin: 20px auto; 
     padding: 20px;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
 
 .admin-orders-title {
@@ -10,6 +13,7 @@
     color: #333;
     margin-bottom: 20px;
     text-align: center;
+    width: 100%;
 }
 
 .no-orders-message {
@@ -24,9 +28,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+     width: 100%; 
+    max-width: 600px;
 }
 
-.order-item {
+.order-item2 {
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -103,11 +109,11 @@
   
 }
 
-.delete-button:hover {
+.delete-button2:hover {
   background-color: #218838;
   transform: scale(1.05);
 }
 
-.delete-button:active {
+.delete-button2:active {
     transform: scale(0.98);
 }

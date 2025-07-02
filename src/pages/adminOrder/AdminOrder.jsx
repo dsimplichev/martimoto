@@ -67,7 +67,7 @@ const AdminOrder = () => {
             {orders
                 .filter(order => order.status !== "Deleted") 
                 .map((order) => (
-                    <li key={order._id} className="order-item">
+                    <li key={order._id} className="order-item2">
                         <p className="order-id"><strong>Поръчка №:</strong> {order._id}</p>
                         <p className="customer-name"><strong>Клиент:</strong> {order.firstName} {order.lastName}</p>
                         <p className="customer-phone"><strong>Телефон:</strong> {order.phone}</p>
