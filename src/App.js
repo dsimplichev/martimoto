@@ -16,22 +16,22 @@ import AddAccessory from "./pages/addAccessory/AddAccessory";
 import AddPart from "./pages/addPart/AddPart";
 import AccessoryDetailPage from "./pages/accessories/AccessoryDetailPage";
 import Cart from "./pages/Cart/Cart";
-import Order from "./pages/Order/Order"; 
+import Order from "./pages/Order/Order";
 import AdminOrder from "./pages/adminOrder/AdminOrder";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
 import UserProfile from "./pages/userProfile/UserProfile";
 import ChangePassword from "./pages/changePassword/ChangePassword";
-import ProductResults from './pages/ProductResults/ProductResults';
+import ProductResults from "./pages/ProductResults/ProductResults";
 import ScrollToTopButton from "./pages/scrollToTopButton/scrollToTopButton";
 import AdminMessages from "./pages/adminMessages/AdminMessages";
 import PartsByYear from "./pages/brandDetails/PartsByYear";
 import SinglePartPage from "./pages/singlePartPage/SinglePartPage";
 import Favorites from "./pages/favorites/Favorites";
-import Contact from './pages/contact/Contact'
+import Contact from "./pages/contact/Contact";
+import OrderHistory from "./pages/orderDetails/OrderHistory";
 
-
-import React, { useState, useContext } from 'react';
-import { AuthContext } from './Context/AuthContext';
+import React, { useState, useContext } from "react";
+import { AuthContext } from "./Context/AuthContext";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -48,16 +48,28 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/partssearch" element={<PartsSearch />} />
         <Route path="/accessories" element={<Accessories />} />
-        <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} />
+        <Route
+          path="/accessories/:accessoryName"
+          element={<AccessoryDetails />}
+        />
         <Route path="/brands/:brandName" element={<BrandDetails />} />
-        <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />} />
+        <Route
+          path="/brands/:brandName/models/:modelName"
+          element={<ModelDetails />}
+        />
+        <Route
+          path="/brands/:brandName/models/:modelName/:year"
+          element={<PartsByYear />}
+        />
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
-        <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
+        <Route
+          path="/accessories/detail/:id"
+          element={<AccessoryDetailPage />}
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
-        <Route path="/admin/orders" element={<AdminOrder />} /> 
+        <Route path="/admin/orders" element={<AdminOrder />} />
         <Route path="/order/:orderId" element={<OrderDetails />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/profile/password" element={<ChangePassword />} />
@@ -65,7 +77,8 @@ function App() {
         <Route path="/admin/messages" element={<AdminMessages />} />
         <Route path="/parts/:id" element={<SinglePartPage />} />
         <Route path="/favorites" element={<Favorites />} />
-         <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/order-history" element={<OrderHistory />} />
       </Routes>
 
       <Brand />
@@ -73,7 +86,6 @@ function App() {
       <About />
       <Footer />
       <ScrollToTopButton />
-      
 
       {isLoginOpen && (
         <Login

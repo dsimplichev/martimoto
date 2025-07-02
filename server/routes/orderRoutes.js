@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
 const mongoose = require("mongoose");
+const authenticateToken = require("../middleware/authMiddleware")
 
 router.post("/create", async (req, res) => {
   console.log("Получено от клиента:", req.body);
@@ -58,6 +59,7 @@ router.post("/create", async (req, res) => {
       cart,
       totalAmount,
       status: "Pending",
+       userId: req.user ? req.user._id : undefined,
     });
 
     const savedOrder = await newOrder.save();
@@ -150,6 +152,16 @@ router.patch("/delete/:id", async (req, res) => {
     res
       .status(500)
       .json({ message: "Възникна грешка при изтриването на поръчката." });
+  }
+});
+
+router.get("/history", authenticateToken, async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.user._id }).sort({ createdAt: -1 });
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.error("Грешка при взимане на история на поръчките:", error);
+    res.status(500).json({ success: false, message: "Сървърна грешка" });
   }
 });
 
