@@ -26,21 +26,19 @@ router.post("/create", async (req, res) => {
       totalAmount,
     } = req.body;
 
-    if (!cart || cart.length === 0) {
-      return res
-        .status(400)
-        .json({ message: "Количката не може да бъде празна." });
+    if (!cart || !Array.isArray(cart) || cart.length === 0) {
+      return res.status(400).json({ message: "Количката не може да бъде празна." });
     }
 
-    console.log("cart received:", cart);
-    cart.forEach((item) => {
-      console.log(
-        "productId valid?",
-        mongoose.Types.ObjectId.isValid(item.productId),
-        "productId:",
-        item.productId
-      );
-    });
+    // Проверка за валидни productId и quantity
+    for (const item of cart) {
+      if (!mongoose.Types.ObjectId.isValid(item.productId)) {
+        return res.status(400).json({ message: `Невалиден productId: ${item.productId}` });
+      }
+      if (typeof item.quantity !== "number" || item.quantity <= 0) {
+        return res.status(400).json({ message: `Невалидно количество за продукт ${item.productId}` });
+      }
+    }
 
     const newOrder = new Order({
       firstName,
@@ -59,7 +57,7 @@ router.post("/create", async (req, res) => {
       cart,
       totalAmount,
       status: "Pending",
-       userId: req.user ? req.user._id : undefined,
+      userId: req.user ? req.user._id : undefined, 
     });
 
     const savedOrder = await newOrder.save();
@@ -115,6 +113,34 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
+router.get("/history", authenticateToken, async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.user._id })
+      .sort({ createdAt: -1 })
+      .populate('cart.productId');
+
+    // Форматираме всяка поръчка да има поле items с нужната информация
+    const formattedOrders = orders.map(order => ({
+      _id: order._id,
+      createdAt: order.createdAt,
+      totalAmount: order.totalAmount,
+      status: order.status,
+      items: order.cart.map(item => ({
+        name: item.productId?.title || 'Без име',
+        description: item.productId?.description || '',
+        price: item.productId?.price || 0,
+        image: item.productId?.images?.[0] || '',  
+        quantity: item.quantity,
+      })),
+    }));
+
+    res.status(200).json({ success: true, orders: formattedOrders });
+  } catch (error) {
+    console.error("Грешка при взимане на история на поръчките:", error);
+    res.status(500).json({ success: false, message: "Сървърна грешка" });
+  }
+});
+
 router.get("/:orderId", async (req, res) => {
   const { orderId } = req.params;
 
@@ -155,14 +181,6 @@ router.patch("/delete/:id", async (req, res) => {
   }
 });
 
-router.get("/history", authenticateToken, async (req, res) => {
-  try {
-    const orders = await Order.find({ userId: req.user._id }).sort({ createdAt: -1 });
-    res.status(200).json({ success: true, orders });
-  } catch (error) {
-    console.error("Грешка при взимане на история на поръчките:", error);
-    res.status(500).json({ success: false, message: "Сървърна грешка" });
-  }
-});
+
 
 module.exports = router;

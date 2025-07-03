@@ -87,8 +87,9 @@ function Nav({ onLogout }) {
                                 {showDropdown && (
                                     <div className="dropdown-menu show">
                                         <ul>
-                                            <li><Link to="/profile" onClick={() => setShowDropdown(false)}>Моят профил</Link></li>
                                             <li><Link to="/order-history" onClick={() => setShowDropdown(false)}>История на поръчките</Link></li>
+                                            <li><Link to="/favorites" onClick={() => setShowDropdown(false)}>Желани продукти</Link></li>
+                                            <li><Link to="/profile/password" onClick={() => setShowDropdown(false)}>Парола</Link></li>
                                             {user?.role === 'admin' && (
                                                 <>
                                                     <li><Link to="/add-part" onClick={() => setShowDropdown(false)}>Добави част</Link></li>

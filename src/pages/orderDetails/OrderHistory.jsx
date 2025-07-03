@@ -7,10 +7,12 @@ function OrderHistory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/orders/history', { withCredentials: true })
+    axios.get('http://localhost:5000/api/orders/history', { withCredentials: true })
       .then(res => {
+
         setOrders(res.data.orders);
         setLoading(false);
+
       })
       .catch(err => {
         console.error("Грешка при зареждане на историята:", err);
@@ -23,7 +25,7 @@ function OrderHistory() {
   return (
     <div className="order-history">
       <h2>История на поръчките</h2>
-      
+
       {orders.length === 0 ? (
         <p>Нямате направени поръчки.</p>
       ) : (
@@ -31,7 +33,7 @@ function OrderHistory() {
           <div key={index} className="order-block">
             <p><strong>Дата на поръчка:</strong> {new Date(order.createdAt).toLocaleString()}</p>
             <div className="order-items">
-              {order.items.map((item, i) => (
+              {(order.items || []).map((item, i) => (
                 <div key={i} className="order-item">
                   <img src={item.image} alt={item.name} />
                   <div>
