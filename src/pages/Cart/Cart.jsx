@@ -4,7 +4,7 @@ import { CartContext } from "../../Context/CartContext";
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, removeFromCart,  clearCart  } = useContext(CartContext);
+  const { cart, removeFromCart, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   const removeItem = (id) => {
@@ -48,7 +48,11 @@ const Cart = () => {
               </div>
               <div className="item-meta">
                 <p className="quantity">Количество: {item.quantity || 1}</p>
-                <p className="price2">{item.price.toFixed(2)} лв.</p>
+                <p className="price2">
+                  {item.quantity > 1
+                    ? `${(item.price * item.quantity).toFixed(2)} лв.`
+                    : `${item.price.toFixed(2)} лв.`}
+                </p>
               </div>
             </div>
           ))
