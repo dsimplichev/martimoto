@@ -3,6 +3,7 @@ const router = express.Router();
 const Order = require("../models/Order");
 const mongoose = require("mongoose");
 const authenticateToken = require("../middleware/authMiddleware")
+require("../models/Part")
 
 router.post("/create", async (req, res) => {
   console.log("Получено от клиента:", req.body);
@@ -119,7 +120,7 @@ router.get("/history", authenticateToken, async (req, res) => {
       .sort({ createdAt: -1 })
       .populate('cart.productId');
 
-    // Форматираме всяка поръчка да има поле items с нужната информация
+    
     const formattedOrders = orders.map(order => ({
       _id: order._id,
       createdAt: order.createdAt,
