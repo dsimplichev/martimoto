@@ -18,11 +18,12 @@ function AccessoryDetails() {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupMessage, setPopupMessage] = useState("");
 
     const { addToCart } = useContext(CartContext);
     const { addToFavorites } = useContext(FavoritesContext);
 
-    
     const getImageUrl = (image) => {
         if (!image) return "/default-image.jpg";
         if (image.startsWith("http")) return image;
@@ -36,6 +37,7 @@ function AccessoryDetails() {
             .then((response) => {
                 setAccessories(response.data);
                 setLoading(false);
+                setCurrentPage(1); // при нови данни да върне на първа страница
             })
             .catch((error) => {
                 console.error("Грешка при заявката:", error);
@@ -58,7 +60,8 @@ function AccessoryDetails() {
         };
 
         addToCart(productToAdd);
-        alert(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
+        setPopupMessage(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
+        setShowPopup(true);
     };
 
     const handleAddToFavorites = (e, accessory) => {
@@ -74,8 +77,20 @@ function AccessoryDetails() {
         };
 
         addToFavorites(favoriteItem);
-        alert(`"${accessory.title}" беше добавен в Любими.`);
+        setPopupMessage(`Продуктът "${accessory.title}" беше добавен в любими.`);
+        setShowPopup(true);
     };
+
+    // Автоматично скриване на попъп след 3 секунди
+    useEffect(() => {
+        if (showPopup) {
+            const timer = setTimeout(() => {
+                setShowPopup(false);
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [showPopup]);
 
     const totalPages = Math.ceil(accessories.length / itemsPerPage);
 
@@ -86,6 +101,7 @@ function AccessoryDetails() {
 
     const handlePageChange = (_, page) => {
         setCurrentPage(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     if (loading) return <p className="loading-text">Зареждане...</p>;
@@ -149,6 +165,21 @@ function AccessoryDetails() {
                         className="pagination"
                     />
                 </Stack>
+            )}
+
+            {/* Попъп за нотификация */}
+            {showPopup && (
+                <div className="popup-overlay">
+                    <div className="popup-box">
+                        <p>{popupMessage}</p>
+                        <button
+                            className="popup-button"
+                            onClick={() => setShowPopup(false)}
+                        >
+                            ОК
+                        </button>
+                    </div>
+                </div>
             )}
         </div>
     );

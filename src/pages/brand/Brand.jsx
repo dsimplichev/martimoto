@@ -24,7 +24,7 @@ function Brand() {
        
         <div className="container-brand">
         <div className="header-section-brand">
-            <h2 className="title-brand">SHOP BY BRANDS</h2>    
+            <h2 className="title-brand">Пазаруване по марки</h2>    
         </div>
 
         <div className="divider-brand"></div>

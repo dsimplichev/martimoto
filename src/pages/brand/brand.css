@@ -29,6 +29,25 @@
 
 .title-brand {
   color: black;
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transform: skew(-15deg);
+  animation: subtleMove 2s ease-in-out infinite alternate;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes subtleMove {
+  0% {
+    transform: skew(-15deg) translateX(0);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: skew(-15deg) translateX(5px);
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+  }
 }
 
 @media (max-width: 768px) {
