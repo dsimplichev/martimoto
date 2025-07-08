@@ -37,7 +37,7 @@ function AccessoryDetails() {
             .then((response) => {
                 setAccessories(response.data);
                 setLoading(false);
-                setCurrentPage(1); // при нови данни да върне на първа страница
+                setCurrentPage(1);
             })
             .catch((error) => {
                 console.error("Грешка при заявката:", error);
@@ -81,7 +81,7 @@ function AccessoryDetails() {
         setShowPopup(true);
     };
 
-    // Автоматично скриване на попъп след 3 секунди
+
     useEffect(() => {
         if (showPopup) {
             const timer = setTimeout(() => {
@@ -131,7 +131,9 @@ function AccessoryDetails() {
                                 <div className="part-info">
                                     <h3 className="part-title">{part.title}</h3>
                                     <div className="price-and-cart">
-                                        <p className="part-price">{part.price} лв.</p>
+                                        <p className="part-price">
+                                            {part.price} лв. / {(part.price / 1.95583).toFixed(2)} €
+                                        </p>
                                         <div className="icon-group">
                                             <IoHeartOutline
                                                 className="heart-icon"
@@ -167,7 +169,7 @@ function AccessoryDetails() {
                 </Stack>
             )}
 
-            {/* Попъп за нотификация */}
+
             {showPopup && (
                 <div className="popup-overlay">
                     <div className="popup-box">

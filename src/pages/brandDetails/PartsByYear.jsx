@@ -19,7 +19,7 @@ function PartsByYear() {
   const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
- 
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
   const totalPages = Math.ceil(parts.length / itemsPerPage);
@@ -40,7 +40,7 @@ function PartsByYear() {
         );
         const data = await response.json();
         setParts(data);
-        setCurrentPage(1); 
+        setCurrentPage(1);
       } catch (error) {
         console.error('Грешка при зареждане на части:', error);
       } finally {
@@ -110,7 +110,9 @@ function PartsByYear() {
                     <div className="part-info">
                       <h3 className="part-title">{part.title}</h3>
                       <div className="price-and-cart">
-                        <p className="part-price">{part.price} лв.</p>
+                        <p className="part-price">
+                          {part.price} лв. / {(part.price / 1.95583).toFixed(2)} €
+                        </p>
                         <div className="icon-group">
                           <IoHeartOutline
                             className="heart-icon"
@@ -128,7 +130,7 @@ function PartsByYear() {
               ))}
             </div>
 
-            
+
             {totalPages > 1 && (
               <div className="pagination2">
                 {Array.from({ length: totalPages }, (_, index) => (

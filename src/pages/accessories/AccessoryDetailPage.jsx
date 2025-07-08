@@ -15,6 +15,7 @@ function AccessoryDetailPage() {
   const [error, setError] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  
 
   useEffect(() => {
     axios.get(`http://localhost:5000/accessories/detail/${id}`)

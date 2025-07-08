@@ -6,6 +6,7 @@ import "./cart.css";
 const Cart = () => {
   const { cart, removeFromCart, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
+  const BGN_TO_EUR = 1.95583;
 
   const removeItem = (id) => {
     removeFromCart(id);
@@ -50,8 +51,8 @@ const Cart = () => {
                 <p className="quantity">Количество: {item.quantity || 1}</p>
                 <p className="price2">
                   {item.quantity > 1
-                    ? `${(item.price * item.quantity).toFixed(2)} лв.`
-                    : `${item.price.toFixed(2)} лв.`}
+                    ? `${(item.price * item.quantity).toFixed(2)} лв. (${(item.price * item.quantity / BGN_TO_EUR).toFixed(2)} €)`
+                    : `${item.price.toFixed(2)} лв. (${(item.price / BGN_TO_EUR).toFixed(2)} €)`}
                 </p>
               </div>
             </div>
@@ -60,7 +61,7 @@ const Cart = () => {
       </div>
       <div className="order-summary">
         <p>
-          <strong>Общо:</strong> {totalPrice.toFixed(2)} лв.
+          <strong>Общо:</strong> {totalPrice.toFixed(2)} лв. ({(totalPrice / BGN_TO_EUR).toFixed(2)} €)
         </p>
       </div>
       <button onClick={handleCheckout} className="checkout-btn">
