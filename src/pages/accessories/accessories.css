@@ -4,8 +4,26 @@
 }
 
 .accessories-page h1 {
-  font-size: 24px;
-  font-weight: bold;
+  color: black;
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transform: skew(-15deg);
+  animation: subtleMove 2s ease-in-out infinite alternate;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes subtleMove {
+  0% {
+    transform: skew(-15deg) translateX(0);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: skew(-15deg) translateX(5px);
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .accessory-categories {
@@ -73,14 +91,14 @@
 @media (max-width: 768px) {
   .accessory-categories {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 15px;
     padding: 15px;
-    justify-content: center; 
+    justify-content: center;
   }
 
   .category {
-    width: 45%; 
+    width: 45%;
     padding: 10px;
     box-sizing: border-box;
   }
@@ -98,8 +116,8 @@
   }
 
   .divider-acc {
-    width: 100%;      
-    margin-left: auto;  
+    width: 100%;
+    margin-left: auto;
     margin-right: auto;
     height: 2px;
     background-color: #f39c12;
