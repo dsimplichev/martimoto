@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { CartContext } from '../../Context/CartContext'; 
+import { CartContext } from '../../Context/CartContext';
 import './accessoryDetailPage.css';
 import { FaTruckFast } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
@@ -9,13 +9,13 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 function AccessoryDetailPage() {
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext); 
+  const { addToCart } = useContext(CartContext);
   const [accessory, setAccessory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  
+
 
   useEffect(() => {
     axios.get(`http://localhost:5000/accessories/detail/${id}`)
@@ -42,16 +42,16 @@ function AccessoryDetailPage() {
       title: accessory.title,
       price: accessory.price,
       quantity: Number(quantity),
-      image: accessory.images[0], 
-       type: "accessory"
+      image: accessory.images[0],
+      type: "accessory"
     };
 
     if (userId && token) {
-      
-      addToCart(product); 
+
+      addToCart(product);
       alert('Продуктът беше успешно добавен в количката!');
     } else {
-      
+
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const existingItem = cart.find(item => item.id === product.id);
 
@@ -103,7 +103,9 @@ function AccessoryDetailPage() {
           <div className="product-details">
             <h2 className="product-title">{accessory.title}</h2>
             <p className="product-description">{accessory.description}</p>
-            <p className="product-price">{accessory.price} лв.</p>
+            <p className="product-price">
+              {accessory.price.toFixed(2)} лв. / {(accessory.price / 1.95583).toFixed(2)} €
+            </p>
             <span className="stock-status">В наличност! Доставя се в рамките на 48 часа</span>
           </div>
 

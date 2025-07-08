@@ -102,7 +102,7 @@ function SinglePartPage() {
                     <div className="product-details">
                         <h2 className="product-title">{part.title}</h2>
                         <p className="product-description">{part.description}</p>
-                        <p className="product-price">{part.price} лв.</p>
+                        <p className="product-price">{part.price.toFixed(2)} лв. / {(part.price / 1.95583).toFixed(2)} €</p>
                         <span className="stock-status">В наличност! Доставя се в рамките на 48 часа</span>
                     </div>
 
