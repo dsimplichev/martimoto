@@ -9,11 +9,14 @@ function LastProduct() {
     useEffect(() => {
         fetch("http://localhost:5000/api/accessories/last")
             .then((res) => res.json())
-            .then((data) => setProducts(data))
+            .then((data) => {
+                console.log("Получени продукти:", data);
+                setProducts(data);
+            })
             .catch((error) => console.error("Грешка при зареждане на продуктите:", error));
     }, []);
 
-    
+
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -61,10 +64,10 @@ function LastProduct() {
                     onMouseMove={handleMouseMove}
                 >
                     {products.slice(0, 12).map((product, index) => (
-                        <ProductCard 
-                            key={index} 
-                            img={product.images[0]}  
-                            title={product.title} 
+                        <ProductCard
+                            key={index}
+                            img={product.images[0]}
+                            title={product.title}
                             id={product._id}
                             price={product.price}
                         />
