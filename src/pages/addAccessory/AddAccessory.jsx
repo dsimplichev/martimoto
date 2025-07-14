@@ -68,7 +68,7 @@ function AddAccessory() {
                     <select value={category} onChange={(e) => setCategory(e.target.value)}>
                         <option value="">Изберете категория</option>
                         <option value="балансьори">Балансьори</option>
-                        <option value="краш тапи">Краш тапи</option>
+                        <option value="краш-тапи">Краш тапи</option>
                         <option value="гараж">Гараж</option>
                         <option value="лепенки">Лепенки</option>
                         <option value="ръкохватки">Ръкохватки</option>
