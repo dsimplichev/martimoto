@@ -6,7 +6,7 @@ import { AuthContext } from '../../Context/AuthContext';
 import Register from '../register/Register';
 
 import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from "../../firebase-config"
+import { auth, googleProvider, facebookProvider  } from "../../firebase-config"
 
 function Login({ onClose }) {
     const { login, setUser } = useContext(AuthContext);
@@ -68,6 +68,19 @@ function Login({ onClose }) {
         }
     };
 
+    const handleFacebookLogin = async () => {
+    try {
+        const result = await signInWithPopup(auth, facebookProvider);
+        const user = result.user;
+        setUser(user);
+        console.log("Успешен Facebook вход:", user);
+        onClose();
+    } catch (error) {
+        console.error("Грешка при Facebook вход:", error);
+        setError("Възникна грешка при вход с Facebook.");
+    }
+};
+
 
 
     return (
@@ -86,7 +99,7 @@ function Login({ onClose }) {
                                     </button>
                                 </li>
                                 <li className="fb">
-                                    <button type="button" >
+                                    <button type="button" onClick={handleFacebookLogin} >
                                         <FaFacebook className="facebook__icon" />Вход с Facebook
                                     </button>
                                 </li>
