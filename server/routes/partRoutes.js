@@ -73,4 +73,6 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Грешка при извличане на частта' });
   }
 });
+
+
 module.exports = router;
