@@ -4,13 +4,17 @@ import { CartContext } from "../../Context/CartContext";
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext);
+  const { cart, removeFromCart, clearCart, isCartLoading } = useContext(CartContext);
   const navigate = useNavigate();
   const BGN_TO_EUR = 1.95583;
-
+  
   const removeItem = (id) => {
     removeFromCart(id);
   };
+  
+  if (isCartLoading) {
+  return <p>Зареждане на количката...</p>;
+}
 
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
