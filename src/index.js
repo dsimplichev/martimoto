@@ -10,14 +10,14 @@ import { FavoritesProvider } from './Context/FavoritesContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <BrowserRouter>
     <AuthProvider>
       <CartProvider> 
         <FavoritesProvider>
-        <BrowserRouter>
           <App />
-        </BrowserRouter>
         </FavoritesProvider>
       </CartProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </BrowserRouter>
+</React.StrictMode>
 );

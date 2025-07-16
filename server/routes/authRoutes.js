@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             message: 'Успешен вход!',
             user: { email: user.email, username: user.username, role: user.role }, 
-            token,
+           
         });
     } catch (error) {
         console.error('Грешка при логването:', error);
@@ -83,6 +83,29 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Успешен изход!' });
+});
+
+router.get('/user', async (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ user: null, message: 'Няма токен.' });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    const user = await User.findById(decoded.id).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ user: null, message: 'Потребителят не е намерен.' });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error('Грешка при извличане на потребител:', error);
+    res.status(401).json({ user: null, message: 'Невалиден токен.' });
+  }
 });
 
 module.exports = router;

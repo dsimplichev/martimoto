@@ -17,16 +17,16 @@ function Footer() {
                             <FaFacebook className="social-icon" />
                         </a>
                         <a href="mailto:info@example.com">
-                            <FaEnvelope className="social-icon" /> 
+                            <FaEnvelope className="social-icon" />
                         </a>
-                        <a href="tel:+123456789">
-                            <FaPhone className="social-icon" /> 
+                        <a href="tel:+123456789" title="Телефон за контакт: +123456789">
+                            <FaPhone className="social-icon" />
                         </a>
                     </div>
                 </div>
             </footer>
-            
-            
+
+
             <div className="privacy-policy-container">
                 <p>© {new Date().getFullYear()} MARTIMOTO. All rights reserved. <a href="/privacy-policy">Privacy Policy</a></p>
             </div>

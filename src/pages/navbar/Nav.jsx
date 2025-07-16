@@ -28,7 +28,7 @@ function Nav({ onLogout }) {
 
     useEffect(() => {
         if (isLoggedIn)
-            axios.get('http://localhost:5000/user/user', { withCredentials: true })
+            axios.get('http://localhost:5000/auth/user', { withCredentials: true })
                 .then(response => {
                     setUser(response.data.user);
                 })
