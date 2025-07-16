@@ -20,9 +20,9 @@ function Search() {
                     <img className="img" src={img} alt='search-moto' />
                     <div className="search-container">
 
-                        <p className="shop-text">SHOP</p>
-                        <p className="search-text">Second Hand Parts</p>
-                        <button className="search-btn" onClick={handleSearchClick}>Search</button>
+                        <p className="shop-text">МАГАЗИН</p>
+                        <p className="search-text">Части втора употреба</p>
+                        <button className="search-btn" onClick={handleSearchClick}>ТЪРСИ</button>
                     </div>
                 </div>
             </div>
