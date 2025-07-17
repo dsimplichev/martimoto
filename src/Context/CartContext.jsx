@@ -20,24 +20,35 @@ export const CartProvider = ({ children }) => {
     }, [cart, isLoggedIn]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/auth/status", { withCredentials: true })
-            .then(async response => {
-                if (response.data.isAuthenticated) {
-                    setIsLoggedIn(true);
-                    setUserId(response.data.user.id);
-                    await loadUserCart(response.data.user.id);  
-                } else {
-                    setIsLoggedIn(false);
-                    setUserId(null);
-                    loadGuestCart();
-                }
-                setIsCartLoading(false);
-            })
-            .catch(error => {
-                console.error("Грешка при проверка на логина:", error);
-                setIsCartLoading(false);
-            });
-    }, []);
+    const checkAuthAndLoadCart = async () => {
+        try {
+            const response = await axios.get("http://localhost:5000/auth/status", { withCredentials: true });
+
+            if (response.data.isAuthenticated) {
+                const id = response.data.user.id;
+                console.log("🔐 Логнат си, userId:", id);
+
+                setIsLoggedIn(true);
+                setUserId(id);
+
+                // Изчакваме userId да се сетне, после зареждаме количката
+                await loadUserCart(id);
+            } else {
+                console.log("👤 Гост си, зареждаме количка от localStorage");
+                setIsLoggedIn(false);
+                setUserId(null);
+                loadGuestCart();
+            }
+        } catch (error) {
+            console.error("Грешка при проверка на логина:", error);
+            loadGuestCart();
+        } finally {
+            setIsCartLoading(false);
+        }
+    };
+
+    checkAuthAndLoadCart();
+}, []);
 
     const loadUserCart = async (userId) => {
         try {
@@ -68,7 +79,7 @@ export const CartProvider = ({ children }) => {
 
 
     const saveGuestCart = (cartItems) => {
-        const expiry = new Date().getTime() + 24 * 60 * 60 * 1000; 
+        const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
         const guestCartData = { items: cartItems, expiry };
         localStorage.setItem("guest_cart", JSON.stringify(guestCartData));
     };
@@ -77,26 +88,14 @@ export const CartProvider = ({ children }) => {
     const addToCart = async (product) => {
         if (isLoggedIn) {
             try {
-                const response = await axios.post(
-                    "http://localhost:5000/cart",
-                    { userId, product },
+                await axios.post(
+                    `http://localhost:5000/cart/${userId}`,
+                    { productId: product._id, quantity: 1 },
                     { withCredentials: true }
                 );
 
-                if (response.status === 200) {
-                    setCart((prevCart) => {
-                        const existingItem = prevCart.find(item => item._id === product._id);
-                        if (existingItem) {
-                            return prevCart.map(item =>
-                                item._id === product._id
-                                    ? { ...item, quantity: item.quantity + 1 }
-                                    : item
-                            );
-                        } else {
-                            return [...prevCart, { ...product, quantity: 1 }];
-                        }
-                    });
-                }
+                
+                await loadUserCart(userId);
             } catch (error) {
                 console.error("Грешка при добавяне в количката:", error);
             }
@@ -117,7 +116,7 @@ export const CartProvider = ({ children }) => {
             setCart(updatedCart);
             saveGuestCart(updatedCart);
         }
-    }
+    };
 
 
     const removeFromCart = async (productId) => {
@@ -159,7 +158,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, handleLogout,  isCartLoading }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, handleLogout, isCartLoading, userId }}>
             {children}
         </CartContext.Provider>
     );

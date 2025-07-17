@@ -33,7 +33,7 @@ router.post('/:userId', checkAuth, async (req, res) => {
       }
   
       await cart.save();
-      res.json(cart);
+      res.json({ items: cart.items });
     } catch (error) {
       res.status(500).json({ message: "Грешка при добавяне на продукт." });
     }

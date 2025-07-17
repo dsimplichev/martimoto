@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
-        console.log(response)
+        
         
         if (response.data.user) {
           setUser(response.data.user);
