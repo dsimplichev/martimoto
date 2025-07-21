@@ -16,6 +16,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const Order = require('./models/Order');
 const favoritesRoutes = require('./routes/favoritesRoutes');
 const lastRoutes = require("./routes/lastRoutes")
+const cartRoutes = require('./routes/cartRoutes')
 
 const upload = multer(); 
 const app = express();
@@ -38,6 +39,9 @@ app.use("/api/orders", orderRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/last-products', lastRoutes )
+console.log('Registering cart routes...');
+app.use('/cart', cartRoutes);
+console.log('Cart routes registered.'); 
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {

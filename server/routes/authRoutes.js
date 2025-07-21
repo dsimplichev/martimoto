@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { JWT_SECRET } = require('../config');
+const authenticateToken = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -106,6 +107,18 @@ router.get('/user', async (req, res) => {
     console.error('Грешка при извличане на потребител:', error);
     res.status(401).json({ user: null, message: 'Невалиден токен.' });
   }
+});
+
+router.get('/status', authenticateToken, (req, res) => {
+    
+    res.json({
+        isAuthenticated: true,
+        user: {
+            id: req.user.id,
+            role: req.user.role, 
+            
+        }
+    });
 });
 
 module.exports = router;
