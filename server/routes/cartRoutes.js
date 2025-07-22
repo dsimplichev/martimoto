@@ -75,7 +75,9 @@ router.post("/:userId", checkAuth, async (req, res) => {
     }
 
     if (!productDetails) {
-      return res.status(404).json({ message: "Продуктът не е намерен в базата данни." });
+      return res
+        .status(404)
+        .json({ message: "Продуктът не е намерен в базата данни." });
     }
 
     const existingProduct = cart.items.find(
@@ -87,12 +89,15 @@ router.post("/:userId", checkAuth, async (req, res) => {
     if (existingProduct) {
       existingProduct.quantity += quantity || 1;
     } else {
-      cart.items.push({ productId, quantity: quantity || 1, itemType: determinedItemType }); // Използваме определен от бекенда тип
+      cart.items.push({
+        productId,
+        quantity: quantity || 1,
+        itemType: determinedItemType,
+      }); // Използваме определен от бекенда тип
     }
 
     await cart.save();
     res.status(200).json({ message: "Продуктът е добавен успешно." });
-
   } catch (error) {
     console.error("Грешка при добавяне на продукт:", error);
     res.status(500).json({ message: "Грешка при добавяне на продукт." });
@@ -118,6 +123,19 @@ router.delete("/:userId/:productId", checkAuth, async (req, res) => {
     res.status(200).json({ message: "Продуктът е премахнат от количката." });
   } catch (error) {
     res.status(500).json({ message: "Грешка при премахване на продукт." });
+  }
+});
+
+router.delete("/:userId", checkAuth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const cart = await Cart.deleteOne({ userId });
+    res.status(200).json({ message: "Kоличката е изтрита." });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Грешка при премахване на продукт. DGE", error });
   }
 });
 
