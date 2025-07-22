@@ -19,10 +19,11 @@ function ProductCard({ img, title, id, price, type }) {
 
   const handleAddToCart = () => {
     const product = {
-      id: id,
+      _id: id,
       title: title,
       price: price,
       image: img,
+      itemType: type,
     };
     console.log("Добавям в количката:", product);
     addToCart(product);

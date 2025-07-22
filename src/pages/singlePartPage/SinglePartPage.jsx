@@ -12,6 +12,13 @@ function SinglePartPage() {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
     const [type, setType] = useState('part'); 
+    
+     const getImageUrl = (image) => {
+        if (!image) return "/default-image.jpg";
+        if (image.startsWith("http")) return image;
+        return `http://localhost:5000/uploads/${image}`;
+    };
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -21,7 +28,7 @@ function SinglePartPage() {
 
                 if (response.ok && data._id) {
                     setPart(data);
-                    setMainImage(data.images?.[0] || "/default-image.jpg");
+                    setMainImage(getImageUrl(data.images?.[0]));
                     setType('part');
                 } else {
                     
@@ -30,7 +37,7 @@ function SinglePartPage() {
 
                     if (response.ok && data._id) {
                         setPart(data);
-                        setMainImage(data.images?.[0] || "/default-image.jpg");
+                        setMainImage(getImageUrl(data.images?.[0]));
                         setType('accessory');
                     } else {
                         
@@ -50,12 +57,12 @@ function SinglePartPage() {
         if (!part) return;
 
         const cartItem = {
-            id: part._id,
+            _id: part._id,
             title: part.title,
             image: mainImage,
             price: part.price,
             quantity: Number(quantity),
-            type: type,
+            itemType: type,
         };
 
         addToCart(cartItem);

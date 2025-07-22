@@ -31,7 +31,7 @@ export const CartProvider = ({ children }) => {
                 setIsLoggedIn(true);
                 setUserId(id);
 
-                // Изчакваме userId да се сетне, после зареждаме количката
+                
                 await loadUserCart(id);
             } else {
                 console.log("👤 Гост си, зареждаме количка от localStorage");
@@ -90,7 +90,7 @@ export const CartProvider = ({ children }) => {
             try {
                 await axios.post(
                     `http://localhost:5000/cart/${userId}`,
-                    { productId: product._id, quantity: 1 },
+                    { productId: product._id, quantity: 1},
                     { withCredentials: true }
                 );
 
@@ -123,12 +123,12 @@ export const CartProvider = ({ children }) => {
         if (isLoggedIn) {
             try {
                 await axios.delete(`http://localhost:5000/cart/${userId}/${productId}`, { withCredentials: true });
-                setCart(prevCart => prevCart.filter(item => item._id !== productId)); // ⬅️ fix тук
+                setCart(prevCart => prevCart.filter(item => item._id !== productId)); 
             } catch (error) {
                 console.error("Грешка при премахване на продукт:", error);
             }
         } else {
-            const updatedCart = cart.filter(item => item._id !== productId); // ⬅️ fix тук
+            const updatedCart = cart.filter(item => item._id !== productId); 
             setCart(updatedCart);
             saveGuestCart(updatedCart);
         }

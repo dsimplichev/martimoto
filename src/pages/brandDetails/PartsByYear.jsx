@@ -60,6 +60,7 @@ function PartsByYear() {
       title: part.title,
       price: part.price,
       image: part.images[0],
+      itemType: "part",
     };
 
     addToCart(productToAdd);
