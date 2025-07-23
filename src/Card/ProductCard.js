@@ -5,12 +5,12 @@ import { FaSearch } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
 import "./product.css";
 
-function ProductCard({ img, title, id, price, type }) {
+function ProductCard({ img, title, id, price, itemType }) {
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
 
   const handleNavigate = () => {
-    if (type === "part") {
+    if (itemType === "part") {
       navigate(`/parts/${id}`);
     } else {
       navigate(`/accessories/detail/${id}`);
@@ -23,7 +23,7 @@ function ProductCard({ img, title, id, price, type }) {
       title: title,
       price: price,
       image: img,
-      itemType: type,
+      itemType: itemType,
     };
     console.log("Добавям в количката:", product);
     addToCart(product);

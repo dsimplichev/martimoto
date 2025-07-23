@@ -3,7 +3,7 @@ import { AuthContext } from '../../Context/AuthContext';
 import { CartContext } from '../../Context/CartContext';
 import { FavoritesContext } from '../../Context/FavoritesContext';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './nav.css';
 import logo from '../../assets/logo.png';
 import Register from '../register/Register';
@@ -13,7 +13,7 @@ import axios from 'axios';
 
 function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
-    const { cart } = useContext(CartContext);
+    const { cart } = useContext(CartContext); // 'cart' вече съдържа обогатени данни (снимка, име, цена)
     const [showLogin, setShowLogin] = useState(false);
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const [showCartDropdown, setShowCartDropdown] = useState(false);
@@ -23,6 +23,12 @@ function Nav({ onLogout }) {
     const totalFavorites = favorites ? favorites.length : 0;
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation(); 
+    const isCartPage = location.pathname === '/cart';
+
+
+    const EUR_EXCHANGE_RATE = 1.95583;
+
 
     const handleLogout = () => {
         logout();
@@ -42,6 +48,8 @@ function Nav({ onLogout }) {
     }, [setUser, isLoggedIn]);
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+     const totalBGN = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const totalEUR = (totalBGN / EUR_EXCHANGE_RATE).toFixed(2);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -64,12 +72,12 @@ function Nav({ onLogout }) {
 
     const handleCartClick = () => {
         setShowCartDropdown(prev => !prev);
-        setShowProfileDropdown(false); // Close profile dropdown if open
+        setShowProfileDropdown(false); 
     };
 
     const navigateToCart = () => {
-        setShowCartDropdown(false); // Close cart dropdown if open
-        navigate('/cart'); // Navigate to the cart page
+        setShowCartDropdown(false); 
+        navigate('/cart'); 
     };
 
     return (
@@ -135,24 +143,53 @@ function Nav({ onLogout }) {
                     )}
 
                     <div className="cart-section" ref={cartDropdownRef}>
-                        {/* 🆕 Променена логика на onClick: */}
                         <button
                             className="ShoppingCart2"
-                            onClick={isLoggedIn ? navigateToCart : handleCartClick}
+                            
+                            onClick={() => {
+                                if (isCartPage) {
+                                    
+                                    setShowCartDropdown(false);
+                                } else if (isLoggedIn) {
+                                    
+                                    navigateToCart();
+                                } else {
+                                    
+                                    handleCartClick();
+                                }
+                            }}
                         >
                             <FaShoppingCart />
                             {totalItems > 0 && (
                                 <span className="cart-badge">{totalItems}</span>
                             )}
                         </button>
-                        {/* 🆕 Дропдаунът се показва само когато потребителят НЕ Е логнат И showCartDropdown е true */}
+
+                        
                         {!isLoggedIn && showCartDropdown && (
                             <div className="dropdown-menu show cart-dropdown">
                                 {totalItems === 0 ? (
                                     <p className="empty-cart-message">Количката е празна.</p>
                                 ) : (
                                     <>
-                                        <p className="cart-summary">Продукти в количката: {totalItems}</p>
+                                        <div className="cart-items-list">
+                                            {cart.map(item => (
+                                                <div key={item._id} className="cart-dropdown-item">
+                                                    <img src={item.image} alt={item.title} className="cart-dropdown-item-image" />
+                                                    <div className="cart-dropdown-item-info">
+                                                        <span className="cart-dropdown-item-title">{item.title}</span>
+                                                        
+                                                        <span className="cart-dropdown-item-price-qty">
+                                                            {item.quantity} x {item.price.toFixed(2)} лв. ({(item.price / EUR_EXCHANGE_RATE).toFixed(2)} €)
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        
+                                        <div className="cart-dropdown-total">
+                                            Общо: {totalBGN.toFixed(2)} лв. ({totalEUR} €)
+                                        </div>
                                         <button className="view-cart-btn" onClick={navigateToCart}>Виж количката</button>
                                     </>
                                 )}

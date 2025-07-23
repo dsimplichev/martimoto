@@ -8,16 +8,20 @@ router.get('/', async (req, res) => {
         const lastAccessories = await Accessory.find()
             .sort({ createdAt: -1 })
             .limit(10)
-            .lean();
+            .lean(); // Използваме .lean() за по-бързо извличане на обикновени JS обекти
 
         const lastParts = await Part.find()
             .sort({ createdAt: -1 })
             .limit(10)
-            .lean();
+            .lean(); // Използваме .lean()
 
-        const combined = [...lastAccessories, ...lastParts]
+        // 🆕 Добавяме itemType към всеки продукт
+        const accessoriesWithTypes = lastAccessories.map(acc => ({ ...acc, itemType: 'accessory' }));
+        const partsWithTypes = lastParts.map(part => ({ ...part, itemType: 'part' }));
+
+        const combined = [...accessoriesWithTypes, ...partsWithTypes]
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .slice(0, 10);
+            .slice(0, 10); // Взимаме само последните 10 от комбинираните
 
         res.json(combined);
     } catch (error) {

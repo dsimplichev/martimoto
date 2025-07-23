@@ -103,64 +103,58 @@
     transform: scale(1.1);
 }
 
-/* Общ стил за секциите с дропдаун (профил и количка) */
+
 .profile-section, .cart-section {
-    position: relative; /* Важно за позиционирането на дропдауна */
+    position: relative; 
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-left: 15px; /* Или както е необходимо за разстояние между иконите */
+    margin-left: 15px; 
 }
 
-/* Общ стил за дропдаун менютата (профил и количка) */
+
 .dropdown-menu {
     position: absolute;
-    top: 100%; /* Позиционира дропдауна под елемента */
-    right: 0; /* Позиционира го вдясно, може да промениш на left: 0; ако искаш да е отляво */
-    background-color: white; /* Променено от #fff за консистентност */
-    border: 1px solid #ddd; /* Променено от #ccc за консистентност */
-    border-radius: 8px; /* Променено от 4px за по-заоблени ъгли */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* По-силен сянка */
+    top: 100%; 
+    right: 0; 
+    background-color: white; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
     min-width: 200px;
-    z-index: 1000; /* За да е над други елементи */
+    z-index: 1000; 
 
-    /* Използваме opacity и visibility за плавен преход */
+    
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px); /* Започва малко по-надолу */
+    transform: translateY(10px); 
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-    padding: 10px; /* Добавен padding */
+    padding: 10px; 
 }
 
-/* Класът 'show' контролира видимостта и анимацията */
+
 .dropdown-menu.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* Специфични стилове за дропдаун на количката */
+
 .cart-dropdown {
-    min-width: 250px; /* Може би малко по-широк */
-    text-align: center; /* Центриране на текста */
+    min-width: 250px; 
+    text-align: center; 
 }
 
 .empty-cart-message {
     padding: 10px;
     color: #666;
     font-style: italic;
-    margin: 0; /* Премахване на външни отстъпи по подразбиране */
+    margin: 0; 
 }
 
-.cart-summary {
-    padding: 10px;
-    font-weight: bold;
-    color: #333;
-    margin: 0; /* Премахване на външни отстъпи по подразбиране */
-}
 
 .view-cart-btn {
-    background-color: #f39c12; /* Използваме твоя акцентен цвят */
+    background-color: #f39c12; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -168,20 +162,16 @@
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.2s ease;
-    width: calc(100% - 20px); /* За да заема цялата ширина с padding */
-    box-sizing: border-box; /* Включва padding в ширината */
+    width: calc(100% - 20px); 
+    box-sizing: border-box; 
 }
 
 .view-cart-btn:hover {
-    background-color: #e67e22; /* По-тъмен акцентен цвят при ховър */
+    background-color: #e67e22; 
 }
 
-/* Останалите стилове от оригиналния файл */
-.cart-order {
-    color: black;
-    text-align: center;
-    font-size: 10; /* Може би искаш да е 10px или 0.625rem */
-}
+
+
 
 .cart-item {
     display: flex;
@@ -279,7 +269,7 @@
     margin-left: 3px;
 }
 
-/* Корекции на съществуващи стилове за профил дропдаун, за да съвпадат с новия .dropdown-menu */
+
 .profile-section {
     position: relative;
     display: inline-block;
@@ -296,11 +286,11 @@
 .dropdown-menu li a {
     text-decoration: none;
     color: black;
-    font-size: 14px; /* Малко по-голям шрифт за по-добра четимост */
+    font-size: 14px; 
     display: block;
     padding: 10px;
     text-align: left;
-    transition: background-color 0.2s ease, color 0.2s ease; /* Добавени преходи */
+    transition: background-color 0.2s ease, color 0.2s ease; 
 }
 
 .dropdown-menu li:first-child a {
@@ -309,7 +299,7 @@
 
 .dropdown-menu li:hover a,
 .logout-btn:hover {
-    background-color: #f39c12; /* Използваме твоя акцентен цвят */
+    background-color: #f39c12; 
     color: white;
 }
 
@@ -322,11 +312,11 @@
     border: none;
     color: black;
     cursor: pointer;
-    font-size: 14px; /* Малко по-голям шрифт */
+    font-size: 14px; 
     text-align: left;
     padding: 10px;
     width: 100%;
-    transition: background-color 0.2s ease, color 0.2s ease; /* Добавени преходи */
+    transition: background-color 0.2s ease, color 0.2s ease; 
 }
 
 .cart-badge {
@@ -374,6 +364,68 @@
     to {
         transform: translateX(-80%);
     }
+}
+
+.cart-dropdown-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee; 
+}
+
+.cart-dropdown-item:last-child {
+    border-bottom: none; 
+    margin-bottom: 15px; 
+}
+
+.cart-dropdown-item-image {
+    width: 50px; /* Размер на снимката */
+    height: 50px;
+    object-fit: cover; 
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.cart-dropdown-item-info {
+    display: flex; /* Прави децата да се подреждат в един ред */
+    justify-content: space-between; /* Разпъва заглавието и цената/количеството */
+    align-items: center; /* Центрира ги вертикално */
+    flex-grow: 1; /* Позволява на инфо секцията да заема наличното пространство */
+    text-align: left; /* Запазва подравняването на текста */
+}
+
+.cart-dropdown-item-title {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+}
+
+.cart-dropdown-item-price {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 2px;
+}
+
+.cart-dropdown-item-price-qty { /* 🆕 Нов клас */
+    font-size: 0.8em;
+    color: #666;
+    margin-left: 10px; /* Добавя малко разстояние от заглавието */
+    flex-shrink: 0; /* Предотвратява свиването на този елемент */
+}
+
+.cart-dropdown-total {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee; 
 }
 
 @media (max-width: 768px) {

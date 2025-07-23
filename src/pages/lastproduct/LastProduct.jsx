@@ -18,7 +18,6 @@ function LastProduct() {
             );
     }, []);
 
-    
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -39,10 +38,11 @@ function LastProduct() {
                         {currentProducts.map((product, index) => (
                             <ProductCard
                                 key={index}
-                                img={product.images[0]}
+                                img={product.images && product.images.length > 0 ? product.images[0] : product.imageUrl || "/default-image.jpg"} // 🆕 По-добра логика за изображението
                                 title={product.title}
                                 id={product._id}
                                 price={product.price}
+                                itemType={product.itemType} // 🆕 Подаваме itemType на ProductCard
                             />
                         ))}
                     </div>
