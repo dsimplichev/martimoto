@@ -9,6 +9,9 @@ function ProductCard({ img, title, id, price, itemType }) {
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
 
+  const EUR_EXCHANGE_RATE = 1.95583;
+  const priceEUR = (price / EUR_EXCHANGE_RATE).toFixed(2);
+
   const handleNavigate = () => {
     if (itemType === "part") {
       navigate(`/parts/${id}`);
@@ -37,7 +40,9 @@ function ProductCard({ img, title, id, price, itemType }) {
       <div className="product-bottom-row">
         <div className="product-info-left">
           <p className="product-title">{title}</p>
-          <p className="product-price2">{price} лв.</p>
+          <p className="product-price2">
+            {price} лв. / {priceEUR} €
+          </p>
         </div>
 
         <div className="product-buttons">

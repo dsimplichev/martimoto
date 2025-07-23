@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './contactForm.css';
-import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa'; // Добавяме икони
-
+import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa'; 
 function ContactForm({ onClose }) {
     const [formData, setFormData] = useState({
         fullName: '',
@@ -9,10 +8,10 @@ function ContactForm({ onClose }) {
         phone: '',
         query: '',
         message: '',
-        acceptTerms: false // Ново състояние за чекбокса
+        acceptTerms: false 
     });
-    const [submissionStatus, setSubmissionStatus] = useState(null); // 'success', 'error', null
-    const [errorMessage, setErrorMessage] = useState(''); // За съобщение за грешка
+    const [submissionStatus, setSubmissionStatus] = useState(null); 
+    const [errorMessage, setErrorMessage] = useState(''); 
 
     const onChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -24,7 +23,7 @@ function ContactForm({ onClose }) {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        setSubmissionStatus(null); // Изчистваме предишното състояние
+        setSubmissionStatus(null); 
         setErrorMessage('');
 
         if (!formData.acceptTerms) {
@@ -36,8 +35,8 @@ function ContactForm({ onClose }) {
             const payload = {
                 fullName: formData.fullName,
                 email: formData.email,
-                phone: formData.phone, // Включваме phone
-                query: formData.query, // Включваме query
+                phone: formData.phone, 
+                query: formData.query, 
                 message: formData.message
             };
 
@@ -90,12 +89,12 @@ function ContactForm({ onClose }) {
                         </p>
                         <div className="contact-detail">
                             <FaEnvelope className="contact-icon" />
-                            <span>Пишете ни</span> {/* 🆕 Преведено на български */}
+                            <span>Пишете ни</span> 
                             <a href="mailto:info@mail.com">info@mail.com</a>
                         </div>
                         <div className="contact-detail">
                             <FaPhoneAlt className="contact-icon" />
-                            <span>Обадете ни се</span> {/* 🆕 Преведено на български */}
+                            <span>Обадете ни се</span> 
                             <a href="tel:+13334545544">+1 333 454 55 44</a>
                         </div>
                     </div>

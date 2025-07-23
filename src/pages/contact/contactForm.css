@@ -4,27 +4,27 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* По-тъмен овърлей */
+    background-color: rgba(0, 0, 0, 0.8); 
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000; /* По-висок z-index, за да е над всичко */
-    backdrop-filter: blur(5px); /* Лек блър ефект */
+    z-index: 2000; 
+    backdrop-filter: blur(5px); 
 }
 
 .contact-form-container {
-    background-color: #1a1a1a; /* Тъмен фон */
-    border-radius: 15px; /* По-заоблени ъгли */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); /* По-изразена сянка */
+    background-color: #1a1a1a; 
+    border-radius: 15px; 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); 
     width: 90%;
-    max-width: 1000px; /* Максимална ширина на формата */
-    min-height: 600px; /* Минимална височина */
+    max-width: 1000px; 
+    min-height: 600px; 
     position: relative;
-    padding: 0; /* Премахваме padding от контейнера, ще го сложим вътре */
-    overflow: hidden; /* За да не излизат елементи извън рамката */
+    padding: 0; 
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
-    color: white; /* Основен цвят на текста */
+    color: white; 
     font-family: Arial, sans-serif;
 }
 
@@ -34,8 +34,8 @@
     right: 20px;
     background: none;
     border: none;
-    font-size: 2.5em; /* По-голям X */
-    color: #f39c12; /* Акцентен цвят */
+    font-size: 2.5em; 
+    color: #f39c12; 
     cursor: pointer;
     z-index: 2001;
     transition: color 0.3s ease;
@@ -46,8 +46,8 @@
 }
 
 .contact-header {
-    background-color: #1a1a1a; /* Същият фон като контейнера */
-    padding: 40px 20px 20px 20px; /* Повече padding */
+    background-color: #1a1a1a; 
+    padding: 40px 20px 20px 20px; 
     text-align: center;
     position: relative;
     z-index: 1;
@@ -223,7 +223,7 @@
     text-align: center;
 }
 
-/* Медия заявки за адаптивен дизайн */
+
 @media (max-width: 900px) {
     .contact-form-container {
         max-width: 90%;
@@ -260,11 +260,11 @@
     }
 
     .contact-detail {
-        justify-content: center; /* Центрира детайлите */
+        justify-content: center; 
     }
 
     .contact-form-fields {
-        padding-top: 20px; /* Отстъп от горната секция */
+        padding-top: 20px; 
     }
 }
 

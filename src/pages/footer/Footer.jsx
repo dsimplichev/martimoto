@@ -1,7 +1,7 @@
 import React from 'react';
 import './footer.css';
 import logo from '../../assets/logo.png';
-import { FaInstagram, FaFacebook, FaEnvelope, FaPhone } from 'react-icons/fa'; // Импортиране на допълнителни икони
+import { FaInstagram, FaFacebook, FaEnvelope, FaPhone } from 'react-icons/fa'; 
 
 function Footer() {
     return (

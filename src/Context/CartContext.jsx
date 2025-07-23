@@ -9,17 +9,6 @@ export const CartProvider = ({ children }) => {
     const [userId, setUserId] = useState(null);
     const [isCartLoading, setIsCartLoading] = useState(true);
 
-    // Този useEffect вече няма да е необходим за запазване на количката на гости,
-    // тъй като saveGuestCart ще се извиква експлицитно.
-    // useEffect(() => {
-    //     if (!isLoggedIn) {
-    //         const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
-    //         const guestCartData = { items: cart, expiry };
-    //         localStorage.setItem("guest_cart", JSON.stringify(guestCartData));
-    //     } else {
-    //         localStorage.removeItem("guest_cart");
-    //     }
-    // }, [cart, isLoggedIn]);
 
     useEffect(() => {
         const checkAuthAndLoadCart = async () => {
@@ -38,11 +27,11 @@ export const CartProvider = ({ children }) => {
                     console.log("👤 Гост си, зареждаме количка от localStorage");
                     setIsLoggedIn(false);
                     setUserId(null);
-                    await loadGuestCart(); // Променено на await
+                    await loadGuestCart(); 
                 }
             } catch (error) {
                 console.error("Грешка при проверка на логина:", error);
-                await loadGuestCart(); // Променено на await
+                await loadGuestCart(); 
             } finally {
                 setIsCartLoading(false);
             }
@@ -62,7 +51,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // 🆕 Нова функция за обогатяване на продуктите за гости
+    
     const fetchProductDetails = async (items) => {
         const populatedItems = await Promise.all(
             items.map(async (item) => {
@@ -72,7 +61,7 @@ export const CartProvider = ({ children }) => {
                 let title = null;
 
                 try {
-                    // Опитваме да вземем детайли за продукта от бекенда
+                    
                     const response = await axios.get(`http://localhost:5000/products/${item.productId}`); // Предполагам, че имате такъв ендпойнт
 
                     if (response.data) {
@@ -83,7 +72,7 @@ export const CartProvider = ({ children }) => {
                     }
                 } catch (error) {
                     console.error("Грешка при зареждане на детайли за продукт:", item.productId, error);
-                    return null; // Връщаме null, ако продуктът не е намерен или има грешка
+                    return null; 
                 }
 
                 if (!productData) return null;
@@ -102,7 +91,7 @@ export const CartProvider = ({ children }) => {
     };
 
 
-    const loadGuestCart = async () => { // Променено на async
+    const loadGuestCart = async () => { 
         const guestCartData = JSON.parse(localStorage.getItem("guest_cart"));
         if (guestCartData && guestCartData.items) {
             const now = new Date().getTime();
@@ -110,7 +99,7 @@ export const CartProvider = ({ children }) => {
                 localStorage.removeItem("guest_cart");
                 setCart([]);
             } else {
-                // 🆕 Извличаме пълните данни за продуктите
+                
                 const populatedCart = await fetchProductDetails(guestCartData.items);
                 setCart(populatedCart);
             }
@@ -121,11 +110,11 @@ export const CartProvider = ({ children }) => {
 
     const saveGuestCart = (cartItems) => {
         const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
-        // 🆕 Запазваме само productId, quantity и itemType за гости
+        
         const simplifiedCartItems = cartItems.map(item => ({
-            productId: item._id, // Използваме _id на продукта като productId
+            productId: item._id, 
             quantity: item.quantity,
-            itemType: item.itemType || "part" // Уверете се, че itemType е наличен или задайте стойност по подразбиране
+            itemType: item.itemType || "part" 
         }));
         const guestCartData = { items: simplifiedCartItems, expiry };
         localStorage.setItem("guest_cart", JSON.stringify(guestCartData));
@@ -144,7 +133,7 @@ export const CartProvider = ({ children }) => {
                 console.error("Грешка при добавяне в количката:", error);
             }
         } else {
-            const existingItem = cart.find(item => item._id === product._id); // Все още сравняваме по _id, защото "cart" вече е "обогатена"
+            const existingItem = cart.find(item => item._id === product._id); 
             let updatedCart;
 
             if (existingItem) {
@@ -154,12 +143,12 @@ export const CartProvider = ({ children }) => {
                         : item
                 );
             } else {
-                // Добавяме пълния обект, защото `cart` съдържа пълни обекти след `loadGuestCart`
+                
                 updatedCart = [...cart, { ...product, quantity: 1 }];
             }
 
             setCart(updatedCart);
-            saveGuestCart(updatedCart); // Извикваме saveGuestCart с обновената количка
+            saveGuestCart(updatedCart); 
         }
     };
 
@@ -175,7 +164,7 @@ export const CartProvider = ({ children }) => {
         } else {
             const updatedCart = cart.filter(item => item._id !== productId);
             setCart(updatedCart);
-            saveGuestCart(updatedCart); // Извикваме saveGuestCart с обновената количка
+            saveGuestCart(updatedCart); 
         }
     };
 
@@ -196,7 +185,7 @@ export const CartProvider = ({ children }) => {
         setCart([]);
         setIsLoggedIn(false);
         setUserId(null);
-        localStorage.removeItem("guest_cart"); // Добавяме изчистване на количката за гости при logout
+        localStorage.removeItem("guest_cart"); 
         axios.post("http://localhost:5000/auth/logout", {}, { withCredentials: true })
             .catch(error => console.error("Грешка при logout:", error));
     };

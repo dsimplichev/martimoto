@@ -42,7 +42,7 @@ function LastProduct() {
                                 title={product.title}
                                 id={product._id}
                                 price={product.price}
-                                itemType={product.itemType} // 🆕 Подаваме itemType на ProductCard
+                                itemType={product.itemType} 
                             />
                         ))}
                     </div>

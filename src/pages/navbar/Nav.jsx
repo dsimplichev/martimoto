@@ -13,7 +13,7 @@ import axios from 'axios';
 
 function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
-    const { cart } = useContext(CartContext); // 'cart' вече съдържа обогатени данни (снимка, име, цена)
+    const { cart } = useContext(CartContext); 
     const [showLogin, setShowLogin] = useState(false);
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const [showCartDropdown, setShowCartDropdown] = useState(false);
