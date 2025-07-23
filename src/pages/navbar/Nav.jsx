@@ -3,7 +3,7 @@ import { AuthContext } from '../../Context/AuthContext';
 import { CartContext } from '../../Context/CartContext';
 import { FavoritesContext } from '../../Context/FavoritesContext';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './nav.css';
 import logo from '../../assets/logo.png';
 import Register from '../register/Register';
@@ -15,11 +15,14 @@ function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
     const { cart } = useContext(CartContext);
     const [showLogin, setShowLogin] = useState(false);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null);
+    const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+    const [showCartDropdown, setShowCartDropdown] = useState(false);
+    const profileDropdownRef = useRef(null);
+    const cartDropdownRef = useRef(null);
     const { favorites } = useContext(FavoritesContext);
     const totalFavorites = favorites ? favorites.length : 0;
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
@@ -27,7 +30,7 @@ function Nav({ onLogout }) {
     };
 
     useEffect(() => {
-        if (isLoggedIn)
+        if (isLoggedIn) {
             axios.get('http://localhost:5000/auth/user', { withCredentials: true })
                 .then(response => {
                     setUser(response.data.user);
@@ -35,26 +38,39 @@ function Nav({ onLogout }) {
                 .catch(error => {
                     console.log('Грешка при заявка към /user:', error);
                 });
+        }
     }, [setUser, isLoggedIn]);
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setShowDropdown(false);
+            if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+                setShowProfileDropdown(false);
+            }
+            if (cartDropdownRef.current && !cartDropdownRef.current.contains(event.target)) {
+                setShowCartDropdown(false);
             }
         };
 
-        if (showDropdown) {
+        if (showProfileDropdown || showCartDropdown) {
             document.addEventListener("mousedown", handleClickOutside);
         }
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [showDropdown]);
+    }, [showProfileDropdown, showCartDropdown]);
+
+    const handleCartClick = () => {
+        setShowCartDropdown(prev => !prev);
+        setShowProfileDropdown(false); // Close profile dropdown if open
+    };
+
+    const navigateToCart = () => {
+        setShowCartDropdown(false); // Close cart dropdown if open
+        navigate('/cart'); // Navigate to the cart page
+    };
 
     return (
         <div className="navbar">
@@ -76,29 +92,29 @@ function Nav({ onLogout }) {
                 <div className="btn">
                     {isLoggedIn ? (
                         <>
-                            <div className="profile-section" ref={dropdownRef}>
-                                <span className="profile-header" onClick={() => setShowDropdown(prev => !prev)}>
+                            <div className="profile-section" ref={profileDropdownRef}>
+                                <span className="profile-header" onClick={() => { setShowProfileDropdown(prev => !prev); setShowCartDropdown(false); }}>
                                     Моят профил <FaChevronDown className="chevron-down" />
                                 </span>
                                 <p className="greeting">Здравейте</p>
                                 <p className="username">{user?.displayName && user.displayName.trim() !== ""
                                     ? user.displayName
                                     : user?.username || "Гост"}</p>
-                                {showDropdown && (
+                                {showProfileDropdown && (
                                     <div className="dropdown-menu show">
                                         <ul>
-                                            <li><Link to="/order-history" onClick={() => setShowDropdown(false)}>История на поръчките</Link></li>
-                                            <li><Link to="/favorites" onClick={() => setShowDropdown(false)}>Желани продукти</Link></li>
-                                            <li><Link to="/profile/password" onClick={() => setShowDropdown(false)}>Парола</Link></li>
+                                            <li><Link to="/order-history" onClick={() => setShowProfileDropdown(false)}>История на поръчките</Link></li>
+                                            <li><Link to="/favorites" onClick={() => setShowProfileDropdown(false)}>Желани продукти</Link></li>
+                                            <li><Link to="/profile/password" onClick={() => setShowProfileDropdown(false)}>Парола</Link></li>
                                             {user?.role === 'admin' && (
                                                 <>
-                                                    <li><Link to="/add-part" onClick={() => setShowDropdown(false)}>Добави част</Link></li>
-                                                    <li><Link to="/add-accessory" onClick={() => setShowDropdown(false)}>Добави аксесоари</Link></li>
-                                                    <li><Link to="/admin/orders" onClick={() => setShowDropdown(false)}>Поръчки за изпращане</Link></li>
-                                                    <li><Link to="/admin/messages" onClick={() => setShowDropdown(false)}>Съобщения</Link></li>
+                                                    <li><Link to="/add-part" onClick={() => setShowProfileDropdown(false)}>Добави част</Link></li>
+                                                    <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
+                                                    <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
+                                                    <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>
                                                 </>
                                             )}
-                                            <li><button className="logout-btn" onClick={() => { handleLogout(); setShowDropdown(false); }}>Изход</button></li>
+                                            <li><button className="logout-btn" onClick={() => { handleLogout(); setShowProfileDropdown(false); }}>Изход</button></li>
                                         </ul>
                                     </div>
                                 )}
@@ -118,15 +134,31 @@ function Nav({ onLogout }) {
                         </button>
                     )}
 
-                    <button className="ShoppingCart2">
-                        <Link className='cart2' to='/cart'>
+                    <div className="cart-section" ref={cartDropdownRef}>
+                        {/* 🆕 Променена логика на onClick: */}
+                        <button
+                            className="ShoppingCart2"
+                            onClick={isLoggedIn ? navigateToCart : handleCartClick}
+                        >
                             <FaShoppingCart />
                             {totalItems > 0 && (
                                 <span className="cart-badge">{totalItems}</span>
                             )}
-                        </Link>
-                    </button>
-
+                        </button>
+                        {/* 🆕 Дропдаунът се показва само когато потребителят НЕ Е логнат И showCartDropdown е true */}
+                        {!isLoggedIn && showCartDropdown && (
+                            <div className="dropdown-menu show cart-dropdown">
+                                {totalItems === 0 ? (
+                                    <p className="empty-cart-message">Количката е празна.</p>
+                                ) : (
+                                    <>
+                                        <p className="cart-summary">Продукти в количката: {totalItems}</p>
+                                        <button className="view-cart-btn" onClick={navigateToCart}>Виж количката</button>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
