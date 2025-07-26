@@ -88,119 +88,114 @@ function Nav({ onLogout }) {
                     <span></span>
                     <span></span>
                 </div>
-
+                <img src={logo} alt="Logo" className="logo" />
                 <ul className={`nav-links ${isMobileMenuOpen ? "show" : ""}`}>
-                    <li>
-                        <img src={logo} alt="Logo" className="logo" />
-                    </li>
                     <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>НАЧАЛО</Link></li>
                     <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>ИЗБЕРИ МОДЕЛ</Link></li>
                     <li><Link to="/accessories" onClick={() => setIsMobileMenuOpen(false)}>АКСЕСОАРИ</Link></li>
                     <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>КОНТАКТИ</Link></li>
                     <li><Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</Link></li>
-                    <li>
-                        <div className="btn">
-                            {isLoggedIn ? (
-                                <>
-                                    <div className="profile-section" ref={profileDropdownRef}>
-                                        <span className="profile-header" onClick={() => { setShowProfileDropdown(prev => !prev); setShowCartDropdown(false); }}>
-                                            Моят профил <FaChevronDown className="chevron-down" />
-                                        </span>
-                                        <p className="greeting">Здравейте</p>
-                                        <p className="username">{user?.displayName && user.displayName.trim() !== ""
-                                            ? user.displayName
-                                            : user?.username || "Гост"}</p>
-                                        {showProfileDropdown && (
-                                            <div className="dropdown-menu show">
-                                                <ul>
-                                                    <li><Link to="/order-history" onClick={() => setShowProfileDropdown(false)}>История на поръчките</Link></li>
-                                                    <li><Link to="/favorites" onClick={() => setShowProfileDropdown(false)}>Желани продукти</Link></li>
-                                                    <li><Link to="/profile/password" onClick={() => setShowProfileDropdown(false)}>Парола</Link></li>
-                                                    {user?.role === 'admin' && (
-                                                        <>
-                                                            <li><Link to="/add-part" onClick={() => setShowProfileDropdown(false)}>Добави част</Link></li>
-                                                            <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
-                                                            <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
-                                                            <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>
-                                                        </>
-                                                    )}
-                                                    <li><button className="logout-btn" onClick={() => { handleLogout(); setShowProfileDropdown(false); }}>Изход</button></li>
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <button className='FaHeart'>
-                                        <Link to="/favorites" className="heart-link">
-                                            <FaHeart />
-                                            {totalFavorites > 0 && (
-                                                <span className="heart-badge">{totalFavorites}</span>
+                </ul>
+                <div className="btn">
+                    {isLoggedIn ? (
+                        <>
+                            <div className="profile-section" ref={profileDropdownRef}>
+                                <span className="profile-header" onClick={() => { setShowProfileDropdown(prev => !prev); setShowCartDropdown(false); }}>
+                                    Моят профил <FaChevronDown className="chevron-down" />
+                                </span>
+                                <p className="greeting">Здравейте</p>
+                                <p className="username">{user?.displayName && user.displayName.trim() !== ""
+                                    ? user.displayName
+                                    : user?.username || "Гост"}</p>
+                                {showProfileDropdown && (
+                                    <div className="dropdown-menu show">
+                                        <ul>
+                                            <li><Link to="/order-history" onClick={() => setShowProfileDropdown(false)}>История на поръчките</Link></li>
+                                            <li><Link to="/favorites" onClick={() => setShowProfileDropdown(false)}>Желани продукти</Link></li>
+                                            <li><Link to="/profile/password" onClick={() => setShowProfileDropdown(false)}>Парола</Link></li>
+                                            {user?.role === 'admin' && (
+                                                <>
+                                                    <li><Link to="/add-part" onClick={() => setShowProfileDropdown(false)}>Добави част</Link></li>
+                                                    <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
+                                                    <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
+                                                    <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>
+                                                </>
                                             )}
-                                        </Link>
-                                    </button>
-                                </>
-                            ) : (
-                                <button className='user' onClick={() => setShowLogin(true)}>
-                                    <FaUserCircle />
-                                </button>
-                            )}
-
-                            <div className="cart-section" ref={cartDropdownRef}>
-                                <button
-                                    className="ShoppingCart2"
-                                    
-                                    onClick={() => {
-                                        if (isCartPage) {
-                                            
-                                            setShowCartDropdown(false);
-                                        } else if (isLoggedIn) {
-                                            
-                                            navigateToCart();
-                                        } else {
-                                            
-                                            handleCartClick();
-                                        }
-                                    }}
-                                >
-                                    <FaShoppingCart />
-                                    {totalItems > 0 && (
-                                        <span className="cart-badge">{totalItems}</span>
-                                    )}
-                                </button>
-
-                                
-                                {!isLoggedIn && showCartDropdown && (
-                                    <div className="dropdown-menu show cart-dropdown">
-                                        {totalItems === 0 ? (
-                                            <p className="empty-cart-message">Количката е празна.</p>
-                                        ) : (
-                                            <>
-                                                <div className="cart-items-list">
-                                                    {cart.map(item => (
-                                                        <div key={item._id} className="cart-dropdown-item">
-                                                            <img src={item.image} alt={item.title} className="cart-dropdown-item-image" />
-                                                            <div className="cart-dropdown-item-info">
-                                                                <span className="cart-dropdown-item-title">{item.title}</span>
-                                                                
-                                                                <span className="cart-dropdown-item-price-qty">
-                                                                    {item.quantity} x {item.price.toFixed(2)} лв. ({(item.price / EUR_EXCHANGE_RATE).toFixed(2)} €)
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                                
-                                                <div className="cart-dropdown-total">
-                                                    Общо: {totalBGN.toFixed(2)} лв. ({totalEUR} €)
-                                                </div>
-                                                <button className="view-cart-btn" onClick={navigateToCart}>Виж количката</button>
-                                            </>
-                                        )}
+                                            <li><button className="logout-btn" onClick={() => { handleLogout(); setShowProfileDropdown(false); }}>Изход</button></li>
+                                        </ul>
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                            <button className='FaHeart'>
+                                <Link to="/favorites" className="heart-link">
+                                    <FaHeart />
+                                    {totalFavorites > 0 && (
+                                        <span className="heart-badge">{totalFavorites}</span>
+                                    )}
+                                </Link>
+                            </button>
+                        </>
+                    ) : (
+                        <button className='user' onClick={() => setShowLogin(true)}>
+                            <FaUserCircle />
+                        </button>
+                    )}
+
+                    <div className="cart-section" ref={cartDropdownRef}>
+                        <button
+                            className="ShoppingCart2"
+                            
+                            onClick={() => {
+                                if (isCartPage) {
+                                    
+                                    setShowCartDropdown(false);
+                                } else if (isLoggedIn) {
+                                    
+                                    navigateToCart();
+                                } else {
+                                    
+                                    handleCartClick();
+                                }
+                            }}
+                        >
+                            <FaShoppingCart />
+                            {totalItems > 0 && (
+                                <span className="cart-badge">{totalItems}</span>
+                            )}
+                        </button>
+
+                        
+                        {!isLoggedIn && showCartDropdown && (
+                            <div className="dropdown-menu show cart-dropdown">
+                                {totalItems === 0 ? (
+                                    <p className="empty-cart-message">Количката е празна.</p>
+                                ) : (
+                                    <>
+                                        <div className="cart-items-list">
+                                            {cart.map(item => (
+                                                <div key={item._id} className="cart-dropdown-item">
+                                                    <img src={item.image} alt={item.title} className="cart-dropdown-item-image" />
+                                                    <div className="cart-dropdown-item-info">
+                                                        <span className="cart-dropdown-item-title">{item.title}</span>
+                                                        
+                                                        <span className="cart-dropdown-item-price-qty">
+                                                            {item.quantity} x {item.price.toFixed(2)} лв. ({(item.price / EUR_EXCHANGE_RATE).toFixed(2)} €)
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        
+                                        <div className="cart-dropdown-total">
+                                            Общо: {totalBGN.toFixed(2)} лв. ({totalEUR} €)
+                                        </div>
+                                        <button className="view-cart-btn" onClick={navigateToCart}>Виж количката</button>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <div className="info-bar">
