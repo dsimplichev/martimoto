@@ -14,12 +14,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     /* width: 100%; */
     /* margin-right: 170px; */
 }
 
 .logo {
     max-width: 150px;
+    flex: 1;
     /* height: 90px; */
     /* margin-left: 250px; */
     /* margin-top: 20px; */
@@ -31,6 +33,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0;
+    flex: 1;
     /* gap: 20px;
     position: absolute;
     left: 50%;
@@ -66,6 +69,7 @@
     display: flex;
     gap: 10px;
     margin-left: auto;
+    flex: 1;
 }
 
 .user {
@@ -434,6 +438,12 @@
     border-top: 1px solid #eee; 
 }
 
+@media (max-width: 830px) {
+    .logo {
+        max-width: 80px;
+    }
+}
+
 @media (max-width: 768px) {
     .navbar {
         padding: 10px;
@@ -449,10 +459,10 @@
         position: relative;
     }
 
-    .logo {
+    /* .logo {
         margin: 0;
         height: 60px;
-    }
+    } */
 
     .hamburger {
         display: flex;
