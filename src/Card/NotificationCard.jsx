@@ -7,7 +7,7 @@ export default function NotificationCard({ type = "success", message, onClose })
       <div className="notification-card-backdrop" />
       <div className={`notification-card ${type}`}>
         <p>{message}</p>
-        <button className="close-btn" onClick={onClose}>Затвори</button>
+        <button className="close-btn2" onClick={onClose}>Затвори</button>
       </div>
     </div>
   );

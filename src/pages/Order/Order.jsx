@@ -38,7 +38,7 @@ const Order = () => {
     0
   );
 
-  // Load all Econt cities on component mount
+  
   useEffect(() => {
     const loadAllEcontCities = async () => {
       setLoadingEcontCities(true);
@@ -58,11 +58,11 @@ const Order = () => {
     loadAllEcontCities();
   }, []);
 
-  // Memoized function for fetching Econt offices
+  
   const fetchEcontOffices = useCallback(async (cityId) => {
     setLoadingEcontOffices(true);
     setEcontOffices([]);
-    setOffice(""); // Clear selected office when city changes
+    setOffice(""); 
 
     try {
       const officesResponse = await axios.post("https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json", {
@@ -78,13 +78,13 @@ const Order = () => {
     } finally {
       setLoadingEcontOffices(false);
     }
-  }, []); // Empty dependency array means this function is created once
+  }, []); 
 
-  // Memoized function for fetching Speedy offices
+  
   const fetchSpeedyOffices = useCallback(async (cityName) => {
     setLoadingSpeedyOffices(true);
     setSpeedyOffices([]);
-    setOffice(""); // Clear selected office when city changes
+    setOffice(""); 
 
     try {
       const response = await axios.get(`https://www.speedy.bg/back-end/locations/offices?query=${encodeURIComponent(cityName)}`);
@@ -96,9 +96,9 @@ const Order = () => {
     } finally {
       setLoadingSpeedyOffices(false);
     }
-  }, []); // Empty dependency array means this function is created once
+  }, []); 
 
-  // Effect to handle city input changes and trigger office fetching with debounce
+  
   useEffect(() => {
     if (debounceTimeoutRef.current) {
       clearTimeout(debounceTimeoutRef.current);
@@ -129,9 +129,9 @@ const Order = () => {
         } else if (deliveryMethod === "Спиди") {
           fetchSpeedyOffices(city);
         }
-      }, 500); // Debounce time
+      }, 500); 
     } else {
-      // Clear suggestions/offices if city input is too short
+      
       setFilteredEcontCities([]);
       setEcontOffices([]);
       setSelectedCityId(null);
@@ -139,17 +139,17 @@ const Order = () => {
       setOffice("");
     }
 
-    // Cleanup function for debounce
+    
     return () => {
       if (debounceTimeoutRef.current) {
         clearTimeout(debounceTimeoutRef.current);
       }
     };
-  }, [city, deliveryMethod, allEcontCities, fetchEcontOffices, fetchSpeedyOffices]); // Dependencies
+  }, [city, deliveryMethod, allEcontCities, fetchEcontOffices, fetchSpeedyOffices]); 
 
-  // Effect to clear offices when delivery method changes or city is cleared
+  
   useEffect(() => {
-    // This effect ensures offices are cleared appropriately
+    
     if (deliveryMethod !== "Еконт") {
         setEcontOffices([]);
         setFilteredEcontCities([]);
@@ -158,17 +158,17 @@ const Order = () => {
     if (deliveryMethod !== "Спиди") {
         setSpeedyOffices([]);
     }
-    setOffice(""); // Always clear office when delivery method changes
+    setOffice(""); 
   }, [deliveryMethod]);
 
   const handleDeliveryChange = (method) => {
     setDeliveryMethod(method);
-    setCity(""); // Clear city when delivery method changes to reset
+    setCity(""); 
   };
 
   const handleInvoiceChange = () => {
     setIsInvoice(!isInvoice);
-    // Clear company details when invoice is unchecked
+    
     if (isInvoice) {
       setCompanyName("");
       setCompanyReg("");
@@ -178,17 +178,17 @@ const Order = () => {
   };
 
   const handleEcontCityInputChange = (e) => {
-    setCity(e.target.value); // Just update the city state, useEffect will handle fetching
+    setCity(e.target.value); 
   };
 
   const handleEcontCitySelect = (e) => {
     const selectedCityName = e.target.value;
     setCity(selectedCityName);
-    // Find the exact city object from allEcontCities to get its ID
+    
     const cityObj = allEcontCities.find(c => c.name === selectedCityName || c.nameEn === selectedCityName);
     if (cityObj) {
       setSelectedCityId(cityObj.id);
-      fetchEcontOffices(cityObj.id); // Immediately fetch offices for selected city
+      fetchEcontOffices(cityObj.id); 
     } else {
       setSelectedCityId(null);
       setEcontOffices([]);
@@ -256,8 +256,8 @@ const Order = () => {
             </>
           ),
         });
-        clearCart(); // Clear cart immediately on success
-        // Optionally, clear form fields here if you want the form to reset
+        clearCart(); 
+        
         setDeliveryMethod("");
         setDeliveryAddress("");
         setCity("");
@@ -268,9 +268,7 @@ const Order = () => {
         setCompanyAddress("");
         setComment("");
         setIsInvoice(false);
-        // Clear inputs by updating their state (if they were controlled components)
-        // For uncontrolled inputs, you might need to reset the form or use a ref.
-        // For now, they'll clear on navigation if success is handled.
+        
       }
     } catch (error) {
       console.error("Грешка при запис на поръчката:", error);
@@ -291,7 +289,7 @@ const Order = () => {
           onClose={() => {
             setNotification(null);
             if (notification.type === "success") {
-                navigate("/"); // Navigate home after successful order and notification dismissal
+                navigate("/"); 
             }
           }}
         />
@@ -372,11 +370,11 @@ const Order = () => {
                 <input
                   type="text"
                   value={city}
-                  onChange={handleEcontCityInputChange} // Simplified onChange
+                  onChange={handleEcontCityInputChange} 
                   required
                   placeholder="Напишете град"
                   list="econt-cities-datalist"
-                  onBlur={handleEcontCitySelect} // Handle selection when input loses focus (important for datalist)
+                  onBlur={handleEcontCitySelect} 
                 />
 
                 <datalist id="econt-cities-datalist">
@@ -426,7 +424,7 @@ const Order = () => {
                 <input
                   type="text"
                   value={city}
-                  onChange={(e) => setCity(e.target.value)} // useEffect will trigger fetchSpeedyOffices
+                  onChange={(e) => setCity(e.target.value)} 
                   required
                   placeholder="Напишете град"
                 />
