@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './brandDetails.css';
 import modelsData from './modelsData';
+import SectionHeader from '../../Card/SectionHeader';
 
 function BrandDetails() {
     const { brandName } = useParams();
@@ -11,8 +12,7 @@ function BrandDetails() {
 
     return (
         <div className="brand-details">
-            <h1 className="brand-title">{brandName}</h1>
-            <div className="title-underline3"></div>
+            <SectionHeader title={`Модели на ${brandName}`} /> 
             <div className="model-grid">
                 {models.map((model, index) => (
                     <div key={index} className="model-card">

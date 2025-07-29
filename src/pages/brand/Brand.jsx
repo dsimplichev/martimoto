@@ -1,5 +1,7 @@
 import './brand.css'
 import BrandCard from '../../Card/BrandCard'
+import SectionHeader from '../../Card/SectionHeader';
+
 import bmw from "../../assets/bmw.jpg"
 import ducati from "../../assets/ducati.jpg"
 import suzuki from "../../assets/suzuki.jpg"
@@ -23,11 +25,7 @@ function Brand() {
     return (
        
         <div className="container-brand">
-        <div className="header-section-brand">
-            <h2 className="title-brand">Пазаруване по марки</h2>    
-        </div>
-
-        <div className="divider-brand"></div>
+        <SectionHeader title="Пазаруване по марки" /> 
 
         <div className="categories-grid">
             {brands.map((brand, index) => (
