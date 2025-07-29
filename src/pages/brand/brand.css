@@ -1,22 +1,9 @@
+@import '../../Card/section-header.css';
+
 .container-brand {
-  width: 90%;
-  margin: 40px 200px 40px 200px;
-}
-
-.header-section-brand {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-  padding-top: 80px;
-  margin-right: 200px;
-}
-
-.divider-brand {
-  height: 2px;
-  background-color: #f39c12;
-  margin-bottom: 20px;
-  margin-right: 200px;
+  padding: 20px;
+  text-align: center;
+  margin: 40px 180px;
 }
 
 .categories-grid {
@@ -27,60 +14,4 @@
   padding: 20px;
 }
 
-.title-brand {
-  color: black;
-  font-weight: 900;
-  font-size: 2.5rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transform: skew(-15deg);
-  animation: subtleMove 2s ease-in-out infinite alternate;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
 
-@keyframes subtleMove {
-  0% {
-    transform: skew(-15deg) translateX(0);
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    transform: skew(-15deg) translateX(5px);
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-  }
-}
-
-@media (max-width: 768px) {
-  .container-brand {
-    margin: 40px 10px;
-    width: auto;
-  }
-
-  .header-section-brand {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px; 
-    margin-right: 0;
-  }
-
-  .title-brand {
-    font-size: 1.5rem;
-    margin: 0;
-    margin-bottom: 10px;
-  }
-
-  .divider-brand {
-    width: 100%;
-    margin: 0 0 20px 0;
-    background-color: #f39c12;
-    height: 2px;
-  }
-
-  .categories-grid {
-    grid-template-columns: 1fr;
-    margin: 0 auto;
-    padding: 10px;
-    max-width: 400px;
-    width: 100%;
-  }
-}
