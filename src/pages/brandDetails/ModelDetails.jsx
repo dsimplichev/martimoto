@@ -1,8 +1,10 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import './modelDetails.css';
-import modelDetailsData from '../brandDetails/modelDetailsData'; 
+import { useParams } from 'react-router-dom';
+
 import SectionHeader from '../../Card/SectionHeader';
+import GeneralBrandCard from '../../Card/GeneralBrandCard';
+import modelDetailsData from '../brandDetails/modelDetailsData'; 
+import './modelDetails.css';
 
 function ModelDetails() {
     const { brandName, modelName } = useParams(); 
@@ -11,18 +13,15 @@ function ModelDetails() {
     return (
         <div className="model-details">
             <SectionHeader title={modelName} /> 
-            <div className="model-grid2">
-                {subModels.map((subModel, index) => {
-                     
-                    return (
-                        <div key={index} className="model-card2">
-                            <Link className="model-link" to={`/brands/${brandName}/models/${modelName}/${subModel.name}`}>
-                                <img src={subModel.img} alt={subModel.name} className="model-image" />
-                                <p className="model-name">{subModel.name}</p>
-                            </Link>
-                        </div>
-                    );
-                })}
+            <div className="generic-grid">
+                {subModels.map((subModel, index) => (
+                    <GeneralBrandCard
+                        key={index}
+                        image={subModel.img}
+                        title={subModel.name}
+                        linkTo={`/brands/${brandName}/models/${modelName}/${subModel.name}`}
+                    />
+                ))}
             </div>
         </div>
     );

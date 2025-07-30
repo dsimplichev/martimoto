@@ -1,0 +1,77 @@
+:root {
+    --product-card-width: 250px;
+    --carousel-gap: 20px;
+}
+
+.generic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px; 
+    padding: 20px; 
+    box-sizing: border-box;
+    justify-content: flex-start; 
+}
+
+.generic-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 10px;
+    background-color: white;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    width: 100%; 
+    box-sizing: border-box;
+    min-height: 150px; 
+}
+
+
+
+.generic-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.generic-card-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.generic-card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    position: relative; 
+    padding-bottom: 5px; 
+}
+
+.generic-card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 0; 
+    height: 2px; 
+    background-color: #f39c12; 
+    transition: width 0.3s ease, left 0.3s ease, transform 0.3s ease; 
+}
+
+.generic-card:hover .generic-card-title::after {
+    width: 100%; 
+    left: 0; 
+    transform: translateX(0); 
+}
+
