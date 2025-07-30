@@ -1,78 +1,55 @@
+@import "../../Card/section-header.css";
+@import "../../Card/accessory-category-card.css";
+
 .accessories-page {
   padding: 20px;
   text-align: center;
   margin: 40px 180px;
+  box-sizing: border-box;
 }
 
-
-
-.accessory-categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.accessory-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
-  padding: 30px;
+  padding: 30px 0;
+  justify-content: center;
 }
 
-
-
-
-.category {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  width: 200px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  text-decoration: none;
-  color: inherit;
+@media (max-width: 1200px) {
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
+        padding: 20px 0;
+    }
 }
 
-.category:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
-}
-
-.category img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.category-name {
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-  margin-left: 10px;
+@media (max-width: 992px) {
+    .accessories-page {
+        margin: 40px 80px; 
+    }
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+        gap: 15px;
+        padding: 15px 0;
+    }
 }
 
 @media (max-width: 768px) {
-  .accessory-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 15px;
-    justify-content: center;
-  }
+    .accessories-page {
+        margin: 40px 15px; 
+        padding: 0;
+    }
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+        gap: 10px;
+        padding: 10px 0;
+    }
+}
 
-  .category {
-    width: 45%;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .category img {
-    width: 100%;
-    height: auto;
-  }
-
-
- 
+@media (max-width: 480px) {
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+        gap: 8px;
+        padding: 5px 0;
+    }
 }
