@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../../Card/ProductCard";
 import "./lastproduct.css";
+import SectionHeader from "../../Card/SectionHeader";
 
 function LastProduct() {
     const [products, setProducts] = useState([]);
@@ -26,11 +27,8 @@ function LastProduct() {
 
     return (
         <div className="container4">
-            <div className="header-section">
-                <div className="title-last-product">Последно добавени</div>
-            </div>
-
-            <div className="divider-last"></div>
+          <SectionHeader title="Последно добавени"/>
+            
 
             {currentProducts.length > 0 ? (
                 <>

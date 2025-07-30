@@ -1,13 +1,12 @@
 import './contact.css';
+import SectionHeader from '../../Card/SectionHeader';
 
 function Contact() {
     return (
         <div className="contact-page">
-            <div className="header-section3">
-                <h2 className="contact-title">За контакти</h2>
-            </div>
-            
-            <div className="divider"></div>
+            <SectionHeader title="За контакти" />
+
+
             <div className="contact-info">
                 <p><strong>Адрес:</strong> бул. Христо Ботев 42, Плевен, България</p>
                 <p><strong>Имейл:</strong> info@martimoto.bg</p>

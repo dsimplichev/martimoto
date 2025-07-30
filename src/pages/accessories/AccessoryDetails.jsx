@@ -10,6 +10,7 @@ import { CartContext } from "../../Context/CartContext";
 import { FavoritesContext } from "../../Context/FavoritesContext";
 
 import "./accessoryDetails.css";
+import SectionHeader from "../../Card/SectionHeader";
 
 function AccessoryDetails() {
     const { accessoryName } = useParams();
@@ -109,10 +110,7 @@ function AccessoryDetails() {
 
     return (
         <div className="accessories-page">
-            <div className="header-section-acc">
-                <h1>{accessoryName}</h1>
-            </div>
-            <div className="divider-acc"></div>
+            <SectionHeader title={accessoryName} /> 
 
             <div className="parts-grid">
                 {paginatedAccessories.length > 0 ? (

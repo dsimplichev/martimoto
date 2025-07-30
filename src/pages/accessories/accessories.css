@@ -1,126 +1,55 @@
+@import "../../Card/section-header.css";
+@import "../../Card/accessory-category-card.css";
+
 .accessories-page {
   padding: 20px;
   text-align: center;
+  margin: 40px 180px;
+  box-sizing: border-box;
 }
 
-.accessories-page h1 {
-  color: black;
-  font-weight: 900;
-  font-size: 2.5rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  transform: skew(-15deg);
-  animation: subtleMove 2s ease-in-out infinite alternate;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes subtleMove {
-  0% {
-    transform: skew(-15deg) translateX(0);
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    transform: skew(-15deg) translateX(5px);
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-  }
-}
-
-.accessory-categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.accessory-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
-  padding: 30px;
+  padding: 30px 0;
+  justify-content: center;
 }
 
-.header-section-acc {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-  padding-top: 80px;
-  margin-right: 200px;
-  margin-left: 180px;
+@media (max-width: 1200px) {
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
+        padding: 20px 0;
+    }
 }
 
-.divider-acc {
-  height: 2px;
-  background-color: #f39c12;
-  margin-bottom: 20px;
-  margin-left: 180px;
-  margin-right: 150px;
-}
-
-.category {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  width: 200px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  text-decoration: none;
-  color: inherit;
-}
-
-.category:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
-}
-
-.category img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.category-name {
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-  margin-left: 10px;
+@media (max-width: 992px) {
+    .accessories-page {
+        margin: 40px 80px; 
+    }
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+        gap: 15px;
+        padding: 15px 0;
+    }
 }
 
 @media (max-width: 768px) {
-  .accessory-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 15px;
-    justify-content: center;
-  }
+    .accessories-page {
+        margin: 40px 15px; 
+        padding: 0;
+    }
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+        gap: 10px;
+        padding: 10px 0;
+    }
+}
 
-  .category {
-    width: 45%;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .category img {
-    width: 100%;
-    height: auto;
-  }
-
-  .header-section-acc {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
-    padding-top: 40px !important;
-    justify-content: center !important;
-  }
-
-  .divider-acc {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 2px;
-    background-color: #f39c12;
-    margin-bottom: 20px;
-  }
+@media (max-width: 480px) {
+    .accessory-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+        gap: 8px;
+        padding: 5px 0;
+    }
 }

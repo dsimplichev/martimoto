@@ -1,10 +1,14 @@
+@import '../../Card/section-header.css'; 
+
 .parts-by-year {
   padding: 20px;
+  text-align: center;
+  margin: 40px 180px;
 }
 
 .parts-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 20px;
   max-width: 1200px;
@@ -51,36 +55,11 @@
   font-size: 1rem;
 }
 
-.brand-title5 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: black;
-  font-weight: 900;
-  font-size: 2.5rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transform: skew(-15deg);
-  animation: subtleMove 2s ease-in-out infinite alternate;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  margin-left: 180px;
-}
 
-@keyframes subtleMove {
-  0% {
-    transform: skew(-15deg) translateX(0);
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    transform: skew(-15deg) translateX(5px);
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-  }
-}
 
 .noparts {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .part-info {
@@ -116,13 +95,13 @@
 
 .cart-icon {
   font-size: 18px;
-  color: #888; 
+  color: #888;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .cart-icon:hover {
-  color: #2e7d32; 
+  color: #2e7d32;
 }
 
 .part-title {
@@ -136,7 +115,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,7 +128,7 @@
   border-radius: 10px;
   text-align: center;
   max-width: 350px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .popup-box p {
@@ -175,7 +154,7 @@
 .icons-container {
   display: flex;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 @media (max-width: 768px) {
@@ -185,13 +164,7 @@
     gap: 12px;
   }
 
-  .brand-title5 {
-    font-size: 20px;
-    margin-left: 0;
-    justify-content: center;
-    text-align: center;
-    padding: 0 10px;
-  }
+  
 
   .part-card {
     max-width: 100%;
@@ -241,4 +214,3 @@
     font-weight: bold;
   }
 }
-

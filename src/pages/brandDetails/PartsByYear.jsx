@@ -4,9 +4,10 @@ import { FavoritesContext } from '../../Context/FavoritesContext';
 import { AuthContext } from '../../Context/AuthContext';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import './partsByYear.css';
-import Divider from '../../Card/Divider';
+import SectionHeader from '../../Card/SectionHeader';
 import { MdAddShoppingCart } from "react-icons/md";
 import { IoHeartOutline } from "react-icons/io5";
+
 
 function PartsByYear() {
   const { brandName, modelName, year } = useParams();
@@ -86,8 +87,8 @@ function PartsByYear() {
   return (
     <>
       <div className="parts-by-year">
-        <h1 className="brand-title5">Части за {brandName} {modelName} ({year})</h1>
-        <Divider />
+        <SectionHeader title={`Части за ${brandName} ${modelName} (${year})`} />
+       
 
         {loading ? (
           <p>Зареждане...</p>
