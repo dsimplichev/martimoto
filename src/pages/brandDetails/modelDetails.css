@@ -1,3 +1,5 @@
+@import '../../Card/section-header.css'; 
+
 
 .model-details {
     padding: 20px;
@@ -5,38 +7,6 @@
     margin: 40px 180px;
 }
 
-.model-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: black;
-  font-weight: 900;
-  font-size: 2.5rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transform: skew(-15deg);
-  animation: subtleMove 2s ease-in-out infinite alternate;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes subtleMove {
-  0% {
-    transform: skew(-15deg) translateX(0);
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    transform: skew(-15deg) translateX(5px);
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-  }
-}
-
-.title-underline2 {
-    width: 100%;
-    height: 2px;
-    background-color: #f39c12;
-    width: 102%;
-}
 
 .model-grid2 {
     display: grid;

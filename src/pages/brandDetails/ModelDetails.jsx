@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './modelDetails.css';
 import modelDetailsData from '../brandDetails/modelDetailsData'; 
+import SectionHeader from '../../Card/SectionHeader';
 
 function ModelDetails() {
     const { brandName, modelName } = useParams(); 
@@ -9,8 +10,7 @@ function ModelDetails() {
 
     return (
         <div className="model-details">
-            <h1 className="model-title">{modelName}</h1>
-            <div className="title-underline2"></div>
+            <SectionHeader title={modelName} /> 
             <div className="model-grid2">
                 {subModels.map((subModel, index) => {
                      
