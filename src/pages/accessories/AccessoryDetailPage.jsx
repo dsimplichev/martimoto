@@ -81,7 +81,7 @@ function AccessoryDetailPage() {
                 <div className="product-images">
                     <img src={mainImage} alt={accessory.title} className="main-image" />
                     <div className="thumbnail-images">
-                        {/* Използваме map, за да покажем до 4 допълнителни изображения */}
+                        
                         {accessory.images.slice(1, 5).map((image, index) => (
                             <img
                                 key={index}

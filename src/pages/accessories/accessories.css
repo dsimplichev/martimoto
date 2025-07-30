@@ -1,30 +1,10 @@
 .accessories-page {
   padding: 20px;
   text-align: center;
+  margin: 40px 180px;
 }
 
-.accessories-page h1 {
-  color: black;
-  font-weight: 900;
-  font-size: 2.5rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  transform: skew(-15deg);
-  animation: subtleMove 2s ease-in-out infinite alternate;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
 
-@keyframes subtleMove {
-  0% {
-    transform: skew(-15deg) translateX(0);
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    transform: skew(-15deg) translateX(5px);
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-  }
-}
 
 .accessory-categories {
   display: flex;
@@ -34,23 +14,8 @@
   padding: 30px;
 }
 
-.header-section-acc {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-  padding-top: 80px;
-  margin-right: 200px;
-  margin-left: 180px;
-}
 
-.divider-acc {
-  height: 2px;
-  background-color: #f39c12;
-  margin-bottom: 20px;
-  margin-left: 180px;
-  margin-right: 150px;
-}
+
 
 .category {
   display: flex;
@@ -108,19 +73,6 @@
     height: auto;
   }
 
-  .header-section-acc {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
-    padding-top: 40px !important;
-    justify-content: center !important;
-  }
 
-  .divider-acc {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 2px;
-    background-color: #f39c12;
-    margin-bottom: 20px;
-  }
+ 
 }
