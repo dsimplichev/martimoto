@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../Context/CartContext";
+import { FavoritesContext } from "../../Context/FavoritesContext";
+import { AuthContext } from "../../Context/AuthContext";
+
 import ProductCard from "../../Card/ProductCard";
 import "./lastproduct.css";
 import SectionHeader from "../../Card/SectionHeader";
@@ -7,6 +12,44 @@ function LastProduct() {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 4;
+
+    const { addToCart } = useContext(CartContext);
+    const { addToFavorites } = useContext(FavoritesContext);
+    const { isLoggedIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleAddToCart = (e, productId) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const productToAdd = products.find(p => p._id === productId);
+        if (productToAdd) {
+            addToCart(productToAdd);
+            alert("Продуктът беше добавен в количката!");
+        }
+    };
+
+    const handleAddToFavorites = (e, productId) => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (!isLoggedIn) {
+            alert('Моля, влезте в профила си, за да добавяте в любими.');
+            navigate('/login');
+            return;
+        }
+        const productToAdd = products.find(p => p._id === productId);
+        if (productToAdd) {
+            addToFavorites(productToAdd);
+            alert("Продуктът беше добавен в любими!");
+        }
+    };
+
+    const handleNavigate = (id, itemType) => {
+        if (itemType === "part") {
+            navigate(`/parts/${id}`);
+        } else {
+            navigate(`/accessories/detail/${id}`);
+        }
+    };
 
     useEffect(() => {
         fetch("http://localhost:5000/api/last-products")
@@ -27,20 +70,23 @@ function LastProduct() {
 
     return (
         <div className="container4">
-          <SectionHeader title="Последно добавени"/>
-            
+            <SectionHeader title="Последно добавени" />
+
 
             {currentProducts.length > 0 ? (
                 <>
                     <div className="products-grid-container">
                         {currentProducts.map((product, index) => (
                             <ProductCard
-                                key={index}
-                                img={product.images && product.images.length > 0 ? product.images[0] : product.imageUrl || "/default-image.jpg"} // 🆕 По-добра логика за изображението
-                                title={product.title}
+                                key={product._id}
                                 id={product._id}
+                                title={product.title}
+                                img={product.images[0]}
                                 price={product.price}
-                                itemType={product.itemType} 
+                                itemType={product.itemType}
+                                onNavigate={handleNavigate}
+                                onAddToCart={handleAddToCart}
+                                onAddToFavorites={handleAddToFavorites}
                             />
                         ))}
                     </div>
