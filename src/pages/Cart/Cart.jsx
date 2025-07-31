@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../Context/CartContext";
+
 import "./cart.css";
+import SectionHeader from "../../Card/SectionHeader"
 
 const Cart = () => {
   const { cart, removeFromCart, clearCart, isCartLoading } = useContext(CartContext);
@@ -27,10 +29,7 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <div className="header-section-cart">
-        <h1 className="cart-title">Моята количка</h1>
-      </div>
-      <div className="divider-cart"></div>
+      <SectionHeader title="Моята количка" /> 
       <div className="cart-items">
         {cart.length === 0 ? (
           <p>Количката е празна</p>

@@ -1,70 +1,11 @@
+@import '../../Card/product.css';
+
 .accessories-page {
   padding: 20px;
   text-align: center;
   margin: 40px 180px;
 }
 
-
-
-
-.accessory-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  max-height: 240px;
-  max-width: 140px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-}
-
-.accessory-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.part-image2 {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 3px;
-}
-
-.acc-title {
-  display: flex;
-  font-size: 13px;
-  font-weight: 300;
-  color: #000000;
-  margin: 2px 0;
-  align-self: flex-start;
-  margin-left: 4px;
-  margin-top: 10px;
-  text-decoration: none;
-}
-
-.price-accessories {
-  color: #f39c12;
-  margin-top: 10px;
-  padding: 1px;
-  display: flex;
-  text-align: center;
-  width: 100%;
-  justify-content: flex-start;
-  margin-left: 5px;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  font-family: "Zilla Slab", Roboto, Arial, sans-serif;
-  font-weight: 700;
-  text-decoration: none;
-}
 
 .no-accessories {
   text-align: center;
@@ -87,10 +28,6 @@
   color: #fff;
   border-color: #ccc;
 }
-
-
-
-
 
 .pagination .MuiPaginationItem-root:hover {
   background-color: #ddd;
@@ -139,20 +76,3 @@
   
 
 
-@media (max-width: 1200px) {
-  .accessory-list {
-    grid-template-columns: repeat(4, 1fr); 
-  }
-}
-
-@media (max-width: 900px) {
-  .accessory-list {
-    grid-template-columns: repeat(3, 1fr); 
-  }
-}
-
-@media (max-width: 600px) {
-  .accessory-list {
-    grid-template-columns: repeat(2, 1fr); 
-  }
-}
