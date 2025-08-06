@@ -15,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    /* width: 100%; */
+    width: 90%;
     /* margin-right: 170px; */
 }
 
@@ -33,7 +33,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0;
-    flex: 1;
+    flex: 8;
     /* gap: 20px;
     position: absolute;
     left: 50%;
@@ -69,7 +69,8 @@
     display: flex;
     gap: 10px;
     margin-left: auto;
-    flex: 1;
+    flex: 2;
+    justify-content: flex-end;
 }
 
 .user {
@@ -505,6 +506,7 @@
         order: 1;
         display: flex;
         gap: 10px;
+        justify-content: center;
     }
 
     .profile-section {
