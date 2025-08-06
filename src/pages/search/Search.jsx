@@ -17,7 +17,7 @@ function Search() {
         <>
             <div className="page-content">
                 <div className="image-container">
-                    <img className="img" src={img} alt='search-moto' />
+                    {/* <img className="img" src={img} alt='search-moto' /> */}
                     <div className="search-container">
 
                         <p className="shop-text">МАГАЗИН</p>

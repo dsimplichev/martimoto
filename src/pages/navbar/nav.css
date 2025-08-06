@@ -14,26 +14,33 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-right: 170px;
+    flex-wrap: wrap;
+    width: 90%;
+    /* margin-right: 170px; */
 }
 
 .logo {
-    height: 90px;
-    margin-left: 250px;
-    margin-top: 20px;
+    max-width: 150px;
+    flex: 1;
+    /* height: 90px; */
+    /* margin-left: 250px; */
+    /* margin-top: 20px; */
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    flex: 8;
+    /* gap: 20px;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); */
 }
 
-.nav-links li a {
+.nav-links li a:not(.heart-link) {
     display: inline-block;
     font-size: 1.2rem;
     font-weight: 700;
@@ -62,6 +69,8 @@
     display: flex;
     gap: 10px;
     margin-left: auto;
+    flex: 2;
+    justify-content: flex-end;
 }
 
 .user {
@@ -221,17 +230,19 @@
 }
 
 .FaHeart {
-    position: relative;
+    /* position: relative; */
     background-color: black;
     color: white;
     border-radius: 50%;
     border: 1px solid #f39c12;
-    padding: 12px;
+    /* padding: 12px; */
     font-size: 14px;
     cursor: pointer;
-    display: flex;
+    width: 40px;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
+
     transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -428,6 +439,12 @@
     border-top: 1px solid #eee; 
 }
 
+@media (max-width: 830px) {
+    .logo {
+        max-width: 80px;
+    }
+}
+
 @media (max-width: 768px) {
     .navbar {
         padding: 10px;
@@ -443,10 +460,10 @@
         position: relative;
     }
 
-    .logo {
+    /* .logo {
         margin: 0;
         height: 60px;
-    }
+    } */
 
     .hamburger {
         display: flex;
@@ -480,13 +497,16 @@
 
     .nav-links.show {
         display: flex;
-        margin-left: 120px;
+        /* margin-left: 120px; */
+        /* align-self: flex-end; */
+        right: -10px;
     }
 
     .btn {
         order: 1;
         display: flex;
         gap: 10px;
+        justify-content: center;
     }
 
     .profile-section {

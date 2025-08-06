@@ -83,13 +83,12 @@ function Nav({ onLogout }) {
     return (
         <div className="navbar">
             <div className="navbar-content">
-                <img src={logo} alt="Logo" className="logo" />
                 <div className="hamburger" onClick={() => setIsMobileMenuOpen(prev => !prev)}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-
+                <img src={logo} alt="Logo" className="logo" />
                 <ul className={`nav-links ${isMobileMenuOpen ? "show" : ""}`}>
                     <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>НАЧАЛО</Link></li>
                     <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>ИЗБЕРИ МОДЕЛ</Link></li>
