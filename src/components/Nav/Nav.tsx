@@ -3,7 +3,20 @@
 import styles from "./Nav.module.css";
 import Image from "next/image";
 
-export const Nav = () => {
+interface Props {
+  bannerText?: string;
+  logo?: string;
+  links: Array<{
+    id: string;
+    text: string;
+  }>;
+}
+
+export const Nav = ({
+  links,
+  logo = "/logo.png",
+  bannerText = "МартиМото ви пожелава весело и незабравимо изкарване на Коледните и Новогодишни празници!",
+}: Readonly<Props>) => {
   // const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
   // const { cart } = useContext(CartContext);
   // const [showLogin, setShowLogin] = useState(false);
@@ -20,12 +33,7 @@ export const Nav = () => {
 
   return (
     <div className={styles.navbar}>
-      <Image
-        className={styles.logo}
-        src="/logo.png"
-        alt="Marti moto logo"
-        fill
-      />
+      <Image className={styles.logo} src={logo} alt="Marti moto logo" fill />
       <div className={styles["navbar-content"]}>
         {/* onClick={() => setIsMobileMenuOpen(prev => !prev)} */}
         <div className={styles.hamburger}>
@@ -36,30 +44,19 @@ export const Nav = () => {
 
         {/* ${isMobileMenuOpen ? "show" : ""} */}
         <ul className={styles[`nav-links`]}>
-          <li>
-            <a href="#">НАЧАЛО</a>
-          </li>
-          <li>
-            <a href="#">ИЗБЕРИ МОДЕЛ</a>
-          </li>
-          <li>
-            <a href="#">АКСЕСОАРИ</a>
-          </li>
-          <li>
-            <a href="#">КОНТАКТИ</a>
-          </li>
-          <li>
-            <a href="#">ЗА НАС</a>
-          </li>
+          {links?.map((link) => (
+            <li key={link.id}>
+              <a href="#">{link.text}</a>
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div className={styles["info-bar"]}>
-        <p className={styles["info-text"]}>
-          МартиМото ви пожелава весело и незабравимо изкарване на Коледните и
-          Новогодишни празници!
-        </p>
-      </div>
+      {bannerText ? (
+        <div className={styles["info-bar"]}>
+          <p className={styles["info-text"]}>{bannerText}</p>
+        </div>
+      ) : null}
     </div>
   );
 };
