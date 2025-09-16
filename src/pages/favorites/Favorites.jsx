@@ -6,6 +6,7 @@ import { GoTrash } from "react-icons/go";
 import { MdAddShoppingCart } from "react-icons/md";
 import { CartContext } from '../../Context/CartContext';
 import { FavoritesContext } from '../../Context/FavoritesContext';
+import SectionHeader from "../../Card/SectionHeader";
 
 function Favorites() {
   const { user } = useContext(AuthContext);
@@ -26,24 +27,24 @@ function Favorites() {
 
   return (
     <div className="favorites-page">
-      <h1 className="favorites-title">Любими части</h1>
+      <SectionHeader title="Любими части" />
       {favorites.length === 0 ? (
         <p className="no-favorites">Нямате добавени любими части.</p>
       ) : (
         <div className="favorites-grid">
           {favorites.map((part) => (
-            <div className="part-card" key={part.id}>
-              <Link to={`/parts/${part.id}`} className="part-card-link">
+            <div className="favorite-item-card" key={part.id}>
+              <Link to={`/parts/${part.id}`} className="favorite-item-link">
                 <img
                   src={part.image}
                   alt={part.title}
-                  className="part-image"
+                  className="favorite-item-image"
                 />
-                <div className="part-info">
-                  <h3 className="part-title">{part.title}</h3>
-                  <div className="price-and-cart">
-                    <p className="part-price">{part.price} лв.</p>
-                    <div className="icon-group">
+                <div className="favorite-item-info">
+                  <h3 className="favorite-item-title">{part.title}</h3>
+                  <div className="favorite-price-and-cart">
+                    <p className="favorite-item-price">{part.price} лв.</p>
+                    <div className="favorite-icon-group">
                       <GoTrash
                         className="heart-icon"
                         onClick={(e) => {
