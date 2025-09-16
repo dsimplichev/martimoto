@@ -5,7 +5,8 @@
 .brand-details {
   padding: 20px;
   text-align: center;
-  margin: 40px 180px;
+  margin: 40px auto;
+  max-width: 1200px;
   box-sizing: border-box;
 }
 
