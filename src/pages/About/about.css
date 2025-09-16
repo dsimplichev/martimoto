@@ -5,7 +5,7 @@
   gap: 50px;
   margin: 150px auto;
   max-width: 1200px;
-  margin-left: 275px;
+  
 }
 
 .about-text {
@@ -71,9 +71,9 @@
   .about-container {
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     box-sizing: border-box;
   }
 
@@ -85,6 +85,10 @@
   .divider-about {
     margin: 0 auto 20px auto;
   }
+  
+  .about-text {
+      width: 100%; 
+    }
 
   .about-text p {
     text-align: center;
