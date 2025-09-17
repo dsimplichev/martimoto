@@ -1,7 +1,8 @@
 .contact-page {
   padding: 20px;
   text-align: center;
-  margin: 40px 180px;
+  margin: 40px auto;
+  max-width: 1200px;
 }
 
 .contact-info {

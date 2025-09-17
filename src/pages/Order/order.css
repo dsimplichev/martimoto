@@ -1,10 +1,11 @@
 
 .order-container {
-  max-width: 750px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
 }
 
 h1, h2 {
@@ -206,6 +207,79 @@ input[type="checkbox"] {
 
 .remove-btn:hover {
   background-color: #218838;
+  transform: scale(1.05);
+}
+
+.remove-btn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .order-container {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 10px; 
+  }
+}
+
+.order-left {
+  flex:2;
+}
+
+
+.order-right {
+  padding: 20px;
+  background-color: #f8f8f8; 
+  border-radius: 8px; 
+  align-self: flex-start;
+  position: static; 
+  top: 0; 
+}
+
+
+.delivery-options {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-around;
+  margin-bottom: 15px;
+  gap: 10px; 
+}
+
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.cart-item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain; 
+  border-radius: 5px;
+}
+
+.cart-item-details {
+  flex-grow: 1; 
+}
+
+.remove-btn {
+  background-color: #e74c3c; 
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0; 
+}
+
+.remove-btn:hover {
+  background-color: #c0392b;
   transform: scale(1.05);
 }
 

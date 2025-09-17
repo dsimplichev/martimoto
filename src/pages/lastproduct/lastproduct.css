@@ -1,20 +1,20 @@
 .container4 {
   padding: 20px;
   text-align: center;
-  margin: 40px 180px;
+  margin: 40px auto;
+  max-width: 1200px;
 }
 
 .products-grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  padding: 20px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 10px;
   margin: 0 auto;
 }
 
 .product2 {
-  width: 250px;
+  width: 100%;
   height: 280px;
   border: 1px solid #c0bdbd;
   border-radius: 10px;
@@ -29,7 +29,7 @@
 }
 
 .product2 img {
-  width: 188.91px;
+  width: 100%;
   height: 180px;
   object-fit: contain;
   border-radius: 6px;

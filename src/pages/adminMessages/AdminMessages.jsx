@@ -25,7 +25,7 @@ function AdminMessages() {
                         <p><strong>Имейл:</strong> {msg.email}</p>
                         <p><strong>Телефон:</strong> {msg.phone}</p>
                         <p><strong>Тема:</strong> {msg.query}</p>
-                        <p><strong>Съобщение:</strong> {msg.message}</p>
+                        <p className="message-content"><strong>Съобщение:</strong> {msg.message}</p>
                         <p className="date">{new Date(msg.createdAt).toLocaleString()}</p>
                         <button className="delete-button" onClick={() => handleHide(msg._id)}>Премахни</button>
                     </li>

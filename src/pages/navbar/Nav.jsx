@@ -9,6 +9,7 @@ import logo from '../../assets/logo.png';
 import Register from '../register/Register';
 import Login from '../login/Login';
 import axios from 'axios';
+import { HashLink } from 'react-router-hash-link';
 
 
 function Nav({ onLogout }) {
@@ -95,7 +96,7 @@ function Nav({ onLogout }) {
                     <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>ИЗБЕРИ МОДЕЛ</Link></li>
                     <li><Link to="/accessories" onClick={() => setIsMobileMenuOpen(false)}>АКСЕСОАРИ</Link></li>
                     <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>КОНТАКТИ</Link></li>
-                    <li><Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</Link></li>
+                    <li><HashLink smooth to="#about-section" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</HashLink></li>
                 </ul>
                 <div className="btn">
                     {isLoggedIn ? (

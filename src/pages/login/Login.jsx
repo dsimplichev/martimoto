@@ -91,21 +91,6 @@ function Login({ onClose }) {
                 ) : (
                     <div className="login__form">
                         <h2 className="login__title">Вход</h2>
-                        <div className="social-login">
-                            <ul className="social__wrap">
-                                <li className="google">
-                                    <button type="button" onClick={handleGoogleLogin}>
-                                        <ImGoogle2 className="google__icon" />Вход с Google
-                                    </button>
-                                </li>
-                                <li className="fb">
-                                    <button type="button" onClick={handleFacebookLogin} >
-                                        <FaFacebook className="facebook__icon" />Вход с Facebook
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="or">или</div>
                         {error && <p className="error-message">{error}</p>}
                         <form onSubmit={handleSubmit}>
                             <label htmlFor="email">Имейл</label>

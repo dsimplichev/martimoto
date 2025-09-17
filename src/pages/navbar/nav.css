@@ -6,31 +6,28 @@
     justify-content: space-between;
     align-items: center;
     color: white;
-    position: relative;
     z-index: 1000;
 }
 
 .navbar-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
-    margin-right: 170px;
 }
 
 .logo {
     height: 90px;
-    margin-left: 250px;
-    margin-top: 20px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
-    position: absolute;
+    margin: 0 auto;
+    position: static;
     left: 50%;
-    transform: translateX(-50%);
+    transform: none;
 }
 
 .nav-links li a {
@@ -380,7 +377,7 @@
 }
 
 .cart-dropdown-item-image {
-    width: 50px; /* Размер на снимката */
+    width: 50px; 
     height: 50px;
     object-fit: cover; 
     border-radius: 4px;
@@ -388,11 +385,11 @@
 }
 
 .cart-dropdown-item-info {
-    display: flex; /* Прави децата да се подреждат в един ред */
-    justify-content: space-between; /* Разпъва заглавието и цената/количеството */
-    align-items: center; /* Центрира ги вертикално */
-    flex-grow: 1; /* Позволява на инфо секцията да заема наличното пространство */
-    text-align: left; /* Запазва подравняването на текста */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-grow: 1; 
+    text-align: left; 
 }
 
 .cart-dropdown-item-title {
@@ -411,11 +408,11 @@
     margin-top: 2px;
 }
 
-.cart-dropdown-item-price-qty { /* 🆕 Нов клас */
+.cart-dropdown-item-price-qty { 
     font-size: 0.8em;
     color: #666;
-    margin-left: 10px; /* Добавя малко разстояние от заглавието */
-    flex-shrink: 0; /* Предотвратява свиването на този елемент */
+    margin-left: 10px; 
+    flex-shrink: 0; 
 }
 
 .cart-dropdown-total {
@@ -428,9 +425,10 @@
     border-top: 1px solid #eee; 
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 968px) and (min-width: 769px) {
     .navbar {
-        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .navbar-content {
@@ -475,6 +473,108 @@
         border-radius: 0px;
         gap: 10px;
         width: 150px;
+        z-index: 1000;
+    }
+
+    .nav-links.show {
+        display: flex;
+        margin-left: 120px;
+    }
+
+    .btn {
+        order: 1;
+        display: flex;
+        gap: 10px;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 14px;
+    }
+
+    .info-bar {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .info-text {
+        font-size: 14px;
+    }
+
+    .profile-header,
+    .greeting,
+    .username,
+    .chevron-down {
+        font-size: 12px;
+    }
+
+    .user,
+    .FaHeart,
+    .ShoppingCart2 {
+        font-size: 19px;
+    }
+
+    .dropdown-menu {
+        width: calc(100% - 20px); 
+        left: 10px; 
+        right: 10px; 
+        box-sizing: border-box; 
+    }
+
+    .cart-dropdown {
+        right: auto; 
+        left: 50%; 
+        transform: translateX(-50%); 
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 0;
+        width: 100%;
+        position: relative;
+    }
+
+    .logo {
+        margin: 0;
+        height: 60px;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        margin-left: auto;
+        z-index: 1100;
+        order: 2;
+    }
+
+    .hamburger span {
+        height: 3px;
+        width: 25px;
+        background: wheat;
+        border-radius: 2px;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: black;
         z-index: 1000;
     }
 

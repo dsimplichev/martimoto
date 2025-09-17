@@ -114,15 +114,6 @@ function SinglePartPage() {
                     </div>
 
                     <div className="add-to-cart">
-                        <select
-                            className="quantity-selector"
-                            value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
-                        >
-                            {[...Array(9)].map((_, i) => (
-                                <option key={i + 1} value={i + 1}>{i + 1}</option>
-                            ))}
-                        </select>
                         <button className="add-to-cart-btn" onClick={handleAddToCart}>
                             Добави в количката
                         </button>

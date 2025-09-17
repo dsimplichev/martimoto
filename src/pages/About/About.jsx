@@ -10,7 +10,7 @@ function About() {
    
   
   return (
-    <div className="about-container">
+    <div id="about-section" className="about-container">
       <div className="about-text">
         <h2>About Us</h2>
         <div className="divider-about"></div>

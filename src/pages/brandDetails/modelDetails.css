@@ -1,18 +1,16 @@
-@import '../../Card/section-header.css'; 
-@import '../../Card/general-brand-card.css';
+@import "../../Card/section-header.css";
+@import "../../Card/general-brand-card.css";
 
 .model-details {
-    padding: 20px;
-    text-align: center;
-    margin: 40px 180px;
+  padding: 20px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 1200px;
 }
-
-
 
 @media (max-width: 768px) {
   .model-details {
-    margin: 40px 15px;
+    margin: 40px auto;
     padding: 0;
   }
-
 }
