@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from '../../Card/ProductCard';
+import SectionHeader from '../../Card/SectionHeader';
 import './productresults.css';
 
 function ProductResults() {
@@ -31,15 +32,55 @@ function ProductResults() {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
         window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    }; 
+
+    const renderPaginationButtons = () => {
+        const pageNumbers = [];
+        const maxPagesToShow = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+        let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+        if (endPage - startPage + 1 < maxPagesToShow) {
+            startPage = Math.max(1, endPage - maxPagesToShow + 1);
+        }
+
+        if (startPage > 1) {
+            pageNumbers.push(1);
+            if (startPage > 2) {
+                pageNumbers.push("...");
+            }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers.push(i);
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                pageNumbers.push("...");
+            }
+            pageNumbers.push(totalPages);
+        }
+
+        return pageNumbers.map((page, index) => {
+            if (page === "...") {
+                return <span key={index} className="ellipsis">...</span>;
+            }
+            return (
+                <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={currentPage === page ? "active-page" : ""}
+                >
+                    {page}
+                </button>
+            );
+        });
     };
 
     return (
         <div className="product-results-container">
-            <div className="header-section2">
-                <h2 className="title-parts-search">Резултат от търсенето: {query}</h2>
-            </div>
-
-            <div className="divider-parts3"></div>
+            <SectionHeader title={`Резултат от търсенето: ${query}`} />
 
             <div className="product-results">
                 {currentItems.length > 0 ? (
@@ -58,17 +99,21 @@ function ProductResults() {
                 )}
             </div>
 
-            {totalPages > 1 && (
+           {totalPages > 1 && (
                 <div className="pagination2">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button
-                            key={index + 1}
-                            onClick={() => handlePageChange(index + 1)}
-                            className={currentPage === index + 1 ? 'active-page' : ''}
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        <i className="fas fa-chevron-left"></i> Prev
+                    </button>
+                    {renderPaginationButtons()}
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        Next <i className="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             )}
         </div>
