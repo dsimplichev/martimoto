@@ -22,7 +22,6 @@ const Order = () => {
   const [companyAddress, setCompanyAddress] = useState("");
   const [comment, setComment] = useState("");
   const [econtOffices, setEcontOffices] = useState([]);
-  const [speedyOffices, setSpeedyOffices] = useState([]);
   const [notification, setNotification] = useState(null);
   const debounceTimeoutRef = useRef(null);
 
@@ -31,7 +30,7 @@ const Order = () => {
   const [selectedCityId, setSelectedCityId] = useState(null);
   const [loadingEcontCities, setLoadingEcontCities] = useState(false);
   const [loadingEcontOffices, setLoadingEcontOffices] = useState(false);
-  const [loadingSpeedyOffices, setLoadingSpeedyOffices] = useState(false); // New loading state for Speedy
+  
 
   const totalAmount = cart.reduce(
     (total, product) => total + (product.price || 0) * (product.quantity || 1),
@@ -80,23 +79,6 @@ const Order = () => {
     }
   }, []); 
 
-  
-  const fetchSpeedyOffices = useCallback(async (cityName) => {
-    setLoadingSpeedyOffices(true);
-    setSpeedyOffices([]);
-    setOffice(""); 
-
-    try {
-      const response = await axios.get(`https://www.speedy.bg/back-end/locations/offices?query=${encodeURIComponent(cityName)}`);
-      console.log("Спиди отговор:", response.data);
-      setSpeedyOffices(response.data?.offices || response.data?.data || []);
-    } catch (error) {
-      console.error("Грешка при зареждане на Спиди офиси:", error);
-      setSpeedyOffices([]);
-    } finally {
-      setLoadingSpeedyOffices(false);
-    }
-  }, []); 
 
   
   useEffect(() => {
@@ -126,8 +108,6 @@ const Order = () => {
             setSelectedCityId(null);
             setEcontOffices([]);
           }
-        } else if (deliveryMethod === "Спиди") {
-          fetchSpeedyOffices(city);
         }
       }, 500); 
     } else {
@@ -135,7 +115,6 @@ const Order = () => {
       setFilteredEcontCities([]);
       setEcontOffices([]);
       setSelectedCityId(null);
-      setSpeedyOffices([]);
       setOffice("");
     }
 
@@ -145,7 +124,7 @@ const Order = () => {
         clearTimeout(debounceTimeoutRef.current);
       }
     };
-  }, [city, deliveryMethod, allEcontCities, fetchEcontOffices, fetchSpeedyOffices]); 
+  }, [city, deliveryMethod, allEcontCities, fetchEcontOffices,]); 
 
   
   useEffect(() => {
@@ -155,9 +134,7 @@ const Order = () => {
         setFilteredEcontCities([]);
         setSelectedCityId(null);
     }
-    if (deliveryMethod !== "Спиди") {
-        setSpeedyOffices([]);
-    }
+    
     setOffice(""); 
   }, [deliveryMethod]);
 
@@ -204,10 +181,10 @@ const Order = () => {
       return;
     }
 
-    if ((deliveryMethod === "Еконт" || deliveryMethod === "Спиди") && (!city || !office)) {
-      setNotification({ type: "error", message: "Моля, въведете град и изберете офис за доставка." });
-      return;
-    }
+    if (deliveryMethod === "Еконт" && (!city || !office)) {
+    setNotification({ type: "error", message: "Моля, въведете град и изберете офис за доставка." });
+    return;
+}
     if (deliveryMethod === "До Адрес" && (!city || !deliveryAddress)) {
       setNotification({ type: "error", message: "Моля, въведете град и адрес за доставка." });
       return;
@@ -347,13 +324,6 @@ const Order = () => {
             </button>
             <button
               type="button"
-              className={deliveryMethod === "Спиди" ? "selected" : ""}
-              onClick={() => handleDeliveryChange("Спиди")}
-            >
-              До офис на Спиди
-            </button>
-            <button
-              type="button"
               className={deliveryMethod === "До Адрес" ? "selected" : ""}
               onClick={() => handleDeliveryChange("До Адрес")}
             >
@@ -415,46 +385,7 @@ const Order = () => {
               </div>
             </>
           )}
-          {deliveryMethod === "Спиди" && (
-            <>
-              <div className="form-group">
-                <label>
-                  <span className="red-star">*</span>Въведи вашият град
-                </label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)} 
-                  required
-                  placeholder="Напишете град"
-                />
-              </div>
-              <div className="form-group">
-                <label>
-                  <span className="red-star">*</span>Изберете офис
-                </label>
-                <select
-                  value={office}
-                  onChange={(e) => setOffice(e.target.value)}
-                  required
-                  disabled={loadingSpeedyOffices || speedyOffices.length === 0}
-                >
-                  <option value="">
-                    {loadingSpeedyOffices ? "Зареждане на офиси..." :
-                     city.length < 2 ? "Въведете поне 2 символа за град" :
-                     speedyOffices.length === 0 ? "Няма намерени офиси за този град." :
-                     "Изберете офис"
-                    }
-                  </option>
-                  {speedyOffices.map((officeData) => (
-                    <option key={officeData.id} value={officeData.name}>
-                      {officeData.name} ({officeData.address})
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </>
-          )}
+  
 
           {deliveryMethod === "До Адрес" && (
             <>
