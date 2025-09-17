@@ -117,7 +117,7 @@ function Register({ onClose, onLoginClick }) {
 
                 <div className="have__account">
 
-                    {message && <p className="message">{message}</p>}
+                    
 
                     <div className="account-login-row">
                         <small>Вече имате акаунт?</small>

@@ -28,6 +28,7 @@
     position: static;
     left: 50%;
     transform: none;
+    margin-right: -100px;
 }
 
 .nav-links li a {

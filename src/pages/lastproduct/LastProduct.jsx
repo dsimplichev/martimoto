@@ -49,6 +49,11 @@ function LastProduct() {
         } else {
             navigate(`/accessories/detail/${id}`);
         }
+
+        window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
     };
 
     useEffect(() => {
