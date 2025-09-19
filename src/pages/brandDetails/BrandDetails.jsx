@@ -12,9 +12,9 @@ function BrandDetails() {
     
 
     return (
-        <div className="brand-details">
+        <div className="brand-details2">
             <SectionHeader title={`Модели на ${brandName}`} /> 
-            <div className="generic-grid"> 
+            <div className="generic-grid2"> 
                 {models.map((model, index) => (
                     <GeneralBrandCard
                         key={index}

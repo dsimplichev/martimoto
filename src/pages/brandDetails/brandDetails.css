@@ -1,8 +1,7 @@
-@import '../../Card/section-header.css';
-@import '../../Card/general-brand-card.css';
+@import "../../Card/section-header.css";
+@import "../../Card/general-brand-card.css";
 
-
-.brand-details {
+.brand-details2 {
   padding: 20px;
   text-align: center;
   margin: 40px auto;
@@ -10,7 +9,8 @@
   box-sizing: border-box;
 }
 
-.model-grid{
+.generic-grid2 {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
   padding: 30px 0;
@@ -18,8 +18,16 @@
 }
 
 @media (max-width: 768px) {
-    .brand-details {
-        margin: 40px 15px;
-        padding: 0;
-    }
+  .brand-details2 {
+    margin: 40px 15px;
+    padding: 0;
+  }
+
+  .generic-grid2 {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    gap: 12px;
+  }
+
+ 
 }

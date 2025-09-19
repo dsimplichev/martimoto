@@ -55,31 +55,10 @@ function Login({ onClose }) {
         setIsRegistering(false);
     };
 
-    const handleGoogleLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
-            setUser(user);
-            console.log("Успешен Google вход:", user);
-            onClose(); 
-        } catch (error) {
-            console.error("Грешка при Google вход:", error);
-            setError("Възникна грешка при вход с Google.");
-        }
-    };
+    
+    
 
-    const handleFacebookLogin = async () => {
-    try {
-        const result = await signInWithPopup(auth, facebookProvider);
-        const user = result.user;
-        setUser(user);
-        console.log("Успешен Facebook вход:", user);
-        onClose();
-    } catch (error) {
-        console.error("Грешка при Facebook вход:", error);
-        setError("Възникна грешка при вход с Facebook.");
-    }
-};
+    
 
 
 

@@ -17,9 +17,10 @@
     background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
-    max-width: 400px;
+    max-width: 360px;
     width: 100%;
-    border: solid #f39c12
+    border: solid #f39c12;
+   
 }
 
 .login__form {
@@ -178,41 +179,10 @@ input[type="password"] {
     margin-top: 10px;
 }
 
-.social__wrap li button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 250px;
-    color: rgb(255, 255, 255);
-    transition: background-color 0.3s ease;
+@media screen and (max-width: 768px) {
+.login__container {
+ width: 90%; 
+ margin: 0 auto; 
+ padding: 20px 0; 
 }
-
-/* Google button */
-.social__wrap li.google button {
-    background-color: #db4437;
-}
-
-.social__wrap li.google button:hover {
-    background-color: #c33d2f;
-}
-
-/* Facebook button */
-.social__wrap li.fb button {
-    background-color: #3b5998;
-}
-
-.social__wrap li.fb button:hover {
-    background-color: #334b87;
-}
-
-.google__icon, .facebook__icon {
-    font-size: 20px;
 }
