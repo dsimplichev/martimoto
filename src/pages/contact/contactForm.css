@@ -226,17 +226,15 @@
 
 @media (max-width: 900px) {
     .contact-form-container {
-        max-width: 90%;
+        width: 95%;
+        max-width: unset;
         min-height: unset;
         height: auto;
+        padding-bottom: 20px;
     }
 
     .contact-header {
-        padding: 30px 15px 15px 15px;
-    }
-
-    .contact-title-main {
-        font-size: 4em;
+      padding: 30px 15px 15px 15px;
     }
 
     .contact-title-sub {
@@ -245,40 +243,29 @@
 
     .contact-content {
         flex-direction: column; 
-        padding: 20px;
-        gap: 30px;
+        padding: 20px 15px;
+        gap: 20px;
     }
-
+    
+    /* Скриване на секцията за информация */
     .contact-info-section {
-        padding-right: 0;
-        align-items: center; 
-        text-align: center; 
-    }
-
-    .contact-info-text {
-        text-align: center;
-    }
-
-    .contact-detail {
-        justify-content: center; 
+        display: none;
     }
 
     .contact-form-fields {
-        padding-top: 20px; 
+        padding: 0;
+        gap: 15px;
+    }
+    
+    .terms-checkbox {
+      justify-content: center;
     }
 }
+
 
 @media (max-width: 500px) {
     .contact-form-container {
         width: 95%;
-    }
-
-    .contact-title-main {
-        font-size: 3em;
-    }
-
-    .contact-title-sub {
-        font-size: 1.5em;
     }
 
     .close-btn {
