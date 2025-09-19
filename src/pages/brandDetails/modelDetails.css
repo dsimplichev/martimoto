@@ -8,9 +8,23 @@
   max-width: 1200px;
 }
 
+.generic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 30px 0;
+    justify-content: center;
+}
+
 @media (max-width: 768px) {
   .model-details {
     margin: 40px auto;
     padding: 0;
   }
+
+   .generic-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+        gap: 12px;
+    }
 }

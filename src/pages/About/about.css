@@ -72,35 +72,22 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0;
+    padding: 20px;
     margin: 0 auto;
     box-sizing: border-box;
   }
 
-  .about-text h2 {
-    text-align: center;
-    font-size: 1.8rem;
-  }
-
-  .divider-about {
-    margin: 0 auto 20px auto;
-  }
   
+
   .about-text {
-      width: 100%; 
+    width: 100%;
+    padding: 20px; 
+    box-sizing: border-box;
+     text-align: center; 
+  }
+
+  
+   .get-in-touch-btn {
+        margin: 20px auto 0 auto; 
     }
-
-  .about-text p {
-    text-align: center;
-    font-size: 1rem;
-  }
-
-  .get-in-touch-btn {
-    display: block;
-    margin: 20px auto 0 auto;
-  }
-
-  .about-image img {
-    display: none;
-  }
 }
