@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/martimoto/static/css/main.65228225.css",
-    "main.js": "/martimoto/static/js/main.cd103511.js",
+    "main.css": "/martimoto/static/css/main.22719cf4.css",
+    "main.js": "/martimoto/static/js/main.429d1f1e.js",
     "static/media/about.png": "/martimoto/static/media/about.698715bc593af74d4bd1.png",
     "static/media/TUONOV42020.png": "/martimoto/static/media/TUONOV42020.6f93f1b825b298d626ae.png",
     "static/media/rsv2020.png": "/martimoto/static/media/rsv2020.07ae2f0c8a56a83e5bb7.png",
@@ -216,11 +216,11 @@
     "static/media/balansior.png": "/martimoto/static/media/balansior.6857f5cb488457bdb1fe.png",
     "static/media/CBR125.png": "/martimoto/static/media/CBR125.de2d930a4f6e1c374362.png",
     "index.html": "/martimoto/index.html",
-    "main.65228225.css.map": "/martimoto/static/css/main.65228225.css.map",
-    "main.cd103511.js.map": "/martimoto/static/js/main.cd103511.js.map"
+    "main.22719cf4.css.map": "/martimoto/static/css/main.22719cf4.css.map",
+    "main.429d1f1e.js.map": "/martimoto/static/js/main.429d1f1e.js.map"
   },
   "entrypoints": [
-    "static/css/main.65228225.css",
-    "static/js/main.cd103511.js"
+    "static/css/main.22719cf4.css",
+    "static/js/main.429d1f1e.js"
   ]
 }
