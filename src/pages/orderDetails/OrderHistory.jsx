@@ -9,10 +9,8 @@ function OrderHistory() {
   useEffect(() => {
     axios.get('http://localhost:5000/api/orders/history', { withCredentials: true })
       .then(res => {
-
         setOrders(res.data.orders);
         setLoading(false);
-
       })
       .catch(err => {
         console.error("Грешка при зареждане на историята:", err);
@@ -20,17 +18,24 @@ function OrderHistory() {
       });
   }, []);
 
+  const handleRemoveOrder = (orderIndex) => {
+    const updatedOrders = orders.filter((_, index) => index !== orderIndex);
+    setOrders(updatedOrders);
+  };
+
   if (loading) return <p>Зареждане...</p>;
 
   return (
     <div className="order-history">
       <h2>История на поръчките</h2>
-
       {orders.length === 0 ? (
         <p>Нямате направени поръчки.</p>
       ) : (
         orders.map((order, index) => (
           <div key={index} className="order-block">
+            <button className="remove-order-btn" onClick={() => handleRemoveOrder(index)}>
+              X
+            </button>
             <p><strong>Дата на поръчка:</strong> {new Date(order.createdAt).toLocaleString()}</p>
             <div className="order-items">
               {(order.items || []).map((item, i) => (

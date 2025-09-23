@@ -84,6 +84,29 @@
   margin-top: 50px;
 }
 
+.order-block {
+  /* ... останалите стилове ... */
+  position: relative; /* Позициониране на бутона спрямо този елемент */
+}
+
+.remove-order-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: #a33;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.remove-order-btn:hover {
+  color: #e74c3c;
+}
 
 
 
@@ -112,7 +135,7 @@
   }
 
   .order-item {
-    max-width: 100%;
+    max-width: 90%;
     padding: 8px;
   }
 
