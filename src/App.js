@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Nav from "./pages/navbar/Nav";
 import Search from "./pages/search/Search";
 import Brand from "./pages/brand/Brand";
@@ -20,7 +20,6 @@ import Order from "./pages/Order/Order";
 import AdminOrder from "./pages/adminOrder/AdminOrder";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
 import UserProfile from "./pages/userProfile/UserProfile";
-import ChangePassword from "./pages/changePassword/ChangePassword";
 import ProductResults from "./pages/ProductResults/ProductResults";
 import ScrollToTopButton from "./pages/scrollToTopButton/scrollToTopButton";
 import AdminMessages from "./pages/adminMessages/AdminMessages";
@@ -37,6 +36,10 @@ function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  const location = useLocation();
+  const isCartPage =
+    location.pathname === "/cart" || location.pathname === "/order";
 
   return (
     <div>
@@ -72,7 +75,6 @@ function App() {
         <Route path="/admin/orders" element={<AdminOrder />} />
         <Route path="/order/:orderId" element={<OrderDetails />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/profile/password" element={<ChangePassword />} />
         <Route path="/search-results" element={<ProductResults />} />
         <Route path="/admin/messages" element={<AdminMessages />} />
         <Route path="/parts/:id" element={<SinglePartPage />} />
@@ -81,11 +83,19 @@ function App() {
         <Route path="/order-history" element={<OrderHistory />} />
       </Routes>
 
-      <Brand />
-      <LastProduct />
-      <About />
-      <Footer />
-      <ScrollToTopButton />
+      {!isCartPage && (
+        <>
+          <Brand />
+          <LastProduct />
+          <About />
+          <Footer />
+          <ScrollToTopButton />
+        </>
+      )}
+
+      
+      
+
 
       {isLoginOpen && (
         <Login
