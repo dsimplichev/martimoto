@@ -10,7 +10,8 @@ function Register({ onClose, onLoginClick }) {
         confirmPassword: '',
     });
 
-    const [message, setMessage] = useState('');
+     const [message, setMessage] = useState(null); 
+    const [isLoading, setIsLoading] = useState(false);
 
     const onChange = (e) => {
         setFormData({
@@ -22,10 +23,31 @@ function Register({ onClose, onLoginClick }) {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (formData.password !== formData.confirmPassword) {
-            setMessage('Паролите не съвпадат.');
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,])[A-Za-z\d@$!%*?&.,]{8,}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!formData.username) {
+            setMessage({ text: 'Моля, въведете потребителско име.', type: 'error' });
             return;
         }
+
+        if (!emailRegex.test(formData.email)) {
+            setMessage({ text: 'Моля, въведете валиден имейл адрес.', type: 'error' });
+            return;
+        }
+
+        if (!passwordRegex.test(formData.password)) {
+            setMessage({ text: 'Паролата трябва да е поне 8 символа и да съдържа главна буква, малка буква, цифра и специален символ.', type: 'error' });
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            setMessage({ text: 'Паролите не съвпадат.', type: 'error' });
+            return;
+        }
+
+        setIsLoading(true);
+        setMessage(null);
 
         try {
             const response = await axios.post('http://localhost:5000/auth/register', {
@@ -35,7 +57,7 @@ function Register({ onClose, onLoginClick }) {
             });
 
 
-            setMessage(response.data.message || 'Успешно регистриран!');
+             setMessage({ text: response.data.message || 'Успешно регистриран!', type: 'success' });
 
 
             setFormData({
@@ -52,10 +74,12 @@ function Register({ onClose, onLoginClick }) {
 
         } catch (error) {
             if (error.response && error.response.data.message) {
-                setMessage(error.response.data.message);
+                setMessage({ text: error.response.data.message, type: 'error' });
             } else {
-                setMessage('Грешка при регистрацията. Опитайте отново.');
+                setMessage({ text: 'Грешка при регистрацията. Опитайте отново.', type: 'error' });
             }
+        } finally {
+            setIsLoading(false); 
         }
     };
 
@@ -78,6 +102,7 @@ function Register({ onClose, onLoginClick }) {
                         value={formData.username}
                         onChange={onChange}
                         required
+                    
                     />
 
                     <label htmlFor="email">Е-поща</label>
@@ -110,10 +135,15 @@ function Register({ onClose, onLoginClick }) {
                         required
                     />
 
-                    <input type="submit" className="btn__register" value="Signup" />
+                    <input
+                        type="submit"
+                        className="btn__register"
+                        value={isLoading ? "Регистрация..." : "Регистрация"}
+                        disabled={isLoading}
+                    />
                 </form>
 
-                {message && <p className="message">{message}</p>}
+                {message && <p className={`message ${message.type}`}>{message.text}</p>}
 
                 <div className="have__account">
 
@@ -125,7 +155,7 @@ function Register({ onClose, onLoginClick }) {
                             
                             onLoginClick();
                         }}>
-                            Login now
+                           Влез сега
                         </button>
                     </div>
                 </div>
