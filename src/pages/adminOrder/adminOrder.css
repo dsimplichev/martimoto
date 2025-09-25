@@ -98,7 +98,7 @@
 }
 
 .delete-button2 {
-  background-color: #28a745;
+  background-color: #a72828;
   color: white;
   font-size: 13px;
   padding: 10px 20px;
@@ -110,7 +110,7 @@
 }
 
 .delete-button2:hover {
-  background-color: #218838;
+  background-color: #886e21;
   transform: scale(1.05);
 }
 
