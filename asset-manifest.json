@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/martimoto/static/css/main.22719cf4.css",
-    "main.js": "/martimoto/static/js/main.429d1f1e.js",
+    "main.css": "/martimoto/static/css/main.64e4d5d0.css",
+    "main.js": "/martimoto/static/js/main.834327fc.js",
     "static/media/about.png": "/martimoto/static/media/about.698715bc593af74d4bd1.png",
     "static/media/TUONOV42020.png": "/martimoto/static/media/TUONOV42020.6f93f1b825b298d626ae.png",
     "static/media/rsv2020.png": "/martimoto/static/media/rsv2020.07ae2f0c8a56a83e5bb7.png",
@@ -90,6 +90,7 @@
     "static/media/GSXR19982000.png": "/martimoto/static/media/GSXR19982000.110651752c7a25ab9c9c.png",
     "static/media/YZFR62016.png": "/martimoto/static/media/YZFR62016.51b09a91d9dcf40f9c30.png",
     "static/media/KAWASAKIZ102010.png": "/martimoto/static/media/KAWASAKIZ102010.869b3564faf117e13a00.png",
+    "static/media/martimoto10.png": "/martimoto/static/media/martimoto10.95c97f9f3999acf38bb5.png",
     "static/media/KAWASAKIZ102020.png": "/martimoto/static/media/KAWASAKIZ102020.dc8535d28b2e7d573664.png",
     "static/media/gsx7502007.png": "/martimoto/static/media/gsx7502007.97f4a205988a53036174.png",
     "static/media/KAWASAKIZ62012.png": "/martimoto/static/media/KAWASAKIZ62012.e820a9a93ca404fe4921.png",
@@ -216,11 +217,11 @@
     "static/media/balansior.png": "/martimoto/static/media/balansior.6857f5cb488457bdb1fe.png",
     "static/media/CBR125.png": "/martimoto/static/media/CBR125.de2d930a4f6e1c374362.png",
     "index.html": "/martimoto/index.html",
-    "main.22719cf4.css.map": "/martimoto/static/css/main.22719cf4.css.map",
-    "main.429d1f1e.js.map": "/martimoto/static/js/main.429d1f1e.js.map"
+    "main.64e4d5d0.css.map": "/martimoto/static/css/main.64e4d5d0.css.map",
+    "main.834327fc.js.map": "/martimoto/static/js/main.834327fc.js.map"
   },
   "entrypoints": [
-    "static/css/main.22719cf4.css",
-    "static/js/main.429d1f1e.js"
+    "static/css/main.64e4d5d0.css",
+    "static/js/main.834327fc.js"
   ]
 }
