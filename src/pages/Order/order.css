@@ -73,11 +73,12 @@ textarea {
   cursor: pointer;
   border-radius: 4px;
   transition: background 0.3s ease;
+  background-color: #e9e6e6;
 }
 
 .delivery-options button.selected {
   background-color: #007bff;
-  color: white;
+  color: rgb(248, 248, 248);
 }
 
 .delivery-options button:hover {
