@@ -1,12 +1,8 @@
 import './login.css';
 import React, { useState, useContext } from 'react';
-import { ImGoogle2 } from "react-icons/im";
-import { FaFacebook } from "react-icons/fa6";
 import { AuthContext } from '../../Context/AuthContext';
 import Register from '../register/Register';
 
-import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, facebookProvider  } from "../../firebase-config"
 
 function Login({ onClose }) {
     const { login, setUser } = useContext(AuthContext);

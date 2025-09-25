@@ -1,188 +1,175 @@
+:root {
+    --primary-color: #f39c12;
+    --primary-dark: #e67e22;
+    --secondary-color: #34495e;
+    --text-color: #2c3e50;
+    --border-color: #bebfbf;
+    --border-focus-color: #505253;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
 .modal__login {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(1px);
-    
+    z-index: 9999;
 }
 
 .login__container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 360px;
-    width: 100%;
-    border: solid #f39c12;
-   
+    background-color: #fefefe;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    text-align: center;
+    font-family: var(--font-family);
+    animation: fadeInScale 0.4s ease-out;
 }
 
-.login__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .login__title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-weight: 600;
 }
+
+
+.login__form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.login__form input[type="email"],
+.login__form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.login__form input[type="email"]:focus,
+.login__form input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+    transform: translateY(-2px);
+}
+
 
 .btn__login {
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.6rem 2.5rem;
-    border: 5px solid transparent;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
     cursor: pointer;
-    color: white;
-    text-decoration: none;
-    margin: 0 auto;
-    color: rgb(255, 254, 254);
-    background-color: #f39c12;
-    border-radius: 5px;
-}
-
-
-.social-login {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-    
-}
-
-.social__wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-.social__wrap li {
-    margin: 7px 0;
-}
-
-.social__wrap li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    width: 100%;
-    max-width: 250px;
-}
-
-.social__wrap .google a {
-    background-color: #db4437;
-}
-
-.social__wrap .fb a {
-    background-color: #3b5998;
-}
-
-.or {
-    width: 100%;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    color: #000000;
-    margin: 10px 0;
-    position: relative;
-}
-
-.or::before,
-.or::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-   
-}
-
-.or::before {
-    left: 0;
-}
-
-.or::after {
-    right: 0;
-}
-
-form {
-    width: 100%;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-family: 'Courier New', Courier, monospace;
-    color: #333333;
-}
-
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
-    
-   
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.google__icon {
-    padding-right: 10px;
+.btn__login:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
-.facebook__icon {
-    padding-right: 10px;
+.btn__login:disabled {
+    background-color: var(--border-focus-color);
+    cursor: not-allowed;
 }
+
+
+.error-message {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease-in;
+    color: var(--error-color); 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 
 .register-prompt {
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 14px;
-    color: #666;
-    text-align: center;
+    color: var(--secondary-color);
 }
 
 .create-account {
-    color: #f39c12;
-    cursor: pointer;
+    color: var(--primary-color);
     font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .create-account:hover {
+    color: var(--primary-dark);
     text-decoration: underline;
 }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
 
-@media screen and (max-width: 768px) {
-.login__container {
- width: 90%; 
- margin: 0 auto; 
- padding: 20px 0; 
-}
+@media (max-width: 480px) {
+    .login__container {
+        padding: 20px;
+        width: 90%;
+        margin: 20px;
+    }
+
+    .login__title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .login__form input[type="email"],
+    .login__form input[type="password"],
+    .btn__login {
+        font-size: 14px;
+    }
+
+    .btn__login {
+        padding: 10px 20px;
+    }
+
+    .register-prompt {
+        font-size: 12px;
+    }
 }

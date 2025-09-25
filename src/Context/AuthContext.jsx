@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   
+  const [errorMessage, setErrorMessage] = useState(null); 
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     
   }, []);
 
-  const login = async (email, password) => {
+ const login = async (email, password) => {
     try {
       const response = await axios.post(
         'http://localhost:5000/auth/login',
@@ -42,15 +43,18 @@ export const AuthProvider = ({ children }) => {
 
       console.log('User data after login:', response.data.user);
       setUser(response.data.user);
-
-      return { success: true }; 
+      setErrorMessage(null); 
     } catch (error) {
-      console.error('Грешка при вход:', error.response?.data?.message || error.message);
-
-      return {
-        success: false,
-        message: error.response?.data?.message || 'Възникна грешка при вход. Опитайте отново.',
-      }; 
+      
+      if (error.response && error.response.data && error.response.data.message) {
+        
+        setErrorMessage(error.response.data.message);
+        throw new Error(error.response.data.message); 
+      }
+      
+      
+      setErrorMessage('Възникна грешка при вход. Опитайте отново.');
+      throw new Error('Възникна грешка при вход. Опитайте отново.');
     }
   };
 
@@ -64,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!user, user, setUser, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!user, user, setUser, login, logout, isLoading, errorMessage }}>
       {children}
     </AuthContext.Provider>
   );
