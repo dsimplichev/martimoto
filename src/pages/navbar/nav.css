@@ -549,7 +549,7 @@
 
     .logo {
         margin: 0;
-        height: 60px;
+        height: 45px;
     }
 
     .hamburger {
@@ -588,7 +588,8 @@
     .btn {
         order: 1;
         display: flex;
-        gap: 10px;
+        gap: 0px;
+        margin-left: 50px;
     }
 
     .profile-section {

@@ -5,7 +5,7 @@ import { FavoritesContext } from '../../Context/FavoritesContext';
 import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './nav.css';
-import logo from '../../assets/logo.png';
+import martimoto10 from '../../assets/martimoto10.png';
 import Register from '../register/Register';
 import Login from '../login/Login';
 import axios from 'axios';
@@ -84,7 +84,7 @@ function Nav({ onLogout }) {
     return (
         <div className="navbar">
             <div className="navbar-content">
-                <img src={logo} alt="Logo" className="logo" />
+                <img src={martimoto10} alt="Logo" className="logo" />
                 <div className="hamburger" onClick={() => setIsMobileMenuOpen(prev => !prev)}>
                     <span></span>
                     <span></span>
