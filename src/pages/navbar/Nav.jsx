@@ -95,6 +95,7 @@ function Nav({ onLogout }) {
                     <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>НАЧАЛО</Link></li>
                     <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>ИЗБЕРИ МОДЕЛ</Link></li>
                     <li><Link to="/accessories" onClick={() => setIsMobileMenuOpen(false)}>АКСЕСОАРИ</Link></li>
+                    <li><Link to="/autosviat" onClick={() => setIsMobileMenuOpen(false)}>Авто Аксесоари</Link></li> 
                     <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>КОНТАКТИ</Link></li>
                     <li><HashLink smooth to="#about-section" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</HashLink></li>
                 </ul>
