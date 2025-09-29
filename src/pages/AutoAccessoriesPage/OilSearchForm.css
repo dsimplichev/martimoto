@@ -1,0 +1,165 @@
+.oil-search-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-form-new {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.oil-type-selection {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px 0;
+}
+
+.type-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 200px;
+    height: 120px;
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+}
+
+.type-card:hover:not(.active) {
+    border-color: #f39c12;
+}
+
+.type-card.active {
+    border-color: #f39c12;
+    background-color: #fff8f0;
+}
+
+
+.type-icon {
+    
+    width: 45px; 
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.main-params-new {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.select-wrapper {
+    width: 100%;
+    min-width: 200px;
+}
+
+.select-param {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 16px;
+    appearance: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.select-param:focus {
+    outline: none;
+    border-color: #ff9900;
+    box-shadow: 0 0 5px rgba(255, 153, 0, 0.3);
+}
+
+.search-button-new {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-button-new:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    
+    .main-params-new {
+        grid-template-columns: 1fr; 
+        gap: 15px; 
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .oil-type-selection {
+        flex-direction: column; 
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 20px auto;
+        align-items: stretch;
+    }
+
+    .type-card {
+        width: 100%;
+        max-width: none; 
+        flex-basis: auto;
+        min-height: 80px; 
+        
+        flex-direction: row; 
+        justify-content: flex-start; 
+        align-items: center;
+    }
+    
+    
+    .type-icon {
+        width: 30px; 
+        height: auto;
+        margin-right: 15px; 
+        margin-bottom: 0; 
+    }
+
+    
+    .select-wrapper {
+        min-width: unset;
+        width: 100%;
+    }
+    
+    .search-button-new {
+        width: 100%;
+        align-self: stretch;
+    }
+    
+    
+    .season-selection {
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .season-button {
+        flex-basis: auto; 
+    } 
+}

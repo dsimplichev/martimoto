@@ -2,8 +2,6 @@ import React from 'react';
 import AccessoryCategoryCard from '../../Card/AccessoryCategoryCard'; 
 import SectionHeader from '../../Card/SectionHeader'; 
 import './AutoAccessoriesPage.css';
-
-// Импортирайте изображенията (заместете с реалните пътища към вашите файлове)
 import tiresImage from '../../assets/gumikola.png'; 
 import oilsImage from '../../assets/масла.png';
 import fluidImage from '../../assets/течност.png';
