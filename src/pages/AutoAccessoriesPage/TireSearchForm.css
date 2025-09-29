@@ -1,0 +1,271 @@
+
+.tire-search-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px; 
+}
+
+.search-form-new {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+    align-items: flex-start; 
+    --control-max-width: 700px; 
+    width: 100%;
+}
+
+
+.tire-type-selection {
+    display: flex;
+    justify-content: center; 
+    gap: 15px;
+    margin: 0 auto 20px auto; 
+    width: var(--control-max-width); 
+    max-width: 100%;
+}
+
+.type-card {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    
+    flex-basis: calc(33.33% - 10px); 
+    min-height: 100px; 
+    padding: 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+.type-icon {
+    font-size: 2rem; 
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.type-card:hover:not(.active) {
+    border-color: #f39c12; 
+}
+
+.type-card.active {
+    border-color: #f39c12; 
+    box-shadow: 0 0 0 2px #f39c12;
+    background-color: #fff8f0;
+}
+.type-card.active .type-icon,
+.type-card.active span {
+    color: #f39c12;
+}
+
+
+.main-params-new {
+    display: flex;
+    gap: 20px;
+    width: var(--control-max-width); 
+    max-width: 100%;
+}
+
+.select-wrapper {
+    flex: 1;
+    position: relative;
+    min-width: 120px; 
+}
+
+.select-param {
+    width: 100%;
+    padding: 10px 30px 10px 10px; 
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    font-size: 1rem;
+    background-color: white;
+    appearance: none; 
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #888; 
+    font-weight: normal;
+    transition: border-color 0.2s; 
+}
+
+
+.select-param:hover {
+    border-color: #f39c12; 
+}
+.select-param:focus {
+    border-color: #f39c12; 
+    outline: none;
+}
+
+.select-wrapper::after,
+.brand-select-wrapper::after {
+    /* ТОВА СА КЛЮЧОВИТЕ СВОЙСТВА ЗА ПОКАЗВАНЕ НА ИКОНА: */
+    content: '\f107' !important; /* Уверете се, че съдържанието е принудително зададено */
+    font-family: 'Font Awesome 5 Free' !important; /* Уверете се, че е зададен правилният шрифт */
+    font-weight: 900 !important; /* Необходимо за солидните икони */
+    
+    /* Стили за позициониране и цвят: */
+    position: absolute !important;
+    top: 50% !important;
+    right: 15px !important;
+    transform: translateY(-50%) !important;
+    color: #333 !important; 
+    pointer-events: none !important;
+    font-size: 16px !important; 
+}
+
+
+.checkbox-different-size {
+    width: var(--control-max-width); 
+    max-width: 100%;
+    margin: 0px 0 10px 0;
+    font-size: 0.95rem;
+}
+
+.brand-select-wrapper {
+    width: var(--control-max-width); 
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+
+
+.season-selection {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 15px;
+    margin-bottom: 20px;
+    width: var(--control-max-width); 
+    max-width: 100%;
+}
+
+.season-button {
+    flex: 0 0 auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+
+.season-button:hover:not(.active-season) {
+    border-color: #f39c12; 
+}
+
+.season-icon {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+
+.all-season-icon { color: #2ecc71 !important; } 
+.winter-icon { color: #3498db !important; }    
+.summer-icon { color: #f1c40f !important; }    
+
+.season-button.active-season {
+    border-color: #f39c12;
+    background-color: #f39c12;
+    color: white;
+    font-weight: bold;
+}
+
+.season-button.active-season .season-icon {
+    color: white !important;
+}
+
+
+
+.search-button-new {
+    background-color: #f39c12; 
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 200px;
+}
+
+
+.search-button-new:hover {
+    background-color: #e67e22;
+}
+
+
+
+@media (max-width: 768px) {
+    
+    
+    .main-params-new,
+    .season-selection {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    
+    .tire-type-selection {
+        flex-direction: column; 
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 20px auto; 
+    }
+
+    .type-card {
+        
+        width: 100%;
+        flex-basis: auto;
+        min-height: 80px; 
+    }
+
+    
+    .main-params-new,
+    .brand-select-wrapper,
+    .checkbox-different-size,
+    .season-selection {
+        width: 100%;
+        max-width: 100%;
+        align-self: stretch; 
+    }
+
+   
+    .select-wrapper {
+        min-width: unset;
+        width: 100%;
+    }
+    
+   
+    .search-button-new {
+        width: 100%;
+        align-self: stretch;
+    }
+    
+    
+    .season-selection {
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .season-button {
+    
+        flex-basis: auto; 
+    
+    }
+}
