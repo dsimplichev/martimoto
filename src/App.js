@@ -28,6 +28,8 @@ import SinglePartPage from "./pages/singlePartPage/SinglePartPage";
 import Favorites from "./pages/favorites/Favorites";
 import Contact from "./pages/contact/Contact";
 import OrderHistory from "./pages/orderDetails/OrderHistory";
+import AutoAccessoriesPage from './pages/AutoAccessoriesPage/AutoAccessoriesPage';
+import TiresPage from './pages/AutoAccessoriesPage/TiresPage'
 
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
@@ -51,6 +53,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/partssearch" element={<PartsSearch />} />
         <Route path="/accessories" element={<Accessories />} />
+        <Route path="/autosviat" element={<AutoAccessoriesPage />} />
+        <Route path="/autosviat/gumi" element={<TiresPage />} />
         <Route
           path="/accessories/:accessoryName"
           element={<AccessoryDetails />}
