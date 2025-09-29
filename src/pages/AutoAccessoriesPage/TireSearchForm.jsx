@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaCar, FaTruck, FaDotCircle } from 'react-icons/fa';
+import { FaCar, FaTruck, FaCarSide } from 'react-icons/fa';
 import { RiSunFill, RiSnowyFill } from 'react-icons/ri';
 import { FiCloudSnow } from 'react-icons/fi'; 
 import './TireSearchForm.css';
@@ -60,7 +60,7 @@ function TireSearchForm() {
                         className={`type-card ${tireType === '4X4' ? 'active' : ''}`}
                         onClick={() => setTireType('4X4')}
                     >
-                        <FaDotCircle className="type-icon" />
+                        <FaCarSide className="type-icon" />
                         <span>4X4</span>
                     </div>
                     <div
