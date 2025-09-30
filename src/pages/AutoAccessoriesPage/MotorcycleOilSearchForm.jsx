@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './OilSearchForm.css'; 
 import SectionHeader from '../../Card/SectionHeader'; 
 import { OIL_OPTIONS } from '../AutoAccessoriesPage/oilData'; 
-import dvgmaslo from '../../assets/dvgmaslo.png'; 
-import transmitionoil from '../../assets/transmitionoil.png';
-import wheeloil from '../../assets/wheeloil.png'; 
+import dvgmotor from '../../assets/dvgmotor.png'; 
+import trnmotor from '../../assets/trnmotor.png';
+import vilka from '../../assets/vilka.png'; 
 
 
 function MotorcycleOilSearchForm() { 
@@ -66,14 +66,14 @@ function MotorcycleOilSearchForm() {
                         className={`type-card ${oilType === 'Двигателно масло' ? 'active' : ''}`}
                         onClick={() => handleOilTypeChange('Двигателно масло')} 
                     >
-                        <img src={dvgmaslo} alt="Икона за Двигателно масло" className="type-icon" />
+                        <img src={dvgmotor} alt="Икона за Двигателно масло" className="type-icon" />
                         <span>Двигателно масло</span>
                     </div>
                     <div
                         className={`type-card ${oilType === 'Масло за скорости' ? 'active' : ''}`}
                         onClick={() => handleOilTypeChange('Масло за скорости')} 
                     >
-                        <img src={transmitionoil} alt="Икона за Масло за скорости" className="type-icon" /> 
+                        <img src={trnmotor} alt="Икона за Масло за скорости" className="type-icon" /> 
                         <span>Масло за скорости</span>
                     </div>
                     
@@ -81,7 +81,7 @@ function MotorcycleOilSearchForm() {
                         className={`type-card ${oilType === 'Масло за вилка' ? 'active' : ''}`}
                         onClick={() => handleOilTypeChange('Масло за вилка')} 
                     >
-                        <img src={wheeloil} alt="Икона за Масло за вилка" className="type-icon" /> 
+                        <img src={vilka} alt="Икона за Масло за вилка" className="type-icon" /> 
                         <span>Масло за вилка</span>
                     </div>
                 </div>

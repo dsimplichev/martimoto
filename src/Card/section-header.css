@@ -43,19 +43,25 @@ color: black;
 }
 
 @media (max-width: 768px) {
+ 
   .general-header-container {
     padding: 0 15px; 
     margin: 0 auto 20px auto;
   }
+  
+  
   .general-header-title {
     font-size: 1.5rem;
     transform: none;
-    text-align: center;
+    text-align: left; 
+    padding: 0 0 0 20px; 
+    
     margin: 0;
-    padding: 0;
   }
+  
+  
   .section-header-divider {
     width: 90%;
-    margin: 10px auto 0 auto;
+    margin: 10px 0 0 15px; 
   }
 }

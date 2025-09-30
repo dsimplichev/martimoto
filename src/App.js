@@ -36,6 +36,10 @@ import TruckOilSearchForm from "./pages/AutoAccessoriesPage/TruckOilSearchForm";
 import MotorcycleOilSearchForm from './pages/AutoAccessoriesPage/MotorcycleOilSearchForm'; 
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
+import WiperFluidPage from './pages/AutoAccessoriesPage/WiperFluidPage';
+import MatsPage from './pages/AutoAccessoriesPage/MatsPage';
+import AddCarTiresPage from './pages/AddCarTiresPage/AddCarTiresPage'; 
+
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -60,29 +64,17 @@ function App() {
         <Route path="/autosviat/gumi" element={<TiresPage />} />
         <Route path="/autosviat/masla" element={<OilsPage />} />
         <Route path="/autosviat/masla/avtomobili" element={<OilSearchForm />} />
-        <Route path="/autosviat/masla/kamioni" element={<TruckOilSearchForm />}/>
-        <Route path="/autosviat/masla/motori" element={<MotorcycleOilSearchForm />}/> 
-        
-
-        <Route
-          path="/accessories/:accessoryName"
-          element={<AccessoryDetails />}
-        />
-        <Route path="/brands/:brandName" element={<BrandDetails />} />
-        <Route
-          path="/brands/:brandName/models/:modelName"
-          element={<ModelDetails />}
-        />
-        <Route
-          path="/brands/:brandName/models/:modelName/:year"
-          element={<PartsByYear />}
-        />
+        <Route path="/autosviat/masla/kamioni" element={<TruckOilSearchForm />} />
+        <Route path="/autosviat/masla/motori" element={<MotorcycleOilSearchForm />} />
+        <Route path="/autosviat/techosti-chistachki" element={<WiperFluidPage />} />
+        <Route path="/autosviat/stelki" element={<MatsPage />} />
+        <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} /> 
+        <Route path="/brands/:brandName" element={<BrandDetails />} /> 
+        <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
+        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />} /> 
         <Route path="/add-accessory" element={<AddAccessory />} />
-        <Route path="/add-part" element={<AddPart />} />
-        <Route
-          path="/accessories/detail/:id"
-          element={<AccessoryDetailPage />}
-        />
+        <Route path="/add-part" element={<AddPart />} /> 
+        <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrder />} />
@@ -94,6 +86,12 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/order-history" element={<OrderHistory />} />
+        <Route path="/add-car-tires" element={<AddCarTiresPage />} />
+     
+    
+ 
+          
+        
       </Routes>
 
       {!isCartPage && (
