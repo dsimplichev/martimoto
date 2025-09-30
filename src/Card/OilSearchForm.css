@@ -1,5 +1,5 @@
 
-.tire-search-container {
+.oil-search-container { 
     max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px; 
@@ -16,7 +16,8 @@
 }
 
 
-.tire-type-selection {
+
+.oil-type-selection { 
     display: flex;
     justify-content: center; 
     gap: 15px;
@@ -65,8 +66,9 @@
 }
 
 
+
 .main-params-new {
-    display: flex;
+    display: none; 
     gap: 20px;
     width: var(--control-max-width); 
     max-width: 100%;
@@ -105,6 +107,7 @@
 
 .select-wrapper::after,
 .brand-select-wrapper::after {
+    
     content: '\f107' !important; 
     font-family: 'Font Awesome 5 Free' !important; 
     font-weight: 900 !important; 
@@ -121,6 +124,7 @@
 
 
 .checkbox-different-size {
+    display: none; 
     width: var(--control-max-width); 
     max-width: 100%;
     margin: 0px 0 10px 0;
@@ -128,6 +132,7 @@
 }
 
 .brand-select-wrapper {
+    display: none; 
     width: var(--control-max-width); 
     max-width: 100%;
     margin-bottom: 10px;
@@ -136,7 +141,7 @@
 
 
 .season-selection {
-    display: flex;
+    display: none; 
     justify-content: flex-start; 
     gap: 15px;
     margin-bottom: 20px;
@@ -171,8 +176,8 @@
 
 
 .all-season-icon { color: #2ecc71 !important; } 
-.winter-icon { color: #3498db !important; }    
-.summer-icon { color: #f1c40f !important; }    
+.winter-icon { color: #3498db !important; } 
+.summer-icon { color: #f1c40f !important; } 
 
 .season-button.active-season {
     border-color: #f39c12;
@@ -207,8 +212,8 @@
 
 
 
+
 @media (max-width: 768px) {
-    
     
     .main-params-new,
     .season-selection {
@@ -217,7 +222,7 @@
     }
     
     
-    .tire-type-selection {
+    .oil-type-selection { 
         flex-direction: column; 
         gap: 10px;
         width: 100%;
@@ -226,7 +231,6 @@
     }
 
     .type-card {
-        
         width: 100%;
         flex-basis: auto;
         min-height: 80px; 
@@ -242,13 +246,13 @@
         align-self: stretch; 
     }
 
-   
+    
     .select-wrapper {
         min-width: unset;
         width: 100%;
     }
     
-   
+    
     .search-button-new {
         width: 100%;
         align-self: stretch;
@@ -263,8 +267,6 @@
     }
     
     .season-button {
-    
         flex-basis: auto; 
-    
     }
 }
