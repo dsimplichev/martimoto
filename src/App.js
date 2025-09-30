@@ -89,7 +89,7 @@ function App() {
         <Route path="/add-car-tires" element={<AddCarTiresPage />} />
      
     
-/>  
+ 
           
         
       </Routes>

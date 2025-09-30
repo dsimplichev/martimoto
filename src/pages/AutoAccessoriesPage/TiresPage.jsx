@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionHeader from '../../Card/SectionHeader'; 
 import TireSearchForm from '../AutoAccessoriesPage/TireSearchForm'; 
-import './TiresPage.css'; // За основните стилове на страницата
+import './TiresPage.css'; 
 
 function TiresPage() {
     return (
@@ -14,7 +14,7 @@ function TiresPage() {
 
             
             <div className="tire-results">
-                {/* ... */}
+               
             </div>
         </div>
     );
