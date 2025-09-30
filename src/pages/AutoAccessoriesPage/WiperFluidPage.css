@@ -1,0 +1,11 @@
+.wiper-fluid-page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.fluid-content {
+    margin-top: 30px;
+    text-align: center;
+    color: #555;
+}
