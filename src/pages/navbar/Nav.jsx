@@ -118,6 +118,7 @@ function Nav({ onLogout }) {
                                             {user?.role === 'admin' && (
                                                 <>
                                                     <li><Link to="/add-part" onClick={() => setShowProfileDropdown(false)}>Добави част</Link></li>
+                                                    <li><Link to="/add-car-tires" onClick={() => setShowProfileDropdown(false)}>Добави авто гуми</Link></li>
                                                     <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
                                                     <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
                                                     <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>

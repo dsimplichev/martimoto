@@ -37,7 +37,8 @@ import MotorcycleOilSearchForm from './pages/AutoAccessoriesPage/MotorcycleOilSe
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import WiperFluidPage from './pages/AutoAccessoriesPage/WiperFluidPage';
-import MatsPage from './pages/AutoAccessoriesPage/MatsPage';  
+import MatsPage from './pages/AutoAccessoriesPage/MatsPage';
+import AddCarTiresPage from './pages/AddCarTiresPage/AddCarTiresPage'; 
 
 
 function App() {
@@ -84,7 +85,11 @@ function App() {
         <Route path="/parts/:id" element={<SinglePartPage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/order-history" element={<OrderHistory />} />  
+        <Route path="/order-history" element={<OrderHistory />} />
+        <Route path="/add-car-tires" element={<AddCarTiresPage />} />
+     
+    
+/>  
           
         
       </Routes>
