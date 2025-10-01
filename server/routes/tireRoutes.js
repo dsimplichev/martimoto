@@ -15,7 +15,7 @@ router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
 
     if (!brand) return res.status(400).json({ message: 'Марка е задължителна!' });
 
-    // Качваме всички снимки в Cloudinary
+    
     const images = [];
     for (const file of req.files) {
       const result = await cloudinary.uploader.upload(file.path, {
@@ -24,7 +24,7 @@ router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
       images.push(result.secure_url);
     }
 
-    // Създаваме гума с масив от снимки
+    
     const newTire = new CarTire({
       brand,
       model,

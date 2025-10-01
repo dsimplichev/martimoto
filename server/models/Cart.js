@@ -4,8 +4,7 @@ const cartItemSchema = new mongoose.Schema({
     productId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        // *** Важно: Премахваме 'ref' тук! ***
-        // ref: 'Accessory', // <-- Това се премахва!
+     
     },
     quantity: {
         type: Number,
@@ -13,8 +12,8 @@ const cartItemSchema = new mongoose.Schema({
         default: 1,
         min: 1
     },
-    itemType: { // <--- НОВО ПОЛЕ!
-        type: String, // Ще съхранява 'part' или 'accessory'
+    itemType: {
+        type: String, 
         required: true,
         enum: ['part', 'accessory']
     },

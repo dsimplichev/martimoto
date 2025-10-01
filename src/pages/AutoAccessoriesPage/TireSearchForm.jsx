@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { FaCar, FaTruck, FaCarSide, FaShoppingCart } from 'react-icons/fa'; // Добавена FaShoppingCart за по-реалистична икона "Купи"
+import React, { useState, useEffect, useContext } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
 import { RiSunFill, RiSnowyFill } from 'react-icons/ri';
 import { FiCloudSnow } from 'react-icons/fi';
 import './TireSearchForm.css';
 import { TIRE_OPTIONS } from '../AutoAccessoriesPage/tireData';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { CartContext } from '../../Context/CartContext';
 
 function TireSearchForm() {
     const [tireType, setTireType] = useState('Автомобилни гуми');
@@ -16,8 +17,8 @@ function TireSearchForm() {
     const [season, setSeason] = useState('Летни');
     const [tires, setTires] = useState([]);
 
+    const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
-
     const currentOptions = TIRE_OPTIONS[tireType];
 
     useEffect(() => {
@@ -37,6 +38,19 @@ function TireSearchForm() {
             console.error('Грешка при зареждане на гуми:', err);
         }
     };
+
+    const handleAddToCart = (tire) => {
+    const productForCart = {
+        _id: tire._id,
+        title: `${tire.brand} ${tire.model}`,
+        price: tire.price,
+        image: tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png',
+        itemType: "tire",
+        quantity: 1   
+    };
+    addToCart(productForCart);
+    alert("Гумата беше добавена в количката!");
+};
 
     useEffect(() => {
         fetchTires();
@@ -148,7 +162,10 @@ function TireSearchForm() {
                                         >
                                             ВИЖТЕ ПОВЕЧЕ
                                         </button>
-                                        <button className="buy-button">
+                                        <button
+                                            className="buy-button"
+                                            onClick={() => handleAddToCart(tire)}
+                                        >
                                             <FaShoppingCart className="buy-icon" /> КУПИ
                                         </button>
                                     </div>

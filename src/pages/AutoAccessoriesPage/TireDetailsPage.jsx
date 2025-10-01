@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./TireDetailsPage.css";
+import { CartContext } from '../../Context/CartContext';
 
 function TireDetailsPage() {
     const { id } = useParams();
     const [tire, setTire] = useState(null);
     const [mainImage, setMainImage] = useState(null);
 
+    const { addToCart } = useContext(CartContext);
     useEffect(() => {
         const fetchTire = async () => {
             try {
@@ -24,6 +26,19 @@ function TireDetailsPage() {
     if (!tire) return <p>Зареждане...</p>;
 
     const priceInEuro = (tire.price / 1.95583).toFixed(2);
+
+      const handleAddToCart = () => {
+        const productForCart = {
+            _id: tire._id,
+            title: `${tire.brand} ${tire.model}`,
+            price: tire.price,
+            image: tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png',
+            itemType: "tire",
+            quantity: 1, 
+        };
+        addToCart(productForCart);
+        alert("Гумата беше добавена в количката!");
+    };
 
     return (
         <div className="tire-details-container">
@@ -69,7 +84,7 @@ function TireDetailsPage() {
                     <span className="price-euro">{priceInEuro} €</span>
                 </div>
 
-                <button className="add-to-cart-button">
+                <button className="add-to-cart-button" onClick={handleAddToCart}>
                     Добави в кошницата
                 </button>
             </div>
