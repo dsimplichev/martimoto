@@ -1,9 +1,9 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import Nav from "./pages/navbar/Nav";
+import Nav from "./pages/navbar/Nav"; 
 import Search from "./pages/search/Search";
 import Brand from "./pages/brand/Brand";
 import LastProduct from "./pages/lastproduct/LastProduct";
-import About from "./pages/About/About";
+import About from "./pages/About/About"; // Проверен регистър
 import Footer from "./pages/footer/Footer";
 import PartsSearch from "./pages/partsSearch/PartsSearch";
 import BrandDetails from "./pages/brandDetails/BrandDetails";
@@ -39,6 +39,7 @@ import { AuthContext } from "./Context/AuthContext";
 import WiperFluidPage from './pages/AutoAccessoriesPage/WiperFluidPage';
 import MatsPage from './pages/AutoAccessoriesPage/MatsPage';
 import AddCarTiresPage from './pages/AddCarTiresPage/AddCarTiresPage'; 
+import TireDetailsPage from "./pages/AutoAccessoriesPage/TireDetailsPage";
 
 
 function App() {
@@ -47,9 +48,16 @@ function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const location = useLocation();
-  const isCartPage =
-    location.pathname === "/cart" || location.pathname === "/order";
 
+  
+  const isPageWithoutFooter =
+    location.pathname === "/cart" ||
+    location.pathname === "/order";
+
+ 
+  const hideBrandAndLastProduct = 
+    location.pathname === "/autosviat/gumi";
+    
   return (
     <div>
       <Nav isLoggedIn={isLoggedIn} onLogout={logout} />
@@ -87,17 +95,17 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/order-history" element={<OrderHistory />} />
         <Route path="/add-car-tires" element={<AddCarTiresPage />} />
-     
-    
- 
-          
-        
+        <Route path="/tire/:id" element={<TireDetailsPage />} />
       </Routes>
 
-      {!isCartPage && (
+  
+      {!isPageWithoutFooter && (
         <>
-          <Brand />
-          <LastProduct />
+          
+          {!hideBrandAndLastProduct && <Brand />}
+          {!hideBrandAndLastProduct && <LastProduct />}
+          
+          
           <About />
           <Footer />
           <ScrollToTopButton />

@@ -5,7 +5,6 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const upload = multer({ dest: 'uploads/' });
 
-
 router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
   try {
     const {
@@ -16,7 +15,7 @@ router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
 
     if (!brand) return res.status(400).json({ message: 'Марка е задължителна!' });
 
-    
+    // Качваме всички снимки в Cloudinary
     const images = [];
     for (const file of req.files) {
       const result = await cloudinary.uploader.upload(file.path, {
@@ -25,6 +24,7 @@ router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
       images.push(result.secure_url);
     }
 
+    // Създаваме гума с масив от снимки
     const newTire = new CarTire({
       brand,
       model,
@@ -39,7 +39,7 @@ router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
       season,
       price,
       description,
-      imageUrl: images[0], 
+      images, 
     });
 
     await newTire.save();
@@ -50,7 +50,6 @@ router.post('/add-car-tire', upload.array('images', 5), async (req, res) => {
     res.status(500).json({ message: 'Грешка при добавяне на гума.', error: err.message });
   }
 });
-
 
 router.get('/car-tires', async (req, res) => {
   try {

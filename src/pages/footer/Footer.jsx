@@ -1,6 +1,6 @@
 import React from 'react';
 import './footer.css';
-import logo from '../../assets/logo.png';
+import martimoto10 from '../../assets/martimoto10.png';
 import { FaInstagram, FaFacebook, FaEnvelope, FaPhone } from 'react-icons/fa'; 
 
 function Footer() {
@@ -8,7 +8,7 @@ function Footer() {
         <div>
             <footer className="footer">
                 <div className="footer-content">
-                    <img src={logo} alt="Logo" className="footer-logo" />
+                    <img src={martimoto10} alt="Logo" className="footer-logo" />
                     <div className="social-icons">
                         <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                             <FaInstagram className="social-icon" />
