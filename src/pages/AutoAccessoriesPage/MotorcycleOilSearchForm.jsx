@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './OilSearchForm.css'; 
 import SectionHeader from '../../Card/SectionHeader'; 
-import { OIL_OPTIONS } from '../AutoAccessoriesPage/oilData'; 
+import { OIL_OPTIONS_FLAT as OIL_OPTIONS } from '../AutoAccessoriesPage/oilData'; 
 import dvgmotor from '../../assets/dvgmotor.png'; 
 import trnmotor from '../../assets/trnmotor.png';
 import vilka from '../../assets/vilka.png'; 

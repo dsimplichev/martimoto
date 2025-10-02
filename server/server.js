@@ -19,6 +19,7 @@ const lastRoutes = require("./routes/lastRoutes")
 const cartRoutes = require('./routes/cartRoutes')
 const guestRoutes = require('./routes/guestRoutes');
 const tireRoutes = require('./routes/tireRoutes');
+const oilRoutes = require('./routes/oilRoutes'); 
 
 const upload = multer(); 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/api/last-products', lastRoutes )
 app.use('/cart', cartRoutes);
 app.use('/', guestRoutes);
 app.use('/api', tireRoutes);
+app.use('/api/oils', oilRoutes);
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {

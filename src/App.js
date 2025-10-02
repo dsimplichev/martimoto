@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import Nav from "./pages/navbar/Nav"; 
+import Nav from "./pages/navbar/Nav";
 import Search from "./pages/search/Search";
 import Brand from "./pages/brand/Brand";
 import LastProduct from "./pages/lastproduct/LastProduct";
@@ -33,14 +33,14 @@ import TiresPage from "./pages/AutoAccessoriesPage/TiresPage";
 import OilsPage from "./pages/AutoAccessoriesPage/OilsPage";
 import OilSearchForm from "./pages/AutoAccessoriesPage/OilSearchForm";
 import TruckOilSearchForm from "./pages/AutoAccessoriesPage/TruckOilSearchForm";
-import MotorcycleOilSearchForm from './pages/AutoAccessoriesPage/MotorcycleOilSearchForm'; 
+import MotorcycleOilSearchForm from "./pages/AutoAccessoriesPage/MotorcycleOilSearchForm";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
-import WiperFluidPage from './pages/AutoAccessoriesPage/WiperFluidPage';
-import MatsPage from './pages/AutoAccessoriesPage/MatsPage';
-import AddCarTiresPage from './pages/AddCarTiresPage/AddCarTiresPage'; 
+import WiperFluidPage from "./pages/AutoAccessoriesPage/WiperFluidPage";
+import MatsPage from "./pages/AutoAccessoriesPage/MatsPage";
+import AddCarTiresPage from "./pages/AddCarTiresPage/AddCarTiresPage";
 import TireDetailsPage from "./pages/AutoAccessoriesPage/TireDetailsPage";
-
+import AddOilForm from "./pages/AddOilForm/AddOilForm";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -49,15 +49,15 @@ function App() {
 
   const location = useLocation();
 
-  
   const isPageWithoutFooter =
-    location.pathname === "/cart" ||
-    location.pathname === "/order";
+    location.pathname === "/cart" || location.pathname === "/order";
 
- 
-  const hideBrandAndLastProduct = 
-    location.pathname === "/autosviat/gumi";
-    
+  const hideBrandAndLastProduct =
+    location.pathname.startsWith("/autosviat/gumi") || 
+    location.pathname.startsWith("/autosviat/masla") || 
+    location.pathname.startsWith("/autosviat/techosti-chistachki") ||
+    location.pathname.startsWith("/autosviat/stelki");
+
   return (
     <div>
       <Nav isLoggedIn={isLoggedIn} onLogout={logout} />
@@ -72,17 +72,38 @@ function App() {
         <Route path="/autosviat/gumi" element={<TiresPage />} />
         <Route path="/autosviat/masla" element={<OilsPage />} />
         <Route path="/autosviat/masla/avtomobili" element={<OilSearchForm />} />
-        <Route path="/autosviat/masla/kamioni" element={<TruckOilSearchForm />} />
-        <Route path="/autosviat/masla/motori" element={<MotorcycleOilSearchForm />} />
-        <Route path="/autosviat/techosti-chistachki" element={<WiperFluidPage />} />
+        <Route
+          path="/autosviat/masla/kamioni"
+          element={<TruckOilSearchForm />}
+        />
+        <Route
+          path="/autosviat/masla/motori"
+          element={<MotorcycleOilSearchForm />}
+        />
+        <Route
+          path="/autosviat/techosti-chistachki"
+          element={<WiperFluidPage />}
+        />
         <Route path="/autosviat/stelki" element={<MatsPage />} />
-        <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} /> 
-        <Route path="/brands/:brandName" element={<BrandDetails />} /> 
-        <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />} /> 
+        <Route
+          path="/accessories/:accessoryName"
+          element={<AccessoryDetails />}
+        />
+        <Route path="/brands/:brandName" element={<BrandDetails />} />
+        <Route
+          path="/brands/:brandName/models/:modelName"
+          element={<ModelDetails />}
+        />
+        <Route
+          path="/brands/:brandName/models/:modelName/:year"
+          element={<PartsByYear />}
+        />
         <Route path="/add-accessory" element={<AddAccessory />} />
-        <Route path="/add-part" element={<AddPart />} /> 
-        <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
+        <Route path="/add-part" element={<AddPart />} />
+        <Route
+          path="/accessories/detail/:id"
+          element={<AccessoryDetailPage />}
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrder />} />
@@ -96,16 +117,14 @@ function App() {
         <Route path="/order-history" element={<OrderHistory />} />
         <Route path="/add-car-tires" element={<AddCarTiresPage />} />
         <Route path="/tire/:id" element={<TireDetailsPage />} />
+        <Route path="/add-oil" element={<AddOilForm />} />
       </Routes>
 
-  
       {!isPageWithoutFooter && (
         <>
-          
           {!hideBrandAndLastProduct && <Brand />}
           {!hideBrandAndLastProduct && <LastProduct />}
-          
-          
+
           <About />
           <Footer />
           <ScrollToTopButton />
