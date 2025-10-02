@@ -33,6 +33,7 @@ function OilSearchForm() {
                 : "http://localhost:5000/api/oils";
 
             const response = await axios.get(url);
+            console.log('oils from backend:', response.data);
             setOils(response.data);
         } catch (err) {
             console.error('Грешка при зареждане на масла:', err);
