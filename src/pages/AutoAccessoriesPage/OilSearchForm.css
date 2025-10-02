@@ -103,63 +103,344 @@
     background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
+.oil-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 40px;
+    padding: 0;
+    margin-top: 20px; 
+    margin-bottom: 40px;
+}
+
+.oil-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px; 
+    text-align: left; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100%; 
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out, border-color 0.3s;
+}
+
+.oil-card:hover {
+    border-color: #d9232a; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-5px); 
+    cursor: pointer; 
+}
+
+.oil-image-wrapper {
+    text-align: center;
+    margin-bottom: 10px;
+    height: 150px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    overflow: hidden; 
+}
+
+.oil-image {
+    width: auto;
+    max-height: 100%; 
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.oil-card:hover .oil-image {
+    transform: scale(1.05); 
+}
+
+.oil-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 5px 0;
+    min-height: 2.6em; 
+    overflow: hidden;
+    line-height: 1.3;
+}
+
+.oil-details {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 5px 0 15px 0;
+    line-height: 1.5;
+    flex-grow: 1; 
+}
+
+.oil-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0; 
+    border-bottom: 1px dotted #e0e0e0; 
+}
+
+.oil-detail-label {
+    font-weight: 500;
+    color: #555;
+}
+
+.oil-detail-value {
+    color: #333;
+    font-weight: 600;
+}
+
+
+
+.oil-price-row {
+    margin: 10px 0 10px 0; 
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    flex-wrap: wrap; 
+    border-top: 1px solid #eee; 
+    padding-top: 10px; 
+    justify-content: flex-start; 
+}
+
+.oil-price-bgn strong {
+    font-size: 1.8rem; 
+    font-weight: 900;
+    color: #d9232a; 
+    margin-right: 5px;
+    line-height: 1;
+}
+
+.oil-price-eur {
+    font-size: 1.1rem; 
+    color: #888;
+    margin-left: 5px;
+}
+
+.price-vat {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-left: 5px;
+    align-self: flex-end;
+}
+
+
+
+.oil-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    margin-top: 15px; 
+}
+
+.oil-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 6px; 
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.view-details-button {
+     background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 0.9rem; 
+    border-radius: 20px; 
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.view-details-button:hover {
+    border-color: #f39c12;
+    color: #f39c12;
+}
+
+
+.buy-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e62020; 
+    color: white;
+    border: 1px solid #e62020;
+    padding: 8px;
+    font-size: 0.9rem; 
+    font-weight: bold;
+    border-radius: 20px; 
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.buy-button:hover {
+    background-color: #cc0000; 
+    border-color: #cc0000;
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(230, 32, 32, 0.4);  
+}
+
+.buy-icon {
+    font-size: 1.1rem; 
+}
+
+
+
+@media (max-width: 900px) {
+    .oil-search-container {
+        margin: 20px 10px; 
+        padding: 15px;
+    }
+
     
     .main-params-new {
-        grid-template-columns: 1fr; 
-        gap: 15px; 
-        width: 100%;
-        max-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
+
     
     .oil-type-selection {
-        flex-direction: column; 
-        gap: 10px;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto 20px auto;
-        align-items: stretch;
-    }
-
-    .type-card {
-        width: 100%;
-        max-width: none; 
-        flex-basis: auto;
-        min-height: 80px; 
-        
         flex-direction: row; 
+        gap: 15px;
         justify-content: flex-start; 
-        align-items: center;
     }
-    
-    
-    .type-icon {
-        width: 30px; 
+    .type-card {
+        width: 180px; 
+        min-width: 180px; 
         height: auto;
-        margin-right: 15px; 
-        margin-bottom: 0; 
+        padding: 15px;
+    }
+
+   
+    .oil-grid {
+        gap: 20px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .oil-search-container {
+        margin: 20px 10px; 
+        padding: 15px;
     }
 
     
-    .select-wrapper {
-        min-width: unset;
-        width: 100%;
+    .main-params-new {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
+
     
-    .search-button-new {
-        width: 100%;
-        align-self: stretch;
-    }
-    
-    
-    .season-selection {
+    .oil-type-selection {
         flex-direction: row; 
-        flex-wrap: wrap; 
-        justify-content: flex-start;
+        gap: 15px;
+        justify-content: flex-start; 
+        padding: 10px; 
+        padding-bottom: 15px;
+    }
+    .type-card {
+        
+        width: 130px;
+        min-width: 130px; 
+        height: auto;
+        padding: 15px;
+    }
+
+   
+    .oil-grid {
+        gap: 20px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .oil-search-container {
+        margin: 10px 5px; 
+        padding: 10px;
+    }
+    
+    
+    .main-params-new {
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     
-    .season-button {
-        flex-basis: auto; 
-    } 
+    .select-param, .search-button-new {
+        font-size: 14px; 
+    }
+
+    
+    .oil-type-selection {
+        gap: 10px;
+        padding: 10px; 
+        padding-bottom: 15px;
+    }
+    .type-card {
+        
+        width: 95px; 
+        min-width: 95px;
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    
+    .oil-image-wrapper {
+        height: 100px; 
+        margin-bottom: 5px;
+    }
+    
+    .oil-title {
+        font-size: 1rem; 
+        min-height: 2.4em;
+        margin: 0 0 3px 0;
+    }
+    
+    .oil-details {
+        font-size: 0.8rem; 
+        margin: 3px 0 10px 0;
+    }
+    
+    .oil-detail-row {
+        padding: 3px 0; 
+    }
+
+    
+    .oil-grid {
+        
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+    }
+
+    .oil-price-row {
+        margin: 5px 0 5px 0; 
+        padding-top: 5px;
+    }
+    
+    .oil-price-bgn strong {
+        font-size: 1.4rem; 
+    }
+    .oil-price-eur {
+        font-size: 0.9rem;
+    }
+
+    .oil-button {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+
+    .buy-button {
+        padding: 6px;
+    }
+    
+    .view-details-button {
+        padding: 6px;
+    }
 }

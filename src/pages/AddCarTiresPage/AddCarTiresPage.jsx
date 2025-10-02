@@ -7,18 +7,18 @@ function AddCarTiresPage() {
     const { user, isLoggedIn } = useContext(AuthContext);
 
     const [tireData, setTireData] = useState({
-        tireType: 'Автомобилни гуми', // ново поле
+        tireType: 'Автомобилни гуми',
         brand: '',
         model: '',
-        width: '', 
-        aspectRatio: '', 
-        diameter: '', 
-        loadIndex: '', 
-        speedRating: '', 
-        fuelEconomy: '', 
-        wetGrip: '', 
-        noiseLevel: '', 
-        season: 'Летни', 
+        width: '',
+        aspectRatio: '',
+        diameter: '',
+        loadIndex: '',
+        speedRating: '',
+        fuelEconomy: '',
+        wetGrip: '',
+        noiseLevel: '',
+        season: 'Летни',
         price: '',
         description: '',
         images: [],
@@ -39,12 +39,17 @@ function AddCarTiresPage() {
 
     const handleImageChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
-        if (selectedFiles.length > 5) {
+
+        if (selectedFiles.length + tireData.images.length > 5) {
             setError('Можете да качите максимум 5 снимки!');
             e.target.value = null;
             return;
         }
-        setTireData(prev => ({ ...prev, images: selectedFiles }));
+
+        setTireData(prev => ({
+            ...prev,
+            images: [...prev.images, ...selectedFiles]
+        }));
         setError('');
     };
 
@@ -78,9 +83,9 @@ function AddCarTiresPage() {
 
             setTireData({
                 tireType: 'Автомобилни гуми',
-                brand: '', model: '', width: '', aspectRatio: '', diameter: '', 
-                loadIndex: '', speedRating: '', fuelEconomy: '', wetGrip: '', 
-                noiseLevel: '', season: 'Летни', price: '', description: '', 
+                brand: '', model: '', width: '', aspectRatio: '', diameter: '',
+                loadIndex: '', speedRating: '', fuelEconomy: '', wetGrip: '',
+                noiseLevel: '', season: 'Летни', price: '', description: '',
                 images: [],
             });
             document.getElementById('tire-image').value = null;
@@ -93,7 +98,7 @@ function AddCarTiresPage() {
     };
 
     const seasons = ['Летни', 'Зимни', 'Всесезонни'];
-   
+
 
     return (
         <div className="add-tire-page-container">
@@ -103,40 +108,40 @@ function AddCarTiresPage() {
 
             <form onSubmit={handleSubmit} className="add-tire-form">
                 <div className="form-row">
-                    
 
-                    <input 
-                        type="text" name="brand" placeholder="Марка (напр. Michelin)" 
-                        value={tireData.brand} onChange={handleChange} required 
+
+                    <input
+                        type="text" name="brand" placeholder="Марка (напр. Michelin)"
+                        value={tireData.brand} onChange={handleChange} required
                     />
-                    <input 
-                        type="text" name="model" placeholder="Модел (напр. Pilot Sport 4)" 
-                        value={tireData.model} onChange={handleChange} 
+                    <input
+                        type="text" name="model" placeholder="Модел (напр. Pilot Sport 4)"
+                        value={tireData.model} onChange={handleChange}
                     />
                 </div>
 
                 <div className="form-row size-inputs">
-                    <input type="number" name="width" placeholder="Ширина (напр. 205)" 
+                    <input type="number" name="width" placeholder="Ширина (напр. 205)"
                         value={tireData.width} onChange={handleChange} required />
-                    <input type="number" name="aspectRatio" placeholder="Профил (напр. 55)" 
+                    <input type="number" name="aspectRatio" placeholder="Профил (напр. 55)"
                         value={tireData.aspectRatio} onChange={handleChange} required />
-                    <input type="text" name="diameter" placeholder="Диаметър (напр. R16)" 
+                    <input type="text" name="diameter" placeholder="Диаметър (напр. R16)"
                         value={tireData.diameter} onChange={handleChange} required />
                 </div>
 
                 <div className="form-row">
-                    <input type="text" name="loadIndex" placeholder="Товарен индекс (напр. 91)" 
+                    <input type="text" name="loadIndex" placeholder="Товарен индекс (напр. 91)"
                         value={tireData.loadIndex} onChange={handleChange} required />
-                    <input type="text" name="speedRating" placeholder="Скоростен индекс (напр. V)" 
+                    <input type="text" name="speedRating" placeholder="Скоростен индекс (напр. V)"
                         value={tireData.speedRating} onChange={handleChange} required />
-                    <input type="text" name="fuelEconomy" placeholder="Икономичен индекс (напр. A)" 
+                    <input type="text" name="fuelEconomy" placeholder="Икономичен индекс (напр. A)"
                         value={tireData.fuelEconomy} onChange={handleChange} required />
                 </div>
 
                 <div className="form-row">
-                    <input type="text" name="wetGrip" placeholder="Сцепление на мокро (напр. B)" 
+                    <input type="text" name="wetGrip" placeholder="Сцепление на мокро (напр. B)"
                         value={tireData.wetGrip} onChange={handleChange} required />
-                    <input type="number" name="noiseLevel" placeholder="Индекс шум (напр. 72)" 
+                    <input type="number" name="noiseLevel" placeholder="Индекс шум (напр. 72)"
                         value={tireData.noiseLevel} onChange={handleChange} required />
                     <select name="season" value={tireData.season} onChange={handleChange} required>
                         {seasons.map(s => <option key={s} value={s}>{s}</option>)}
@@ -144,7 +149,7 @@ function AddCarTiresPage() {
                 </div>
 
                 <div className="form-row price-row">
-                    <input type="number" name="price" placeholder="Цена (в лв.)" 
+                    <input type="number" name="price" placeholder="Цена (в лв.)"
                         value={tireData.price} onChange={handleChange} step="0.01" required />
                 </div>
 
@@ -153,14 +158,14 @@ function AddCarTiresPage() {
 
                 <div className="file-input-wrapper">
                     <label htmlFor="tire-image">Снимки на гумата (до 5 бр.):</label>
-                    <input type="file" id="tire-image" name="images" 
+                    <input type="file" id="tire-image" name="images"
                         onChange={handleImageChange} accept="image/*" multiple required />
 
                     {tireData.images.length > 0 && (
                         <div className="image-previews" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px' }}>
                             {tireData.images.map((file, index) => (
-                                <img key={index} src={URL.createObjectURL(file)} 
-                                    alt={`Preview ${index + 1}`} 
+                                <img key={index} src={URL.createObjectURL(file)}
+                                    alt={`Preview ${index + 1}`}
                                     style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '4px' }} />
                             ))}
                         </div>

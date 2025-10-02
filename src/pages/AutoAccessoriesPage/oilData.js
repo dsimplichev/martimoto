@@ -318,4 +318,8 @@ export const DYNAMIC_OIL_OPTIONS = {
   },
 };
 
-export const OIL_OPTIONS = DYNAMIC_OIL_OPTIONS;
+export const OIL_OPTIONS_FLAT = {
+  "Двигателно масло": DYNAMIC_OIL_OPTIONS["Двигателно масло"],
+  "Масло за скорости": DYNAMIC_OIL_OPTIONS["Масло за скорости"],
+  "Масло за хидравлика": DYNAMIC_OIL_OPTIONS["Масло за хидравлика"]
+};

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { FaCar, FaTruck, FaCarSide } from 'react-icons/fa';
+import React, { useState, useEffect, useContext } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
 import { RiSunFill, RiSnowyFill } from 'react-icons/ri';
 import { FiCloudSnow } from 'react-icons/fi';
 import './TireSearchForm.css';
 import { TIRE_OPTIONS } from '../AutoAccessoriesPage/tireData';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { CartContext } from '../../Context/CartContext';
 
 function TireSearchForm() {
     const [tireType, setTireType] = useState('Автомобилни гуми');
@@ -15,6 +17,8 @@ function TireSearchForm() {
     const [season, setSeason] = useState('Летни');
     const [tires, setTires] = useState([]);
 
+    const { addToCart } = useContext(CartContext);
+    const navigate = useNavigate();
     const currentOptions = TIRE_OPTIONS[tireType];
 
     useEffect(() => {
@@ -27,12 +31,26 @@ function TireSearchForm() {
 
     const fetchTires = async () => {
         try {
+
             const response = await axios.get('http://localhost:5000/api/car-tires');
             setTires(response.data);
         } catch (err) {
             console.error('Грешка при зареждане на гуми:', err);
         }
     };
+
+    const handleAddToCart = (tire) => {
+    const productForCart = {
+        _id: tire._id,
+        title: `${tire.brand} ${tire.model}`,
+        price: tire.price,
+        image: tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png',
+        itemType: "tire",
+        quantity: 1   
+    };
+    addToCart(productForCart);
+    alert("Гумата беше добавена в количката!");
+};
 
     useEffect(() => {
         fetchTires();
@@ -101,15 +119,57 @@ function TireSearchForm() {
                     <div className="tire-grid">
                         {tires.map(tire => (
                             <div key={tire._id} className="tire-card">
-                                <img
-                                    src={tire.imageUrl}
-                                    alt={`${tire.brand} ${tire.model}`}
-                                    className="tire-image"
-                                />
-                                <h3>{tire.brand} {tire.model}</h3>
-                                <p>Размер: {tire.width}/{tire.aspectRatio}{tire.diameter}</p>
-                                <p>Сезон: {tire.season}</p>
-                                <p>Цена: <strong>{tire.price} лв.</strong></p>
+                                <div className="tire-image-wrapper">
+                                    <img
+                                        src={tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png'}
+                                        alt={`${tire.brand || ''} ${tire.model || ''}`}
+                                        className="tire-image"
+                                    />
+                                </div>
+                                <div className="tire-info-details">
+
+
+
+
+                                    <p className="tire-subtitle">
+                                        {tire.brand || 'Марка'} | {tire.model || 'Модел'}
+                                    </p>
+
+
+                                    <p className="tire-size-season">
+                                        {tire.width}/{tire.aspectRatio}R{tire.diameter} | {tire.season}
+
+                                        {tire.season === 'Всесезонни' && <FiCloudSnow className="season-icon-inline all-season-icon-inline" />}
+                                        {tire.season === 'Зимни' && <RiSnowyFill className="season-icon-inline winter-icon-inline" />}
+                                        {tire.season === 'Летни' && <RiSunFill className="season-icon-inline summer-icon-inline" />}
+                                    </p>
+
+
+                                    <div className="tire-price-row">
+                                        <span className="tire-price-bgn">
+                                            <strong>{Number(tire.price).toFixed(2)} лв.</strong>
+                                        </span>
+                                        <span className="tire-price-eur">
+                                            / {(Number(tire.price) / 1.95583).toFixed(2)} &euro; <small className="price-vat">с ддс</small>
+                                        </span>
+                                    </div>
+
+
+                                    <div className="tire-card-actions">
+                                        <button
+                                            className="view-details-button"
+                                            onClick={() => navigate(`/tire/${tire._id}`)}
+                                        >
+                                            ВИЖТЕ ПОВЕЧЕ
+                                        </button>
+                                        <button
+                                            className="buy-button"
+                                            onClick={() => handleAddToCart(tire)}
+                                        >
+                                            <FaShoppingCart className="buy-icon" /> КУПИ
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>

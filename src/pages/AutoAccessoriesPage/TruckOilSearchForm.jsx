@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './OilSearchForm.css'; 
 import SectionHeader from '../../Card/SectionHeader'; 
-import { OIL_OPTIONS } from '../AutoAccessoriesPage/oilData'; 
-
+import { OIL_OPTIONS_FLAT as OIL_OPTIONS } from '../AutoAccessoriesPage/oilData';
 import dvgmaslo from '../../assets/dvgmaslo.png'; 
 import transmitionoil from '../../assets/transmitionoil.png';
 import wheeloil from '../../assets/wheeloil.png';
