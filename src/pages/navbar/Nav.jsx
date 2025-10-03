@@ -121,6 +121,7 @@ function Nav({ onLogout }) {
                                                     <li><Link to="/add-car-tires" onClick={() => setShowProfileDropdown(false)}>Добави авто гуми</Link></li>
                                                     <li><Link to="/add-oil" onClick={() => setShowProfileDropdown(false)}>Добави масло</Link></li>
                                                     <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
+                                                    <li><Link to="/add-wiper-fluid" onClick={() => setShowProfileDropdown(false)}>Добави течност за чистачки</Link></li>
                                                     <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
                                                     <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>
                                                 </>

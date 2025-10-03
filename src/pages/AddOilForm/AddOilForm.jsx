@@ -41,11 +41,11 @@ const AddOilForm = () => {
         
         
         images.forEach(image => {
-            formData.append("images", image); // 'images' съвпада с multer.array('images')
+            formData.append("images", image); 
         });
 
         try {
-            // Изпращаме formData, Axios автоматично задава правилния Content-Type (multipart/form-data)
+            
             const response = await axios.post(
                 "http://localhost:5000/api/oils/add-oil", 
                 formData
