@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/martimoto/static/css/main.64e4d5d0.css",
-    "main.js": "/martimoto/static/js/main.834327fc.js",
+    "main.css": "/martimoto/static/css/main.47ea945d.css",
+    "main.js": "/martimoto/static/js/main.efc85116.js",
     "static/media/about.png": "/martimoto/static/media/about.698715bc593af74d4bd1.png",
     "static/media/TUONOV42020.png": "/martimoto/static/media/TUONOV42020.6f93f1b825b298d626ae.png",
     "static/media/rsv2020.png": "/martimoto/static/media/rsv2020.07ae2f0c8a56a83e5bb7.png",
@@ -44,6 +44,7 @@
     "static/media/CBR9001999.png": "/martimoto/static/media/CBR9001999.5f60bef2895504fca6fe.png",
     "static/media/CBR1000RR2023.png": "/martimoto/static/media/CBR1000RR2023.741f8c83cefdcc8379b5.png",
     "static/media/PANIGALE1299.png": "/martimoto/static/media/PANIGALE1299.1d0d1ab2d0b8c7ff8b8a.png",
+    "static/media/mats.png": "/martimoto/static/media/mats.af92dbb8e103cbcf8988.png",
     "static/media/CBRR1100.png": "/martimoto/static/media/CBRR1100.11c38ef8efb603783804.png",
     "static/media/KAWASAKIZ10002013.png": "/martimoto/static/media/KAWASAKIZ10002013.ce88c555e5b6764c4c7f.png",
     "static/media/YZFR120042006.png": "/martimoto/static/media/YZFR120042006.8eef9f4fcce9c15ae915.png",
@@ -187,7 +188,6 @@
     "static/media/PANIGALEV42022.png": "/martimoto/static/media/PANIGALEV42022.53f94b18cde86f8c90b5.png",
     "static/media/Streetfighter.png": "/martimoto/static/media/Streetfighter.89a0e8e443cc51d123f3.png",
     "static/media/GSXR20062007.png": "/martimoto/static/media/GSXR20062007.04fafecda5ad40dbc610.png",
-    "static/media/logo.png": "/martimoto/static/media/logo.4c281e306ca18cd07624.png",
     "static/media/cbr6502014.png": "/martimoto/static/media/cbr6502014.b52a9d8078cd0fecb034.png",
     "static/media/XJ62016.png": "/martimoto/static/media/XJ62016.fb7f704e27055c427b4e.png",
     "static/media/XJ62009.png": "/martimoto/static/media/XJ62009.21864450d36aedd6ad79.png",
@@ -202,10 +202,12 @@
     "static/media/CBR6001997.png": "/martimoto/static/media/CBR6001997.bfd4e200cca14151ef49.png",
     "static/media/GSXR19961997.png": "/martimoto/static/media/GSXR19961997.ef38218b9eb000458b22.png",
     "static/media/XJ62024.png": "/martimoto/static/media/XJ62024.d81d4da747fb45e32181.png",
+    "static/media/масла.png": "/martimoto/static/media/масла.580b68b16686579a6c7f.png",
     "static/media/YZF20019.png": "/martimoto/static/media/YZF20019.981280a70c52c40040ef.png",
     "static/media/RSVTUONO.png": "/martimoto/static/media/RSVTUONO.fd83221c889af2fc95e3.png",
     "static/media/KAWASAKIZ10002009.png": "/martimoto/static/media/KAWASAKIZ10002009.0719a4cff0543eccca8d.png",
     "static/media/PANIGALE959.png": "/martimoto/static/media/PANIGALE959.6a1624579c5addebb414.png",
+    "static/media/течност.png": "/martimoto/static/media/течност.ca20627e80f1b04a7f61.png",
     "static/media/panigale8992015.png": "/martimoto/static/media/panigale8992015.81a7e6e970ee1dbc1838.png",
     "static/media/PANIGALE899.png": "/martimoto/static/media/PANIGALE899.cf4dea717717d85de2c3.png",
     "static/media/KAWASAKIZ91998.png": "/martimoto/static/media/KAWASAKIZ91998.d597bb82c94e47645783.png",
@@ -216,12 +218,20 @@
     "static/media/KAWASAKIZ7502012.png": "/martimoto/static/media/KAWASAKIZ7502012.7c424a4877cee72df88f.png",
     "static/media/balansior.png": "/martimoto/static/media/balansior.6857f5cb488457bdb1fe.png",
     "static/media/CBR125.png": "/martimoto/static/media/CBR125.de2d930a4f6e1c374362.png",
+    "static/media/dvgmotor.png": "/martimoto/static/media/dvgmotor.4a3e1e4d2efc49c296a1.png",
+    "static/media/motorimasla.png": "/martimoto/static/media/motorimasla.faf7eac7ca589956e824.png",
+    "static/media/gumikola.png": "/martimoto/static/media/gumikola.1978b39410a9d5c4983e.png",
+    "static/media/vilka.png": "/martimoto/static/media/vilka.57c746d3d0aa24fa15fb.png",
+    "static/media/transmitionoil.png": "/martimoto/static/media/transmitionoil.2a9eed48b9585c157efe.png",
+    "static/media/kolamasla.png": "/martimoto/static/media/kolamasla.7d16bb6eeaa443e288d8.png",
+    "static/media/kamionmasla.png": "/martimoto/static/media/kamionmasla.ee63fc20089d68983480.png",
+    "static/media/wheeloil.png": "/martimoto/static/media/wheeloil.c4fc2d86ecbd1ab22512.png",
     "index.html": "/martimoto/index.html",
-    "main.64e4d5d0.css.map": "/martimoto/static/css/main.64e4d5d0.css.map",
-    "main.834327fc.js.map": "/martimoto/static/js/main.834327fc.js.map"
+    "main.47ea945d.css.map": "/martimoto/static/css/main.47ea945d.css.map",
+    "main.efc85116.js.map": "/martimoto/static/js/main.efc85116.js.map"
   },
   "entrypoints": [
-    "static/css/main.64e4d5d0.css",
-    "static/js/main.834327fc.js"
+    "static/css/main.47ea945d.css",
+    "static/js/main.efc85116.js"
   ]
 }
