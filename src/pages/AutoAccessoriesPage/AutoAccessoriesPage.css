@@ -1,7 +1,7 @@
 .auto-accessories-page-container {
     max-width: 1200px; 
-    margin: 40px auto; 
-    padding: 0 20px;
+    margin: 80px auto; 
+     padding: 0 20px 400px 20px;
 }
 
 .categories-grid {
@@ -14,11 +14,11 @@
 
 @media (max-width: 600px) {
     .categories-grid {
-        
         grid-template-columns: 1fr; 
         gap: 20px;
     }
     .auto-accessories-page-container {
         margin-top: 20px;
+        padding-bottom: 20px;
     }
 }

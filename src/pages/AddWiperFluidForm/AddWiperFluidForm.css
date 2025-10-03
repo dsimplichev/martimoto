@@ -1,0 +1,87 @@
+.add-wiperfluid-form-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.add-wiperfluid-form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.notification {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.add-wiperfluid-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-wiperfluid-form label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+}
+
+.add-wiperfluid-form input,
+.add-wiperfluid-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.add-wiperfluid-form input:focus,
+.add-wiperfluid-form select:focus {
+  border-color: #007bff;
+}
+
+.add-wiperfluid-form button {
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #218838;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-wiperfluid-form button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 640px) {
+  .add-wiperfluid-form-container {
+    padding: 15px;
+    margin: 15px;
+  }
+
+  .add-wiperfluid-form button {
+    padding: 10px;
+  }
+}

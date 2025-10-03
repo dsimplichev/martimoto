@@ -41,6 +41,7 @@ import MatsPage from "./pages/AutoAccessoriesPage/MatsPage";
 import AddCarTiresPage from "./pages/AddCarTiresPage/AddCarTiresPage";
 import TireDetailsPage from "./pages/AutoAccessoriesPage/TireDetailsPage";
 import AddOilForm from "./pages/AddOilForm/AddOilForm";
+import AddWiperFluidForm from "./pages/AddWiperFluidForm/AddWiperFluidForm"
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -53,6 +54,7 @@ function App() {
     location.pathname === "/cart" || location.pathname === "/order";
 
   const hideBrandAndLastProduct =
+    location.pathname.startsWith("/autosviat") || 
     location.pathname.startsWith("/autosviat/gumi") || 
     location.pathname.startsWith("/autosviat/masla") || 
     location.pathname.startsWith("/autosviat/techosti-chistachki") ||
@@ -118,6 +120,7 @@ function App() {
         <Route path="/add-car-tires" element={<AddCarTiresPage />} />
         <Route path="/tire/:id" element={<TireDetailsPage />} />
         <Route path="/add-oil" element={<AddOilForm />} />
+        <Route path="/add-wiper-fluid" element={<AddWiperFluidForm />} />
       </Routes>
 
       {!isPageWithoutFooter && (

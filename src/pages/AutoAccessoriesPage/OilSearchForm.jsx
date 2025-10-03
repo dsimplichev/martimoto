@@ -33,6 +33,7 @@ function OilSearchForm() {
                 : "http://localhost:5000/api/oils";
 
             const response = await axios.get(url);
+            console.log('oils from backend:', response.data);
             setOils(response.data);
         } catch (err) {
             console.error('Грешка при зареждане на масла:', err);
@@ -69,8 +70,8 @@ function OilSearchForm() {
                             key={cat.value}
                             className={`type-card ${oilType === cat.value ? 'active' : ''}`}
                             onClick={() => {
-                                setOilType(cat.value);       // за бекенд
-                                setOptionsKey(cat.optionsKey); // за филтрите
+                                setOilType(cat.value);       
+                                setOptionsKey(cat.optionsKey); 
                             }}
                         >
                             <img src={cat.img} alt={cat.label} className="type-icon" />
