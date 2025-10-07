@@ -124,28 +124,31 @@
     color: #333;
 }
 
-/* Секция с цената */
+
 .fluid-price-section {
-    padding-top: 10px;
-    margin-bottom: 15px;
-    text-align: center;
+     margin: 10px 0 15px 0; 
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap; 
+    border-top: 1px dashed #eee;
+    padding-top: 10px; 
 }
 
 .fluid-price-bgn {
-    font-size: 28px;
-    color: #e53935; /* Червена цена */
-    font-weight: 700;
-    display: block;
+    font-size: 1.8rem; 
+    font-weight: 900;
+    color: #333;
+    margin-right: 5px;
+    line-height: 1;
 }
 
 .fluid-price-eur {
-    font-size: 14px;
-    color: #999;
-    margin-top: 5px;
-    display: block;
+    font-size: 1.1rem; 
+    color: #888;
+    margin-left: 5px;
 }
 
-/* Бутони */
+
 .fluid-card-actions {
     display: flex;
     flex-direction: column;
@@ -164,31 +167,44 @@
 }
 
 .fluid-view-btn {
-    background-color: #fff;
-    color: #e53935;
-    border: 2px solid #e53935;
+     background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 0.9rem; 
+    border-radius: 20px; 
+    cursor: pointer;
+    transition: all 0.2s;
 }
 .fluid-view-btn:hover {
-    background-color: #fce4e4;
+   border-color: #f39c12;
+   color: #f39c12;
 }
 
 .fluid-buy-btn {
-    background-color: #e53935; 
-    color: #fff;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    background-color: #e62020; 
+    color: white;
+    border: 1px solid #e62020;
+    padding: 8px;
+    font-size: 0.9rem; 
+    font-weight: bold;
+    border-radius: 20px; 
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .fluid-buy-btn:hover {
-    background-color: #c62828;
+    background-color: #cc0000; 
+    border-color: #cc0000;
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(230, 32, 32, 0.4); 
 }
 
-/* Медиа заявка за мобилен */
+
 @media screen and (max-width: 640px) {
     .fluid-grid {
-        /* 2 карти на мобилен */
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
     }

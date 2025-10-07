@@ -48,10 +48,11 @@
     }
 }
 
-h2 {
+.regtitle {
     color: var(--text-color);
     margin-bottom: 25px;
     font-weight: 600;
+    
 }
 
 
@@ -164,7 +165,7 @@ input[type="password"]:focus {
 .have__account {
     margin-top: 25px;
     font-size: 14px;
-    color: var(--secondary-color);
+    color: var(--text-color);
 }
 
 .account-login-row {
