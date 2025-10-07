@@ -42,6 +42,7 @@ import AddCarTiresPage from "./pages/AddCarTiresPage/AddCarTiresPage";
 import TireDetailsPage from "./pages/AutoAccessoriesPage/TireDetailsPage";
 import AddOilForm from "./pages/AddOilForm/AddOilForm";
 import AddWiperFluidForm from "./pages/AddWiperFluidForm/AddWiperFluidForm"
+import WiperFluidDetailsPage from "./pages/AutoAccessoriesPage/WiperFluidDetailsPage";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -121,6 +122,7 @@ function App() {
         <Route path="/tire/:id" element={<TireDetailsPage />} />
         <Route path="/add-oil" element={<AddOilForm />} />
         <Route path="/add-wiper-fluid" element={<AddWiperFluidForm />} />
+        <Route path="/wiper-fluid/:id" element={<WiperFluidDetailsPage />} />
       </Routes>
 
       {!isPageWithoutFooter && (

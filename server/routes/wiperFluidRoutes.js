@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const router = express.Router();
 
-// Multer конфигурация за временно съхранение на файлове
+
 const upload = multer({ dest: 'uploads/' });
 
 cloudinary.config({
@@ -15,7 +15,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// POST /add - добавяне на нова течност
+
 router.post('/add', upload.array('images', 3), async (req, res) => {
     try {
         const { title, volume, price } = req.body;
@@ -61,6 +61,21 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.error('Грешка при взимане на течности:', err);
         res.status(500).json({ message: 'Грешка при взимане на течности', error: err.message });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const fluid = await WiperFluid.findById(req.params.id);
+
+        if (!fluid) {
+            return res.status(404).json({ message: 'Продуктът не е намерен' });
+        }
+
+        res.json(fluid);
+    } catch (err) {
+        console.error('Грешка при взимане на конкретна течност:', err);
+        res.status(500).json({ message: 'Грешка при взимане на продукта', error: err.message });
     }
 });
 
