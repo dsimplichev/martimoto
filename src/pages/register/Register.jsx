@@ -92,7 +92,7 @@ function Register({ onClose, onLoginClick }) {
     return (
         <div className="modal-overlay" onClick={handleOverlayClick}>
             <div className="form-container">
-                <h2>Регистрация</h2>
+                <h2 className='regtitle'>Регистрация</h2>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="username">Потребителско име</label>
                     <input
