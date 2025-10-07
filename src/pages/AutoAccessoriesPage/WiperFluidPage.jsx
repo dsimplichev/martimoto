@@ -3,6 +3,7 @@ import SectionHeader from '../../Card/SectionHeader';
 import axios from 'axios';
 import './WiperFluidPage.css';
 import { CartContext } from '../../Context/CartContext';
+import { useNavigate } from "react-router-dom";
 
 const MANUFACTURERS = ["Shell", "Castrol", "Total", "Liqui Moly"];
 const PACKINGS = ["1L", "5L", "10L"];
@@ -12,6 +13,7 @@ function WiperFluidPage() {
     const [manufacturer, setManufacturer] = useState('Избери Производител');
     const [packing, setPacking] = useState('Избери Разфасовка');
     const { addToCart } = useContext(CartContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchFluids();
@@ -117,7 +119,12 @@ function WiperFluidPage() {
 
 
                             <div className="fluid-card-actions">
-                                <button className="fluid-view-btn">ВИЖ ПОВЕЧЕ</button>
+                                <button
+                                    className="fluid-view-btn"
+                                    onClick={() => navigate(`/wiper-fluid/${fluid._id}`)}
+                                >
+                                    ВИЖ ПОВЕЧЕ
+                                </button>
 
                                 <button
                                     className="fluid-buy-btn"

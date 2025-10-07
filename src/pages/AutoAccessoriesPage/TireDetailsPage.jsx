@@ -15,7 +15,7 @@ function TireDetailsPage() {
             try {
                 const response = await axios.get(`http://localhost:5000/api/car-tires/${id}`);
                 setTire(response.data);
-                setMainImage(response.data.images[0]); // първата снимка е главна
+                setMainImage(response.data.images[0]); 
             } catch (err) {
                 console.error("Грешка при зареждане на гума:", err);
             }
