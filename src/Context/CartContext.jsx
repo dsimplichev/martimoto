@@ -121,38 +121,40 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart = async (product) => {
-        if (isLoggedIn) {
-            try {
-                await axios.post(
-                    `http://localhost:5000/cart/${userId}`,
-                    { productId: product._id, quantity: 1 },
-                    { withCredentials: true }
-                );
-                await loadUserCart(userId);
-            } catch (error) {
-                console.error("Грешка при добавяне в количката:", error);
-            }
-        } else {
-            const existingItem = cart.find(item => item._id === product._id); 
-            let updatedCart;
+    const selectedQuantity = product.quantity || 1; 
 
-            if (existingItem) {
-                updatedCart = cart.map(item =>
-                    item._id === product._id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
-            } else {
-                
-                updatedCart = [...cart, { ...product, quantity: 1 }];
-            }
-
-            setCart(updatedCart);
-            saveGuestCart(updatedCart); 
+    if (isLoggedIn) {
+        try {
+            await axios.post(
+                `http://localhost:5000/cart/${userId}`,
+                { productId: product._id, quantity: selectedQuantity },
+                { withCredentials: true }
+            );
+            await loadUserCart(userId);
+        } catch (error) {
+            console.error("Грешка при добавяне в количката:", error);
         }
-    };
+    } else {
+        const existingItem = cart.find(
+            item => item._id === product._id && item.itemType === product.itemType
+        );
 
+        let updatedCart;
 
+        if (existingItem) {
+            updatedCart = cart.map(item =>
+                item._id === product._id && item.itemType === product.itemType
+                    ? { ...item, quantity: item.quantity + selectedQuantity }
+                    : item
+            );
+        } else {
+            updatedCart = [...cart, { ...product, quantity: selectedQuantity }];
+        }
+
+        setCart(updatedCart);
+        saveGuestCart(updatedCart);
+    }
+};
     const removeFromCart = async (productId) => {
         if (isLoggedIn) {
             try {

@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OilSearchForm.css';
-import SectionHeader from '../../Card/SectionHeader'; 
+import SectionHeader from '../../Card/SectionHeader';
 import { OIL_OPTIONS_FLAT as OIL_OPTIONS } from '../AutoAccessoriesPage/oilData';
-import dvgmaslo from '../../assets/dvgmaslo.png'; 
+import dvgmaslo from '../../assets/dvgmaslo.png';
 import transmitionoil from '../../assets/transmitionoil.png';
 import wheeloil from '../../assets/wheeloil.png';
+import { useNavigate } from "react-router-dom";
 
 function TruckOilSearchForm() {
-    const [oilType, setOilType] = useState('Двигателно масло'); 
+    const [oilType, setOilType] = useState('Двигателно масло');
     const [manufacturer, setManufacturer] = useState('Избери Производител');
-    const [purpose, setPurpose] = useState('Избери Предназначение'); 
+    const [purpose, setPurpose] = useState('Избери Предназначение');
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
-    const [oilCategory, setOilCategory] = useState('Избери Тип масло'); 
+    const [oilCategory, setOilCategory] = useState('Избери Тип масло');
     const [packing, setPacking] = useState('Избери Разфасовка');
     const [oils, setOils] = useState([]);
+    const navigate = useNavigate()
+
+    const handleViewDetails = (id) => {
+        navigate(`/truck-oil/${id}`);
+    };
 
     const handleOilTypeChange = (newOilType) => {
         setOilType(newOilType);
         setManufacturer('Избери Производител');
-        setPurpose('Избери Предназначение'); 
+        setPurpose('Избери Предназначение');
         setViscosity('Избери Вискозитет');
         setOilCategory('Избери Тип масло');
         setPacking('Избери Разфасовка');
@@ -34,7 +40,7 @@ function TruckOilSearchForm() {
     const fetchOils = async (selectedType) => {
         try {
             const response = await axios.get("http://localhost:5000/api/oils");
-            const truckOils = response.data.filter(oil => 
+            const truckOils = response.data.filter(oil =>
                 oil.vehicleType === "Камиони" &&
                 oil.oilCategory?.trim().toLowerCase() === CATEGORY_MAP[selectedType]?.trim().toLowerCase()
             );
@@ -67,7 +73,7 @@ function TruckOilSearchForm() {
 
     return (
         <div className="oil-search-container">
-            <SectionHeader title="МАСЛА ЗА КАМИОНИ" /> 
+            <SectionHeader title="МАСЛА ЗА КАМИОНИ" />
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="oil-type-selection">
                     <div className={`type-card ${oilType === 'Двигателно масло' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Двигателно масло')}>
@@ -75,11 +81,11 @@ function TruckOilSearchForm() {
                         <span>Двигателно масло</span>
                     </div>
                     <div className={`type-card ${oilType === 'Масло за скорости' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Масло за скорости')}>
-                        <img src={transmitionoil} alt="Икона за Масло за скорости" className="type-icon" /> 
+                        <img src={transmitionoil} alt="Икона за Масло за скорости" className="type-icon" />
                         <span>Масло за скорости</span>
                     </div>
                     <div className={`type-card ${oilType === 'Масло за хидравлика' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Масло за хидравлика')}>
-                        <img src={wheeloil} alt="Икона за Масло за хидравлика" className="type-icon" /> 
+                        <img src={wheeloil} alt="Икона за Масло за хидравлика" className="type-icon" />
                         <span>Масло за хидравлика</span>
                     </div>
                 </div>
@@ -127,7 +133,12 @@ function TruckOilSearchForm() {
                             </div>
 
                             <div className="oil-card-actions">
-                                <button className="oil-button view-details-button">ВИЖ ПОВЕЧЕ</button>
+                                <button
+                                    className="oil-button view-details-button"
+                                    onClick={() => handleViewDetails(oil._id)} 
+                                >
+                                    ВИЖ ПОВЕЧЕ
+                                </button>
                                 <button className="oil-button buy-button">
                                     <i className="fas fa-shopping-cart buy-icon"></i> КУПИ
                                 </button>
