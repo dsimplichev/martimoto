@@ -43,6 +43,8 @@ import TireDetailsPage from "./pages/AutoAccessoriesPage/TireDetailsPage";
 import AddOilForm from "./pages/AddOilForm/AddOilForm";
 import AddWiperFluidForm from "./pages/AddWiperFluidForm/AddWiperFluidForm"
 import WiperFluidDetailsPage from "./pages/AutoAccessoriesPage/WiperFluidDetailsPage";
+import OilDetailsPage from "./pages/AutoAccessoriesPage/OilDetailsPage";
+import TruckOilDetailsPage from "./pages/AutoAccessoriesPage/TruckOilDetailsPage";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -75,38 +77,17 @@ function App() {
         <Route path="/autosviat/gumi" element={<TiresPage />} />
         <Route path="/autosviat/masla" element={<OilsPage />} />
         <Route path="/autosviat/masla/avtomobili" element={<OilSearchForm />} />
-        <Route
-          path="/autosviat/masla/kamioni"
-          element={<TruckOilSearchForm />}
-        />
-        <Route
-          path="/autosviat/masla/motori"
-          element={<MotorcycleOilSearchForm />}
-        />
-        <Route
-          path="/autosviat/techosti-chistachki"
-          element={<WiperFluidPage />}
-        />
-        <Route path="/autosviat/stelki" element={<MatsPage />} />
-        <Route
-          path="/accessories/:accessoryName"
-          element={<AccessoryDetails />}
-        />
+        <Route path="/autosviat/masla/kamioni"element={<TruckOilSearchForm />} />
+        <Route path="/autosviat/masla/motori" element={<MotorcycleOilSearchForm />} />
+        <Route path="/autosviat/techosti-chistachki" element={<WiperFluidPage />} />
+        <Route path="/autosviat/stelki" element={<MatsPage />} /> 
+        <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} />
         <Route path="/brands/:brandName" element={<BrandDetails />} />
-        <Route
-          path="/brands/:brandName/models/:modelName"
-          element={<ModelDetails />}
-        />
-        <Route
-          path="/brands/:brandName/models/:modelName/:year"
-          element={<PartsByYear />}
-        />
+        <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
+        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />} />
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
-        <Route
-          path="/accessories/detail/:id"
-          element={<AccessoryDetailPage />}
-        />
+        <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrder />} />
@@ -123,6 +104,8 @@ function App() {
         <Route path="/add-oil" element={<AddOilForm />} />
         <Route path="/add-wiper-fluid" element={<AddWiperFluidForm />} />
         <Route path="/wiper-fluid/:id" element={<WiperFluidDetailsPage />} />
+        <Route path="/oil/:id" element={<OilDetailsPage />} />
+        <Route path="/truck-oil/:id" element={<TruckOilDetailsPage />} />
       </Routes>
 
       {!isPageWithoutFooter && (
@@ -160,3 +143,5 @@ function App() {
 }
 
 export default App;
+
+          

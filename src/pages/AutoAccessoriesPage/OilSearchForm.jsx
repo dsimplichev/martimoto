@@ -5,10 +5,11 @@ import { OIL_OPTIONS_FLAT as OIL_OPTIONS } from '../AutoAccessoriesPage/oilData'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { CartContext } from '../../Context/CartContext';
-
 import dvgmaslo from '../../assets/dvgmaslo.png';
 import transmitionoil from '../../assets/transmitionoil.png';
 import wheeloil from '../../assets/wheeloil.png';
+
+
 
 function OilSearchForm() {
     const [oilType, setOilType] = useState('Двигателно масло'); // за бекенд
@@ -17,6 +18,7 @@ function OilSearchForm() {
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
     const [packing, setPacking] = useState('Избери Разфасовка');
     const [oils, setOils] = useState([]);
+    const navigate = useNavigate();
 
     const currentOptions = OIL_OPTIONS[optionsKey] || {};
 
@@ -28,7 +30,7 @@ function OilSearchForm() {
 
     const fetchOils = async (category) => {
         try {
-            const url = category 
+            const url = category
                 ? `http://localhost:5000/api/oils/category/${encodeURIComponent(category)}`
                 : "http://localhost:5000/api/oils";
 
@@ -70,8 +72,8 @@ function OilSearchForm() {
                             key={cat.value}
                             className={`type-card ${oilType === cat.value ? 'active' : ''}`}
                             onClick={() => {
-                                setOilType(cat.value);       
-                                setOptionsKey(cat.optionsKey); 
+                                setOilType(cat.value);
+                                setOptionsKey(cat.optionsKey);
                             }}
                         >
                             <img src={cat.img} alt={cat.label} className="type-icon" />
@@ -125,7 +127,12 @@ function OilSearchForm() {
                             </div>
 
                             <div className="oil-card-actions">
-                                <button className="oil-button view-details-button">ВИЖ ПОВЕЧЕ</button>
+                                <button
+                                    className="oil-button view-details-button"
+                                    onClick={() => navigate(`/oil/${oil._id}`)}
+                                >
+                                    ВИЖ ПОВЕЧЕ
+                                </button>
                                 <button className="oil-button buy-button">
                                     <i className="fas fa-shopping-cart buy-icon"></i> КУПИ
                                 </button>
