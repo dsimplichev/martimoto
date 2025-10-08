@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './OilSearchForm.css'; 
-import SectionHeader from '../../Card/SectionHeader'; 
-import { OIL_OPTIONS_FLAT as OIL_OPTIONS } from '../AutoAccessoriesPage/oilData'; 
-import dvgmotor from '../../assets/dvgmotor.png'; 
+import './OilSearchForm.css';
+import SectionHeader from '../../Card/SectionHeader';
+import { OIL_OPTIONS_FLAT as OIL_OPTIONS } from '../AutoAccessoriesPage/oilData';
+import dvgmotor from '../../assets/dvgmotor.png';
 import trnmotor from '../../assets/trnmotor.png';
-import vilka from '../../assets/vilka.png'; 
+import vilka from '../../assets/vilka.png';
+import { useNavigate } from "react-router-dom";
 
-function MotorcycleOilSearchForm() { 
+function MotorcycleOilSearchForm() {
 
-    const [oilType, setOilType] = useState('Двигателно масло'); 
+    const [oilType, setOilType] = useState('Двигателно масло');
     const [manufacturer, setManufacturer] = useState('Избери Производител');
-    const [purpose, setPurpose] = useState('Избери Предназначение'); 
+    const [purpose, setPurpose] = useState('Избери Предназначение');
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
-    const [oilCategory, setOilCategory] = useState('Избери Тип масло'); 
+    const [oilCategory, setOilCategory] = useState('Избери Тип масло');
     const [packing, setPacking] = useState('Избери Разфасовка');
     const [oils, setOils] = useState([]);
+    const navigate = useNavigate();
 
     const handleOilTypeChange = (newOilType) => {
         setOilType(newOilType);
         setManufacturer('Избери Производител');
-        setPurpose('Избери Предназначение'); 
+        setPurpose('Избери Предназначение');
         setViscosity('Избери Вискозитет');
         setOilCategory('Избери Тип масло');
         setPacking('Избери Разфасовка');
     }
 
-    
+
     const CATEGORY_MAP = {
         "Двигателно масло": "Двигателно масло",
         "Масло за скорости": "Масло за скорости",
@@ -36,7 +38,7 @@ function MotorcycleOilSearchForm() {
     const fetchOils = async (selectedType) => {
         try {
             const response = await axios.get("http://localhost:5000/api/oils");
-            const motorcycleOils = response.data.filter(oil => 
+            const motorcycleOils = response.data.filter(oil =>
                 oil.vehicleType === "Мотори" &&
                 oil.oilCategory?.trim().toLowerCase() === CATEGORY_MAP[selectedType]?.trim().toLowerCase()
             );
@@ -53,7 +55,7 @@ function MotorcycleOilSearchForm() {
     const handleSearch = (e) => {
         e.preventDefault();
         console.log({
-            oilType, manufacturer, purpose, viscosity, oilCategory, packing 
+            oilType, manufacturer, purpose, viscosity, oilCategory, packing
         });
     };
 
@@ -71,7 +73,7 @@ function MotorcycleOilSearchForm() {
 
     return (
         <div className="oil-search-container">
-            <SectionHeader title="МАСЛА ЗА МОТОРИ" /> 
+            <SectionHeader title="МАСЛА ЗА МОТОРИ" />
 
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="oil-type-selection">
@@ -80,11 +82,11 @@ function MotorcycleOilSearchForm() {
                         <span>Двигателно масло</span>
                     </div>
                     <div className={`type-card ${oilType === 'Масло за скорости' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Масло за скорости')}>
-                        <img src={trnmotor} alt="Икона за Масло за скорости" className="type-icon" /> 
+                        <img src={trnmotor} alt="Икона за Масло за скорости" className="type-icon" />
                         <span>Масло за скорости</span>
                     </div>
                     <div className={`type-card ${oilType === 'Масло за вилка' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Масло за вилка')}>
-                        <img src={vilka} alt="Икона за Масло за вилка" className="type-icon" /> 
+                        <img src={vilka} alt="Икона за Масло за вилка" className="type-icon" />
                         <span>Масло за вилка</span>
                     </div>
                 </div>
@@ -134,7 +136,12 @@ function MotorcycleOilSearchForm() {
                             </div>
 
                             <div className="oil-card-actions">
-                                <button className="oil-button view-details-button">ВИЖ ПОВЕЧЕ</button>
+                                <button
+                                    className="oil-button view-details-button"
+                                    onClick={() => navigate(`/motorcycle-oil/${oil._id}`)}
+                                >
+                                    ВИЖ ПОВЕЧЕ
+                                </button>
                                 <button className="oil-button buy-button">
                                     <i className="fas fa-shopping-cart buy-icon"></i> КУПИ
                                 </button>
