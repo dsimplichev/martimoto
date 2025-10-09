@@ -72,10 +72,13 @@ function OilDetailsPage() {
 
             <div className="oil-info-section">
                 <h2 className="oil-title">{oil.brand}</h2>
-
+                
+               
+                
+                
                 <p className="oil-viscosity">Вискозитет: {oil.viscosity}</p>
                 <p className="oil-volume">Разфасовка: {oil.volume}</p>
-
+                {oil.type && <p className="oil-type">Тип масло: {oil.type}</p>}
                 <div className="oil-price">
                     <strong>{Number(oil.price).toFixed(2)} лв.</strong> /
                     <span> {(Number(oil.price) / 1.95583).toFixed(2)} €</span>
