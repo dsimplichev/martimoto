@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../Context/CartContext";
-import "./OilDetailsPage.css";
+import "./MotorcycleOilDetailsPage.css"; 
 
-
-function OilDetailsPage() {
+function MotorcycleOilDetailsPage() {
     const { id } = useParams();
     const [oil, setOil] = useState(null);
     const [mainImage, setMainImage] = useState("");
@@ -15,11 +14,12 @@ function OilDetailsPage() {
     useEffect(() => {
         const fetchOil = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/oils/${id}`);
+                
+                const res = await axios.get(`http://localhost:5000/api/oils/${id}`); 
                 setOil(res.data);
                 setMainImage(res.data.images?.[0] || "");
             } catch (err) {
-                console.error("Грешка при зареждане на масло:", err);
+                console.error("Грешка при зареждане на масло за мотори:", err);
             }
         };
         fetchOil();
@@ -28,7 +28,8 @@ function OilDetailsPage() {
     if (!oil) {
         return <p>Зареждане...</p>;
     }
-
+    
+    
     const handleDecrement = () => {
         setQuantity(prev => Math.max(1, prev - 1));
     };
@@ -40,10 +41,9 @@ function OilDetailsPage() {
     const handleAddToCart = () => {
         addToCart({
             ...oil,
-            title: oil.brand, 
             quantity,
             image: mainImage || oil.images?.[0],
-            itemType: "oil"
+            itemType: "motorcycleOil" 
         });
     };
 
@@ -53,7 +53,7 @@ function OilDetailsPage() {
                 <div className="oil-main-image-wrapper">
                     <img src={mainImage} alt={oil.brand} className="oil-main-image" />
                 </div>
-
+                
                 {oil.images?.length > 1 && (
                     <div className="oil-thumbnails">
                         {oil.images.slice(0, 3).map((img, index) => (
@@ -72,18 +72,16 @@ function OilDetailsPage() {
 
             <div className="oil-info-section">
                 <h2 className="oil-title">{oil.brand}</h2>
-                
-               
-                
-                
+
                 <p className="oil-viscosity">Вискозитет: {oil.viscosity}</p>
                 <p className="oil-volume">Разфасовка: {oil.volume}</p>
-                {oil.type && <p className="oil-type">Тип масло: {oil.type}</p>}
+
                 <div className="oil-price">
                     <strong>{Number(oil.price).toFixed(2)} лв.</strong> /
                     <span> {(Number(oil.price) / 1.95583).toFixed(2)} €</span>
                 </div>
 
+                
                 <div className="oil-quantity-control">
                     <label>Количество:</label>
                     <div className="quantity-buttons-wrapper">
@@ -92,6 +90,7 @@ function OilDetailsPage() {
                             min="1"
                             value={quantity}
                             readOnly
+                            onChange={(e) => setQuantity(Number(e.target.value))}
                         />
                         <div className="vertical-controls">
                             <button className="qty-btn plus" onClick={handleIncrement}>
@@ -112,4 +111,4 @@ function OilDetailsPage() {
     );
 }
 
-export default OilDetailsPage;
+export default MotorcycleOilDetailsPage;

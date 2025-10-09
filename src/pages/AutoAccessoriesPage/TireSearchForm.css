@@ -131,6 +131,15 @@
 }
 
 
+
+.search-buttons-group {
+    display: flex;
+    gap: 15px;
+    width: var(--control-max-width); 
+    max-width: 100%;
+    align-items: center;
+}
+
 .search-button-new {
     background-color: #f39c12; 
     color: white;
@@ -141,13 +150,34 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
-    width: 200px;
+    flex-grow: 1; 
+    max-width: 250px; 
 }
 
 
 .search-button-new:hover {
     background-color: #e67e22; 
 }
+
+.reset-button-new {
+    background-color: #6c757d; 
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem; 
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-grow: 0; 
+    white-space: nowrap;
+    margin-top: 17px;
+}
+
+.reset-button-new:hover {
+    background-color: #5a6268;
+}
+
 
 
 
@@ -318,14 +348,19 @@
 }
 
 
-@media (max-width: 600px) {
-    .tire-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 
 @media (max-width: 768px) {
+    
+    .search-buttons-group {
+        flex-direction: column; 
+        gap: 10px;
+    }
+
+    .search-button-new,
+    .reset-button-new {
+        width: 100%;
+        max-width: 100%;
+    }
     
     
     .main-params-new,
@@ -335,7 +370,6 @@
         width: 100%;
         max-width: 100%;
     }
-    
     
     
     
@@ -354,12 +388,6 @@
     }
     
     
-    .search-button-new {
-        width: 100%;
-        align-self: stretch;
-    }
-    
-    
     .season-selection {
         flex-direction: row; 
         flex-wrap: wrap; 
@@ -370,5 +398,11 @@
     .season-button {
         
         flex-basis: auto; 
+    }
+}
+
+@media (max-width: 600px) {
+    .tire-grid {
+        grid-template-columns: 1fr;
     }
 }

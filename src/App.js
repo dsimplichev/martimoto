@@ -45,6 +45,7 @@ import AddWiperFluidForm from "./pages/AddWiperFluidForm/AddWiperFluidForm"
 import WiperFluidDetailsPage from "./pages/AutoAccessoriesPage/WiperFluidDetailsPage";
 import OilDetailsPage from "./pages/AutoAccessoriesPage/OilDetailsPage";
 import TruckOilDetailsPage from "./pages/AutoAccessoriesPage/TruckOilDetailsPage";
+import MotorcycleOilDetailsPage from "./pages/AutoAccessoriesPage/MotorcycleOilDetailsPage"
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -106,6 +107,7 @@ function App() {
         <Route path="/wiper-fluid/:id" element={<WiperFluidDetailsPage />} />
         <Route path="/oil/:id" element={<OilDetailsPage />} />
         <Route path="/truck-oil/:id" element={<TruckOilDetailsPage />} />
+        <Route path="/motorcycle-oil/:id" element={<MotorcycleOilDetailsPage />} />
       </Routes>
 
       {!isPageWithoutFooter && (

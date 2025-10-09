@@ -10,9 +10,7 @@
     font-family: 'Arial', sans-serif;
 }
 
-/* ============================================== */
-/* СЕКЦИЯ С ИЗОБРАЖЕНИЯ */
-/* ============================================== */
+
 .oil-images-section {
     display: flex;
     flex-direction: column;
@@ -66,7 +64,7 @@
     padding: 3px;
     background-color: #fff;
 }
-/* Ховър ефект за миниатюрите */
+
 .oil-thumbnail:hover {
     border-color: #e53935; 
     box-shadow: 0 0 5px rgba(229, 57, 53, 0.5);
@@ -77,9 +75,7 @@
     box-shadow: 0 0 5px rgba(33, 136, 56, 0.8);
 }
 
-/* ============================================== */
-/* СЕКЦИЯ С ИНФОРМАЦИЯ И ЦЕНА (Подравняване вляво) */
-/* ============================================== */
+
 .oil-info-section {
     max-width: 450px;
     width: 100%;
@@ -87,7 +83,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 10px 0;
-    text-align: left; /* Гарантира подравняване вляво */
+    text-align: left; 
 }
 
 .oil-title {
@@ -117,7 +113,7 @@
     display: flex;
     gap: 10px;
     align-items: baseline;
-    justify-content: flex-start; /* Подравняване вляво */
+    justify-content: flex-start; 
 }
 
 .oil-price strong {
@@ -132,9 +128,7 @@
     font-weight: 500;
 }
 
-/* ============================================== */
-/* КОНТРОЛ ЗА КОЛИЧЕСТВО (ВЕРТИКАЛНИ БУТОНИ) */
-/* ============================================== */
+
 .oil-quantity-control {
     display: flex;
     align-items: center;
@@ -147,7 +141,7 @@
     color: #444;
 }
 
-/* Обвивка за input полето и вертикалните бутони */
+
 .quantity-buttons-wrapper {
     display: flex; 
     border: 1px solid #ccc;
@@ -155,7 +149,7 @@
     overflow: hidden; 
 }
 
-/* Input поле (лявата част) */
+
 .quantity-buttons-wrapper input {
     width: 60px; 
     height: 40px;
@@ -214,9 +208,7 @@
 }
 
 
-/* ============================================== */
-/* БУТОН КУПИ */
-/* ============================================== */
+
 .oil-add-to-cart-btn {
     margin-top: 10px;
     background-color: #218838; 
@@ -242,9 +234,7 @@
 }
 
 
-/* ============================================== */
-/* АДАПТИВНОСТ (Мобилен) */
-/* ============================================== */
+
 @media screen and (max-width: 768px) {
     .oil-details-container {
         flex-direction: column;

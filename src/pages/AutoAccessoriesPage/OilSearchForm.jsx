@@ -10,14 +10,23 @@ import transmitionoil from '../../assets/transmitionoil.png';
 import wheeloil from '../../assets/wheeloil.png';
 
 
+// ✅ НОВА КОНСТАНТА, взета от AddOilForm.js
+const OIL_COMPOSITIONS = ["Синтетично", "Минерално", "Полусинтетично"];
+
 
 function OilSearchForm() {
-    const [oilType, setOilType] = useState('Двигателно масло'); // за бекенд
-    const [optionsKey, setOptionsKey] = useState('Двигателно масло'); // за OIL_OPTIONS_FLAT
+    const [oilType, setOilType] = useState('Двигателно масло'); 
+    const [optionsKey, setOptionsKey] = useState('Двигателно масло'); 
     const [manufacturer, setManufacturer] = useState('Избери Производител');
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
     const [packing, setPacking] = useState('Избери Разфасовка');
-    const [oils, setOils] = useState([]);
+    // ✅ НОВО СЪСТОЯНИЕ ЗА ТИП МАСЛО (Синтетично/Минерално)
+    const [oilComposition, setOilComposition] = useState('Избери Тип масло'); 
+    
+    const [allOils, setAllOils] = useState([]);      
+    const [displayedOils, setDisplayedOils] = useState([]); 
+
+    const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
     const currentOptions = OIL_OPTIONS[optionsKey] || {};
@@ -28,6 +37,10 @@ function OilSearchForm() {
         { label: "Масло за хидравлика", value: "Хидравлично масло", img: wheeloil, optionsKey: "Масло за хидравлика" },
     ];
 
+    
+    /**
+     * 1. FETCH OILS: Зарежда всички масла за дадената категория
+     */
     const fetchOils = async (category) => {
         try {
             const url = category
@@ -35,29 +48,129 @@ function OilSearchForm() {
                 : "http://localhost:5000/api/oils";
 
             const response = await axios.get(url);
-            console.log('oils from backend:', response.data);
-            setOils(response.data);
+            
+            setAllOils(response.data);
+            setDisplayedOils(response.data); 
         } catch (err) {
             console.error('Грешка при зареждане на масла:', err);
+            setAllOils([]);
+            setDisplayedOils([]);
         }
     };
-
+    
+    // Нулиране на филтрите при смяна на категорията и зареждане на нови масла
     useEffect(() => {
+        setManufacturer('Избери Производител');
+        setViscosity('Избери Вискозитет');
+        setPacking('Избери Разфасовка');
+        // ✅ Нулираме и новото поле
+        setOilComposition('Избери Тип масло');
+        
         fetchOils(oilType);
     }, [oilType]);
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        console.log({ oilType, manufacturer, viscosity, packing });
+    
+    /**
+     * HANDLE ADD TO CART
+     */
+    const handleAddToCart = (oil) => {
+        const productForCart = {
+            _id: oil._id,
+            title: `${oil.brand} ${oil.viscosity} ${oil.volume}`,
+            price: oil.price,
+            image: oil.images && oil.images.length > 0 ? oil.images[0] : '/placeholder.png',
+            itemType: "oil",
+            quantity: 1
+        };
+        addToCart(productForCart);
+        alert("Продуктът беше добавен в количката!"); 
+    };
+    
+    /**
+     * ✅ Помощна функция за нормализиране: премахва всички интервали и регистър
+     */
+    const normalizeValue = (value) => {
+        if (!value) return '';
+        // /\s/g търси всички празнини (включително интервал, таб, нов ред)
+        return value.toString().replace(/\s/g, '').trim().toLowerCase();
     };
 
+
+    /**
+     * 🚀 HANDLE SEARCH: Филтриране по избрани параметри
+     */
+    const handleSearch = (e) => {
+        if (e) e.preventDefault();
+        
+        // Нормализираме входните стойности от падащите менюта
+        const searchManufacturer = normalizeValue(manufacturer);
+        const searchViscosity = normalizeValue(viscosity);
+        const searchPacking = normalizeValue(packing);
+        const searchComposition = normalizeValue(oilComposition); // ✅ НОВА СТОЙНОСТ
+        
+        // Нормализираме стойностите за сравнение с 'Избери...'
+        const defaultManufacturer = normalizeValue('Избери Производител');
+        const defaultViscosity = normalizeValue('Избери Вискозитет');
+        const defaultPacking = normalizeValue('Избери Разфасовка');
+        const defaultComposition = normalizeValue('Избери Тип масло'); // ✅ НОВА СТОЙНОСТ
+
+        
+        const filteredOils = allOils.filter(oil => {
+            
+            // 1. Филтриране по Производител/Марка (oil.brand)
+            const oilBrand = normalizeValue(oil.brand);
+            const manufacturerMatch = searchManufacturer === defaultManufacturer || oilBrand === searchManufacturer;
+            
+            // 2. Филтриране по Вискозитет (oil.viscosity)
+            const oilViscosity = normalizeValue(oil.viscosity);
+            const viscosityMatch = searchViscosity === defaultViscosity || oilViscosity === searchViscosity;
+            
+            // 3. Филтриране по Разфасовка (oil.volume)
+            const oilVolume = normalizeValue(oil.volume);
+            const packingMatch = searchPacking === defaultPacking || oilVolume === searchPacking;
+            
+            // 4. ✅ НОВ ФИЛТЪР: Тип масло (oil.type)
+            const oilType = normalizeValue(oil.type); // Полето в базата е 'type'
+            const compositionMatch = searchComposition === defaultComposition || oilType === searchComposition;
+            
+            return manufacturerMatch && viscosityMatch && packingMatch && compositionMatch; // ✅ Включваме новия филтър
+        });
+
+        // Актуализираме показания списък с резултатите
+        setDisplayedOils(filteredOils);
+    };
+    
+    /**
+     * РЕСЕТ: Нулира филтрите и показва всички масла за текущата категория
+     */
+    const resetSearch = () => {
+        setManufacturer('Избери Производител');
+        setViscosity('Избери Вискозитет');
+        setPacking('Избери Разфасовка');
+        setOilComposition('Избери Тип масло'); // ✅ Нулираме
+        
+        // Показваме всички масла, които вече са заредени за текущата категория
+        setDisplayedOils(allOils); 
+    }
+
+
+    /**
+     * RENDER SELECT: Хелпър функция за рендиране на падащите менюта (използваме я и за Тип масло)
+     */
     const renderSelect = (stateValue, setStateFunction, label, key) => {
-        if (!currentOptions[key]) return null;
+        // За Производител, Вискозитет и Разфасовка използваме OIL_OPTIONS[key]
+        if (['Производител', 'Вискозитет', 'Разфасовка'].includes(key) && !currentOptions[key]) return null;
+        
+        const optionsList = key === 'Тип масло' ? OIL_COMPOSITIONS : (currentOptions[key] || []);
+
         return (
             <div className="select-wrapper">
-                <select value={stateValue} onChange={(e) => setStateFunction(e.target.value)} className="select-param">
+                <select 
+                    value={stateValue} 
+                    onChange={(e) => setStateFunction(e.target.value)} 
+                    className="select-param"
+                >
                     <option value={`Избери ${label}`} disabled>{label.toUpperCase()}</option>
-                    {currentOptions[key].map(v => <option key={v} value={v}>{v}</option>)}
+                    {optionsList.map(v => <option key={v} value={v}>{v}</option>)}
                 </select>
             </div>
         );
@@ -86,18 +199,26 @@ function OilSearchForm() {
                     {renderSelect(manufacturer, setManufacturer, 'Производител', 'Производител')}
                     {renderSelect(viscosity, setViscosity, 'Вискозитет', 'Вискозитет')}
                     {renderSelect(packing, setPacking, 'Разфасовка', 'Разфасовка')}
+                    
+                    {/* ✅ НОВО ПАДАЩО МЕНЮ */}
+                    {renderSelect(oilComposition, setOilComposition, 'Тип масло', 'Тип масло')} 
                 </div>
 
-                <button type="submit" className="search-button-new">
-                    ТЪРСЕНЕ
-                </button>
+                <div className="search-buttons-group">
+                    <button type="submit" className="search-button-new">
+                        ТЪРСЕНЕ
+                    </button>
+                    <button type="button" className="reset-button-new" onClick={resetSearch}>
+                        ПОКАЖИ ВСИЧКИ
+                    </button>
+                </div>
             </form>
 
             <div className="oil-grid">
-                {oils.length === 0 ? (
-                    <p>Няма налични масла.</p>
+                {displayedOils.length === 0 ? (
+                    <p className="no-oils-message">Няма налични масла, отговарящи на Вашите критерии.</p>
                 ) : (
-                    oils.map(oil => (
+                    displayedOils.map(oil => (
                         <div key={oil._id} className="oil-card">
                             <div className="oil-image-wrapper">
                                 <img
@@ -118,11 +239,17 @@ function OilSearchForm() {
                                     <span className="oil-detail-label">Разфасовка:</span>
                                     <span className="oil-detail-value">{oil.volume}</span>
                                 </div>
+                                {/* ✅ ДОБАВЯНЕ НА ТИП МАСЛО КЪМ КАРТАТА */}
+                                <div className="oil-detail-row">
+                                    <span className="oil-detail-label">Тип:</span>
+                                    <span className="oil-detail-value">{oil.type}</span> 
+                                </div>
+                                
                                 <div className="oil-price-row">
                                     <span className="oil-price-bgn">
                                         <strong>{Number(oil.price).toFixed(2)} лв.</strong>
                                     </span>
-                                    <span className="oil-price-eur">/ {(Number(oil.price) / 1.95583).toFixed(2)} €</span>
+                                    <span className="oil-price-eur">/ {(Number(oil.price) / 1.95583).toFixed(2)} &euro;</span>
                                 </div>
                             </div>
 
@@ -133,8 +260,8 @@ function OilSearchForm() {
                                 >
                                     ВИЖ ПОВЕЧЕ
                                 </button>
-                                <button className="oil-button buy-button">
-                                    <i className="fas fa-shopping-cart buy-icon"></i> КУПИ
+                                <button className="oil-button buy-button" onClick={() => handleAddToCart(oil)}>
+                                    <FaShoppingCart className="buy-icon" /> КУПИ
                                 </button>
                             </div>
                         </div>

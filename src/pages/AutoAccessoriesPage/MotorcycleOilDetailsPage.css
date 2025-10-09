@@ -64,7 +64,6 @@
     padding: 3px;
     background-color: #fff;
 }
-
 .oil-thumbnail:hover {
     border-color: #e53935; 
     box-shadow: 0 0 5px rgba(229, 57, 53, 0.5);
@@ -96,12 +95,11 @@
 }
 
 .oil-viscosity,
-.oil-volume,
-.oil-type {
+.oil-volume {
     font-size: 18px;
     color: #555;
     font-weight: 600;
-    margin: 0; 
+    margin: 0;
 }
 
 .oil-price {
@@ -129,6 +127,7 @@
     font-weight: 500;
 }
 
+
 .oil-quantity-control {
     display: flex;
     align-items: center;
@@ -141,12 +140,14 @@
     color: #444;
 }
 
+
 .quantity-buttons-wrapper {
     display: flex; 
     border: 1px solid #ccc;
     border-radius: 6px;
     overflow: hidden; 
 }
+
 
 .quantity-buttons-wrapper input {
     width: 60px; 
@@ -156,7 +157,7 @@
     border: none;
     font-size: 16px;
     background-color: #fff;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc; 
     -moz-appearance: textfield; 
 }
 .quantity-buttons-wrapper input::-webkit-outer-spin-button,
@@ -209,7 +210,7 @@
 
 .oil-add-to-cart-btn {
     margin-top: 10px;
-    background-color: #218838; /* Зелен бутон */
+    background-color: #218838; 
     color: white;
     padding: 15px 25px;
     border: none;
@@ -244,7 +245,7 @@
     .oil-images-section,
     .oil-info-section {
         max-width: 100%;
-        text-align: left; /* Гарантираме, че подравняването остава вляво */
+        text-align: left; 
     }
 
     .oil-main-image-wrapper {
