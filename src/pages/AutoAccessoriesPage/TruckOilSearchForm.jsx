@@ -74,6 +74,7 @@ function TruckOilSearchForm() {
     return (
         <div className="oil-search-container">
             <SectionHeader title="МАСЛА ЗА КАМИОНИ" />
+        
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="oil-type-selection">
                     <div className={`type-card ${oilType === 'Двигателно масло' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Двигателно масло')}>

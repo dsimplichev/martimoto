@@ -9,6 +9,7 @@ function WiperFluidDetailsPage() {
     const [fluid, setFluid] = useState(null);
     const [mainImage, setMainImage] = useState("");
     const [quantity, setQuantity] = useState(1);
+     const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
 
     useEffect(() => {
@@ -46,10 +47,15 @@ function WiperFluidDetailsPage() {
             image: mainImage || fluid.images?.[0],
             itemType: "wiperFluid"
         });
+
+        setNotification(`Продукт "${fluid.title}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
     return (
         <div className="wiper-fluid-details-container">
+
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <div className="fluid-images-section">
                 <div className="fluid-main-image-wrapper">
                     <img src={mainImage} alt={fluid.title} className="fluid-main-image" />

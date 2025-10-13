@@ -10,10 +10,11 @@ const MANUFACTURERS = ["Shell", "Castrol", "Total", "Liqui Moly"];
 const PACKINGS = ["1L", "2L", "5L", "10L"];
 
 function WiperFluidPage() {
-    const [allFluids, setAllFluids] = useState([]); // Нов стейт: Съхранява всички заредени течности
-    const [fluids, setFluids] = useState([]); // Съществуващ стейт: Съхранява филтрираните (показвани) течности
+    const [allFluids, setAllFluids] = useState([]); 
+    const [fluids, setFluids] = useState([]); 
     const [manufacturer, setManufacturer] = useState('Избери Производител');
     const [packing, setPacking] = useState('Избери Разфасовка');
+    const [notification, setNotification] = useState('');
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
@@ -24,63 +25,67 @@ function WiperFluidPage() {
     const fetchFluids = async () => {
         try {
             const res = await axios.get('http://localhost:5000/api/wiper-fluid');
-            setAllFluids(res.data); // Записваме всички данни
-            setFluids(res.data); // Показваме всички данни в началото
+            setAllFluids(res.data); 
+            setFluids(res.data); 
         } catch (err) {
             console.error(err);
         }
     };
 
-    /**
-     * Логика за филтриране (ТЪРСЕНЕ)
-     */
+    
     const handleSearch = (e) => {
         e.preventDefault();
 
         const filtered = allFluids.filter(f =>
-            // Филтър по Производител
+            
             (manufacturer === 'Избери Производител' || f.title.includes(manufacturer)) &&
-            // Филтър по Разфасовка (volume)
+            
             (packing === 'Избери Разфасовка' || f.volume === packing)
         );
         
-        // Актуализираме само показвания списък
+        
         setFluids(filtered);
     };
 
-    /**
-     * Логика за анулиране (ПОКАЖИ ВСИЧКИ)
-     */
+    
     const handleReset = () => {
-        // 1. Нулираме стойностите на падащите менюта
+        
         setManufacturer('Избери Производител');
         setPacking('Избери Разфасовка');
 
-        // 2. Показваме отново целия списък с течности
+        
         setFluids(allFluids);
     };
 
-    // Обновена функция за добавяне в количката, за да използваме новата икона
+    
     const handleAddToCart = (fluid) => {
-        addToCart({
-            ...fluid,
-            image: fluid.images && fluid.images.length > 0
-                ? fluid.images[0]
-                : 'https://placehold.co/150x200/EEEEEE/AAAAAA?text=Fluid',
-            itemType: "wiper-fluid",
-            quantity: 1
-        });
-        console.log(`Продукт ${fluid.title} добавен в количката.`);
-    };
+    addToCart({
+        ...fluid,
+        image: fluid.images && fluid.images.length > 0
+            ? fluid.images[0]
+            : 'https://placehold.co/150x200/EEEEEE/AAAAAA?text=Fluid',
+        itemType: "awiper-fluid", 
+        quantity: 1
+    });
+
+    
+    setNotification(`Продукт "${fluid.title}" е добавен в количката.`);
+
+    
+    setTimeout(() => {
+        setNotification('');
+    }, 3000);
+};
 
     return (
         <div className="wiper-fluid-page-container">
 
             <SectionHeader title="ТЕЧНОСТ ЗА ЧИСТАЧКИ" />
+            {notification && <div className="cart-notification-center">{notification}</div>}
 
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="select-group main-params-new">
-                    {/* Select за Производител */}
+                    
                     <div className="select-wrapper">
                         <select
                             value={manufacturer}
