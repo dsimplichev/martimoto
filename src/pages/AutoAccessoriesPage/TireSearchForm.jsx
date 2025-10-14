@@ -15,10 +15,9 @@ function TireSearchForm() {
     const [diameter, setDiameter] = useState('Избери Диаметър');
     const [brand, setBrand] = useState('Избери Марка');
     const [season, setSeason] = useState('ANY'); 
-
     const [allTires, setAllTires] = useState([]);
     const [displayedTires, setDisplayedTires] = useState([]);
-
+    const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
     const currentOptions = TIRE_OPTIONS[tireType];
@@ -57,7 +56,8 @@ function TireSearchForm() {
             quantity: 1
         };
         addToCart(productForCart);
-        alert("Гумата беше добавена в количката!");
+        setNotification(`Продукт "${tire.brand} ${tire.model}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
 
@@ -115,6 +115,7 @@ function TireSearchForm() {
 
     return (
         <div className="tire-search-container">
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="select-group main-params-new">
                     {renderSelect(width, setWidth, 'Широчина', 'width')}

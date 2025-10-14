@@ -1,8 +1,6 @@
-import { useParams, useNavigate } from "react-router-dom"; // Използваме useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 
 import { CartContext } from "../../Context/CartContext";
 import { FavoritesContext } from "../../Context/FavoritesContext";
@@ -19,18 +17,19 @@ function AccessoryDetails() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
+  const [notification, setNotification] = useState("");
 
   const { addToCart } = useContext(CartContext);
   const { addToFavorites } = useContext(FavoritesContext);
 
+  // Функция за коректно показване на изображения
   const getImageUrl = (image) => {
     if (!image) return "/default-image.jpg";
     if (image.startsWith("http")) return image;
     return `http://localhost:5000/uploads/${image}`;
   };
 
+  // Зареждане на аксесоарите
   useEffect(() => {
     setLoading(true);
     axios
@@ -47,54 +46,48 @@ function AccessoryDetails() {
       });
   }, [accessoryName]);
 
+  // Функция за показване на нотификация
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => setNotification(""), 3000);
+  };
+
+  // Добавяне в количката
   const handleAddToCart = (e, accessory) => {
-    
+    e.stopPropagation();
     const productToAdd = {
       _id: accessory._id,
       title: accessory.title,
       price: accessory.price,
       image: getImageUrl(accessory.images?.[0]),
       quantity: 1,
-      type: "accessory"
+      itemType: "accessory"
     };
-
     addToCart(productToAdd);
-    setPopupMessage(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
-    setShowPopup(true);
+    showNotification(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
   };
 
+  // Добавяне в любими
   const handleAddToFavorites = (e, accessory) => {
-    
+    e.stopPropagation();
     const favoriteItem = {
       _id: accessory._id,
       title: accessory.title,
       price: accessory.price,
       image: getImageUrl(accessory.images?.[0]),
-      type: "accessory"
+      itemType: "accessory"
     };
-
     addToFavorites(favoriteItem);
-    setPopupMessage(`Продуктът "${accessory.title}" беше добавен в любими.`);
-    setShowPopup(true);
+    showNotification(`Продуктът "${accessory.title}" беше добавен в любими.`);
   };
 
-  
+  // Навигация към детайлна страница
   const handleNavigate = (id, itemType) => {
-    navigate(`/${itemType}/${id}`); 
+    navigate(`/${itemType}/${id}`);
   };
 
-  useEffect(() => {
-    if (showPopup) {
-      const timer = setTimeout(() => {
-        setShowPopup(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showPopup]);
-
+  // Пагинация
   const totalPages = Math.ceil(accessories.length / itemsPerPage);
-
   const paginatedAccessories = accessories.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -119,27 +112,20 @@ function AccessoryDetails() {
 
     if (startPage > 1) {
       pageNumbers.push(1);
-      if (startPage > 2) {
-        pageNumbers.push("...");
-      }
+      if (startPage > 2) pageNumbers.push("...");
     }
 
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(i);
-    }
+    for (let i = startPage; i <= endPage; i++) pageNumbers.push(i);
 
     if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        pageNumbers.push("...");
-      }
+      if (endPage < totalPages - 1) pageNumbers.push("...");
       pageNumbers.push(totalPages);
     }
 
-    return pageNumbers.map((page, index) => {
-      if (page === "...") {
-        return <span key={index} className="ellipsis">...</span>;
-      }
-      return (
+    return pageNumbers.map((page, index) =>
+      page === "..." ? (
+        <span key={index} className="ellipsis">...</span>
+      ) : (
         <button
           key={page}
           onClick={() => handlePageChange(page)}
@@ -147,8 +133,8 @@ function AccessoryDetails() {
         >
           {page}
         </button>
-      );
-    });
+      )
+    );
   };
 
   if (loading) return <p className="loading-text">Зареждане...</p>;
@@ -186,7 +172,7 @@ function AccessoryDetails() {
           >
             <i className="fas fa-chevron-left"></i> Prev
           </button>
-          
+
           {renderPaginationButtons()}
 
           <button
@@ -198,18 +184,8 @@ function AccessoryDetails() {
         </div>
       )}
 
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-box">
-            <p>{popupMessage}</p>
-            <button
-              className="popup-button"
-              onClick={() => setShowPopup(false)}
-            >
-              ОК
-            </button>
-          </div>
-        </div>
+      {notification && (
+        <div className="cart-notification-center">{notification}</div>
       )}
     </div>
   );

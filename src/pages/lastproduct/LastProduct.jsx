@@ -12,19 +12,32 @@ function LastProduct() {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 4;
-
+    const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
     const { addToFavorites } = useContext(FavoritesContext);
     const { isLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
+
+
+    const showNotification = (message) => {
+        setNotification(message);
+        setTimeout(() => setNotification(""), 3000);
+    };
+
 
     const handleAddToCart = (e, productId) => {
         e.stopPropagation();
         e.preventDefault();
         const productToAdd = products.find(p => p._id === productId);
         if (productToAdd) {
-            addToCart(productToAdd);
-            alert("Продуктът беше добавен в количката!");
+            addToCart({
+                ...productToAdd,
+                image: productToAdd.images && productToAdd.images.length > 0
+                    ? productToAdd.images[0]
+                    : 'https://placehold.co/150x200/EEEEEE/AAAAAA?text=No+Image',
+                quantity: 1
+            });
+            showNotification(`Продуктът "${productToAdd.title}" беше добавен в количката!`);
         }
     };
 
@@ -32,7 +45,7 @@ function LastProduct() {
         e.stopPropagation();
         e.preventDefault();
         if (!isLoggedIn) {
-            alert('Моля, влезте в профила си, за да добавяте в любими.');
+            showNotification('Моля, влезте в профила си, за да добавяте в любими.');
             navigate('/login');
             return;
         }
@@ -51,9 +64,9 @@ function LastProduct() {
         }
 
         window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+            top: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(() => {
@@ -110,6 +123,10 @@ function LastProduct() {
                 </>
             ) : (
                 <p>Все още няма нови продукти.</p>
+            )}
+
+            {notification && (
+                <div className="cart-notification-center">{notification}</div>
             )}
         </div>
     );

@@ -20,10 +20,8 @@ function OilSearchForm() {
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
     const [packing, setPacking] = useState('Избери Разфасовка');
     const [oilComposition, setOilComposition] = useState('Избери Тип масло'); 
-    
     const [allOils, setAllOils] = useState([]);      
     const [displayedOils, setDisplayedOils] = useState([]); 
-
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 

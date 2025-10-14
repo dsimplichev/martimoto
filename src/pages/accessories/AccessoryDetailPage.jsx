@@ -9,14 +9,15 @@ import { FaPhoneVolume } from 'react-icons/fa6';
 
 function AccessoryDetailPage() {
     const { id } = useParams();
-    const { addToCart } = useContext(CartContext); 
+    const { addToCart } = useContext(CartContext);
     const [accessory, setAccessory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [mainImage, setMainImage] = useState(null);
-    const [quantity, setQuantity] = useState(1); 
+    const [quantity, setQuantity] = useState(1);
+    const [notification, setNotification] = useState("");
 
-     const getImageUrl = (image) => {
+    const getImageUrl = (image) => {
         if (!image) return "/default-image.jpg";
         if (image.startsWith("http")) return image;
         return `http://localhost:5000/uploads/${image}`;
@@ -26,11 +27,11 @@ function AccessoryDetailPage() {
         axios.get(`http://localhost:5000/accessories/detail/${id}`)
             .then(response => {
                 setAccessory(response.data);
-                
+
                 if (response.data.images && response.data.images.length > 0) {
                     setMainImage(response.data.images[0]);
                 } else {
-                    setMainImage('/default-image.jpg'); 
+                    setMainImage('/default-image.jpg');
                 }
                 setLoading(false);
             })
@@ -44,20 +45,24 @@ function AccessoryDetailPage() {
     if (loading) return <p>Зареждане...</p>;
     if (error) return <p>{error}</p>;
 
-    
+    const showNotification = (message) => {
+        setNotification(message);
+        setTimeout(() => setNotification(""), 3000);
+    };
+
     const handleAddToCart = () => {
         const product = {
-            _id: accessory._id,       
+            _id: accessory._id,
             title: accessory.title,
             price: accessory.price,
-            quantity: Number(quantity), 
+            quantity: Number(quantity),
             image: getImageUrl(accessory.images?.[0]),
-            itemType: "accessory"    
+            itemType: "accessory"
         };
 
-        
+
         addToCart(product);
-        alert('Продуктът беше успешно добавен в количката!');
+        showNotification(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
     };
 
     return (
@@ -81,7 +86,7 @@ function AccessoryDetailPage() {
                 <div className="product-images">
                     <img src={mainImage} alt={accessory.title} className="main-image" />
                     <div className="thumbnail-images">
-                        
+
                         {accessory.images.slice(1, 5).map((image, index) => (
                             <img
                                 key={index}
@@ -105,9 +110,9 @@ function AccessoryDetailPage() {
                     </div>
 
                     <div className="add-to-cart">
-                        
-                          
-                        
+
+
+
                         <button
                             className="add-to-cart-btn"
                             onClick={handleAddToCart}
@@ -117,6 +122,9 @@ function AccessoryDetailPage() {
                     </div>
                 </div>
             </div>
+            {notification && (
+                <div className="cart-notification-center">{notification}</div>
+            )}
         </div>
     );
 }

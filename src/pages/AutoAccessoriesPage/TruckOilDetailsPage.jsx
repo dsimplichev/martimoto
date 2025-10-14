@@ -10,6 +10,8 @@ function TruckOilDetailsPage() {
     const [mainImage, setMainImage] = useState("");
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
+    const [notification, setNotification] = useState("");
+
 
     useEffect(() => {
         const fetchOil = async () => {
@@ -46,10 +48,14 @@ function TruckOilDetailsPage() {
             image: mainImage || oil.images?.[0],
             itemType: "truckOil" 
         });
+
+        setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
     return (
         <div className="oil-details-container">
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <div className="oil-images-section">
                 <div className="oil-main-image-wrapper">
                     <img src={mainImage} alt={oil.brand} className="oil-main-image" />

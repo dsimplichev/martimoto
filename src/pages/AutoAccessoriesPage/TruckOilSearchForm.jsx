@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './OilSearchForm.css';
 import SectionHeader from '../../Card/SectionHeader';
@@ -7,6 +7,7 @@ import dvgmaslo from '../../assets/dvgmaslo.png';
 import transmitionoil from '../../assets/transmitionoil.png';
 import wheeloil from '../../assets/wheeloil.png';
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../Context/CartContext"; // провери пътя
 
 function TruckOilSearchForm() {
     const [oilType, setOilType] = useState('Двигателно масло');
@@ -15,8 +16,12 @@ function TruckOilSearchForm() {
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
     const [oilCategory, setOilCategory] = useState('Избери Тип масло');
     const [packing, setPacking] = useState('Избери Разфасовка');
+    
     const [oils, setOils] = useState([]);
-    const navigate = useNavigate()
+    const [notification, setNotification] = useState("");
+
+    const navigate = useNavigate();
+    const { addToCart } = useContext(CartContext);
 
     const handleViewDetails = (id) => {
         navigate(`/truck-oil/${id}`);
@@ -59,6 +64,18 @@ function TruckOilSearchForm() {
         console.log({ oilType, manufacturer, purpose, viscosity, oilCategory, packing });
     };
 
+    const handleAddToCart = (oil) => {
+        addToCart({
+            ...oil,
+            quantity: 1,
+            image: oil.images?.[0],
+            itemType: "oil"
+        });
+
+        setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
+    };
+
     const renderSelect = (stateValue, setStateFunction, label, key) => {
         const currentOptions = OIL_OPTIONS['Масла за камиони']?.[oilType]?.[key] || [];
         return (
@@ -74,7 +91,9 @@ function TruckOilSearchForm() {
     return (
         <div className="oil-search-container">
             <SectionHeader title="МАСЛА ЗА КАМИОНИ" />
-        
+
+            {notification && <div className="cart-notification-center">{notification}</div>}
+
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="oil-type-selection">
                     <div className={`type-card ${oilType === 'Двигателно масло' ? 'active' : ''}`} onClick={() => handleOilTypeChange('Двигателно масло')}>
@@ -136,11 +155,11 @@ function TruckOilSearchForm() {
                             <div className="oil-card-actions">
                                 <button
                                     className="oil-button view-details-button"
-                                    onClick={() => handleViewDetails(oil._id)} 
+                                    onClick={() => handleViewDetails(oil._id)}
                                 >
                                     ВИЖ ПОВЕЧЕ
                                 </button>
-                                <button className="oil-button buy-button">
+                                <button className="oil-button buy-button" onClick={() => handleAddToCart(oil)}>
                                     <i className="fas fa-shopping-cart buy-icon"></i> КУПИ
                                 </button>
                             </div>

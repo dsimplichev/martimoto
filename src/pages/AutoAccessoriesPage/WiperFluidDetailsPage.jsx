@@ -11,6 +11,7 @@ function WiperFluidDetailsPage() {
     const [quantity, setQuantity] = useState(1);
     const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
+    
 
     useEffect(() => {
         const fetchFluid = async () => {

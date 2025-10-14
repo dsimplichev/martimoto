@@ -3,7 +3,7 @@ import { CartContext } from '../../Context/CartContext';
 import { FavoritesContext } from '../../Context/FavoritesContext';
 import { AuthContext } from '../../Context/AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
-import ProductCard from '../../Card/ProductCard'; // <-- Import-вате вашата карта тук
+import ProductCard from '../../Card/ProductCard';
 import './partsByYear.css';
 import SectionHeader from '../../Card/SectionHeader';
 
@@ -11,8 +11,7 @@ function PartsByYear() {
     const { brandName, modelName, year } = useParams();
     const [parts, setParts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showPopup, setShowPopup] = useState(false);
-    const [popupMessage, setPopupMessage] = useState("");
+    const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
     const { addToFavorites } = useContext(FavoritesContext);
     const { isLoggedIn } = useContext(AuthContext);
@@ -49,6 +48,11 @@ function PartsByYear() {
         fetchParts();
     }, [brandName, modelName, year]);
 
+    const showNotification = (message) => {
+        setNotification(message);
+        setTimeout(() => setNotification(""), 3000);
+    };
+
     const handleAddToCart = (e, partId) => {
         e.stopPropagation();
         e.preventDefault();
@@ -62,8 +66,7 @@ function PartsByYear() {
                 itemType: "part",
             };
             addToCart(productToAdd);
-            setPopupMessage(`Продуктът "${part.title}" беше добавен във вашата количка.`);
-            setShowPopup(true);
+            showNotification(`Продуктът "${part.title}" беше добавен във вашата количка.`);
         }
     };
 
@@ -78,8 +81,7 @@ function PartsByYear() {
         const part = parts.find(p => p._id === partId);
         if (part) {
             addToFavorites(part);
-            setPopupMessage(`Продуктът "${part.title}" беше добавен в любими.`);
-            setShowPopup(true);
+            showNotification(`Продуктът "${part.title}" беше добавен в любими.`);
         }
     };
 
@@ -91,12 +93,12 @@ function PartsByYear() {
         }
     };
 
-     const renderPaginationButtons = () => {
+    const renderPaginationButtons = () => {
         const pageNumbers = [];
         const maxPagesToShow = 5;
         let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
         let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-        
+
         if (endPage - startPage + 1 < maxPagesToShow) {
             startPage = Math.max(1, endPage - maxPagesToShow + 1);
         }
@@ -148,7 +150,6 @@ function PartsByYear() {
                     <>
                         <div className="parts-grid">
                             {currentParts.map((part) => (
-
                                 <ProductCard
                                     key={part._id}
                                     id={part._id}
@@ -162,7 +163,7 @@ function PartsByYear() {
                                 />
                             ))}
                         </div>
-                      {totalPages > 1 && (
+                        {totalPages > 1 && (
                             <div className="pagination2">
                                 <button
                                     onClick={() => handlePageChange(currentPage - 1)}
@@ -170,7 +171,7 @@ function PartsByYear() {
                                 >
                                     <i className="fas fa-chevron-left"></i> Prev
                                 </button>
-                                
+
                                 {renderPaginationButtons()}
 
                                 <button
@@ -181,20 +182,12 @@ function PartsByYear() {
                                 </button>
                             </div>
                         )}
-                         
                     </>
                 )}
             </div>
 
-            {showPopup && (
-                <div className="popup-overlay">
-                    <div className="popup-box">
-                        <p>{popupMessage}</p>
-                        <button className="popup-button" onClick={() => setShowPopup(false)}>
-                            ОК
-                        </button>
-                    </div>
-                </div>
+            {notification && (
+                <div className="cart-notification-center">{notification}</div>
             )}
         </>
     );

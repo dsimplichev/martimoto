@@ -9,7 +9,7 @@ function TireDetailsPage() {
     const [tire, setTire] = useState(null);
     const [mainImage, setMainImage] = useState(null);
     const [quantity, setQuantity] = useState(1); 
-
+    const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
     
     useEffect(() => {
@@ -51,11 +51,13 @@ function TireDetailsPage() {
             quantity: quantity, 
         };
         addToCart(productForCart);
-        
+         setNotification(`Продукт "${tire.brand} ${tire.model}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
     return (
         <div className="tire-details-container">
+             {notification && <div className="cart-notification-center">{notification}</div>}
             <div className="tire-details-left">
                 <img
                     src={mainImage}
