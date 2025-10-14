@@ -10,31 +10,24 @@
     align-items: flex-start;
 }
 
-/* --------------------------------------------------------- */
-/* Заглавие - НОВА ПОЗИЦИЯ И СТИЛ */
-/* --------------------------------------------------------- */
-/* Трябва да поставите H1 в tire-details-right, но над списъка (ul.tire-specs) */
-.tire-details-right h1 {
-    /* Промяна на цвета на шрифта на ЧЕРЕН */
-    color: #000000; 
-    font-size: 2.2em; 
-    font-weight: 700;
-    /* Подравняване отляво, за да съвпадне с характеристиките */
-    text-align: left; 
-    /* Добавяме малко долно отстояние */
-    margin-bottom: 25px; 
-    margin-top: 0;
-    /* За да се подравни с характеристиките, трябва да премахнете старото дясно позициониране */
-}
-
-/* --------------------------------------------------------- */
-/* Лява колона (Снимки) */
-/* --------------------------------------------------------- */
 .tire-details-left {
-    flex: 0 0 400px;
+    flex: 0 0 400px; 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.tire-details-right {
+    flex: 1.5;
+}
+
+.tire-details-right h1 {
+    color: #000000; 
+    font-size: 2.2em; 
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 25px; 
+    margin-top: 0;
 }
 
 .tire-main-image {
@@ -54,25 +47,17 @@
 .tire-thumb {
     width: 70px;
     height: 70px;
-    object-fit: contain; /* Промяна на cover към contain за по-добра видимост на гумата */
+    object-fit: contain; 
     border: 1px solid #ddd;
     cursor: pointer;
     border-radius: 5px;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; /* Добавяне на плавни преходи */
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; 
 }
 
-/* Ефект при HOVER върху малките снимки */
 .tire-thumb:hover {
-    border-color: #ff5722; /* Акцентен цвят на рамката */
-    box-shadow: 0 0 8px rgba(255, 87, 34, 0.5); /* Фина сянка */
-    transform: scale(1.05); /* Леко увеличаване */
-}
-
-/* --------------------------------------------------------- */
-/* Дясна колона (Характеристики, Цена, Бутон) */
-/* --------------------------------------------------------- */
-.tire-details-right {
-    flex: 1.5;
+    border-color: #ff5722; 
+    box-shadow: 0 0 8px rgba(255, 87, 34, 0.5); 
+    transform: scale(1.05); 
 }
 
 .tire-specs {
@@ -87,7 +72,7 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 5px;
-    border-bottom: 1px solid #eee; /* По-тънък разделител */
+    border-bottom: 1px solid #eee; 
 }
 
 .tire-specs li:last-child {
@@ -108,7 +93,6 @@
     text-align: right; 
 }
 
-
 .tire-details-price {
     margin: 30px 0;
     font-size: 1.8em; 
@@ -124,8 +108,82 @@
 }
 
 
+.quantity-control-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    margin: 20px 0 35px 0; 
+}
+
+.quantity-label {
+    font-size: 1.2em; 
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap; 
+}
+
+
+.quantity-button-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #c0c0c0;
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+.quantity-display {
+    padding: 10px 15px;
+    font-size: 1.3em; 
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    width: 35px; 
+    background-color: #ffffff;
+    user-select: none;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+
+.quantity-button {
+    background: #f7f7f7;
+    border: none;
+    padding: 12px 18px; 
+    font-size: 1.4em; 
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
+    line-height: 1;
+    color: #4CAF50; 
+}
+
+.quantity-button.minus {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.quantity-button.plus {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+
+.quantity-button:hover:not(:disabled) {
+    background: #e6e6e6;
+    color: #388E3C;
+}
+
+.quantity-button:disabled {
+    cursor: not-allowed;
+    background: #fdfdfd;
+    color: #bbb; 
+}
+
+
 .add-to-cart-button {
-    background: #4CAF50; /* Хубав зелен цвят */
+    background: #e50000; 
     color: white;
     border: none;
     padding: 15px 30px;
@@ -140,16 +198,147 @@
 }
 
 .add-to-cart-button:hover {
-    background: #388E3C; 
+    background: #c50000; 
     transform: translateY(-2px);
 }
 
 .tire-details-price {
-  margin: 20px 0;
-  font-size: 18px;
+    margin: 20px 0;
+    font-size: 18px;
 }
 
 .price-euro {
-  font-size: 16px;
-  color: #555;
+    font-size: 16px;
+    color: #555;
+}
+
+
+@media (max-width: 768px) {
+    .tire-details-container {
+        flex-direction: column; 
+        padding: 0; 
+        margin: 0 0 50px 0; 
+        gap: 0; 
+        box-shadow: none; 
+        background-color: #f8f8f8; 
+        min-height: 100vh;
+    }
+
+    
+    .tire-details-left {
+        flex: 1 1 100%; 
+        max-width: 100%;
+        align-items: center; 
+        padding: 15px 15px 5px 15px; 
+        background-color: #ffffff; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+        margin-bottom: 10px;
+    }
+    
+    
+    .tire-main-image {
+        max-width: 90%; 
+        height: auto;
+        border: 1px solid #eee;
+        border-radius: 12px; 
+    }
+
+    
+    .tire-thumbnails {
+        justify-content: center; 
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .tire-thumb {
+        width: 55px; 
+        height: 55px;
+        border-radius: 8px;
+    }
+
+    
+    .tire-details-right {
+        flex: 1 1 100%; 
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        padding: 0; 
+    }
+    
+    
+    .tire-details-right h1 {
+        font-size: 1.7em; 
+        margin: 15px 15px 20px 15px; 
+        text-align: center;
+        width: 100%;
+    }
+
+    
+    .tire-specs {
+        width: 100%; 
+        margin: 0 auto 25px auto; 
+        padding: 0 15px; 
+        background-color: transparent; 
+        border-radius: 0; 
+        box-shadow: none; 
+    }
+    .tire-specs li {
+        margin-bottom: 5px; 
+        font-size: 16px; 
+        padding-bottom: 10px; 
+        border-bottom: 1px solid #ddd; 
+    }
+    .tire-specs li:last-child {
+        border-bottom: none; 
+    }
+    .tire-specs li strong {
+        min-width: 120px; 
+        font-size: 16px; 
+        color: #555; 
+        font-weight: normal; 
+    }
+    .tire-specs li span {
+        font-weight: 600; 
+        color: #333;
+    }
+    
+    
+    .quantity-control-container {
+        justify-content: center;
+        gap: 15px; 
+        margin: 15px 0 25px 0; 
+        padding: 0 15px; 
+        width: 100%; 
+    }
+    
+    
+    .tire-details-price {
+        font-size: 2.2em; 
+        color: #e50000; 
+        text-align: center;
+        margin: 20px 0; 
+        width: 100%;
+        font-weight: 700;
+        padding: 0 15px; 
+    }
+    .price-euro {
+        font-size: 0.7em; 
+        color: #666;
+        display: block;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+    
+    
+    .add-to-cart-button {
+        width: calc(100% - 30px); 
+        background: #e50000; 
+        font-size: 1.2em; 
+        padding: 18px 20px; 
+        border-radius: 4px; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+        margin: 0 15px; 
+    }
+    .add-to-cart-button:hover {
+        background: #c50000; 
+    }
 }

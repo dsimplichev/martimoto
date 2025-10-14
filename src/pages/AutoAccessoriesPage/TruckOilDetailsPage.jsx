@@ -84,24 +84,27 @@ function TruckOilDetailsPage() {
                 </div>
 
                 
-                <div className="oil-quantity-control">
-                    <label>Количество:</label>
-                    <div className="quantity-buttons-wrapper">
-                        <input
-                            type="number"
-                            min="1"
-                            value={quantity}
-                            readOnly
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-                        <div className="vertical-controls">
-                            <button className="qty-btn plus" onClick={handleIncrement}>
-                                &#9650;
-                            </button>
-                            <button className="qty-btn minus" onClick={handleDecrement} disabled={quantity === 1}>
-                                &#9660;
-                            </button>
+                 <div className="quantity-control-container">
+                    <label className="quantity-label">Количество:</label>
+                    <div className="quantity-button-group">
+                        <button
+                            className="quantity-button minus"
+                            onClick={handleDecrement}
+                            disabled={quantity === 1}
+                        >
+                            -
+                        </button>
+                        
+                        <div className="quantity-display">
+                            {quantity}
                         </div>
+                        
+                        <button
+                            className="quantity-button plus"
+                            onClick={handleIncrement}
+                        >
+                            +
+                        </button>
                     </div>
                 </div>
 

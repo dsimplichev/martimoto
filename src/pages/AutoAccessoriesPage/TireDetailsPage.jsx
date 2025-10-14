@@ -8,8 +8,10 @@ function TireDetailsPage() {
     const { id } = useParams();
     const [tire, setTire] = useState(null);
     const [mainImage, setMainImage] = useState(null);
+    const [quantity, setQuantity] = useState(1); 
 
     const { addToCart } = useContext(CartContext);
+    
     useEffect(() => {
         const fetchTire = async () => {
             try {
@@ -23,21 +25,33 @@ function TireDetailsPage() {
         fetchTire();
     }, [id]);
 
+    
+    const incrementQuantity = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    
+    const decrementQuantity = () => {
+        setQuantity(prevQuantity => Math.max(1, prevQuantity - 1));
+    };
+    
+    
+
     if (!tire) return <p>Зареждане...</p>;
 
     const priceInEuro = (tire.price / 1.95583).toFixed(2);
 
-      const handleAddToCart = () => {
+    const handleAddToCart = () => {
         const productForCart = {
             _id: tire._id,
             title: `${tire.brand} ${tire.model}`,
             price: tire.price,
             image: tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png',
             itemType: "tire",
-            quantity: 1, 
+            quantity: quantity, 
         };
         addToCart(productForCart);
-        alert("Гумата беше добавена в количката!");
+        
     };
 
     return (
@@ -66,16 +80,16 @@ function TireDetailsPage() {
                 <h1>{tire.brand} {tire.model}</h1>
 
                 <ul className="tire-specs">
-                    <li><strong>Производител:</strong> {tire.brand}</li>
-                    <li><strong>Сезон:</strong> {tire.season}</li>
-                    <li><strong>Широчина:</strong> {tire.width}</li>
-                    <li><strong>Височина:</strong> {tire.aspectRatio}</li>
-                    <li><strong>Диаметър:</strong> {tire.diameter}</li>
-                    <li><strong>Ниво на шум:</strong> {tire.noiseLevel} dB</li>
-                    <li><strong>Товарен индекс:</strong> {tire.loadIndex}</li>
-                    <li><strong>Скоростен индекс:</strong> {tire.speedRating}</li>
-                    <li><strong>Икономичен индекс:</strong> {tire.fuelEconomy}</li>
-                    <li><strong>Сцепление на мокро:</strong> {tire.wetGrip}</li>
+                    <li><strong>Производител:</strong> <span>{tire.brand}</span></li>
+                    <li><strong>Сезон:</strong> <span>{tire.season}</span></li>
+                    <li><strong>Широчина:</strong> <span>{tire.width}</span></li>
+                    <li><strong>Височина:</strong> <span>{tire.aspectRatio}</span></li>
+                    <li><strong>Диаметър:</strong> <span>{tire.diameter}</span></li>
+                    <li><strong>Ниво на шум:</strong> <span>{tire.noiseLevel} dB</span></li>
+                    <li><strong>Товарен индекс:</strong> <span>{tire.loadIndex}</span></li>
+                    <li><strong>Скоростен индекс:</strong> <span>{tire.speedRating}</span></li>
+                    <li><strong>Икономичен индекс:</strong> <span>{tire.fuelEconomy}</span></li>
+                    <li><strong>Сцепление на мокро:</strong> <span>{tire.wetGrip}</span></li>
                 </ul>
 
                 <div className="tire-details-price">
@@ -83,6 +97,29 @@ function TireDetailsPage() {
                     <br />
                     <span className="price-euro">{priceInEuro} €</span>
                 </div>
+                
+                
+                <div className="quantity-control-container">
+                    <label htmlFor="quantity-display" className="quantity-label">Количество:</label>
+                    <div className="quantity-button-group">
+                        <button
+                            className="quantity-button minus"
+                            onClick={decrementQuantity}
+                            disabled={quantity === 1} 
+                        >
+                            -
+                        </button>
+                        <span id="quantity-display" className="quantity-display">{quantity}</span>
+                        
+                        <button
+                            className="quantity-button plus"
+                            onClick={incrementQuantity}
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+                
 
                 <button className="add-to-cart-button" onClick={handleAddToCart}>
                     Добави в кошницата

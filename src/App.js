@@ -41,11 +41,11 @@ import MatsPage from "./pages/AutoAccessoriesPage/MatsPage";
 import AddCarTiresPage from "./pages/AddCarTiresPage/AddCarTiresPage";
 import TireDetailsPage from "./pages/AutoAccessoriesPage/TireDetailsPage";
 import AddOilForm from "./pages/AddOilForm/AddOilForm";
-import AddWiperFluidForm from "./pages/AddWiperFluidForm/AddWiperFluidForm"
+import AddWiperFluidForm from "./pages/AddWiperFluidForm/AddWiperFluidForm";
 import WiperFluidDetailsPage from "./pages/AutoAccessoriesPage/WiperFluidDetailsPage";
 import OilDetailsPage from "./pages/AutoAccessoriesPage/OilDetailsPage";
 import TruckOilDetailsPage from "./pages/AutoAccessoriesPage/TruckOilDetailsPage";
-import MotorcycleOilDetailsPage from "./pages/AutoAccessoriesPage/MotorcycleOilDetailsPage"
+import MotorcycleOilDetailsPage from "./pages/AutoAccessoriesPage/MotorcycleOilDetailsPage";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -58,13 +58,19 @@ function App() {
     location.pathname === "/cart" || location.pathname === "/order";
 
   const hideBrandAndLastProduct =
-    location.pathname.startsWith("/autosviat") || 
-    location.pathname.startsWith("/autosviat/gumi") || 
-    location.pathname.startsWith("/autosviat/masla") || 
+    location.pathname.startsWith("/autosviat") ||
+    location.pathname.startsWith("/autosviat/gumi") ||
+    location.pathname.startsWith("/autosviat/masla") ||
     location.pathname.startsWith("/autosviat/techosti-chistachki") ||
-    location.pathname.startsWith("/autosviat/stelki");
-
-  return (
+    location.pathname.startsWith("/autosviat/stelki") ||
+    location.pathname.startsWith("/tire/") ||
+    location.pathname.startsWith("/wiper-fluid/") ||
+    location.pathname.startsWith("/oil/") ||
+    location.pathname.startsWith("/truck-oil/") ||
+    location.pathname.startsWith("/motorcycle-oil/") ||
+    location.pathname.startsWith("/contact")
+  
+    return (
     <div>
       <Nav isLoggedIn={isLoggedIn} onLogout={logout} />
 
@@ -78,17 +84,38 @@ function App() {
         <Route path="/autosviat/gumi" element={<TiresPage />} />
         <Route path="/autosviat/masla" element={<OilsPage />} />
         <Route path="/autosviat/masla/avtomobili" element={<OilSearchForm />} />
-        <Route path="/autosviat/masla/kamioni"element={<TruckOilSearchForm />} />
-        <Route path="/autosviat/masla/motori" element={<MotorcycleOilSearchForm />} />
-        <Route path="/autosviat/techosti-chistachki" element={<WiperFluidPage />} />
-        <Route path="/autosviat/stelki" element={<MatsPage />} /> 
-        <Route path="/accessories/:accessoryName" element={<AccessoryDetails />} />
+        <Route
+          path="/autosviat/masla/kamioni"
+          element={<TruckOilSearchForm />}
+        />
+        <Route
+          path="/autosviat/masla/motori"
+          element={<MotorcycleOilSearchForm />}
+        />
+        <Route
+          path="/autosviat/techosti-chistachki"
+          element={<WiperFluidPage />}
+        />
+        <Route path="/autosviat/stelki" element={<MatsPage />} />
+        <Route
+          path="/accessories/:accessoryName"
+          element={<AccessoryDetails />}
+        />
         <Route path="/brands/:brandName" element={<BrandDetails />} />
-        <Route path="/brands/:brandName/models/:modelName" element={<ModelDetails />} />
-        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />} />
+        <Route
+          path="/brands/:brandName/models/:modelName"
+          element={<ModelDetails />}
+        />
+        <Route
+          path="/brands/:brandName/models/:modelName/:year"
+          element={<PartsByYear />}
+        />
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
-        <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />} />
+        <Route
+          path="/accessories/detail/:id"
+          element={<AccessoryDetailPage />}
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrder />} />
@@ -107,7 +134,10 @@ function App() {
         <Route path="/wiper-fluid/:id" element={<WiperFluidDetailsPage />} />
         <Route path="/oil/:id" element={<OilDetailsPage />} />
         <Route path="/truck-oil/:id" element={<TruckOilDetailsPage />} />
-        <Route path="/motorcycle-oil/:id" element={<MotorcycleOilDetailsPage />} />
+        <Route
+          path="/motorcycle-oil/:id"
+          element={<MotorcycleOilDetailsPage />}
+        />
       </Routes>
 
       {!isPageWithoutFooter && (
@@ -145,5 +175,3 @@ function App() {
 }
 
 export default App;
-
-          

@@ -14,7 +14,7 @@ function TireSearchForm() {
     const [ratio, setRatio] = useState('Избери Височина');
     const [diameter, setDiameter] = useState('Избери Диаметър');
     const [brand, setBrand] = useState('Избери Марка');
-    const [season, setSeason] = useState('ANY'); // 'ANY' = всички сезони
+    const [season, setSeason] = useState('ANY'); 
 
     const [allTires, setAllTires] = useState([]);
     const [displayedTires, setDisplayedTires] = useState([]);
@@ -23,7 +23,7 @@ function TireSearchForm() {
     const navigate = useNavigate();
     const currentOptions = TIRE_OPTIONS[tireType];
 
-    // Нулиране на филтрите при смяна на типа гума
+    
     useEffect(() => {
         setWidth('Избери Широчина');
         setRatio('Избери Височина');
@@ -31,7 +31,7 @@ function TireSearchForm() {
         setBrand('Избери Марка');
     }, [tireType]);
 
-    // Зареждане на всички гуми
+    
     const fetchTires = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/car-tires');
@@ -46,7 +46,7 @@ function TireSearchForm() {
         fetchTires();
     }, []);
 
-    // Добавяне в количката
+    
     const handleAddToCart = (tire) => {
         const productForCart = {
             _id: tire._id,
