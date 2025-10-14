@@ -14,16 +14,15 @@ function TireSearchForm() {
     const [ratio, setRatio] = useState('Избери Височина');
     const [diameter, setDiameter] = useState('Избери Диаметър');
     const [brand, setBrand] = useState('Избери Марка');
-    const [season, setSeason] = useState('ANY'); // 'ANY' = всички сезони
-
+    const [season, setSeason] = useState('ANY'); 
     const [allTires, setAllTires] = useState([]);
     const [displayedTires, setDisplayedTires] = useState([]);
-
+    const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
     const currentOptions = TIRE_OPTIONS[tireType];
 
-    // Нулиране на филтрите при смяна на типа гума
+    
     useEffect(() => {
         setWidth('Избери Широчина');
         setRatio('Избери Височина');
@@ -31,7 +30,7 @@ function TireSearchForm() {
         setBrand('Избери Марка');
     }, [tireType]);
 
-    // Зареждане на всички гуми
+    
     const fetchTires = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/car-tires');
@@ -46,7 +45,7 @@ function TireSearchForm() {
         fetchTires();
     }, []);
 
-    // Добавяне в количката
+    
     const handleAddToCart = (tire) => {
         const productForCart = {
             _id: tire._id,
@@ -57,7 +56,8 @@ function TireSearchForm() {
             quantity: 1
         };
         addToCart(productForCart);
-        alert("Гумата беше добавена в количката!");
+        setNotification(`Продукт "${tire.brand} ${tire.model}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
 
@@ -115,6 +115,7 @@ function TireSearchForm() {
 
     return (
         <div className="tire-search-container">
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="select-group main-params-new">
                     {renderSelect(width, setWidth, 'Широчина', 'width')}

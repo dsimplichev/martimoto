@@ -66,11 +66,11 @@
 }
 
 .fluid-card:hover {
-    border-color: #e53935; /* Червен бордюр при hover */
+    border-color: #e53935; 
     box-shadow: 0 4px 15px rgba(229, 57, 53, 0.2);
 }
 
-/* Обвивка на снимката, за да осигури достатъчно място */
+
 .fluid-image-wrapper {
     width: 100%;
     height: 180px; 
@@ -100,11 +100,11 @@
     color: #333;
 }
 
-/* Детайли (Литри) */
+
 .fluid-details {
     width: 100%;
     padding-top: 5px;
-    border-top: 1px solid #eee; /* Хоризонтална линия */
+    border-top: 1px solid #eee; 
     margin-bottom: 15px;
 }
 
@@ -202,6 +202,30 @@
     box-shadow: 0 4px 8px rgba(230, 32, 32, 0.4); 
 }
 
+.cart-notification-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(46, 204, 113, 0.95);
+  color: white;
+  padding: 18px 28px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  z-index: 3000;
+  opacity: 0;
+  animation: fadeCenter 3s ease-in-out;
+}
+
+@keyframes fadeCenter {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  10% { opacity: 1; transform: translate(-50%, -50%); }
+  90% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -60%); }
+}
 
 @media screen and (max-width: 640px) {
     .fluid-grid {

@@ -9,7 +9,9 @@ function WiperFluidDetailsPage() {
     const [fluid, setFluid] = useState(null);
     const [mainImage, setMainImage] = useState("");
     const [quantity, setQuantity] = useState(1);
+    const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
+    
 
     useEffect(() => {
         const fetchFluid = async () => {
@@ -46,10 +48,15 @@ function WiperFluidDetailsPage() {
             image: mainImage || fluid.images?.[0],
             itemType: "wiperFluid"
         });
+
+        setNotification(`Продукт "${fluid.title}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
     return (
         <div className="wiper-fluid-details-container">
+
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <div className="fluid-images-section">
                 <div className="fluid-main-image-wrapper">
                     <img src={mainImage} alt={fluid.title} className="fluid-main-image" />
@@ -83,24 +90,28 @@ function WiperFluidDetailsPage() {
                     <span> {(fluid.price / 1.95583).toFixed(2)} €</span>
                 </div>
 
-                <div className="fluid-quantity-control">
-                    <label>Количество:</label>
-                    <div className="quantity-buttons-wrapper">
-                        <input
-                            type="number"
-                            min="1"
-                            value={quantity}
-                            readOnly
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-                        <div className="vertical-controls"> 
-                            <button className="qty-btn plus" onClick={handleIncrement}>
-                                &#9650; 
-                            </button>
-                            <button className="qty-btn minus" onClick={handleDecrement} disabled={quantity === 1}>
-                                &#9660; 
-                            </button>
+                <div className="quantity-control-container">
+                    <label className="quantity-label">Количество:</label>
+                    <div className="quantity-button-group">
+                        <button
+                            className="quantity-button minus"
+                            onClick={handleDecrement}
+                            disabled={quantity === 1}
+                        >
+                            -
+                        </button>
+
+                        
+                        <div className="quantity-display">
+                            {quantity}
                         </div>
+
+                        <button
+                            className="quantity-button plus"
+                            onClick={handleIncrement}
+                        >
+                           +
+                        </button>
                     </div>
                 </div>
 

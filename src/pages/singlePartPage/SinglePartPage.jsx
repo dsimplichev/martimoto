@@ -11,18 +11,20 @@ function SinglePartPage() {
     const [mainImage, setMainImage] = useState('');
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
-    const [type, setType] = useState('part'); 
-    
-     const getImageUrl = (image) => {
+    const [type, setType] = useState('part');
+    const [notification, setNotification] = useState("");
+
+
+    const getImageUrl = (image) => {
         if (!image) return "/default-image.jpg";
         if (image.startsWith("http")) return image;
         return `http://localhost:5000/uploads/${image}`;
     };
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                
+
                 let response = await fetch(`http://localhost:5000/api/parts/${id}`);
                 let data = await response.json();
 
@@ -31,7 +33,7 @@ function SinglePartPage() {
                     setMainImage(getImageUrl(data.images?.[0]));
                     setType('part');
                 } else {
-                    
+
                     response = await fetch(`http://localhost:5000/api/accessories/${id}`);
                     data = await response.json();
 
@@ -40,7 +42,7 @@ function SinglePartPage() {
                         setMainImage(getImageUrl(data.images?.[0]));
                         setType('accessory');
                     } else {
-                        
+
                         setPart(null);
                     }
                 }
@@ -52,6 +54,11 @@ function SinglePartPage() {
 
         fetchData();
     }, [id]);
+
+    const showNotification = (message) => {
+        setNotification(message);
+        setTimeout(() => setNotification(""), 3000);
+    };
 
     const handleAddToCart = () => {
         if (!part) return;
@@ -66,7 +73,7 @@ function SinglePartPage() {
         };
 
         addToCart(cartItem);
-        alert("Продуктът беше добавен в количката!");
+        showNotification(`Продуктът "${part.title}" беше добавен във вашата количка.`);
     };
 
     if (part === null) return <p>Продуктът не е намерен.</p>;
@@ -120,6 +127,9 @@ function SinglePartPage() {
                     </div>
                 </div>
             </div>
+            {notification && (
+                <div className="cart-notification-center">{notification}</div>
+            )}
         </div>
     );
 }

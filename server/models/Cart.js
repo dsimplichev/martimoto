@@ -17,10 +17,7 @@ const cartItemSchema = new mongoose.Schema({
         required: true,
         enum: ['part', 'accessory']
     },
-    // Можеш да добавиш и директни полета, за да избегнеш populate на GET заявка
-    // title: { type: String, required: true },
-    // price: { type: Number, required: true },
-    // image: { type: String, required: false },
+    
 });
 
 const cartSchema = new mongoose.Schema({

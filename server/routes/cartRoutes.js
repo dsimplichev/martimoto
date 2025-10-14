@@ -93,7 +93,7 @@ router.post("/:userId", checkAuth, async (req, res) => {
         productId,
         quantity: quantity || 1,
         itemType: determinedItemType,
-      }); // Използваме определен от бекенда тип
+      }); 
     }
 
     await cart.save();

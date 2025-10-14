@@ -13,50 +13,61 @@ function Favorites() {
   const { favorites, removeFromFavorites } = useContext(FavoritesContext);
   const { addToCart } = useContext(CartContext);
 
-  const handleAddToCart = (part) => {
+  // ✅ Унифицирана функция за добавяне в количката
+  const handleAddToCart = (item) => {
     addToCart({
-      _id: part.partId,
-      title: part.title,
-      image: part.image,
-      price: part.price,
+      _id: item.id,
+      title: item.title,
+      image: item.image,
+      price: item.price,
       quantity: 1,
+      type: item.type || "part",
     });
   };
 
-  if (!user) return <p>Моля, влезте в профила си.</p>;
+  if (!user) return <p className="no-favorites">Моля, влезте в профила си.</p>;
 
   return (
     <div className="favorites-page">
-      <SectionHeader title="Любими части" />
+      <SectionHeader title="Любими продукти" />
+      
       {favorites.length === 0 ? (
-        <p className="no-favorites">Нямате добавени любими части.</p>
+        <p className="no-favorites">Нямате добавени любими продукти.</p>
       ) : (
         <div className="favorites-grid">
-          {favorites.map((part) => (
-            <div className="favorite-item-card" key={part.id}>
-              <Link to={`/parts/${part.id}`} className="favorite-item-link">
+          {favorites.map((item) => (
+            <div className="favorite-item-card" key={item.id}>
+              
+              <Link
+                to={
+                  item.type === "accessory"
+                    ? `/accessories/detail/${item.id}`
+                    : `/parts/${item.id}`
+                }
+                className="favorite-item-link"
+              >
                 <img
-                  src={part.image}
-                  alt={part.title}
+                  src={item.image || "/default-image.jpg"}
+                  alt={item.title}
                   className="favorite-item-image"
                 />
                 <div className="favorite-item-info">
-                  <h3 className="favorite-item-title">{part.title}</h3>
+                  <h3 className="favorite-item-title">{item.title}</h3>
                   <div className="favorite-price-and-cart">
-                    <p className="favorite-item-price">{part.price} лв.</p>
+                    <p className="favorite-item-price">{item.price} лв.</p>
                     <div className="favorite-icon-group">
                       <GoTrash
                         className="heart-icon"
                         onClick={(e) => {
                           e.preventDefault();
-                          removeFromFavorites(part.id);
+                          removeFromFavorites(item.id);
                         }}
                       />
                       <MdAddShoppingCart
                         className="cart-icon"
                         onClick={(e) => {
                           e.preventDefault();
-                          handleAddToCart(part);
+                          handleAddToCart(item);
                         }}
                       />
                     </div>

@@ -4,6 +4,7 @@ const Order = require("../models/Order");
 const mongoose = require("mongoose");
 const authenticateToken = require("../middleware/authMiddleware")
 require("../models/Part")
+const Accessory = require("../models/Accessory");
 
 router.post("/create", async (req, res) => {
   console.log("Получено от клиента:", req.body);
@@ -31,7 +32,7 @@ router.post("/create", async (req, res) => {
       return res.status(400).json({ message: "Количката не може да бъде празна." });
     }
 
-    // Проверка за валидни productId и quantity
+    
     for (const item of cart) {
       if (!mongoose.Types.ObjectId.isValid(item.productId)) {
         return res.status(400).json({ message: `Невалиден productId: ${item.productId}` });
@@ -117,23 +118,39 @@ router.patch("/update/:id", async (req, res) => {
 router.get("/history", authenticateToken, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user._id })
-      .sort({ createdAt: -1 })
-      .populate('cart.productId');
+      .sort({ createdAt: -1 });
 
-    
-    const formattedOrders = orders.map(order => ({
-      _id: order._id,
-      createdAt: order.createdAt,
-      totalAmount: order.totalAmount,
-      status: order.status,
-      items: order.cart.map(item => ({
-        name: item.productId?.title || 'Без име',
-        description: item.productId?.description || '',
-        price: item.productId?.price || 0,
-        image: item.productId?.images?.[0] || '',  
-        quantity: item.quantity,
-      })),
-    }));
+    const formattedOrders = await Promise.all(
+      orders.map(async (order) => {
+        const items = await Promise.all(
+          order.cart.map(async (item) => {
+            let product = null;
+
+            if (item.itemType === "part") {
+              product = await Part.findById(item.productId);
+            } else if (item.itemType === "accessory") {
+              product = await Accessory.findById(item.productId);
+            }
+
+            return {
+              name: product?.title || "Без име",
+              description: product?.description || "",
+              price: product?.price || 0,
+              image: product?.images?.[0] || "",
+              quantity: item.quantity,
+            };
+          })
+        );
+
+        return {
+          _id: order._id,
+          createdAt: order.createdAt,
+          totalAmount: order.totalAmount,
+          status: order.status,
+          items,
+        };
+      })
+    );
 
     res.status(200).json({ success: true, orders: formattedOrders });
   } catch (error) {

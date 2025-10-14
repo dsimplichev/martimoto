@@ -5,71 +5,70 @@ import "./orderDetails.css";
 const OrderDetails = () => {
     const { orderId } = useParams();
     const [order, setOrder] = useState(null);
-    const [accessories, setAccessories] = useState({});
+    const [productsData, setProductsData] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/api/orders/${orderId}`, { credentials: "include" })
-            .then((res) => res.json())
-            .then((data) => {
+        const fetchOrder = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/orders/${orderId}`, { credentials: "include" });
+                const data = await res.json();
                 setOrder(data);
-                setLoading(false);
-                if (data.cart) {
-                    fetchAccessoryDetails(data.cart);
+
+                if (data.cart && data.cart.length > 0) {
+                    await fetchProductsDetails(data.cart);
                 }
-            })
-            .catch((error) => {
-                console.error("Грешка при зареждане на поръчката:", error);
+
                 setLoading(false);
-            });
+            } catch (err) {
+                console.error("Грешка при зареждане на поръчката:", err);
+                setLoading(false);
+            }
+        };
+
+        fetchOrder();
     }, [orderId]);
 
-const fetchAccessoryDetails = async (cartItems) => {
-    const accessoryDetails = {};
+    const fetchProductsDetails = async (cartItems) => {
+        const details = {};
 
-    for (const item of cartItems) {
-        try {
-            let url = '';
+        for (const item of cartItems) {
+            try {
+                let url = "";
 
-            if (item.type === 'accessory') {
-                url = `http://localhost:5000/accessories/detail/${item.productId}`;
-            } else if (item.type === 'part') {
-                url = `http://localhost:5000/api/parts/${item.productId}`;
-            } else {
-                
-                try {
-                    const response = await fetch(`http://localhost:5000/accessories/detail/${item.productId}`);
-                    if (!response.ok) throw new Error('Не е аксесоар');
-                    const productData = await response.json();
-                    accessoryDetails[item.productId] = productData;
-                    continue; 
-                } catch (err) {
-                    try {
-                        const response = await fetch(`http://localhost:5000/api/parts/${item.productId}`);
-                        if (!response.ok) throw new Error('Не е част');
-                        const productData = await response.json();
-                        accessoryDetails[item.productId] = productData;
-                        continue;
-                    } catch (innerErr) {
-                        console.error(`Не може да се зареди продукт ${item.productId} от нито един тип.`);
-                        continue;
-                    }
+                switch (item.itemType) {
+                    case "accessory":
+                        url = `http://localhost:5000/accessories/detail/${item.productId}`;
+                        break;
+                    case "part":
+                        url = `http://localhost:5000/api/parts/${item.productId}`;
+                        break;
+                    case "tire":
+                        url = `http://localhost:5000/api/car-tires/${item.productId}`;
+                        break;
+                    case "oil":
+                        url = `http://localhost:5000/api/oils/${item.productId}`;
+                        break;
+                    case "wiperFluid":
+                        url = `http://localhost:5000/api/wiper-fluids/${item.productId}`;
+                        break;
+                    default:
+                        url = "";
                 }
-            }
 
-            
-            if (url) {
-                const response = await fetch(url);
-                const productData = await response.json();
-                accessoryDetails[item.productId] = productData;
+                if (url) {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`Продукт ${item.productId} не е намерен`);
+                    const productData = await res.json();
+                    details[item.productId] = productData;
+                }
+            } catch (err) {
+                console.error(`Не може да се зареди продукт ${item.productId}:`, err);
             }
-        } catch (error) {
-            console.error(`Грешка при зареждане на продукт ${item.productId}:`, error);
         }
-    }
 
-    setAccessories(accessoryDetails);
-};
+        setProductsData(details);
+    };
 
     if (loading) return <p>Зареждане на поръчката...</p>;
     if (!order) return <p>Грешка при зареждане на поръчката или поръчката не съществува!</p>;
@@ -97,27 +96,26 @@ const fetchAccessoryDetails = async (cartItems) => {
 
             <h3>Продукти в поръчката</h3>
             <ul className="cart-items">
-                {order.cart && order.cart.length > 0 ? (
-                    order.cart.map((item, index) => {
-                        const accessory = accessories[item.productId];
-                        return (
-                            <li key={index} className="cart-item">
-                                {accessory ? (
-                                    <>
-                                        <img src={accessory.images[0]} alt={accessory.title} className="product-image" />
-                                        <p><strong>{accessory.title}</strong></p>
-                                        <p><strong>Цена:</strong> {accessory.price} лв.</p>
-                                    </>
-                                ) : (
-                                    <p><strong>Продукт ID:</strong> {item.productId}</p>
-                                )}
-                                <p><strong>Количество:</strong> {item.quantity}</p>
-                            </li>
-                        );
-                    })
-                ) : (
-                    <li>Няма продукти в поръчката.</li>
-                )}
+                {order.cart.map((item) => {
+                    const product = productsData[item.productId];
+                    return (
+                        <li key={item._id} className="cart-item">
+                            {product ? (
+                                <>
+                                    {product.images && product.images.length > 0 && (
+                                        <img src={product.images[0]} alt={product.title} className="product-image" />
+                                    )}
+                                    <p><strong>{product.title}</strong></p>
+                                    <p><strong>Цена за брой:</strong> {product.price} лв.</p>
+                                </>
+                            ) : (
+                                <p><strong>Продукт ID:</strong> {item.productId}</p>
+                            )}
+                            <p><strong>Количество:</strong> {item.quantity}</p>
+                            <p><strong>Сума:</strong> {product ? (product.price * item.quantity) : 0} лв.</p>
+                        </li>
+                    );
+                })}
             </ul>
 
             <p><strong>Обща сума:</strong> {order.totalAmount} лв.</p>

@@ -40,7 +40,7 @@ function OilDetailsPage() {
     const handleAddToCart = () => {
         addToCart({
             ...oil,
-            title: oil.brand, 
+            title: oil.brand,
             quantity,
             image: mainImage || oil.images?.[0],
             itemType: "oil"
@@ -72,10 +72,10 @@ function OilDetailsPage() {
 
             <div className="oil-info-section">
                 <h2 className="oil-title">{oil.brand}</h2>
-                
-               
-                
-                
+
+
+
+
                 <p className="oil-viscosity">Вискозитет: {oil.viscosity}</p>
                 <p className="oil-volume">Разфасовка: {oil.volume}</p>
                 {oil.type && <p className="oil-type">Тип масло: {oil.type}</p>}
@@ -84,23 +84,28 @@ function OilDetailsPage() {
                     <span> {(Number(oil.price) / 1.95583).toFixed(2)} €</span>
                 </div>
 
-                <div className="oil-quantity-control">
-                    <label>Количество:</label>
-                    <div className="quantity-buttons-wrapper">
-                        <input
-                            type="number"
-                            min="1"
-                            value={quantity}
-                            readOnly
-                        />
-                        <div className="vertical-controls">
-                            <button className="qty-btn plus" onClick={handleIncrement}>
-                                &#9650;
-                            </button>
-                            <button className="qty-btn minus" onClick={handleDecrement} disabled={quantity === 1}>
-                                &#9660;
-                            </button>
+                <div className="quantity-control-container">
+                    <label className="quantity-label">Количество:</label>
+                    <div className="quantity-button-group">
+                        <button
+                            className="quantity-button minus"
+                            onClick={handleDecrement}
+                            disabled={quantity === 1}
+                        >
+                            -
+                        </button>
+
+                        
+                        <div className="quantity-display">
+                            {quantity}
                         </div>
+
+                        <button
+                            className="quantity-button plus"
+                            onClick={handleIncrement}
+                        >
+                            +
+                        </button>
                     </div>
                 </div>
 

@@ -10,6 +10,8 @@ function TruckOilDetailsPage() {
     const [mainImage, setMainImage] = useState("");
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useContext(CartContext);
+    const [notification, setNotification] = useState("");
+
 
     useEffect(() => {
         const fetchOil = async () => {
@@ -46,10 +48,14 @@ function TruckOilDetailsPage() {
             image: mainImage || oil.images?.[0],
             itemType: "truckOil" 
         });
+
+        setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
     return (
         <div className="oil-details-container">
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <div className="oil-images-section">
                 <div className="oil-main-image-wrapper">
                     <img src={mainImage} alt={oil.brand} className="oil-main-image" />
@@ -84,24 +90,27 @@ function TruckOilDetailsPage() {
                 </div>
 
                 
-                <div className="oil-quantity-control">
-                    <label>Количество:</label>
-                    <div className="quantity-buttons-wrapper">
-                        <input
-                            type="number"
-                            min="1"
-                            value={quantity}
-                            readOnly
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-                        <div className="vertical-controls">
-                            <button className="qty-btn plus" onClick={handleIncrement}>
-                                &#9650;
-                            </button>
-                            <button className="qty-btn minus" onClick={handleDecrement} disabled={quantity === 1}>
-                                &#9660;
-                            </button>
+                 <div className="quantity-control-container">
+                    <label className="quantity-label">Количество:</label>
+                    <div className="quantity-button-group">
+                        <button
+                            className="quantity-button minus"
+                            onClick={handleDecrement}
+                            disabled={quantity === 1}
+                        >
+                            -
+                        </button>
+                        
+                        <div className="quantity-display">
+                            {quantity}
                         </div>
+                        
+                        <button
+                            className="quantity-button plus"
+                            onClick={handleIncrement}
+                        >
+                            +
+                        </button>
                     </div>
                 </div>
 

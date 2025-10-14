@@ -10,7 +10,6 @@ import transmitionoil from '../../assets/transmitionoil.png';
 import wheeloil from '../../assets/wheeloil.png';
 
 
-// ✅ НОВА КОНСТАНТА, взета от AddOilForm.js
 const OIL_COMPOSITIONS = ["Синтетично", "Минерално", "Полусинтетично"];
 
 
@@ -20,12 +19,9 @@ function OilSearchForm() {
     const [manufacturer, setManufacturer] = useState('Избери Производител');
     const [viscosity, setViscosity] = useState('Избери Вискозитет');
     const [packing, setPacking] = useState('Избери Разфасовка');
-    // ✅ НОВО СЪСТОЯНИЕ ЗА ТИП МАСЛО (Синтетично/Минерално)
     const [oilComposition, setOilComposition] = useState('Избери Тип масло'); 
-    
     const [allOils, setAllOils] = useState([]);      
     const [displayedOils, setDisplayedOils] = useState([]); 
-
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
@@ -38,9 +34,7 @@ function OilSearchForm() {
     ];
 
     
-    /**
-     * 1. FETCH OILS: Зарежда всички масла за дадената категория
-     */
+   
     const fetchOils = async (category) => {
         try {
             const url = category
@@ -58,20 +52,17 @@ function OilSearchForm() {
         }
     };
     
-    // Нулиране на филтрите при смяна на категорията и зареждане на нови масла
+    
     useEffect(() => {
         setManufacturer('Избери Производител');
         setViscosity('Избери Вискозитет');
         setPacking('Избери Разфасовка');
-        // ✅ Нулираме и новото поле
         setOilComposition('Избери Тип масло');
         
         fetchOils(oilType);
     }, [oilType]);
     
-    /**
-     * HANDLE ADD TO CART
-     */
+    
     const handleAddToCart = (oil) => {
         const productForCart = {
             _id: oil._id,
@@ -85,79 +76,67 @@ function OilSearchForm() {
         alert("Продуктът беше добавен в количката!"); 
     };
     
-    /**
-     * ✅ Помощна функция за нормализиране: премахва всички интервали и регистър
-     */
+   
     const normalizeValue = (value) => {
         if (!value) return '';
-        // /\s/g търси всички празнини (включително интервал, таб, нов ред)
         return value.toString().replace(/\s/g, '').trim().toLowerCase();
     };
 
 
-    /**
-     * 🚀 HANDLE SEARCH: Филтриране по избрани параметри
-     */
     const handleSearch = (e) => {
         if (e) e.preventDefault();
         
-        // Нормализираме входните стойности от падащите менюта
+        
         const searchManufacturer = normalizeValue(manufacturer);
         const searchViscosity = normalizeValue(viscosity);
         const searchPacking = normalizeValue(packing);
-        const searchComposition = normalizeValue(oilComposition); // ✅ НОВА СТОЙНОСТ
+        const searchComposition = normalizeValue(oilComposition); 
         
-        // Нормализираме стойностите за сравнение с 'Избери...'
+        
         const defaultManufacturer = normalizeValue('Избери Производител');
         const defaultViscosity = normalizeValue('Избери Вискозитет');
         const defaultPacking = normalizeValue('Избери Разфасовка');
-        const defaultComposition = normalizeValue('Избери Тип масло'); // ✅ НОВА СТОЙНОСТ
+        const defaultComposition = normalizeValue('Избери Тип масло'); 
 
         
         const filteredOils = allOils.filter(oil => {
             
-            // 1. Филтриране по Производител/Марка (oil.brand)
+            
             const oilBrand = normalizeValue(oil.brand);
             const manufacturerMatch = searchManufacturer === defaultManufacturer || oilBrand === searchManufacturer;
             
-            // 2. Филтриране по Вискозитет (oil.viscosity)
+            
             const oilViscosity = normalizeValue(oil.viscosity);
             const viscosityMatch = searchViscosity === defaultViscosity || oilViscosity === searchViscosity;
             
-            // 3. Филтриране по Разфасовка (oil.volume)
+            
             const oilVolume = normalizeValue(oil.volume);
             const packingMatch = searchPacking === defaultPacking || oilVolume === searchPacking;
             
-            // 4. ✅ НОВ ФИЛТЪР: Тип масло (oil.type)
-            const oilType = normalizeValue(oil.type); // Полето в базата е 'type'
+            
+            const oilType = normalizeValue(oil.type);
             const compositionMatch = searchComposition === defaultComposition || oilType === searchComposition;
             
             return manufacturerMatch && viscosityMatch && packingMatch && compositionMatch; // ✅ Включваме новия филтър
         });
 
-        // Актуализираме показания списък с резултатите
+        
         setDisplayedOils(filteredOils);
     };
     
-    /**
-     * РЕСЕТ: Нулира филтрите и показва всички масла за текущата категория
-     */
+    
     const resetSearch = () => {
         setManufacturer('Избери Производител');
         setViscosity('Избери Вискозитет');
         setPacking('Избери Разфасовка');
-        setOilComposition('Избери Тип масло'); // ✅ Нулираме
-        
-        // Показваме всички масла, които вече са заредени за текущата категория
+        setOilComposition('Избери Тип масло'); 
         setDisplayedOils(allOils); 
     }
 
 
-    /**
-     * RENDER SELECT: Хелпър функция за рендиране на падащите менюта (използваме я и за Тип масло)
-     */
+   
     const renderSelect = (stateValue, setStateFunction, label, key) => {
-        // За Производител, Вискозитет и Разфасовка използваме OIL_OPTIONS[key]
+       
         if (['Производител', 'Вискозитет', 'Разфасовка'].includes(key) && !currentOptions[key]) return null;
         
         const optionsList = key === 'Тип масло' ? OIL_COMPOSITIONS : (currentOptions[key] || []);
@@ -199,8 +178,6 @@ function OilSearchForm() {
                     {renderSelect(manufacturer, setManufacturer, 'Производител', 'Производител')}
                     {renderSelect(viscosity, setViscosity, 'Вискозитет', 'Вискозитет')}
                     {renderSelect(packing, setPacking, 'Разфасовка', 'Разфасовка')}
-                    
-                    {/* ✅ НОВО ПАДАЩО МЕНЮ */}
                     {renderSelect(oilComposition, setOilComposition, 'Тип масло', 'Тип масло')} 
                 </div>
 
@@ -239,7 +216,7 @@ function OilSearchForm() {
                                     <span className="oil-detail-label">Разфасовка:</span>
                                     <span className="oil-detail-value">{oil.volume}</span>
                                 </div>
-                                {/* ✅ ДОБАВЯНЕ НА ТИП МАСЛО КЪМ КАРТАТА */}
+                                
                                 <div className="oil-detail-row">
                                     <span className="oil-detail-label">Тип:</span>
                                     <span className="oil-detail-value">{oil.type}</span> 
