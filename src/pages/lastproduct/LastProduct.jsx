@@ -52,7 +52,7 @@ function LastProduct() {
         const productToAdd = products.find(p => p._id === productId);
         if (productToAdd) {
             addToFavorites(productToAdd);
-            alert("Продуктът беше добавен в любими!");
+            showNotification("Продуктът беше добавен в любими!");
         }
     };
 
