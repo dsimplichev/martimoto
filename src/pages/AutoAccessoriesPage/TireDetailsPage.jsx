@@ -8,16 +8,16 @@ function TireDetailsPage() {
     const { id } = useParams();
     const [tire, setTire] = useState(null);
     const [mainImage, setMainImage] = useState(null);
-    const [quantity, setQuantity] = useState(1); 
+    const [quantity, setQuantity] = useState(1);
     const [notification, setNotification] = useState("");
     const { addToCart } = useContext(CartContext);
-    
+
     useEffect(() => {
         const fetchTire = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/car-tires/${id}`);
                 setTire(response.data);
-                setMainImage(response.data.images[0]); 
+                setMainImage(response.data.images[0]);
             } catch (err) {
                 console.error("Грешка при зареждане на гума:", err);
             }
@@ -25,17 +25,17 @@ function TireDetailsPage() {
         fetchTire();
     }, [id]);
 
-    
+
     const incrementQuantity = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
     };
 
-    
+
     const decrementQuantity = () => {
         setQuantity(prevQuantity => Math.max(1, prevQuantity - 1));
     };
-    
-    
+
+
 
     if (!tire) return <p>Зареждане...</p>;
 
@@ -48,16 +48,16 @@ function TireDetailsPage() {
             price: tire.price,
             image: tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png',
             itemType: "tire",
-            quantity: quantity, 
+            quantity: quantity,
         };
         addToCart(productForCart);
-         setNotification(`Продукт "${tire.brand} ${tire.model}" е добавен в количката.`);
+        setNotification(`Продукт "${tire.brand} ${tire.model}" е добавен в количката.`);
         setTimeout(() => setNotification(""), 3000);
     };
 
     return (
         <div className="tire-details-container">
-             {notification && <div className="cart-notification-center">{notification}</div>}
+            {notification && <div className="cart-notification-center">{notification}</div>}
             <div className="tire-details-left">
                 <img
                     src={mainImage}
@@ -99,20 +99,20 @@ function TireDetailsPage() {
                     <br />
                     <span className="price-euro">{priceInEuro} €</span>
                 </div>
-                
-                
+
+
                 <div className="quantity-control-container">
                     <label htmlFor="quantity-display" className="quantity-label">Количество:</label>
                     <div className="quantity-button-group">
                         <button
                             className="quantity-button minus"
                             onClick={decrementQuantity}
-                            disabled={quantity === 1} 
+                            disabled={quantity === 1}
                         >
                             -
                         </button>
                         <span id="quantity-display" className="quantity-display">{quantity}</span>
-                        
+
                         <button
                             className="quantity-button plus"
                             onClick={incrementQuantity}
@@ -121,11 +121,17 @@ function TireDetailsPage() {
                         </button>
                     </div>
                 </div>
-                
+
 
                 <button className="add-to-cart-button" onClick={handleAddToCart}>
                     Добави в кошницата
                 </button>
+                {tire.description && (
+                    <div className="tire-description-section">
+                        <h3>Описание:</h3>
+                        <p>{tire.description}</p>
+                    </div>
+                )}
             </div>
         </div>
     );
