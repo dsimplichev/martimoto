@@ -55,7 +55,6 @@
 .fluid-card {
     background-color: #ffffff;
     border-radius: 10px;
-    /* Тънка рамка по подразбиране */
     border: 1px solid #ddd; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     padding: 15px;
