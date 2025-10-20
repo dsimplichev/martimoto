@@ -46,6 +46,7 @@ import WiperFluidDetailsPage from "./pages/AutoAccessoriesPage/WiperFluidDetails
 import OilDetailsPage from "./pages/AutoAccessoriesPage/OilDetailsPage";
 import TruckOilDetailsPage from "./pages/AutoAccessoriesPage/TruckOilDetailsPage";
 import MotorcycleOilDetailsPage from "./pages/AutoAccessoriesPage/MotorcycleOilDetailsPage";
+import AddMats from "./pages/AddMats/AddMats"
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -131,6 +132,7 @@ function App() {
         <Route path="/tire/:id" element={<TireDetailsPage />} />
         <Route path="/add-oil" element={<AddOilForm />} />
         <Route path="/add-wiper-fluid" element={<AddWiperFluidForm />} />
+        <Route path="/add-mats" element={<AddMats />} />
         <Route path="/wiper-fluid/:id" element={<WiperFluidDetailsPage />} />
         <Route path="/oil/:id" element={<OilDetailsPage />} />
         <Route path="/truck-oil/:id" element={<TruckOilDetailsPage />} />
