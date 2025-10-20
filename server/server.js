@@ -21,6 +21,7 @@ const guestRoutes = require('./routes/guestRoutes');
 const tireRoutes = require('./routes/tireRoutes');
 const oilRoutes = require('./routes/oilRoutes');
 const wiperFluidRoutes = require("./routes/wiperFluidRoutes.js"); 
+const matsRouter = require('./routes/matsRouter.js');
 
 const upload = multer(); 
 const app = express();
@@ -48,6 +49,7 @@ app.use('/', guestRoutes);
 app.use('/api', tireRoutes);
 app.use('/api/oils', oilRoutes);
 app.use("/api/wiper-fluid", wiperFluidRoutes);
+app.use('/api/mats', matsRouter);
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {
