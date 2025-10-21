@@ -47,6 +47,7 @@ import OilDetailsPage from "./pages/AutoAccessoriesPage/OilDetailsPage";
 import TruckOilDetailsPage from "./pages/AutoAccessoriesPage/TruckOilDetailsPage";
 import MotorcycleOilDetailsPage from "./pages/AutoAccessoriesPage/MotorcycleOilDetailsPage";
 import AddMats from "./pages/AddMats/AddMats"
+import MatDetailsPage from "./pages/AutoAccessoriesPage/MatDetailsPage";
 
 function App() {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -107,16 +108,10 @@ function App() {
           path="/brands/:brandName/models/:modelName"
           element={<ModelDetails />}
         />
-        <Route
-          path="/brands/:brandName/models/:modelName/:year"
-          element={<PartsByYear />}
-        />
+        <Route path="/brands/:brandName/models/:modelName/:year" element={<PartsByYear />}/>
         <Route path="/add-accessory" element={<AddAccessory />} />
         <Route path="/add-part" element={<AddPart />} />
-        <Route
-          path="/accessories/detail/:id"
-          element={<AccessoryDetailPage />}
-        />
+        <Route path="/accessories/detail/:id" element={<AccessoryDetailPage />}/>
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrder />} />
@@ -133,13 +128,13 @@ function App() {
         <Route path="/add-oil" element={<AddOilForm />} />
         <Route path="/add-wiper-fluid" element={<AddWiperFluidForm />} />
         <Route path="/add-mats" element={<AddMats />} />
+        <Route path="/mats/:id" element={<MatDetailsPage />} /> 
         <Route path="/wiper-fluid/:id" element={<WiperFluidDetailsPage />} />
         <Route path="/oil/:id" element={<OilDetailsPage />} />
         <Route path="/truck-oil/:id" element={<TruckOilDetailsPage />} />
-        <Route
-          path="/motorcycle-oil/:id"
-          element={<MotorcycleOilDetailsPage />}
-        />
+        <Route path="/motorcycle-oil/:id" element={<MotorcycleOilDetailsPage />}/>
+          
+          
       </Routes>
 
       {!isPageWithoutFooter && (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import SectionHeader from '../../Card/SectionHeader';
 import './MatsPage.css';
 import { MATS_SEARCH_OPTIONS } from '../AutoAccessoriesPage/matsData';
@@ -12,6 +13,8 @@ function MatsPage() {
 
     const [mats, setMats] = useState([]);
     const [filteredMats, setFilteredMats] = useState([]);
+
+    const navigate = useNavigate();
 
     const brandOptions = Object.keys(MATS_SEARCH_OPTIONS.Марки);
     const materialOptions = MATS_SEARCH_OPTIONS.Материал || [];
@@ -55,7 +58,6 @@ function MatsPage() {
         setFilteredMats(results);
     };
 
-
     const addToCart = (item) => {
         console.log("Добавяне в количката:", item);
     };
@@ -73,7 +75,7 @@ function MatsPage() {
     };
 
     const handleDetailsClick = (matId) => {
-        console.log(`Пренасочване към страница за детайли на продукт с ID: ${matId}`);
+        navigate(`/mats/${matId}`);
     };
 
     const renderSelect = (stateValue, setStateFunction, label, options) => {
@@ -114,23 +116,27 @@ function MatsPage() {
                     <div className="mats-grid">
                         {filteredMats.map(mat => (
                             <div key={mat._id} className="mat-card">
-                                {mat.images[0] && <img
-                                    src={mat.images[0]}
-                                    alt={mat.title}
-                                    className="mat-image"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "https://placehold.co/400x300/e6e6e6/000?text=NO+IMAGE";
-                                    }}
-                                />}
+                                {mat.images[0] && (
+                                    <img
+                                        src={mat.images[0]}
+                                        alt={mat.title}
+                                        className="mat-image"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "https://placehold.co/400x300/e6e6e6/000?text=NO+IMAGE";
+                                        }}
+                                    />
+                                )}
                                 <h3 title={mat.title}>{mat.title}</h3>
                                 <p><strong>Марка:</strong> {mat.carBrand}</p>
                                 <p><strong>Модел:</strong> {mat.carModel}</p>
                                 <p><strong>Материал:</strong> {mat.material}</p>
+
                                 <div className="mats-price-row">
-                                        <span className="mats-price-bgn"><strong>{Number(mat.price).toFixed(2)} лв.</strong></span>
-                                        <span className="mats-price-eur">/ {(Number(mat.price) / 1.95583).toFixed(2)} &euro;</span>
-                                    </div>
+                                    <span className="mats-price-bgn"><strong>{Number(mat.price).toFixed(2)} лв.</strong></span>
+                                    <span className="mats-price-eur">/ {(Number(mat.price) / 1.95583).toFixed(2)} &euro;</span>
+                                </div>
+
                                 <div className="mat-buttons-container">
                                     <button
                                         className="mat-button-details"
@@ -142,10 +148,9 @@ function MatsPage() {
                                         className="mat-button-buy"
                                         onClick={() => handleBuyClick(mat)}
                                     >
-                                       <FaShoppingCart className="mats-buy-icon" /> Купи
+                                        <FaShoppingCart className="mats-buy-icon" /> Купи
                                     </button>
                                 </div>
-
                             </div>
                         ))}
                     </div>
