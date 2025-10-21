@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./AddMats.css";
+import { MATS_SEARCH_OPTIONS } from "../AutoAccessoriesPage/matsData";
 
 function AddMats() {
     const [title, setTitle] = useState("");
@@ -64,17 +65,32 @@ function AddMats() {
                 <input value={color} onChange={e => setColor(e.target.value)} required />
 
                 <label>Марка автомобил:</label>
-                <select value={carBrand} onChange={e => setCarBrand(e.target.value)} required>
+                <select
+                    value={carBrand}
+                    onChange={(e) => {
+                        setCarBrand(e.target.value);
+                        setCarModel("");
+                    }}
+                    required
+                >
                     <option value="">Избери</option>
-                    <option value="BMW">BMW</option>
-                    <option value="Audi">Audi</option>
-                    <option value="Mercedes">Mercedes</option>
-                    <option value="VW">VW</option>
-                    <option value="Toyota">Toyota</option>
+                    {Object.keys(MATS_SEARCH_OPTIONS['Марки']).map((brand) => (
+                        <option key={brand} value={brand}>{brand}</option>
+                    ))}
                 </select>
 
                 <label>Модел автомобил:</label>
-                <input value={carModel} onChange={e => setCarModel(e.target.value)} required />
+                <select
+                    value={carModel}
+                    onChange={(e) => setCarModel(e.target.value)}
+                    required
+                    disabled={!carBrand} 
+                >
+                    <option value="">Избери</option>
+                    {carBrand && MATS_SEARCH_OPTIONS['Марки'][carBrand]?.map((model) => (
+                        <option key={model} value={model}>{model}</option>
+                    ))}
+                </select>
 
                 <label>Описание:</label>
                 <textarea value={description} onChange={e => setDescription(e.target.value)} />

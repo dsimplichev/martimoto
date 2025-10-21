@@ -35,7 +35,7 @@ function TireSearchForm() {
         try {
             const response = await axios.get('http://localhost:5000/api/car-tires');
             setAllTires(response.data);
-            setDisplayedTires(response.data); // Показваме всички гуми при зареждане
+            setDisplayedTires(response.data); 
         } catch (err) {
             console.error('Грешка при зареждане на гуми:', err);
         }
