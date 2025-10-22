@@ -414,9 +414,9 @@
 
     
     .oil-grid {
-        
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 15px; 
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px; 
+        padding: 0;
     }
 
     .oil-price-row {

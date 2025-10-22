@@ -10,7 +10,7 @@
 
 .mat-spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #218838; 
+  border-top: 4px solid #218838;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -100,13 +100,13 @@
 }
 
 .mat-thumbnail:hover {
-  border-color: #e53935; 
+  border-color: #e53935;
   box-shadow: 0 0 5px rgba(229, 57, 53, 0.5);
   transform: scale(1.05);
 }
 
 .mat-thumbnail.active {
-  border-color: #218838; 
+  border-color: #218838;
   box-shadow: 0 0 5px rgba(33, 136, 56, 0.8);
   transform: scale(1);
 }
@@ -145,13 +145,13 @@
 }
 
 .mat-description {
-  font-size: 16px;
-  line-height: 1.4;
-  color: #555;
-  font-weight: 600;
-  border-top: 1px solid #eee;
-  padding-top: 6px;
-  margin-top: 5px;
+  margin-top: 1rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #333;
+  max-width: 600px;
 }
 
 .mat-price {
@@ -168,7 +168,7 @@
 }
 
 .mat-price strong {
-  color: #e53935; 
+  color: #e53935;
   font-size: 28px;
   line-height: 1;
 }
@@ -241,7 +241,7 @@
 
 .mat-add-to-cart-btn {
   margin-top: 10px;
-  background-color: #218838; 
+  background-color: #218838;
   color: white;
   padding: 12px 22px;
   border: none;
@@ -302,7 +302,6 @@
     top: 0px;
   }
 }
-
 
 @media screen and (max-width: 768px) {
   .mat-detail-container {

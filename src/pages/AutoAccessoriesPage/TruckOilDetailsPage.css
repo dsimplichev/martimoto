@@ -167,14 +167,13 @@
     margin: 0;
 }
 
-/* Контейнер за бутоните + и - (дясната част) */
 .vertical-controls {
     display: flex;
     flex-direction: column;
     width: 30px; 
 }
 
-/* Бутони +/- */
+
 .vertical-controls .qty-btn {
     width: 100%;
     height: 20px; 
@@ -192,7 +191,7 @@
     outline: none; 
 }
 
-/* Разделител между бутоните + и - */
+
 .vertical-controls .qty-btn.plus {
     border-bottom: 1px solid #ccc;
 }
