@@ -351,6 +351,12 @@
 
 @media (max-width: 768px) {
     
+    .tire-search-container {
+        padding: 0 10px;
+        margin: 20px auto;
+     
+    }
+    
     .search-buttons-group {
         flex-direction: column; 
         gap: 10px;
@@ -362,7 +368,6 @@
         max-width: 100%;
     }
     
-    
     .main-params-new,
     .season-selection {
         flex-direction: column;
@@ -370,8 +375,6 @@
         width: 100%;
         max-width: 100%;
     }
-    
-    
     
     .main-params-new,
     .brand-select-wrapper,
@@ -396,13 +399,37 @@
     }
     
     .season-button {
-        
         flex-basis: auto; 
     }
 }
 
 @media (max-width: 600px) {
     .tire-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px; 
+    }
+    
+    .tire-image-wrapper {
+        height: 120px;
+        margin-bottom: 5px;
+    }
+    
+    .tire-subtitle {
+        font-size: 0.8rem;
+        min-height: 2em;
+    }
+    
+    .tire-price-bgn strong {
+        font-size: 1.4rem;
+    }
+    
+    .tire-price-eur {
+        font-size: 0.9rem;
+    }
+    
+    .view-details-button,
+    .buy-button {
+        padding: 6px;
+        font-size: 0.8rem;
     }
 }

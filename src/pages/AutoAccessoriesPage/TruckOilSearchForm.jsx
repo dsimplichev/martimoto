@@ -64,17 +64,19 @@ function TruckOilSearchForm() {
         console.log({ oilType, manufacturer, purpose, viscosity, oilCategory, packing });
     };
 
-    const handleAddToCart = (oil) => {
-        addToCart({
-            ...oil,
-            quantity: 1,
-            image: oil.images?.[0],
-            itemType: "oil"
-        });
+   const handleAddToCart = (oil) => {
+    addToCart({
+        _id: oil._id, 
+        title: oil.brand || oil.title || "Неизвестно масло", 
+        price: Number(oil.price),
+        quantity: 1,
+        image: oil.images?.[0],
+        itemType: "truckOil"
+    });
 
-        setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
-        setTimeout(() => setNotification(""), 3000);
-    };
+    setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
+    setTimeout(() => setNotification(""), 3000);
+};
 
     const renderSelect = (stateValue, setStateFunction, label, key) => {
         const currentOptions = OIL_OPTIONS['Масла за камиони']?.[oilType]?.[key] || [];

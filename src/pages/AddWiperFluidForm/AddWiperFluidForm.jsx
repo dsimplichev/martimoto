@@ -7,7 +7,24 @@ const AddWiperFluidForm = () => {
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
     const [images, setImages] = useState([]);
+    const [previews, setPreviews] = useState([]);
     const [notification, setNotification] = useState(null);
+
+    
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        const newFiles = [...images, ...files].slice(0, 3); // максимум 3
+        setImages(newFiles);
+        setPreviews(newFiles.map(file => URL.createObjectURL(file)));
+    };
+
+    
+    const handleRemoveImage = (index) => {
+        const newImages = images.filter((_, i) => i !== index);
+        const newPreviews = previews.filter((_, i) => i !== index);
+        setImages(newImages);
+        setPreviews(newPreviews);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,10 +38,7 @@ const AddWiperFluidForm = () => {
         formData.append("title", title);
         formData.append("volume", volume);
         formData.append("price", price);
-
-        images.forEach((image) => {
-            formData.append("images", image);
-        });
+        images.forEach(image => formData.append("images", image));
 
         try {
             const response = await axios.post(
@@ -38,6 +52,7 @@ const AddWiperFluidForm = () => {
                 setVolume("");
                 setPrice("");
                 setImages([]);
+                setPreviews([]);
             }
         } catch (error) {
             console.error(error);
@@ -50,8 +65,8 @@ const AddWiperFluidForm = () => {
         <div className="add-wiperfluid-form-container">
             <h2>Добавяне на течност за чистачки</h2>
             {notification && <div className={`notification ${notification.type}`}>{notification.message}</div>}
+
             <form onSubmit={handleSubmit} className="add-wiperfluid-form">
-                
                 <label>Заглавие:</label>
                 <input
                     type="text"
@@ -80,11 +95,27 @@ const AddWiperFluidForm = () => {
                 <label>Изображения (до 3):</label>
                 <input
                     type="file"
-                    name="images" 
+                    name="images"
                     multiple
                     accept="image/*"
-                    onChange={(e) => setImages(Array.from(e.target.files))}
+                    onChange={handleImageChange}
                 />
+
+                
+                <div className="preview-container-fluid">
+                    {previews.map((src, idx) => (
+                        <div key={idx} className="preview-item-fluid">
+                            <img src={src} alt={`preview-${idx}`} className="preview-img-fluid" />
+                            <button
+                                type="button"
+                                className="remove-img-btn-fluid"
+                                onClick={() => handleRemoveImage(idx)}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ))}
+                </div>
 
                 <button type="submit">Добави течност</button>
             </form>

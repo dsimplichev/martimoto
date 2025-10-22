@@ -41,18 +41,19 @@ function TruckOilDetailsPage() {
     };
     
 
-    const handleAddToCart = () => {
-        addToCart({
-            ...oil,
-            quantity,
-            image: mainImage || oil.images?.[0],
-            itemType: "truckOil" 
-        });
+    const handleAddToCart = (oil) => {
+    addToCart({
+        _id: oil._id, 
+        title: oil.brand || oil.title || "Неизвестно масло", 
+        price: Number(oil.price),
+        quantity: 1,
+        image: oil.images?.[0],
+        itemType: "truckOil"
+    });
 
-        setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
-        setTimeout(() => setNotification(""), 3000);
-    };
-
+    setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
+    setTimeout(() => setNotification(""), 3000);
+};
     return (
         <div className="oil-details-container">
             {notification && <div className="cart-notification-center">{notification}</div>}

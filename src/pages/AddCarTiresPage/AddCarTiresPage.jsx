@@ -53,6 +53,13 @@ function AddCarTiresPage() {
         setError('');
     };
 
+    const handleRemoveImage = (index) => {
+        setTireData(prev => ({
+            ...prev,
+            images: prev.images.filter((_, i) => i !== index)
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
@@ -99,7 +106,6 @@ function AddCarTiresPage() {
 
     const seasons = ['Летни', 'Зимни', 'Всесезонни'];
 
-
     return (
         <div className="add-tire-page-container">
             <h1>Добавяне на Авто Гуми</h1>
@@ -108,8 +114,6 @@ function AddCarTiresPage() {
 
             <form onSubmit={handleSubmit} className="add-tire-form">
                 <div className="form-row">
-
-
                     <input
                         type="text" name="brand" placeholder="Марка (напр. Michelin)"
                         value={tireData.brand} onChange={handleChange} required
@@ -162,11 +166,21 @@ function AddCarTiresPage() {
                         onChange={handleImageChange} accept="image/*" multiple required />
 
                     {tireData.images.length > 0 && (
-                        <div className="image-previews" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px' }}>
+                        <div className="image-previews">
                             {tireData.images.map((file, index) => (
-                                <img key={index} src={URL.createObjectURL(file)}
-                                    alt={`Preview ${index + 1}`}
-                                    style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '4px' }} />
+                                <div key={index} className="image-preview">
+                                    <img
+                                        src={URL.createObjectURL(file)}
+                                        alt={`Preview ${index + 1}`}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="remove-image-btn"
+                                        onClick={() => handleRemoveImage(index)}
+                                    >
+                                        ×
+                                    </button>
+                                </div>
                             ))}
                         </div>
                     )}

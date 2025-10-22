@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../Context/CartContext";
 import { FavoritesContext } from "../../Context/FavoritesContext";
 import { AuthContext } from "../../Context/AuthContext";
-
 import ProductCard from "../../Card/ProductCard";
 import "./PartsSearch.css";
 
@@ -11,36 +10,36 @@ function PartsSearch() {
     const [searchQuery, setSearchQuery] = useState("");
     const [results, setResults] = useState([]);
     const [notification, setNotification] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12; // 3 реда x 4 колони = 12 продукта на страница
+
     const navigate = useNavigate();
     const { addToCart } = useContext(CartContext);
     const { addToFavorites } = useContext(FavoritesContext);
     const { isLoggedIn } = useContext(AuthContext);
 
-     const showNotification = (message) => {
+    const showNotification = (message) => {
         setNotification(message);
         setTimeout(() => setNotification(""), 3000);
     };
-    
+
     const handleSearch = async (e) => {
         e.preventDefault();
-
         if (!searchQuery.trim()) return;
 
         try {
             const res = await fetch(`http://localhost:5000/api/search?query=${searchQuery}`);
             const data = await res.json();
             setResults(data);
+            setCurrentPage(1); // върни се на първа страница при ново търсене
         } catch (error) {
             console.error("Грешка при търсенето:", error);
             showNotification("Възникна грешка при търсенето.");
         }
     };
 
-    
     const handleAddToCart = (e, productId) => {
         e.stopPropagation();
-        e.preventDefault();
-
         const product = results.find(p => p._id === productId);
         if (product) {
             addToCart({
@@ -52,17 +51,12 @@ function PartsSearch() {
         }
     };
 
-    
     const handleAddToFavorites = (e, productId) => {
         e.stopPropagation();
-        e.preventDefault();
-
         if (!isLoggedIn) {
             showNotification('Моля, влезте в профила си, за да добавяте в любими.');
-           
             return;
         }
-
         const product = results.find(p => p._id === productId);
         if (product) {
             addToFavorites(product);
@@ -70,16 +64,18 @@ function PartsSearch() {
         }
     };
 
-    
     const handleNavigate = (id, itemType) => {
-        if (itemType === "part") {
-            navigate(`/parts/${id}`);
-        } else {
-            navigate(`/accessories/detail/${id}`);
-        }
-
+        navigate(itemType === "part" ? `/parts/${id}` : `/accessories/detail/${id}`);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
+    // --- Пагинация ---
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = results.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(results.length / itemsPerPage);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <div className="parts-search-container">
@@ -101,10 +97,9 @@ function PartsSearch() {
                 </div>
             </form>
 
-            
             <div className="products-grid-container">
-                {results.length > 0 ? (
-                    results.map(product => (
+                {currentItems.length > 0 ? (
+                    currentItems.map(product => (
                         <ProductCard
                             key={product._id}
                             id={product._id}
@@ -121,9 +116,23 @@ function PartsSearch() {
                     <p className="no-results">Няма намерени продукти.</p>
                 )}
             </div>
-              {notification && (
-                <div className="cart-notification-center">{notification}</div>
+
+            
+            {totalPages > 1 && (
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => paginate(i + 1)}
+                            className={`page-btn ${currentPage === i + 1 ? "active" : ""}`}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                </div>
             )}
+
+            {notification && <div className="cart-notification-center">{notification}</div>}
         </div>
     );
 }

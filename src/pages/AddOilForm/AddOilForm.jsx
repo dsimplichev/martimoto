@@ -15,11 +15,24 @@ const AddOilForm = () => {
     const [oilCategory, setOilCategory] = useState("");
     const [brand, setBrand] = useState("");
     const [viscosity, setViscosity] = useState("");
-    const [oilType, setOilType] = useState(""); 
+    const [oilType, setOilType] = useState("");
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
-    const [images, setImages] = useState([]); 
+    const [images, setImages] = useState([]);
     const [notification, setNotification] = useState(null);
+
+    const handleImageChange = (e) => {
+        const selected = Array.from(e.target.files);
+        if (selected.length + images.length > 3) {
+            setNotification({ type: "error", message: "Можете да качите максимум 3 изображения!" });
+            return;
+        }
+        setImages((prev) => [...prev, ...selected]);
+    };
+
+    const handleRemoveImage = (index) => {
+        setImages((prev) => prev.filter((_, i) => i !== index));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,28 +42,21 @@ const AddOilForm = () => {
             return;
         }
 
-        
         const formData = new FormData();
         formData.append("vehicleType", vehicleType);
         formData.append("oilCategory", oilCategory);
         formData.append("brand", brand);
         formData.append("viscosity", viscosity);
-        formData.append("type", oilType); 
+        formData.append("type", oilType);
         formData.append("volume", volume);
         formData.append("price", price);
-        
-        
-        images.forEach(image => {
-            formData.append("images", image); 
-        });
+        images.forEach((img) => formData.append("images", img));
 
         try {
-            
-            const response = await axios.post(
-                "http://localhost:5000/api/oils/add-oil", 
-                formData
-            ); 
-            
+            const response = await axios.post("http://localhost:5000/api/oils/add-oil", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+
             if (response.status === 201) {
                 setNotification({ type: "success", message: "Маслото беше добавено успешно!" });
                 setVehicleType("");
@@ -60,11 +66,11 @@ const AddOilForm = () => {
                 setOilType("");
                 setVolume("");
                 setPrice("");
-                setImages([]); 
+                setImages([]);
+                document.querySelector('input[type="file"]').value = null;
             }
         } catch (error) {
             console.error(error);
-            
             const errorMessage = error.response?.data?.message || "Грешка при добавяне на маслото.";
             setNotification({ type: "error", message: errorMessage });
         }
@@ -74,9 +80,8 @@ const AddOilForm = () => {
         <div className="add-oil-form-container">
             <h2>Добавяне на масло</h2>
             {notification && <div className={`notification ${notification.type}`}>{notification.message}</div>}
-            <form onSubmit={handleSubmit} className="add-oil-form">
-                
 
+            <form onSubmit={handleSubmit} className="add-oil-form">
                 <label>Превозно средство:</label>
                 <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
                     <option value="">Изберете</option>
@@ -122,7 +127,7 @@ const AddOilForm = () => {
                     type="text"
                     value={volume}
                     onChange={(e) => setVolume(e.target.value)}
-                    placeholder="Напр. 0.200 L"
+                    placeholder="Напр. 1L"
                 />
 
                 <label>Цена (лв):</label>
@@ -133,15 +138,20 @@ const AddOilForm = () => {
                     onChange={(e) => setPrice(e.target.value)}
                     placeholder="Напр. 35.50"
                 />
-                
-                
+
                 <label>Изображения (до 3):</label>
-                <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={(e) => setImages(Array.from(e.target.files))}
-                />
+                <input type="file" multiple accept="image/*" onChange={handleImageChange} />
+
+                {images.length > 0 && (
+                    <div className="oil-image-previews">
+                        {images.map((file, index) => (
+                            <div key={index} className="oil-image-preview">
+                                <img src={URL.createObjectURL(file)} alt={`Preview ${index + 1}`} />
+                                <button type="button" className="remove-oil-image" onClick={() => handleRemoveImage(index)}>×</button>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 <button type="submit">Добави масло</button>
             </form>
