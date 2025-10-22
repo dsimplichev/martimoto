@@ -4,8 +4,8 @@
   padding: 25px;
   background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
 }
 
 .add-wiperfluid-form-container h2 {
@@ -60,7 +60,7 @@
 }
 
 .add-wiperfluid-form button {
-  margin-top: 25px;
+  
   padding: 12px;
   background-color: #218838;
   color: #fff;
@@ -73,6 +73,59 @@
 
 .add-wiperfluid-form button:hover {
   background-color: #0056b3;
+}
+
+.preview-container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 5px; 
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+}
+
+.preview-item-fluid {
+  position: relative;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.preview-img-fluid {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.remove-img-btn-fluid {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e53935;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s;
+  
+}
+
+.remove-img-btn-fluid:hover {
+  background: #c62828;
+  transform: scale(1.1);
 }
 
 @media (max-width: 640px) {

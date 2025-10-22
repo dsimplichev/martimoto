@@ -11,8 +11,26 @@ function AddMats() {
     const [carModel, setCarModel] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState([]); 
+    const [previews, setPreviews] = useState([]); 
     const [notification, setNotification] = useState(null);
+
+   
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        const newFiles = [...images, ...files].slice(0, 4); 
+
+        setImages(newFiles);
+        setPreviews(newFiles.map(file => URL.createObjectURL(file)));
+    };
+
+   
+    const handleRemoveImage = (index) => {
+        const newImages = images.filter((_, i) => i !== index);
+        const newPreviews = previews.filter((_, i) => i !== index);
+        setImages(newImages);
+        setPreviews(newPreviews);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,14 +47,14 @@ function AddMats() {
         formData.append("carModel", carModel);
         formData.append("description", description);
         formData.append("price", price);
-
         images.forEach(img => formData.append("images", img));
 
         try {
             const response = await axios.post("http://localhost:5000/api/mats/add", formData);
             if (response.status === 201) {
                 setNotification({ type: "success", message: "Стелката беше добавена успешно!" });
-                setTitle(""); setMaterial(""); setColor(""); setCarBrand(""); setCarModel(""); setDescription(""); setPrice(""); setImages([]);
+                setTitle(""); setMaterial(""); setColor(""); setCarBrand(""); setCarModel(""); setDescription(""); setPrice("");
+                setImages([]); setPreviews([]);
             }
         } catch (error) {
             console.error(error);
@@ -49,6 +67,7 @@ function AddMats() {
         <div className="add-mats-container">
             <h2>Добави нови стелки</h2>
             {notification && <div className={`notification ${notification.type}`}>{notification.message}</div>}
+
             <form onSubmit={handleSubmit} className="add-mats-form">
                 <label>Заглавие:</label>
                 <input value={title} onChange={e => setTitle(e.target.value)} required />
@@ -84,7 +103,7 @@ function AddMats() {
                     value={carModel}
                     onChange={(e) => setCarModel(e.target.value)}
                     required
-                    disabled={!carBrand} 
+                    disabled={!carBrand}
                 >
                     <option value="">Избери</option>
                     {carBrand && MATS_SEARCH_OPTIONS['Марки'][carBrand]?.map((model) => (
@@ -99,7 +118,17 @@ function AddMats() {
                 <input type="number" value={price} onChange={e => setPrice(e.target.value)} required />
 
                 <label>Снимки (до 4):</label>
-                <input type="file" multiple accept="image/*" onChange={e => setImages(Array.from(e.target.files))} />
+                <input type="file" multiple accept="image/*" onChange={handleImageChange} />
+
+                
+                <div className="preview-container">
+                    {previews.map((src, idx) => (
+                        <div key={idx} className="preview-item">
+                            <img src={src} alt={`preview-${idx}`} className="preview-img" />
+                            <button type="button" className="remove-img-btn" onClick={() => handleRemoveImage(idx)}>X</button>
+                        </div>
+                    ))}
+                </div>
 
                 <button type="submit">Добави стелка</button>
             </form>
