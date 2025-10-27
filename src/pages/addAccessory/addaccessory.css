@@ -1,26 +1,116 @@
-form {
-    width: 300px;
+.acc-form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 90%;
     margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
+.acc-form-container div {
     margin-bottom: 10px;
-    border: 1px solid #ccc;
 }
 
-
-
-.add-accessory-form {
-    border: 2px solid #333; 
-    padding: 20px; 
-    border-radius: 8px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+.acc-form-container label {
+    font-size: 14px;
+    font-weight: bold;
 }
 
-.add-acc-btn {
+.acc-form-container input, .acc-form-container textarea, .acc-form-container select {
     width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.acc-upload-label {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 5px;
+    transition: background-color 0.2s;
+}
+
+.acc-upload-label:hover {
+    background-color: #0056b3;
+}
+
+.acc-upload-button {
+    display: none;
+}
+
+.acc-image-previews-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    padding: 10px;
+    border: 2px solid #a0a0a0;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+}
+
+.acc-image-preview-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 5px; 
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.acc-preview-thumb {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.acc-remove-image-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: 2px solid #fff !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+    transition: background-color 0.2s, transform 0.1s !important;
+    z-index: 10 !important;
+}
+
+.acc-remove-image-btn:hover {
+    background-color: #c82333 !important;
+    transform: scale(1.1) !important;
+}
+
+.acc-submit-btn {
     padding: 10px;
     background-color: #28a745;
     color: white;
@@ -28,9 +118,16 @@ input, select, textarea {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    text-align: center;
+    margin-top: 10px;
+    width: 100%;
 }
 
-.add-acc-btn:hover {
+.acc-submit-btn:hover {
     background-color: #218838;
+}
+
+.acc-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 15px;
 }

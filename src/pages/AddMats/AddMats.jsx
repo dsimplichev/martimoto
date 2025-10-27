@@ -15,7 +15,7 @@ function AddMats() {
     const [previews, setPreviews] = useState([]); 
     const [notification, setNotification] = useState(null);
 
-   
+    
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         const newFiles = [...images, ...files].slice(0, 4); 
@@ -24,7 +24,7 @@ function AddMats() {
         setPreviews(newFiles.map(file => URL.createObjectURL(file)));
     };
 
-   
+    
     const handleRemoveImage = (index) => {
         const newImages = images.filter((_, i) => i !== index);
         const newPreviews = previews.filter((_, i) => i !== index);
@@ -64,27 +64,28 @@ function AddMats() {
     };
 
     return (
-        <div className="add-mats-container">
+        <div className="mats-form-wrapper">
             <h2>Добави нови стелки</h2>
-            {notification && <div className={`notification ${notification.type}`}>{notification.message}</div>}
+            {notification && <div className={`mats-notification ${notification.type}`}>{notification.message}</div>}
 
-            <form onSubmit={handleSubmit} className="add-mats-form">
-                <label>Заглавие:</label>
-                <input value={title} onChange={e => setTitle(e.target.value)} required />
+            <form onSubmit={handleSubmit} className="add-mats-form-body">
+                <label className="mats-label">Заглавие:</label>
+                <input className="mats-input" value={title} onChange={e => setTitle(e.target.value)} required />
 
-                <label>Материал:</label>
-                <select value={material} onChange={e => setMaterial(e.target.value)} required>
+                <label className="mats-label">Материал:</label>
+                <select className="mats-select" value={material} onChange={e => setMaterial(e.target.value)} required>
                     <option value="">Избери</option>
                     <option value="Мокетни">Мокетни</option>
                     <option value="Гумени">Гумени</option>
                     <option value="Универсални">Универсални</option>
                 </select>
 
-                <label>Цвят:</label>
-                <input value={color} onChange={e => setColor(e.target.value)} required />
+                <label className="mats-label">Цвят:</label>
+                <input className="mats-input" value={color} onChange={e => setColor(e.target.value)} required />
 
-                <label>Марка автомобил:</label>
+                <label className="mats-label">Марка автомобил:</label>
                 <select
+                    className="mats-select"
                     value={carBrand}
                     onChange={(e) => {
                         setCarBrand(e.target.value);
@@ -98,8 +99,9 @@ function AddMats() {
                     ))}
                 </select>
 
-                <label>Модел автомобил:</label>
+                <label className="mats-label">Модел автомобил:</label>
                 <select
+                    className="mats-select"
                     value={carModel}
                     onChange={(e) => setCarModel(e.target.value)}
                     required
@@ -111,26 +113,26 @@ function AddMats() {
                     ))}
                 </select>
 
-                <label>Описание:</label>
-                <textarea value={description} onChange={e => setDescription(e.target.value)} />
+                <label className="mats-label">Описание:</label>
+                <textarea className="mats-textarea" value={description} onChange={e => setDescription(e.target.value)} />
 
-                <label>Цена (лв):</label>
-                <input type="number" value={price} onChange={e => setPrice(e.target.value)} required />
+                <label className="mats-label">Цена (лв):</label>
+                <input className="mats-input" type="number" value={price} onChange={e => setPrice(e.target.value)} required />
 
-                <label>Снимки (до 4):</label>
-                <input type="file" multiple accept="image/*" onChange={handleImageChange} />
+                <label className="mats-label">Снимки (до 4):</label>
+                <input className="mats-file-input" type="file" multiple accept="image/*" onChange={handleImageChange} />
 
                 
-                <div className="preview-container">
+                <div className="mats-preview-container">
                     {previews.map((src, idx) => (
-                        <div key={idx} className="preview-item">
-                            <img src={src} alt={`preview-${idx}`} className="preview-img" />
-                            <button type="button" className="remove-img-btn" onClick={() => handleRemoveImage(idx)}>X</button>
+                        <div key={idx} className="mats-preview-item">
+                            <img src={src} alt={`preview-${idx}`} className="mats-preview-img" />
+                            <button type="button" className="mats-remove-btn" onClick={() => handleRemoveImage(idx)}>&times;</button>
                         </div>
                     ))}
                 </div>
 
-                <button type="submit">Добави стелка</button>
+                <button type="submit" className="mats-submit-btn">Добави стелка</button>
             </form>
         </div>
     );

@@ -50,7 +50,7 @@ router.get("/:userId", checkAuth, async (req, res) => {
 
 router.post("/:userId", checkAuth, async (req, res) => {
   try {
-    const { productId, quantity } = req.body; // itemType НЕ се взима от req.body вече
+    const { productId, quantity } = req.body; 
     const userId = req.params.userId;
 
     let cart = await Cart.findOne({ userId });
@@ -60,14 +60,14 @@ router.post("/:userId", checkAuth, async (req, res) => {
     }
 
     let productDetails;
-    let determinedItemType; // Определяме го на бекенда
+    let determinedItemType; 
 
-    // 1. Опитваме се да намерим продукта като ЧАСТ
+    
     productDetails = await Part.findById(productId);
     if (productDetails) {
       determinedItemType = "part";
     } else {
-      // 2. Ако не е част, опитваме се да намерим продукта като АКСЕСОАР
+      
       productDetails = await Accessory.findById(productId);
       if (productDetails) {
         determinedItemType = "accessory";
@@ -83,7 +83,7 @@ router.post("/:userId", checkAuth, async (req, res) => {
     const existingProduct = cart.items.find(
       (item) =>
         item.productId.toString() === productId &&
-        item.itemType === determinedItemType // Сравняваме с определен от бекенда тип
+        item.itemType === determinedItemType 
     );
 
     if (existingProduct) {

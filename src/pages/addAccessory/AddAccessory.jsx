@@ -55,6 +55,19 @@ function AddAccessory() {
         }
     };
 
+    const handleImageChange = (e) => {
+        const selectedFiles = Array.from(e.target.files);
+        if (selectedFiles.length + images.length <= 5) {
+            setImages([...images, ...selectedFiles]);
+        } else {
+            alert('Можете да качите максимум 5 снимки!');
+        }
+    };
+
+    const handleRemoveImage = (index) => {
+        setImages(images.filter((_, i) => i !== index));
+    };
+
     if (!isLoggedIn || user.role !== 'admin') {
         return <p>Нямате права да достъпвате тази страница.</p>;
     }
@@ -62,7 +75,7 @@ function AddAccessory() {
     return (
         <div>
             <h2>Добави аксесоар</h2>
-            <form className="add-accessory-form" onSubmit={handleSubmit}>
+            <form className="acc-form-container" onSubmit={handleSubmit}>
                 <div>
                     <label>Избери категория</label>
                     <select value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -102,44 +115,41 @@ function AddAccessory() {
                 </div>
 
                 <div>
-                    <label htmlFor="image-upload" className="upload-label">
+                    <label htmlFor="acc-image-upload" className="acc-upload-label">
                         <i className="fas fa-upload"></i> Добави изображения
                     </label>
                     <input
-                        id="image-upload"
+                        id="acc-image-upload"
                         type="file"
                         accept="image/*"
-                        className="upload-button"
-                        onChange={(e) => {
-                            const selectedFiles = Array.from(e.target.files);
-                            if (selectedFiles.length + images.length <= 5) {
-                                setImages([...images, ...selectedFiles]);
-                            } else {
-                                alert('Можете да качите максимум 5 снимки!');
-                            }
-                        }}
+                        className="acc-upload-button"
+                        onChange={handleImageChange}
                         multiple
                     />
-                    <div className="image-previews">
+                    <div className="acc-image-previews-list">
                         {images.map((image, index) => (
-                            <div key={index} className="image-preview">
+                            <div key={index} className="acc-image-preview-item">
                                 <img
                                     src={URL.createObjectURL(image)}
                                     alt={`Uploaded ${index}`}
-                                    style={{ width: '100px', marginTop: '10px' }}
+                                    className="acc-preview-thumb"
                                 />
-                                <button className="accbtn"type="button" onClick={() => {
-                                    setImages(images.filter((_, i) => i !== index));
-                                }}>Изтрий</button>
+                                <button
+                                    type="button"
+                                    className="acc-remove-image-btn"
+                                    onClick={() => handleRemoveImage(index)}
+                                >
+                                    &times;
+                                </button>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <button className='add-acc-btn' type="submit">Добави аксесоар</button>
+                <button className='acc-submit-btn' type="submit">Добави аксесоар</button>
             </form>
 
-            {message && <p>{message}</p>}
+            {message && <p className="acc-message">{message}</p>}
         </div>
     );
 }
