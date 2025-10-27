@@ -3,11 +3,14 @@ import { useLocation } from 'react-router-dom';
 import ProductCard from '../../Card/ProductCard';
 import SectionHeader from '../../Card/SectionHeader';
 import './productresults.css';
+import { useNavigate } from 'react-router-dom';
 
 function ProductResults() {
     const [accessories, setAccessories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
+
+    const navigate = useNavigate();
 
     const location = useLocation();
     const query = new URLSearchParams(location.search).get('query');
@@ -17,12 +20,21 @@ function ProductResults() {
             .then((res) => res.json())
             .then((data) => {
                 setAccessories(data);
-                setCurrentPage(1); 
+                setCurrentPage(1);
             })
             .catch((error) => console.error("Грешка при търсенето на аксесоари:", error));
     }, [query]);
 
-    
+
+    const handleNavigate = (id, type) => {
+        if (type === "part") {
+            navigate(`/parts/${id}`);
+        } else {
+            navigate(`/accessories/detail/${id}`);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = accessories.slice(indexOfFirstItem, indexOfLastItem);
@@ -31,8 +43,8 @@ function ProductResults() {
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
-        window.scrollTo({ top: 0, behavior: 'smooth' }); 
-    }; 
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const renderPaginationButtons = () => {
         const pageNumbers = [];
@@ -87,11 +99,12 @@ function ProductResults() {
                     currentItems.map((accessory, index) => (
                         <ProductCard
                             key={index}
-                            id={accessory._id} 
+                            id={accessory._id}
                             img={accessory.images[0]}
                             title={accessory.title}
-                            price={accessory.price}                
+                            price={accessory.price}
                             type={accessory.type}
+                            onNavigate={handleNavigate}
                         />
                     ))
                 ) : (
@@ -99,7 +112,7 @@ function ProductResults() {
                 )}
             </div>
 
-           {totalPages > 1 && (
+            {totalPages > 1 && (
                 <div className="pagination2">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
