@@ -50,6 +50,7 @@ function MatsPage() {
 
         addToCart(item);
         setNotification(`Продукт "${mat.title}" беше добавен в количката.`);
+        setTimeout(() => setNotification(""), 3000);
     };
 
     const handleDetailsClick = (matId) => {
@@ -57,41 +58,51 @@ function MatsPage() {
     };
 
     const handleSearch = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
 
-        if (brand === 'Избери Марка' || model === 'Избери Модел') {
-            alert('Моля, изберете Марка и Модел.');
+        if (model !== 'Избери Модел' && brand === 'Избери Марка') {
+            alert('Моля, изберете Марка, за да изберете Модел.');
             return;
         }
 
-        const results = mats.filter(
-            (mat) =>
-                mat.carBrand === brand &&
-                mat.carModel === model &&
-                (material === 'Избери Материал' || mat.material === material)
-        );
+        const results = mats.filter((mat) => {
+            const brandMatch = brand === 'Избери Марка' || mat.carBrand === brand;
+            const modelMatch = model === 'Избери Модел' || mat.carModel === model;
+            const materialMatch = material === 'Избери Материал' || mat.material === material;
+            return brandMatch && modelMatch && materialMatch;
+        });
+
+        if (results.length === 0) {
+            setNotification("Няма намерени артикули според зададените критерии.");
+        } else {
+            setNotification("");
+        }
 
         setFilteredMats(results);
     };
 
+    const resetSearch = () => {
+        setBrand('Избери Марка');
+        setModel('Избери Модел');
+        setMaterial('Избери Материал');
+        setFilteredMats(mats);
+        setNotification("");
+    };
+
     const renderSelect = (stateValue, setStateFunction, label, options) => {
-        const key = label;
         return (
             <div className="select-wrapper">
-                {notification && <div className="cart-notification-center">{notification}</div>}
                 <select
                     value={stateValue}
                     onChange={(e) => setStateFunction(e.target.value)}
                     className="select-param"
-                    disabled={key === 'Модел' && brand === 'Избери Марка'}
+                    disabled={label === 'Модел' && brand === 'Избери Марка'}
                 >
                     <option value={`Избери ${label}`} disabled>
                         {label.toUpperCase()}
                     </option>
                     {options.map((v) => (
-                        <option key={v} value={v}>
-                            {v}
-                        </option>
+                        <option key={v} value={v}>{v}</option>
                     ))}
                 </select>
             </div>
@@ -102,14 +113,17 @@ function MatsPage() {
         <div className="mats-page-container">
             <SectionHeader title="СТЕЛКИ" />
 
+            {notification && <div className="cart-notification-center">{notification}</div>}
+
             <form onSubmit={handleSearch} className="search-form-new mats-search-form">
                 {renderSelect(brand, setBrand, 'Марка', brandOptions)}
                 {renderSelect(model, setModel, 'Модел', modelOptions)}
                 {renderSelect(material, setMaterial, 'Материал', materialOptions)}
 
-                <button type="submit" className="search-mats-button-new">
-                    ТЪРСЕНЕ
-                </button>
+                <div className="search-buttons-group">
+                    <button type="submit" className="search-mats-button-new">ТЪРСЕНЕ</button>
+                    <button type="button" className="reset-mats-button" onClick={resetSearch}>ПОКАЖИ ВСИЧКИ</button>
+                </div>
             </form>
 
             <div className="mats-content">
@@ -128,27 +142,13 @@ function MatsPage() {
                                 <p><strong>Марка:</strong> {mat.carBrand}</p>
                                 <p><strong>Модел:</strong> {mat.carModel}</p>
                                 <p><strong>Материал:</strong> {mat.material}</p>
-
                                 <div className="mats-price-row">
-                                    <span className="mats-price-bgn">
-                                        <strong>{Number(mat.price).toFixed(2)} лв.</strong>
-                                    </span>
-                                    <span className="mats-price-eur">
-                                        / {(Number(mat.price) / 1.95583).toFixed(2)} €
-                                    </span>
+                                    <span className="mats-price-bgn"><strong>{Number(mat.price).toFixed(2)} лв.</strong></span>
+                                    <span className="mats-price-eur">/ {(Number(mat.price) / 1.95583).toFixed(2)} €</span>
                                 </div>
-
                                 <div className="mat-buttons-container">
-                                    <button
-                                        className="mat-button-details"
-                                        onClick={() => handleDetailsClick(mat._id)}
-                                    >
-                                        Виж Повече
-                                    </button>
-                                    <button
-                                        className="mat-button-buy"
-                                        onClick={() => handleBuyClick(mat)}
-                                    >
+                                    <button className="mat-button-details" onClick={() => handleDetailsClick(mat._id)}>Виж Повече</button>
+                                    <button className="mat-button-buy" onClick={() => handleBuyClick(mat)}>
                                         <FaShoppingCart className="mats-buy-icon" /> Купи
                                     </button>
                                 </div>
