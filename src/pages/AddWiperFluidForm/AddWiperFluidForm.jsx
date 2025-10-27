@@ -13,7 +13,7 @@ const AddWiperFluidForm = () => {
     
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
-        const newFiles = [...images, ...files].slice(0, 3); // максимум 3
+        const newFiles = [...images, ...files].slice(0, 3);
         setImages(newFiles);
         setPreviews(newFiles.map(file => URL.createObjectURL(file)));
     };
@@ -111,13 +111,13 @@ const AddWiperFluidForm = () => {
                                 className="remove-img-btn-fluid"
                                 onClick={() => handleRemoveImage(idx)}
                             >
-                                X
+                                &times; 
                             </button>
                         </div>
                     ))}
                 </div>
 
-                <button type="submit">Добави течност</button>
+                <button type="submit" className="submit-btn-fluid">Добави течност</button>
             </form>
         </div>
     );
