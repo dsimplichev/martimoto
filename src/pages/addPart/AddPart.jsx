@@ -8,8 +8,8 @@ function AddPart() {
     const { user, isLoggedIn } = useContext(AuthContext);
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
-    const [year, setYear] = useState(''); 
-    const [title, setTitle] = useState(''); 
+    const [year, setYear] = useState('');
+    const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
@@ -45,12 +45,12 @@ function AddPart() {
         const formData = new FormData();
         formData.append('brand', brand);
         formData.append('model', model);
-        formData.append('year', year); 
-        formData.append('title', title); 
+        formData.append('year', year);
+        formData.append('title', title);
         formData.append('description', description);
         formData.append('price', price);
         images.forEach((image) => {
-            formData.append('images', image);  
+            formData.append('images', image);
         });
 
         try {
@@ -88,8 +88,6 @@ function AddPart() {
     }
 
     return (
-        
-       
         <div>
             {formVisible ? (
                 <>
@@ -141,7 +139,7 @@ function AddPart() {
                             <label>Име на частта</label>
                             <input
                                 type="text"
-                                value={title} 
+                                value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required
                             />
@@ -180,13 +178,19 @@ function AddPart() {
                             />
                             <div className="image-previews">
                                 {images.map((image, index) => (
-                                    <div key={index} className="image-preview">
+                                    <div key={index} className="image-preview-item">
                                         <img
                                             src={URL.createObjectURL(image)}
                                             alt={`Uploaded ${index}`}
-                                            style={{ width: '100px', marginTop: '10px' }}
+                                            className="preview-image-thumb"
                                         />
-                                        <button type="button" onClick={() => handleRemoveImage(index)}>Изтрий</button>
+                                        <button
+                                            type="button"
+                                            className="image-remove-btn"
+                                            onClick={() => handleRemoveImage(index)}
+                                        >
+                                            &times;
+                                        </button>
                                     </div>
                                 ))}
                             </div>
@@ -200,7 +204,6 @@ function AddPart() {
             )}
         </div>
     );
-    
 }
 
 export default AddPart;

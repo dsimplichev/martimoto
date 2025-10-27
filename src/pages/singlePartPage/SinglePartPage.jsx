@@ -30,7 +30,7 @@ function SinglePartPage() {
 
                 if (response.ok && data._id) {
                     setPart(data);
-                    setMainImage(getImageUrl(data.images?.[0]));
+                    setMainImage(getImageUrl(data.images?.[0] || ""));
                     setType('part');
                 } else {
 
@@ -39,7 +39,7 @@ function SinglePartPage() {
 
                     if (response.ok && data._id) {
                         setPart(data);
-                        setMainImage(getImageUrl(data.images?.[0]));
+                        setMainImage(getImageUrl(data.images?.[0] || ""));
                         setType('accessory');
                     } else {
 
@@ -100,15 +100,18 @@ function SinglePartPage() {
                 <div className="product-images">
                     <img src={mainImage} alt={part.title} className="main-image" />
                     <div className="thumbnail-images">
-                        {Array.isArray(part.images) && part.images.slice(1, 5).map((img, index) => (
-                            <img
-                                key={index}
-                                src={img}
-                                alt={`thumb-${index}`}
-                                className="thumbnail-image"
-                                onClick={() => setMainImage(img)}
-                            />
-                        ))}
+                        {Array.isArray(part.images) && part.images.map((img, index) => {
+                            const imageUrl = getImageUrl(img);
+                            return (
+                                <img
+                                    key={index}
+                                    src={imageUrl}
+                                    alt={`thumb-${index}`}
+                                    className={`thumbnail-image ${mainImage === imageUrl ? 'active' : ''}`}
+                                    onClick={() => setMainImage(imageUrl)}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
 
