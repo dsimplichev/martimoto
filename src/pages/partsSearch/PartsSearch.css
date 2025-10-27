@@ -25,6 +25,7 @@
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+
 @keyframes subtleMove {
   0% {
     transform: skew(-15deg) translateX(0);
@@ -70,7 +71,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-bottom: 15px;
+  
 }
 
 .search-button:hover {

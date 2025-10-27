@@ -22,14 +22,14 @@ function AccessoryDetails() {
   const { addToCart } = useContext(CartContext);
   const { addToFavorites } = useContext(FavoritesContext);
 
-  // Функция за коректно показване на изображения
+ 
   const getImageUrl = (image) => {
     if (!image) return "/default-image.jpg";
     if (image.startsWith("http")) return image;
     return `http://localhost:5000/uploads/${image}`;
   };
 
-  // Зареждане на аксесоарите
+  
   useEffect(() => {
     setLoading(true);
     axios
@@ -46,13 +46,13 @@ function AccessoryDetails() {
       });
   }, [accessoryName]);
 
-  // Функция за показване на нотификация
+  
   const showNotification = (message) => {
     setNotification(message);
     setTimeout(() => setNotification(""), 3000);
   };
 
-  // Добавяне в количката
+  
   const handleAddToCart = (e, accessory) => {
     e.stopPropagation();
     const productToAdd = {
@@ -67,7 +67,7 @@ function AccessoryDetails() {
     showNotification(`Продуктът "${accessory.title}" беше добавен във вашата количка.`);
   };
 
-  // Добавяне в любими
+ 
   const handleAddToFavorites = (e, accessory) => {
     e.stopPropagation();
     const favoriteItem = {
@@ -81,12 +81,12 @@ function AccessoryDetails() {
     showNotification(`Продуктът "${accessory.title}" беше добавен в любими.`);
   };
 
-  // Навигация към детайлна страница
+  
   const handleNavigate = (id, itemType) => {
     navigate(`/${itemType}/${id}`);
   };
 
-  // Пагинация
+ 
   const totalPages = Math.ceil(accessories.length / itemsPerPage);
   const paginatedAccessories = accessories.slice(
     (currentPage - 1) * itemsPerPage,

@@ -11,7 +11,7 @@ function PartsSearch() {
     const [results, setResults] = useState([]);
     const [notification, setNotification] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 12; // 3 реда x 4 колони = 12 продукта на страница
+    const itemsPerPage = 12; 
 
     const navigate = useNavigate();
     const { addToCart } = useContext(CartContext);
@@ -69,7 +69,7 @@ function PartsSearch() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // --- Пагинация ---
+    
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = results.slice(indexOfFirstItem, indexOfLastItem);
