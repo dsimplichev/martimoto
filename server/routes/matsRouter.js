@@ -17,8 +17,8 @@ router.post('/add', upload.array('images', 4), async (req, res) => {
     try {
         const { title, material, color, carBrand, carModel, carYear, description, price } = req.body;
 
-        if (!title || !material || !color || !carBrand || !carModel ||  !carYear || !price) {
-            return res.status(400).json({ message: 'Всички полета, освен описание, са задължителни!' });
+        if (!title || !material || !color || !carBrand || !carModel || !price) {
+            return res.status(400).json({ message: 'Полетата "Заглавие, Материал, Цвят, Марка, Модел, Цена" са задължителни!' });
         }
 
         const images = [];
@@ -36,7 +36,7 @@ router.post('/add', upload.array('images', 4), async (req, res) => {
             color,
             carBrand,
             carModel,
-            carYear,
+            carYear: carYear || undefined,
             description,
             price: parseFloat(price),
             images
