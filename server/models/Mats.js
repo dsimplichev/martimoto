@@ -6,6 +6,7 @@ const matsSchema = new mongoose.Schema({
   color: { type: String, required: true },
   carBrand: { type: String, required: true },
   carModel: { type: String, required: true },
+  carYear: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
   images: { type: [String], default: [] },

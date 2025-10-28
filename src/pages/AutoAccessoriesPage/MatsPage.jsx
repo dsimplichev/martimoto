@@ -10,6 +10,7 @@ import { CartContext } from '../../Context/CartContext';
 function MatsPage() {
     const [brand, setBrand] = useState('Избери Марка');
     const [model, setModel] = useState('Избери Модел');
+    const [year, setYear] = useState('Избери Година');
     const [material, setMaterial] = useState('Избери Материал');
     const [mats, setMats] = useState([]);
     const [filteredMats, setFilteredMats] = useState([]);
@@ -22,8 +23,19 @@ function MatsPage() {
     const materialOptions = MATS_SEARCH_OPTIONS.Материал || [];
 
     const modelOptions = useMemo(() => {
-        return MATS_SEARCH_OPTIONS.Марки[brand] || [];
+        const models = MATS_SEARCH_OPTIONS.Марки[brand] || [];
+        return models.map(m => m.name || m);
     }, [brand]);
+
+    const yearOptions = useMemo(() => {
+        if (brand === 'Избери Марка' || model === 'Избери Модел') return [];
+        
+        const modelsData = MATS_SEARCH_OPTIONS.Марки[brand] || [];
+        const selectedModel = modelsData.find(m => m.name === model);
+        
+        return selectedModel ? selectedModel.years || [] : [];
+    }, [brand, model]);
+
 
     useEffect(() => {
         const fetchMats = async () => {
@@ -65,11 +77,18 @@ function MatsPage() {
             return;
         }
 
+        if (year !== 'Избери Година' && (brand === 'Избери Марка' || model === 'Избери Модел')) {
+             alert('Моля, изберете Марка и Модел, за да изберете Година.');
+             return;
+        }
+
         const results = mats.filter((mat) => {
             const brandMatch = brand === 'Избери Марка' || mat.carBrand === brand;
             const modelMatch = model === 'Избери Модел' || mat.carModel === model;
+            const yearMatch = year === 'Избери Година' || mat.carYear === year;
             const materialMatch = material === 'Избери Материал' || mat.material === material;
-            return brandMatch && modelMatch && materialMatch;
+            
+            return brandMatch && modelMatch && yearMatch && materialMatch;
         });
 
         if (results.length === 0) {
@@ -84,19 +103,30 @@ function MatsPage() {
     const resetSearch = () => {
         setBrand('Избери Марка');
         setModel('Избери Модел');
+        setYear('Избери Година');
         setMaterial('Избери Материал');
         setFilteredMats(mats);
         setNotification("");
     };
 
     const renderSelect = (stateValue, setStateFunction, label, options) => {
+        let isDisabled = false;
+        
+        if (label === 'Модел' && brand === 'Избери Марка') {
+            isDisabled = true;
+        }
+        
+        if (label === 'Година' && (brand === 'Избери Марка' || model === 'Избери Модел')) {
+            isDisabled = true;
+        }
+
         return (
             <div className="select-wrapper">
                 <select
                     value={stateValue}
                     onChange={(e) => setStateFunction(e.target.value)}
                     className="select-param"
-                    disabled={label === 'Модел' && brand === 'Избери Марка'}
+                    disabled={isDisabled}
                 >
                     <option value={`Избери ${label}`} disabled>
                         {label.toUpperCase()}
@@ -118,6 +148,7 @@ function MatsPage() {
             <form onSubmit={handleSearch} className="search-form-new mats-search-form">
                 {renderSelect(brand, setBrand, 'Марка', brandOptions)}
                 {renderSelect(model, setModel, 'Модел', modelOptions)}
+                {renderSelect(year, setYear, 'Година', yearOptions)}
                 {renderSelect(material, setMaterial, 'Материал', materialOptions)}
 
                 <div className="search-buttons-group">
@@ -141,6 +172,7 @@ function MatsPage() {
                                 <h3 title={mat.title}>{mat.title}</h3>
                                 <p><strong>Марка:</strong> {mat.carBrand}</p>
                                 <p><strong>Модел:</strong> {mat.carModel}</p>
+                                <p><strong>Година:</strong> {mat.carYear || 'N/A'}</p>
                                 <p><strong>Материал:</strong> {mat.material}</p>
                                 <div className="mats-price-row">
                                     <span className="mats-price-bgn"><strong>{Number(mat.price).toFixed(2)} лв.</strong></span>

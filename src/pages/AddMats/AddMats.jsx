@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import axios from "axios";
 import "./AddMats.css";
-import { MATS_SEARCH_OPTIONS } from "../AutoAccessoriesPage/matsData";
+import { MATS_SEARCH_OPTIONS } from "../AutoAccessoriesPage/matsData"; 
 
 function AddMats() {
     const [title, setTitle] = useState("");
     const [material, setMaterial] = useState("");
     const [color, setColor] = useState("");
     const [carBrand, setCarBrand] = useState("");
-    const [carModel, setCarModel] = useState("");
+    const [carModel, setCarModel] = useState(""); 
+    const [carYear, setCarYear] = useState(""); 
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [images, setImages] = useState([]); 
-    const [previews, setPreviews] = useState([]); 
+    const [images, setImages] = useState([]);
+    const [previews, setPreviews] = useState([]);
     const [notification, setNotification] = useState(null);
+
+    
+    const availableBrands = Object.keys(MATS_SEARCH_OPTIONS['Марки']);
+
+    
+    const availableModels = useMemo(() => {
+        return MATS_SEARCH_OPTIONS['Марки'][carBrand] || [];
+    }, [carBrand]);
 
     
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
-        const newFiles = [...images, ...files].slice(0, 4); 
+        const newFiles = [...images, ...files].slice(0, 4);
 
         setImages(newFiles);
         setPreviews(newFiles.map(file => URL.createObjectURL(file)));
@@ -34,17 +43,19 @@ function AddMats() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         if (!title || !material || !color || !carBrand || !carModel || !price || images.length === 0) {
-            setNotification({ type: "error", message: "Попълнете всички полета и добавете поне една снимка!" });
+            setNotification({ type: "error", message: "Попълнете всички задължителни полета и добавете поне една снимка!" });
             return;
         }
-
+        
         const formData = new FormData();
         formData.append("title", title);
         formData.append("material", material);
         formData.append("color", color);
         formData.append("carBrand", carBrand);
         formData.append("carModel", carModel);
+        formData.append("carYear", carYear); 
         formData.append("description", description);
         formData.append("price", price);
         images.forEach(img => formData.append("images", img));
@@ -53,7 +64,7 @@ function AddMats() {
             const response = await axios.post("http://localhost:5000/api/mats/add", formData);
             if (response.status === 201) {
                 setNotification({ type: "success", message: "Стелката беше добавена успешно!" });
-                setTitle(""); setMaterial(""); setColor(""); setCarBrand(""); setCarModel(""); setDescription(""); setPrice("");
+                setTitle(""); setMaterial(""); setColor(""); setCarBrand(""); setCarModel(""); setCarYear(""); setDescription(""); setPrice("");
                 setImages([]); setPreviews([]);
             }
         } catch (error) {
@@ -75,14 +86,15 @@ function AddMats() {
                 <label className="mats-label">Материал:</label>
                 <select className="mats-select" value={material} onChange={e => setMaterial(e.target.value)} required>
                     <option value="">Избери</option>
-                    <option value="Мокетни">Мокетни</option>
-                    <option value="Гумени">Гумени</option>
-                    <option value="Универсални">Универсални</option>
+                    {MATS_SEARCH_OPTIONS['Материал'].map((mat) => (
+                        <option key={mat} value={mat}>{mat}</option>
+                    ))}
                 </select>
 
                 <label className="mats-label">Цвят:</label>
                 <input className="mats-input" value={color} onChange={e => setColor(e.target.value)} required />
 
+                
                 <label className="mats-label">Марка автомобил:</label>
                 <select
                     className="mats-select"
@@ -90,29 +102,35 @@ function AddMats() {
                     onChange={(e) => {
                         setCarBrand(e.target.value);
                         setCarModel("");
+                        setCarYear("");
                     }}
                     required
                 >
                     <option value="">Избери</option>
-                    {Object.keys(MATS_SEARCH_OPTIONS['Марки']).map((brand) => (
+                    {availableBrands.map((brand) => (
                         <option key={brand} value={brand}>{brand}</option>
                     ))}
                 </select>
 
-                <label className="mats-label">Модел автомобил:</label>
-                <select
+                <label className="mats-label">Модел:</label>
+                <select 
                     className="mats-select"
-                    value={carModel}
-                    onChange={(e) => setCarModel(e.target.value)}
-                    required
-                    disabled={!carBrand}
+                    value={carModel} 
+                    onChange={e => setCarModel(e.target.value)} 
+                    required 
+                    disabled={!carBrand || availableModels.length === 0}
                 >
                     <option value="">Избери</option>
-                    {carBrand && MATS_SEARCH_OPTIONS['Марки'][carBrand]?.map((model) => (
+                    {availableModels.map((model) => (
                         <option key={model} value={model}>{model}</option>
                     ))}
                 </select>
 
+
+                <label className="mats-label">Година:</label>
+                <input className="mats-input" value={carYear} onChange={e => setCarYear(e.target.value)} />
+                
+                
                 <label className="mats-label">Описание:</label>
                 <textarea className="mats-textarea" value={description} onChange={e => setDescription(e.target.value)} />
 

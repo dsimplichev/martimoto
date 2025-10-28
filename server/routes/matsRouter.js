@@ -15,9 +15,9 @@ cloudinary.config({
 
 router.post('/add', upload.array('images', 4), async (req, res) => {
     try {
-        const { title, material, color, carBrand, carModel, description, price } = req.body;
+        const { title, material, color, carBrand, carModel, carYear, description, price } = req.body;
 
-        if (!title || !material || !color || !carBrand || !carModel || !price) {
+        if (!title || !material || !color || !carBrand || !carModel ||  !carYear || !price) {
             return res.status(400).json({ message: 'Всички полета, освен описание, са задължителни!' });
         }
 
@@ -36,6 +36,7 @@ router.post('/add', upload.array('images', 4), async (req, res) => {
             color,
             carBrand,
             carModel,
+            carYear,
             description,
             price: parseFloat(price),
             images

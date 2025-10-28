@@ -8,19 +8,46 @@ export const MATS_SEARCH_OPTIONS = {
     
     'Марки': {
         'AUDI': [
-            'A3 (2003-2012)',
-            'A4 B8 (2008-2015)',
-            'Q5 (2008-2017)'
+            '80',
+            '100',
+            'A1',
+            'A3',
+            'A4',
+            'A5',
+            'A6',
+            'A7',
+            'A8',
+            'Q2',
+            'Q3',
+            'Q4',
+            'Q5',
+            'Q7',
+            'Q8',
+            'R8',
+            'RS3',
+            'RS4',
+            'RS5',
+            'RS6',
+            'RS7',
+            'RSQ3',
+            'RSQ5',
+            'RSQ8',
+            'TT',
+            'TT RS'
         ],
+        
         'BMW': [
-            'E46 (1998-2006)',
-            'F10 (2010-2017)',
-            'X5 E70 (2006-2013)'
+            
+            'E46',
+            'F10',
+            'X5 E70'
         ],
+        
         'VW': [
-            'Golf 4 (1997-2003)',
-            'Golf 5/6 (2003-2012)',
-            'Passat B6/B7 (2005-2014)'
+            
+            'Golf 4',
+            'Golf 5/6',
+            'Passat B6/B7'
         ],
         'MERCEDES-BENZ': [],
         'OPEL': [],
@@ -68,6 +95,5 @@ export const MATS_SEARCH_OPTIONS = {
         'ROVER': [],
         'ISUZU': [],
         'CADILLAC': []
-       
     }
 };
