@@ -6,6 +6,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import ProductCard from "../../Card/ProductCard";
 import "./PartsSearch.css";
 
+
 function PartsSearch() {
     const [searchQuery, setSearchQuery] = useState("");
     const [results, setResults] = useState([]);
@@ -27,15 +28,7 @@ function PartsSearch() {
         e.preventDefault();
         if (!searchQuery.trim()) return;
 
-        try {
-            const res = await fetch(`http://localhost:5000/api/search?query=${searchQuery}`);
-            const data = await res.json();
-            setResults(data);
-            setCurrentPage(1); // върни се на първа страница при ново търсене
-        } catch (error) {
-            console.error("Грешка при търсенето:", error);
-            showNotification("Възникна грешка при търсенето.");
-        }
+       navigate(`/search-results?query=${searchQuery}`);
     };
 
     const handleAddToCart = (e, productId) => {
