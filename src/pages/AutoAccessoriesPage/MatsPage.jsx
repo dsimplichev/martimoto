@@ -22,20 +22,21 @@ function MatsPage() {
     const brandOptions = Object.keys(MATS_SEARCH_OPTIONS.Марки);
     const materialOptions = MATS_SEARCH_OPTIONS.Материал || [];
 
+    
     const modelOptions = useMemo(() => {
         const models = MATS_SEARCH_OPTIONS.Марки[brand] || [];
         return models.map(m => m.name || m);
     }, [brand]);
 
+    
     const yearOptions = useMemo(() => {
         if (brand === 'Избери Марка' || model === 'Избери Модел') return [];
-        
-        const modelsData = MATS_SEARCH_OPTIONS.Марки[brand] || [];
-        const selectedModel = modelsData.find(m => m.name === model);
-        
-        return selectedModel ? selectedModel.years || [] : [];
+        const years = [];
+        for (let y = 2025; y >= 1996; y--) {
+            years.push(y.toString());
+        }
+        return years;
     }, [brand, model]);
-
 
     useEffect(() => {
         const fetchMats = async () => {
@@ -78,8 +79,8 @@ function MatsPage() {
         }
 
         if (year !== 'Избери Година' && (brand === 'Избери Марка' || model === 'Избери Модел')) {
-             alert('Моля, изберете Марка и Модел, за да изберете Година.');
-             return;
+            alert('Моля, изберете Марка и Модел, за да изберете Година.');
+            return;
         }
 
         const results = mats.filter((mat) => {

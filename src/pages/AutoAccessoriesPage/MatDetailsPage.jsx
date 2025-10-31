@@ -91,6 +91,7 @@ function MatDetailsPage() {
                     <div className="mat-spec-container">
                         <p className="mat-spec"><strong>Марка:</strong> {mat.carBrand}</p>
                         <p className="mat-spec"><strong>Модел:</strong> {mat.carModel}</p>
+                        <p className="mat-spec"><strong>Година:</strong> {mat.carYear || 'N/A'}</p>
                         <p className="mat-spec"><strong>Материал:</strong> {mat.material}</p>
                     </div>
                     <div className="mat-price">
