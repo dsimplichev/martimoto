@@ -106,7 +106,7 @@ function PartsSearch() {
                         />
                     ))
                 ) : (
-                    <p className="no-results">Няма намерени продукти.</p>
+                    null
                 )}
             </div>
 
