@@ -159,7 +159,7 @@ function TireSearchForm() {
                                 <div className="tire-info-details">
                                     <p className="tire-subtitle">{tire.brand || 'Марка'} | {tire.model || 'Модел'}</p>
                                     <p className="tire-size-season">
-                                        {tire.width}/{tire.aspectRatio}R{tire.diameter} | {tire.season}
+                                        {tire.width}/{tire.aspectRatio}/R{tire.diameter} | {tire.season}
                                         {tire.season === 'Всесезонни' && <FiCloudSnow className="season-icon-inline all-season-icon-inline" />}
                                         {tire.season === 'Зимни' && <RiSnowyFill className="season-icon-inline winter-icon-inline" />}
                                         {tire.season === 'Летни' && <RiSunFill className="season-icon-inline summer-icon-inline" />}

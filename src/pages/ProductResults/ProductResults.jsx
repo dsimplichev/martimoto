@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ProductCard from '../../Card/ProductCard';
 import SectionHeader from '../../Card/SectionHeader';
+import { CartContext } from '../../Context/CartContext';
 import './productresults.css';
-import { useNavigate } from 'react-router-dom';
 
 function ProductResults() {
     const [accessories, setAccessories] = useState([]);
@@ -11,9 +11,10 @@ function ProductResults() {
     const itemsPerPage = 12;
 
     const navigate = useNavigate();
-
     const location = useLocation();
     const query = new URLSearchParams(location.search).get('query');
+
+    const { addToCart } = useContext(CartContext); 
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/search?query=${query}`)
@@ -25,7 +26,7 @@ function ProductResults() {
             .catch((error) => console.error("Грешка при търсенето на аксесоари:", error));
     }, [query]);
 
-
+    
     const handleNavigate = (id, type) => {
         if (type === "part") {
             navigate(`/parts/${id}`);
@@ -35,10 +36,30 @@ function ProductResults() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    
+    const handleAddToCart = (e, id) => {
+        e.stopPropagation();
+
+        const product = accessories.find(a => a._id === id);
+        if (product) {
+            addToCart({
+                _id: product._id,
+                title: product.title,
+                price: product.price,
+                image: product.images[0],
+                itemType: product.type,
+                quantity: 1
+            });
+        }
+    };
+
+    
+    const handleAddToFavorites = () => {};
+
+    
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = accessories.slice(indexOfFirstItem, indexOfLastItem);
-
     const totalPages = Math.ceil(accessories.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
@@ -58,36 +79,27 @@ function ProductResults() {
 
         if (startPage > 1) {
             pageNumbers.push(1);
-            if (startPage > 2) {
-                pageNumbers.push("...");
-            }
+            if (startPage > 2) pageNumbers.push("...");
         }
 
-        for (let i = startPage; i <= endPage; i++) {
-            pageNumbers.push(i);
-        }
+        for (let i = startPage; i <= endPage; i++) pageNumbers.push(i);
 
         if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
-                pageNumbers.push("...");
-            }
+            if (endPage < totalPages - 1) pageNumbers.push("...");
             pageNumbers.push(totalPages);
         }
 
-        return pageNumbers.map((page, index) => {
-            if (page === "...") {
-                return <span key={index} className="ellipsis">...</span>;
-            }
-            return (
-                <button
+        return pageNumbers.map((page, index) =>
+            page === "..."
+                ? <span key={index} className="ellipsis">...</span>
+                : <button
                     key={page}
                     onClick={() => handlePageChange(page)}
                     className={currentPage === page ? "active-page" : ""}
-                >
+                  >
                     {page}
-                </button>
-            );
-        });
+                  </button>
+        );
     };
 
     return (
@@ -103,8 +115,10 @@ function ProductResults() {
                             img={accessory.images[0]}
                             title={accessory.title}
                             price={accessory.price}
-                            type={accessory.type}
+                            itemType={accessory.type}
                             onNavigate={handleNavigate}
+                            onAddToCart={handleAddToCart} 
+                            onAddToFavorites={handleAddToFavorites} 
                         />
                     ))
                 ) : (

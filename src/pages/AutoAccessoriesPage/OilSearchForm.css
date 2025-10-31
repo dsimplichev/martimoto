@@ -79,6 +79,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    
 }
 
 .select-param:focus {

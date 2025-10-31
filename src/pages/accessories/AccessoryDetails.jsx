@@ -32,6 +32,7 @@ function AccessoryDetails() {
   
   useEffect(() => {
     setLoading(true);
+    setError(null);
     axios
       .get(`http://localhost:5000/accessories/${encodeURIComponent(accessoryName.toLowerCase())}`)
       .then((response) => {
@@ -41,7 +42,7 @@ function AccessoryDetails() {
       })
       .catch((error) => {
         console.error("Грешка при заявката:", error);
-        setError("Неуспешно зареждане на аксесоарите.");
+        setError("За съжаление, в момента няма качени аксесоари в тази категория. Моля, опитайте отново по-късно..");
         setLoading(false);
       });
   }, [accessoryName]);
@@ -137,8 +138,8 @@ function AccessoryDetails() {
     );
   };
 
-  if (loading) return <p className="loading-text">Зареждане...</p>;
-  if (error) return <p className="error-text">{error}</p>;
+  if (loading) return <p className="loading-text center-message">Зареждане...</p>;
+  if (error) return <p className="error-text center-message">{error}</p>;
 
   return (
     <div className="accessories-page">
