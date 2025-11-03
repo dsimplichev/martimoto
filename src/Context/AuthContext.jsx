@@ -4,36 +4,43 @@ import axios from 'axios';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
   const [isLoading, setIsLoading] = useState(true);
-  
-  const [errorMessage, setErrorMessage] = useState(null); 
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
-        
-        
+
         if (response.data.user) {
-          setUser(response.data.user);
+          // 🟢 Вземаме всички нужни полета (включително role)
+          const { _id, username, email, role } = response.data.user;
+          const userData = { _id, username, email, role };
+
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
         } else {
           setUser(null);
+          localStorage.removeItem('user');
         }
       } catch (error) {
-        console.error('Неуспешно извличане на потребител:', error);
+        console.warn('Неуспешно извличане на потребител (вероятно не е логнат):', error);
         setUser(null);
+        localStorage.removeItem('user');
       } finally {
         setIsLoading(false);
       }
     };
-    
-    
+
     fetchUser();
-    
   }, []);
 
- const login = async (email, password) => {
+  const login = async (email, password) => {
     try {
       const response = await axios.post(
         'http://localhost:5000/auth/login',
@@ -41,34 +48,49 @@ export const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
 
-      console.log('User data after login:', response.data.user);
-      setUser(response.data.user);
-      setErrorMessage(null); 
+      // 🟢 Вземаме и role от login отговора
+      const { _id, username, email: userEmail, role } = response.data.user;
+      const userData = { _id, username, email: userEmail, role };
+
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      setErrorMessage(null);
+
+      return userData;
     } catch (error) {
-      
-      if (error.response && error.response.data && error.response.data.message) {
-        
-        setErrorMessage(error.response.data.message);
-        throw new Error(error.response.data.message); 
-      }
-      
-      
-      setErrorMessage('Възникна грешка при вход. Опитайте отново.');
-      throw new Error('Възникна грешка при вход. Опитайте отново.');
+      console.error('Грешка при вход:', error);
+
+      const message =
+        error.response?.data?.message || 'Възникна грешка при вход. Опитайте отново.';
+      setErrorMessage(message);
+      throw new Error(message);
     }
   };
 
   const logout = async () => {
     try {
       await axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true });
-      setUser(null);
     } catch (error) {
-      console.error('Грешка при изход:', error);
+      console.error('Грешка при logout:', error);
+    } finally {
+      setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('guest_cart');
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!user, user, setUser, login, logout, isLoading, errorMessage }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!user,
+        user,
+        setUser,
+        login,
+        logout,
+        isLoading,
+        errorMessage,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
