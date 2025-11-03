@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
 
         if (response.data.user) {
-          // 🟢 Вземаме всички нужни полета (включително role)
+          
           const { _id, username, email, role } = response.data.user;
           const userData = { _id, username, email, role };
 
@@ -40,32 +40,33 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, []);
 
-  const login = async (email, password) => {
-    try {
-      const response = await axios.post(
-        'http://localhost:5000/auth/login',
-        { email, password },
-        { withCredentials: true }
-      );
+ const login = async (email, password) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:5000/auth/login',
+      { email, password },
+      { withCredentials: true }
+    );
 
-      // 🟢 Вземаме и role от login отговора
-      const { _id, username, email: userEmail, role } = response.data.user;
-      const userData = { _id, username, email: userEmail, role };
+    const { _id, username, email: userEmail, role } = response.data.user;
+    const userData = { _id, username, email: userEmail, role };
 
-      setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
-      setErrorMessage(null);
+    
+    localStorage.removeItem('guest_cart');
 
-      return userData;
-    } catch (error) {
-      console.error('Грешка при вход:', error);
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setErrorMessage(null);
 
-      const message =
-        error.response?.data?.message || 'Възникна грешка при вход. Опитайте отново.';
-      setErrorMessage(message);
-      throw new Error(message);
-    }
-  };
+    return userData;
+  } catch (error) {
+    console.error('Грешка при вход:', error);
+    const message =
+      error.response?.data?.message || 'Възникна грешка при вход. Опитайте отново.';
+    setErrorMessage(message);
+    throw new Error(message);
+  }
+};
 
   const logout = async () => {
     try {
