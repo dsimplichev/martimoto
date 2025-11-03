@@ -1,46 +1,48 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
+import { AuthContext } from "./AuthContext";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const { user, isLoggedIn, isLoading } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCartLoading, setIsCartLoading] = useState(true);
+  const hasLoadedRef = useRef(false);
 
+  
   useEffect(() => {
-    const checkAuthAndLoadCart = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/auth/status", {
-          withCredentials: true,
-        });
+    if (isLoading) return; 
+    if (hasLoadedRef.current) return; 
 
-        if (response.data.isAuthenticated) {
-          console.log("Логнат си, зареждаме количката от бекенд");
-          setIsLoggedIn(true);
-          await loadUserCart(); 
+    const loadCart = async () => {
+      try {
+        if (isLoggedIn && user?._id) {
+          console.log("🔑 Зареждам количка за логнат потребител:", user._id);
+          await loadUserCart(user._id);
+          localStorage.removeItem("guest_cart"); 
         } else {
-          console.log("👤 Гост си, зареждаме количка от localStorage");
-          setIsLoggedIn(false);
-          await loadGuestCart();
+          console.log("👤 Зареждам количка за гост");
+          loadGuestCart();
         }
-      } catch (error) {
-        console.error("Грешка при проверка на логина:", error);
-        await loadGuestCart();
+      } catch (err) {
+        console.error("Грешка при зареждане на количката:", err);
       } finally {
         setIsCartLoading(false);
+        hasLoadedRef.current = true;
       }
     };
 
-    checkAuthAndLoadCart();
-  }, []);
+    loadCart();
+  }, [isLoggedIn, isLoading, user?._id]);
 
-  const loadUserCart = async () => {
+  
+  const loadUserCart = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/cart`, {
+      const response = await axios.get(`http://localhost:5000/cart/${userId}`, {
         withCredentials: true,
       });
-      console.log("Заредена количка от бекенд:", response.data.items);
+      console.log("🛒 Заредена количка от бекенда:", response.data);
       setCart(response.data.items || []);
     } catch (error) {
       console.error("Грешка при зареждане на количката:", error);
@@ -48,91 +50,42 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const fetchProductDetails = async (items) => {
-    const populatedItems = await Promise.all(
-      items.map(async (item) => {
-        let productData = null;
-        let imageUrl = null;
-
-        try {
-          let endpoint =
-            item.itemType === "accessory"
-              ? `http://localhost:5000/accessories/${item.productId}`
-              : `http://localhost:5000/products/${item.productId}`;
-
-          const response = await axios.get(endpoint);
-
-          if (response.data) {
-            productData = response.data;
-            imageUrl =
-              productData.images && productData.images.length > 0
-                ? productData.images[0]
-                : "/placeholder.png";
-          }
-        } catch (error) {
-          console.error(
-            "Грешка при зареждане на детайли за продукт:",
-            item.productId,
-            error
-          );
-          return null;
+  
+  const loadGuestCart = () => {
+    try {
+      const guestCartData = JSON.parse(localStorage.getItem("guest_cart"));
+      if (guestCartData && guestCartData.items) {
+        const now = Date.now();
+        if (now > guestCartData.expiry) {
+          localStorage.removeItem("guest_cart");
+          return;
         }
-
-        if (!productData) return null;
-
-        return {
-          _id: productData._id,
-          title: productData.title,
-          price: productData.price,
-          image: imageUrl,
-          quantity: item.quantity,
-          itemType: item.itemType,
-        };
-      })
-    );
-    return populatedItems.filter((item) => item !== null);
-  };
-
-  const loadGuestCart = async () => {
-    const guestCartData = JSON.parse(localStorage.getItem("guest_cart"));
-    if (guestCartData && guestCartData.items) {
-      const now = new Date().getTime();
-      if (now > guestCartData.expiry) {
-        localStorage.removeItem("guest_cart");
-        setCart([]);
-      } else {
-        const populatedCart = await fetchProductDetails(guestCartData.items);
-        setCart(populatedCart);
+        setCart(guestCartData.items);
       }
-    } else {
-      setCart([]);
+    } catch (error) {
+      console.error("Грешка при зареждане на guest_cart:", error);
     }
   };
 
+  
   const saveGuestCart = (cartItems) => {
-    const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
-
-    const simplifiedCartItems = cartItems.map((item) => ({
-      productId: item._id,
-      quantity: item.quantity,
-      itemType: item.itemType || "part",
-    }));
-
-    const guestCartData = { items: simplifiedCartItems, expiry };
+    const expiry = Date.now() + 24 * 60 * 60 * 1000;
+    const guestCartData = { items: cartItems, expiry };
     localStorage.setItem("guest_cart", JSON.stringify(guestCartData));
   };
 
+  
   const addToCart = async (product) => {
     const selectedQuantity = product.quantity || 1;
 
-    if (isLoggedIn) {
+    if (isLoggedIn && user?._id) {
       try {
         await axios.post(
-          `http://localhost:5000/cart`,
+          `http://localhost:5000/cart/${user._id}`,
           { productId: product._id, quantity: selectedQuantity },
           { withCredentials: true }
         );
-        await loadUserCart();
+        await loadUserCart(user._id);
       } catch (error) {
         console.error("Грешка при добавяне в количката:", error);
       }
@@ -142,7 +95,6 @@ export const CartProvider = ({ children }) => {
       );
 
       let updatedCart;
-
       if (existingItem) {
         updatedCart = cart.map((item) =>
           item._id === product._id && item.itemType === product.itemType
@@ -158,17 +110,17 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  
   const removeFromCart = async (productId) => {
-    if (isLoggedIn) {
+    if (isLoggedIn && user?._id) {
       try {
-        await axios.delete(`http://localhost:5000/cart/${productId}`, {
-          withCredentials: true,
-        });
-        setCart((prevCart) =>
-          prevCart.filter((item) => item._id !== productId)
+        await axios.delete(
+          `http://localhost:5000/cart/${user._id}/${productId}`,
+          { withCredentials: true }
         );
+        setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
       } catch (error) {
-        console.error("Грешка при премахване на продукт:", error);
+        console.error("Грешка при премахване:", error);
       }
     } else {
       const updatedCart = cart.filter((item) => item._id !== productId);
@@ -177,26 +129,26 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  
   const clearCart = async () => {
-    if (isLoggedIn) {
+    if (isLoggedIn && user?._id) {
       try {
-        await axios.delete(`http://localhost:5000/cart`, { withCredentials: true });
+        await axios.delete(`http://localhost:5000/cart/${user._id}`, {
+          withCredentials: true,
+        });
       } catch (error) {
         console.error("Грешка при изчистване на количката:", error);
       }
     }
-
     setCart([]);
     saveGuestCart([]);
   };
 
+  
   const handleLogout = () => {
     setCart([]);
-    setIsLoggedIn(false);
     localStorage.removeItem("guest_cart");
-    axios
-      .post("http://localhost:5000/auth/logout", {}, { withCredentials: true })
-      .catch((error) => console.error("Грешка при logout:", error));
+    hasLoadedRef.current = false;
   };
 
   return (

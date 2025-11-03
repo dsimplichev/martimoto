@@ -11,25 +11,24 @@ import Login from '../login/Login';
 import axios from 'axios';
 import { HashLink } from 'react-router-hash-link';
 
-
 function Nav({ onLogout }) {
     const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
-    const { cart } = useContext(CartContext); 
+    const { cart } = useContext(CartContext);
+    const { favorites } = useContext(FavoritesContext);
+
     const [showLogin, setShowLogin] = useState(false);
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const [showCartDropdown, setShowCartDropdown] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     const profileDropdownRef = useRef(null);
     const cartDropdownRef = useRef(null);
-    const { favorites } = useContext(FavoritesContext);
-    const totalFavorites = favorites ? favorites.length : 0;
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation(); 
+    const location = useLocation();
     const isCartPage = location.pathname === '/cart';
 
-
+    const totalFavorites = favorites ? favorites.length : 0;
     const EUR_EXCHANGE_RATE = 1.95583;
-
 
     const handleLogout = () => {
         logout();
@@ -49,7 +48,7 @@ function Nav({ onLogout }) {
     }, [setUser, isLoggedIn]);
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-     const totalBGN = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const totalBGN = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const totalEUR = (totalBGN / EUR_EXCHANGE_RATE).toFixed(2);
 
     useEffect(() => {
@@ -73,12 +72,12 @@ function Nav({ onLogout }) {
 
     const handleCartClick = () => {
         setShowCartDropdown(prev => !prev);
-        setShowProfileDropdown(false); 
+        setShowProfileDropdown(false);
     };
 
     const navigateToCart = () => {
-        setShowCartDropdown(false); 
-        navigate('/cart'); 
+        setShowCartDropdown(false);
+        navigate('/cart');
     };
 
     return (
@@ -95,10 +94,11 @@ function Nav({ onLogout }) {
                     <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>НАЧАЛО</Link></li>
                     <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>MOTO МОДЕЛИ</Link></li>
                     <li><Link to="/accessories" onClick={() => setIsMobileMenuOpen(false)}>МОТО АКСЕСОАРИ</Link></li>
-                    <li><Link to="/autosviat" onClick={() => setIsMobileMenuOpen(false)}>Авто Аксесоари</Link></li> 
+                    <li><Link to="/autosviat" onClick={() => setIsMobileMenuOpen(false)}>Авто Аксесоари</Link></li>
                     <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>КОНТАКТИ</Link></li>
                     <li><HashLink smooth to="#about-section" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</HashLink></li>
                 </ul>
+
                 <div className="btn">
                     {isLoggedIn ? (
                         <>
@@ -107,9 +107,11 @@ function Nav({ onLogout }) {
                                     Моят профил <FaChevronDown className="chevron-down" />
                                 </span>
                                 <p className="greeting">Здравейте</p>
-                                <p className="username">{user?.displayName && user.displayName.trim() !== ""
-                                    ? user.displayName
-                                    : user?.username || "Гост"}</p>
+                                <p className="username">
+                                    {user?.displayName && user.displayName.trim() !== ""
+                                        ? user.displayName
+                                        : user?.username || "Гост"}
+                                </p>
                                 {showProfileDropdown && (
                                     <div className="dropdown-menu show">
                                         <ul>
@@ -122,7 +124,7 @@ function Nav({ onLogout }) {
                                                     <li><Link to="/add-oil" onClick={() => setShowProfileDropdown(false)}>Добави масло</Link></li>
                                                     <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
                                                     <li><Link to="/add-wiper-fluid" onClick={() => setShowProfileDropdown(false)}>Добави течност за чистачки</Link></li>
-                                                     <li><Link to="/add-mats" onClick={() => setShowProfileDropdown(false)}>Добави стелки</Link></li>
+                                                    <li><Link to="/add-mats" onClick={() => setShowProfileDropdown(false)}>Добави стелки</Link></li>
                                                     <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
                                                     <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>
                                                 </>
@@ -150,17 +152,11 @@ function Nav({ onLogout }) {
                     <div className="cart-section" ref={cartDropdownRef}>
                         <button
                             className="ShoppingCart2"
-                            
                             onClick={() => {
                                 if (isCartPage) {
-                                    
                                     setShowCartDropdown(false);
-                                } else if (isLoggedIn) {
-                                    
-                                    navigateToCart();
                                 } else {
-                                    
-                                    handleCartClick();
+                                    handleCartClick(); 
                                 }
                             }}
                         >
@@ -170,8 +166,7 @@ function Nav({ onLogout }) {
                             )}
                         </button>
 
-                        
-                        {!isLoggedIn && showCartDropdown && (
+                        {showCartDropdown && (
                             <div className="dropdown-menu show cart-dropdown">
                                 {totalItems === 0 ? (
                                     <p className="empty-cart-message">Количката е празна.</p>
@@ -183,7 +178,6 @@ function Nav({ onLogout }) {
                                                     <img src={item.image} alt={item.title} className="cart-dropdown-item-image" />
                                                     <div className="cart-dropdown-item-info">
                                                         <span className="cart-dropdown-item-title">{item.title}</span>
-                                                        
                                                         <span className="cart-dropdown-item-price-qty">
                                                             {item.quantity} x {item.price.toFixed(2)} лв. ({(item.price / EUR_EXCHANGE_RATE).toFixed(2)} €)
                                                         </span>
@@ -191,7 +185,6 @@ function Nav({ onLogout }) {
                                                 </div>
                                             ))}
                                         </div>
-                                        
                                         <div className="cart-dropdown-total">
                                             Общо: {totalBGN.toFixed(2)} лв. ({totalEUR} €)
                                         </div>
