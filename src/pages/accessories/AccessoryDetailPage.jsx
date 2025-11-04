@@ -87,7 +87,7 @@ function AccessoryDetailPage() {
             </div>
         </div>
 
-        {/* === ГЛАВНА ИНФОРМАЦИЯ === */}
+        
         <div className="main-info">
             <div className="product-images">
                 <img src={mainImage} alt={accessory.title} className="main-image" />
@@ -115,12 +115,12 @@ function AccessoryDetailPage() {
                 </div>
 
                 <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                    <FaShoppingCart className="cart-icon" /> Добави в количката
+                    Добави в количката
                 </button>
             </div>
         </div>
 
-    </div> {/* КРАЙ НА page-wrapper */}
+    </div> 
 
     
     {notification && (
