@@ -1,11 +1,12 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { CartContext } from '../../Context/CartContext'; // Уверете се, че пътят е правилен
+import { CartContext } from '../../Context/CartContext'; 
 import './accessoryDetailPage.css';
 import { FaTruckFast } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
 import { FaPhoneVolume } from 'react-icons/fa6';
+import { FaShoppingCart } from 'react-icons/fa';
 
 function AccessoryDetailPage() {
     const { id } = useParams();
@@ -66,66 +67,66 @@ function AccessoryDetailPage() {
     };
 
     return (
-        <div className="accessory-detail-page">
-            <div className="top-features">
-                <div className="feature-item">
-                    <span className="feature-icon"><FaTruckFast /></span>
-                    <span className="feature-text">Доставяме до цялата страна!</span>
-                </div>
-                <div className="feature-item">
-                    <span className="feature-icon"><BiSolidBadgeDollar /></span>
-                    <span className="feature-text">Най-добри цени!</span>
-                </div>
-                <div className="feature-item">
-                    <span className="feature-icon"><FaPhoneVolume /></span>
-                    <span className="feature-text">На ваше разположение 24/7!</span>
-                </div>
+       <div className="accessory-detail-page">
+    {/* === ОБЩ КОНТЕЙНЕР === */}
+    <div className="page-wrapper">
+
+        {/* === ТОП ФИЙЧЪРИ === */}
+        <div className="top-features">
+            <div className="feature-item">
+                <span className="feature-icon"><FaTruckFast /></span>
+                <span className="feature-text">Доставяме до цялата страна!</span>
             </div>
-
-            <div className="main-info">
-                <div className="product-images">
-                    <img src={mainImage} alt={accessory.title} className="main-image" />
-                    <div className="thumbnail-images">
-
-                        {accessory.images.slice(1, 5).map((image, index) => (
-                            <img
-                                key={index}
-                                src={image}
-                                alt={`thumbnail-${index}`}
-                                onClick={() => setMainImage(image)}
-                                className="thumbnail-image"
-                            />
-                        ))}
-                    </div>
-                </div>
-
-                <div className="product-info">
-                    <div className="product-details">
-                        <h2 className="product-title">{accessory.title}</h2>
-                        <p className="product-description">{accessory.description}</p>
-                        <p className="product-price">
-                            {accessory.price.toFixed(2)} лв. / {(accessory.price / 1.95583).toFixed(2)} €
-                        </p>
-                        <span className="stock-status">В наличност! Доставя се в рамките на 48 часа</span>
-                    </div>
-
-                    <div className="add-to-cart">
-
-
-
-                        <button
-                            className="add-to-cart-btn"
-                            onClick={handleAddToCart}
-                        >
-                            Добави в количката
-                        </button>
-                    </div>
-                </div>
+            <div className="feature-item">
+                <span className="feature-icon"><BiSolidBadgeDollar /></span>
+                <span className="feature-text">Най-добри цени!</span>
             </div>
-            {notification && (
-                <div className="cart-notification-center">{notification}</div>
-            )}
+            <div className="feature-item">
+                <span className="feature-icon"><FaPhoneVolume /></span>
+                <span className="feature-text">На ваше разположение 24/7!</span>
+            </div>
         </div>
+
+        
+        <div className="main-info">
+            <div className="product-images">
+                <img src={mainImage} alt={accessory.title} className="main-image" />
+                <div className="thumbnail-images">
+                    {accessory.images.slice(1, 5).map((image, index) => (
+                        <img
+                            key={index}
+                            src={image}
+                            alt={`thumbnail-${index}`}
+                            onClick={() => setMainImage(image)}
+                            className="thumbnail-image"
+                        />
+                    ))}
+                </div>
+            </div>
+
+            <div className="product-info">
+                <div className="product-details">
+                    <h2 className="product-title">{accessory.title}</h2>
+                    <p className="product-description">{accessory.description}</p>
+                    <p className="product-price">
+                        {accessory.price.toFixed(2)} лв. / {(accessory.price / 1.95583).toFixed(2)} €
+                    </p>
+                    <span className="stock-status">В наличност! Доставя се в рамките на 48 часа</span>
+                </div>
+
+                <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                    Добави в количката
+                </button>
+            </div>
+        </div>
+
+    </div> 
+
+    
+    {notification && (
+        <div className="cart-notification-center">{notification}</div>
+    )}
+</div>
     );
 }
 
