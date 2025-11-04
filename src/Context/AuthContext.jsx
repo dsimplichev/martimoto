@@ -12,62 +12,80 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/auth/user', {
+        withCredentials: true,
+      });
 
-        if (response.data.user) {
-          
-          const { _id, username, email, role } = response.data.user;
-          const userData = { _id, username, email, role };
+      if (response.data.user) {
+        const { _id, username, email, role } = response.data.user;
+        const userData = { _id, username, email, role };
 
-          setUser(userData);
-          localStorage.setItem('user', JSON.stringify(userData));
-        } else {
-          setUser(null);
-          localStorage.removeItem('user');
-        }
-      } catch (error) {
-        console.warn('Неуспешно извличане на потребител (вероятно не е логнат):', error);
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
         setUser(null);
         localStorage.removeItem('user');
-      } finally {
-        setIsLoading(false);
       }
-    };
+    } catch (error) {
+      console.warn('Грешка при /auth/user:', error);
+      setUser(null);
+      localStorage.removeItem('user');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchUser();
-  }, []);
+  fetchUser();
+}, []);
+  
+  const login = async (email, password) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/auth/login',
+        { email, password },
+        { withCredentials: true }
+      );
 
- const login = async (email, password) => {
-  try {
-    const response = await axios.post(
-      'http://localhost:5000/auth/login',
-      { email, password },
-      { withCredentials: true }
-    );
+      const { _id, username, email: userEmail, role } = response.data.user;
+      const userData = { _id, username, email: userEmail, role };
 
-    const { _id, username, email: userEmail, role } = response.data.user;
-    const userData = { _id, username, email: userEmail, role };
+      
+      const guestData = localStorage.getItem("guest_cart");
+      if (guestData) {
+        try {
+          const { items } = JSON.parse(guestData);
+          if (items && items.length > 0) {
+            await axios.post(
+              `http://localhost:5000/cart/${_id}/migrate`,
+              { items },
+              { withCredentials: true }
+            );
+          }
+        } catch (migrateErr) {
+          console.warn("Миграцията не успя, но login продължава:", migrateErr);
+        } finally {
+          localStorage.removeItem("guest_cart"); 
+        }
+      }
 
-    
-    localStorage.removeItem('guest_cart');
+      
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      setErrorMessage(null);
 
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    setErrorMessage(null);
+      return userData;
+    } catch (error) {
+      const message = error.response?.data?.message || "Грешка при вход.";
+      setErrorMessage(message);
+      throw new Error(message);
+    }
+  };
 
-    return userData;
-  } catch (error) {
-    console.error('Грешка при вход:', error);
-    const message =
-      error.response?.data?.message || 'Възникна грешка при вход. Опитайте отново.';
-    setErrorMessage(message);
-    throw new Error(message);
-  }
-};
-
+ 
   const logout = async () => {
     try {
       await axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true });

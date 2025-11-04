@@ -6,13 +6,11 @@ import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icon
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './nav.css';
 import martimoto10 from '../../assets/martimoto10.png';
-import Register from '../register/Register';
 import Login from '../login/Login';
-import axios from 'axios';
 import { HashLink } from 'react-router-hash-link';
 
 function Nav({ onLogout }) {
-    const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
+    const { isLoggedIn, user, logout } = useContext(AuthContext);
     const { cart } = useContext(CartContext);
     const { favorites } = useContext(FavoritesContext);
 
@@ -34,18 +32,6 @@ function Nav({ onLogout }) {
         logout();
         onLogout?.();
     };
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            axios.get('http://localhost:5000/auth/user', { withCredentials: true })
-                .then(response => {
-                    setUser(response.data.user);
-                })
-                .catch(error => {
-                    console.log('Грешка при заявка към /user:', error);
-                });
-        }
-    }, [setUser, isLoggedIn]);
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     const totalBGN = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -80,30 +66,38 @@ function Nav({ onLogout }) {
         navigate('/cart');
     };
 
+    
+    const closeMenuAndNavigate = (path) => {
+        setShowProfileDropdown(false);
+        setIsMobileMenuOpen(false);
+        setTimeout(() => navigate(path), 300);
+    };
+
     return (
-        <div className="navbar">
+        <div
+            className={`navbar ${isMobileMenuOpen ? 'menu-open' : ''}`}
+            onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                    setIsMobileMenuOpen(false);
+                }
+            }}
+        >
             <div className="navbar-content">
+               
                 <img src={martimoto10} alt="Logo" className="logo" />
-                <div className="hamburger" onClick={() => setIsMobileMenuOpen(prev => !prev)}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
 
-                <ul className={`nav-links ${isMobileMenuOpen ? "show" : ""}`}>
-                    <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>НАЧАЛО</Link></li>
-                    <li><Link to="/model" onClick={() => setIsMobileMenuOpen(false)}>MOTO МОДЕЛИ</Link></li>
-                    <li><Link to="/accessories" onClick={() => setIsMobileMenuOpen(false)}>МОТО АКСЕСОАРИ</Link></li>
-                    <li><Link to="/autosviat" onClick={() => setIsMobileMenuOpen(false)}>Авто Аксесоари</Link></li>
-                    <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>КОНТАКТИ</Link></li>
-                    <li><HashLink smooth to="#about-section" onClick={() => setIsMobileMenuOpen(false)}>ЗА НАС</HashLink></li>
-                </ul>
-
-                <div className="btn">
+               
+                <div className="mobile-icons-group">
                     {isLoggedIn ? (
                         <>
                             <div className="profile-section" ref={profileDropdownRef}>
-                                <span className="profile-header" onClick={() => { setShowProfileDropdown(prev => !prev); setShowCartDropdown(false); }}>
+                                <span
+                                    className="profile-header"
+                                    onClick={() => {
+                                        setShowProfileDropdown(prev => !prev);
+                                        setShowCartDropdown(false);
+                                    }}
+                                >
                                     Моят профил <FaChevronDown className="chevron-down" />
                                 </span>
                                 <p className="greeting">Здравейте</p>
@@ -112,34 +106,45 @@ function Nav({ onLogout }) {
                                         ? user.displayName
                                         : user?.username || "Гост"}
                                 </p>
+
                                 {showProfileDropdown && (
                                     <div className="dropdown-menu show">
                                         <ul>
-                                            <li><Link to="/order-history" onClick={() => setShowProfileDropdown(false)}>История на поръчките</Link></li>
-                                            <li><Link to="/favorites" onClick={() => setShowProfileDropdown(false)}>Желани продукти</Link></li>
+                                            <li><Link to="/order-history" onClick={() => closeMenuAndNavigate('/order-history')}>История на поръчките</Link></li>
+                                            <li><Link to="/favorites" onClick={() => closeMenuAndNavigate('/favorites')}>Желани продукти</Link></li>
+
                                             {user?.role === 'admin' && (
                                                 <>
-                                                    <li><Link to="/add-part" onClick={() => setShowProfileDropdown(false)}>Добави част</Link></li>
-                                                    <li><Link to="/add-car-tires" onClick={() => setShowProfileDropdown(false)}>Добави авто гуми</Link></li>
-                                                    <li><Link to="/add-oil" onClick={() => setShowProfileDropdown(false)}>Добави масло</Link></li>
-                                                    <li><Link to="/add-accessory" onClick={() => setShowProfileDropdown(false)}>Добави аксесоари</Link></li>
-                                                    <li><Link to="/add-wiper-fluid" onClick={() => setShowProfileDropdown(false)}>Добави течност за чистачки</Link></li>
-                                                    <li><Link to="/add-mats" onClick={() => setShowProfileDropdown(false)}>Добави стелки</Link></li>
-                                                    <li><Link to="/admin/orders" onClick={() => setShowProfileDropdown(false)}>Поръчки за изпращане</Link></li>
-                                                    <li><Link to="/admin/messages" onClick={() => setShowProfileDropdown(false)}>Съобщения</Link></li>
+                                                    <li><Link to="/add-part" onClick={() => closeMenuAndNavigate('/add-part')}>Добави част</Link></li>
+                                                    <li><Link to="/add-car-tires" onClick={() => closeMenuAndNavigate('/add-car-tires')}>Добави авто гуми</Link></li>
+                                                    <li><Link to="/add-oil" onClick={() => closeMenuAndNavigate('/add-oil')}>Добави масло</Link></li>
+                                                    <li><Link to="/add-accessory" onClick={() => closeMenuAndNavigate('/add-accessory')}>Добави аксесоари</Link></li>
+                                                    <li><Link to="/add-wiper-fluid" onClick={() => closeMenuAndNavigate('/add-wiper-fluid')}>Добави течност за чистачки</Link></li>
+                                                    <li><Link to="/add-mats" onClick={() => closeMenuAndNavigate('/add-mats')}>Добави стелки</Link></li>
+                                                    <li><Link to="/admin/orders" onClick={() => closeMenuAndNavigate('/admin/orders')}>Поръчки за изпращане</Link></li>
+                                                    <li><Link to="/admin/messages" onClick={() => closeMenuAndNavigate('/admin/messages')}>Съобщения</Link></li>
                                                 </>
                                             )}
-                                            <li><button className="logout-btn" onClick={() => { handleLogout(); setShowProfileDropdown(false); }}>Изход</button></li>
+                                            <li>
+                                                <button
+                                                    className="logout-btn"
+                                                    onClick={() => {
+                                                        handleLogout();
+                                                        setShowProfileDropdown(false);
+                                                    }}
+                                                >
+                                                    Изход
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 )}
                             </div>
+
                             <button className='FaHeart'>
                                 <Link to="/favorites" className="heart-link">
                                     <FaHeart />
-                                    {totalFavorites > 0 && (
-                                        <span className="heart-badge">{totalFavorites}</span>
-                                    )}
+                                    {totalFavorites > 0 && <span className="heart-badge">{totalFavorites}</span>}
                                 </Link>
                             </button>
                         </>
@@ -153,17 +158,12 @@ function Nav({ onLogout }) {
                         <button
                             className="ShoppingCart2"
                             onClick={() => {
-                                if (isCartPage) {
-                                    setShowCartDropdown(false);
-                                } else {
-                                    handleCartClick(); 
-                                }
+                                if (isCartPage) setShowCartDropdown(false);
+                                else handleCartClick();
                             }}
                         >
                             <FaShoppingCart />
-                            {totalItems > 0 && (
-                                <span className="cart-badge">{totalItems}</span>
-                            )}
+                            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
                         </button>
 
                         {showCartDropdown && (
@@ -172,15 +172,15 @@ function Nav({ onLogout }) {
                                     <p className="empty-cart-message">Количката е празна.</p>
                                 ) : (
                                     <>
-                                        <div className="cart-items-list">
+                                        <div className="cart-items-container">
                                             {cart.map(item => (
                                                 <div key={item._id} className="cart-dropdown-item">
                                                     <img src={item.image} alt={item.title} className="cart-dropdown-item-image" />
                                                     <div className="cart-dropdown-item-info">
-                                                        <span className="cart-dropdown-item-title">{item.title}</span>
-                                                        <span className="cart-dropdown-item-price-qty">
-                                                            {item.quantity} x {item.price.toFixed(2)} лв. ({(item.price / EUR_EXCHANGE_RATE).toFixed(2)} €)
-                                                        </span>
+                                                        <div className="cart-dropdown-item-title">{item.title}</div>
+                                                        <div className="cart-dropdown-item-price-qty">
+                                                            {item.quantity} × {item.price.toFixed(2)} лв.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}
@@ -192,6 +192,152 @@ function Nav({ onLogout }) {
                                     </>
                                 )}
                             </div>
+                        )}
+                    </div>
+                </div>
+
+                
+                <div
+                    className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
+                    onClick={() => setIsMobileMenuOpen(prev => !prev)}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                
+                <div className={`nav-links-wrapper ${isMobileMenuOpen ? 'show' : ''}`}>
+                    <ul className="nav-links">
+                        <li><Link to="/" onClick={() => closeMenuAndNavigate('/')}>НАЧАЛО</Link></li>
+                        <li><Link to="/model" onClick={() => closeMenuAndNavigate('/model')}>MOTO МОДЕЛИ</Link></li>
+                        <li><Link to="/accessories" onClick={() => closeMenuAndNavigate('/accessories')}>МОТО АКСЕСОАРИ</Link></li>
+                        <li><Link to="/autosviat" onClick={() => closeMenuAndNavigate('/autosviat')}>Авто Аксесоари</Link></li>
+                        <li><Link to="/contact" onClick={() => closeMenuAndNavigate('/contact')}>КОНТАКТИ</Link></li>
+                        <li>
+                            <HashLink
+                                smooth
+                                to="/#about-section"
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setTimeout(() => {
+                                        window.location.href = '/#about-section';
+                                    }, 350);
+                                }}
+                            >
+                                ЗА НАС
+                            </HashLink>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="btn desktop-only">
+                    <div className="icons-group">
+                        {isLoggedIn ? (
+                             <>
+                                <div className="profile-section" ref={profileDropdownRef}>
+                                    <span
+                                        className="profile-header"
+                                        onClick={() => {
+                                            setShowProfileDropdown(prev => !prev);
+                                            setShowCartDropdown(false);
+                                        }}
+                                    >
+                                        Моят профил <FaChevronDown className="chevron-down" />
+                                    </span>
+                                    <p className="greeting">Здравейте</p>
+                                    <p className="username">
+                                        {user?.displayName && user.displayName.trim() !== ""
+                                            ? user.displayName
+                                            : user?.username || "Гост"}
+                                    </p>
+
+                                    {showProfileDropdown && (
+                                        <div className="dropdown-menu show">
+                                            <ul>
+                                                <li><Link to="/order-history" onClick={() => closeMenuAndNavigate('/order-history')}>История на поръчките</Link></li>
+                                                <li><Link to="/favorites" onClick={() => closeMenuAndNavigate('/favorites')}>Желани продукти</Link></li>
+
+                                                {user?.role === 'admin' && (
+                                                    <>
+                                                        <li><Link to="/add-part" onClick={() => closeMenuAndNavigate('/add-part')}>Добави част</Link></li>
+                                                        <li><Link to="/add-car-tires" onClick={() => closeMenuAndNavigate('/add-car-tires')}>Добави авто гуми</Link></li>
+                                                        <li><Link to="/add-oil" onClick={() => closeMenuAndNavigate('/add-oil')}>Добави масло</Link></li>
+                                                        <li><Link to="/add-accessory" onClick={() => closeMenuAndNavigate('/add-accessory')}>Добави аксесоари</Link></li>
+                                                        <li><Link to="/add-wiper-fluid" onClick={() => closeMenuAndNavigate('/add-wiper-fluid')}>Добави течност за чистачки</Link></li>
+                                                        <li><Link to="/add-mats" onClick={() => closeMenuAndNavigate('/add-mats')}>Добави стелки</Link></li>
+                                                        <li><Link to="/admin/orders" onClick={() => closeMenuAndNavigate('/admin/orders')}>Поръчки за изпращане</Link></li>
+                                                        <li><Link to="/admin/messages" onClick={() => closeMenuAndNavigate('/admin/messages')}>Съобщения</Link></li>
+                                                    </>
+                                                )}
+                                                <li>
+                                                    <button
+                                                        className="logout-btn"
+                                                        onClick={() => {
+                                                            handleLogout();
+                                                            setShowProfileDropdown(false);
+                                                        }}
+                                                    >
+                                                        Изход
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <button className='FaHeart'>
+                                    <Link to="/favorites" className="heart-link">
+                                        <FaHeart />
+                                        {totalFavorites > 0 && <span className="heart-badge">{totalFavorites}</span>}
+                                    </Link>
+                                </button>
+
+                                <div className="cart-section" ref={cartDropdownRef}>
+                                    <button
+                                        className="ShoppingCart2"
+                                        onClick={() => {
+                                            if (isCartPage) setShowCartDropdown(false);
+                                            else handleCartClick();
+                                        }}
+                                    >
+                                        <FaShoppingCart />
+                                        {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+                                    </button>
+
+                                    {showCartDropdown && (
+                                        <div className="dropdown-menu show cart-dropdown">
+                                            {totalItems === 0 ? (
+                                                <p className="empty-cart-message">Количката е празна.</p>
+                                            ) : (
+                                                <>
+                                                    <div className="cart-items-container">
+                                                        {cart.map(item => (
+                                                            <div key={item._id} className="cart-dropdown-item">
+                                                                <img src={item.image} alt={item.title} className="cart-dropdown-item-image" />
+                                                                <div className="cart-dropdown-item-info">
+                                                                    <div className="cart-dropdown-item-title">{item.title}</div>
+                                                                    <div className="cart-dropdown-item-price-qty">
+                                                                        {item.quantity} × {item.price.toFixed(2)} лв.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                    <div className="cart-dropdown-total">
+                                                        Общо: {totalBGN.toFixed(2)} лв. ({totalEUR} €)
+                                                    </div>
+                                                    <button className="view-cart-btn" onClick={navigateToCart}>Виж количката</button>
+                                                </>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <button className='user' onClick={() => setShowLogin(true)}>
+                                <FaUserCircle />
+                            </button>
                         )}
                     </div>
                 </div>
