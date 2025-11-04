@@ -151,11 +151,14 @@
 
 
 .product-info {
-  flex: 1.3;
+ flex: 1.3;
   min-width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .product-title {
@@ -171,6 +174,10 @@
   color: #4a5568;
   line-height: 1.7;
   margin-bottom: 16px;
+  word-wrap: break-word;        
+  overflow-wrap: break-word;    
+  white-space: normal;          
+  hyphens: auto;
 }
 
 .product-price {
