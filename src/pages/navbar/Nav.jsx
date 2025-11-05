@@ -35,17 +35,7 @@ function Nav({ onLogout }) {
         onLogout?.();
     };
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            axios.get('http://localhost:5000/auth/user', { withCredentials: true })
-                .then(response => {
-                    setUser(response.data.user);
-                })
-                .catch(error => {
-                    console.log('Грешка при заявка към /user:', error);
-                });
-        }
-    }, [setUser, isLoggedIn]);
+    
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     const totalBGN = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);

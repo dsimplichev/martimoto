@@ -86,14 +86,15 @@ app.listen(PORT, () => {
 app.get("/accessories/:category", async (req, res) => {
     try {
         const category = decodeURIComponent(req.params.category); 
-        const accessories = await Accessory.find({ category: category });
+        const accessories = await Accessory.find({ category: category, isSold: false });
 
         if (accessories.length === 0) {
-            return res.status(404).json({ message: "Няма аксесоари в тази категория" });
+            return res.status(404).json({ message: "Няма налични аксесоари в тази категория" });
         }
 
         res.json(accessories);
     } catch (error) {
+        console.error("Грешка при зареждане на аксесоарите:", error);
         res.status(500).json({ message: "Грешка при зареждане на аксесоарите" });
     }
 });

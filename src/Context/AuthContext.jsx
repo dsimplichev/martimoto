@@ -14,33 +14,34 @@ export const AuthProvider = ({ children }) => {
 
   
   useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/auth/user', {
-        withCredentials: true,
-      });
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/auth/user', {
+          withCredentials: true,
+        });
 
-      if (response.data.user) {
-        const { _id, username, email, role } = response.data.user;
-        const userData = { _id, username, email, role };
+        if (response.data.user) {
+          const { _id, username, email, role } = response.data.user;
+          const userData = { _id, username, email, role };
 
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-      } else {
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          setUser(null);
+          localStorage.removeItem('user');
+        }
+      } catch (error) {
+        console.warn('Грешка при проверка на потребител:', error);
         setUser(null);
         localStorage.removeItem('user');
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.warn('Грешка при /auth/user:', error);
-      setUser(null);
-      localStorage.removeItem('user');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
 
-  fetchUser();
-}, []);
+    fetchUser();
+  }, []);
+
   
   const login = async (email, password) => {
     try {
@@ -54,23 +55,7 @@ export const AuthProvider = ({ children }) => {
       const userData = { _id, username, email: userEmail, role };
 
       
-      const guestData = localStorage.getItem("guest_cart");
-      if (guestData) {
-        try {
-          const { items } = JSON.parse(guestData);
-          if (items && items.length > 0) {
-            await axios.post(
-              `http://localhost:5000/cart/${_id}/migrate`,
-              { items },
-              { withCredentials: true }
-            );
-          }
-        } catch (migrateErr) {
-          console.warn("Миграцията не успя, но login продължава:", migrateErr);
-        } finally {
-          localStorage.removeItem("guest_cart"); 
-        }
-      }
+      localStorage.removeItem("guest_cart");
 
       
       setUser(userData);
@@ -85,12 +70,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
- 
+  
   const logout = async () => {
     try {
       await axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true });
     } catch (error) {
-      console.error('Грешка при logout:', error);
+      console.error('Грешка при изход:', error);
     } finally {
       setUser(null);
       localStorage.removeItem('user');

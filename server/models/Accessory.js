@@ -7,6 +7,7 @@ const accessorySchema = new mongoose.Schema({
     price: { type: Number, required: true },
     images: { type: [String], required: true },
     type: { type: String, default: 'accessory' },
+    isSold: { type: Boolean, default: false }
 }, { timestamps: true }); 
 
 const Accessory = mongoose.model("Accessory", accessorySchema);
