@@ -4,6 +4,7 @@ const Cart = require("../models/Cart");
 const checkAuth = require("../middleware/authMiddleware");
 const Part = require("../models/Part");
 const Accessory = require("../models/Accessory");
+const Tire = require("../models/CarTire");
 
 router.get("/:userId", checkAuth, async (req, res) => {
   try {
@@ -21,18 +22,26 @@ router.get("/:userId", checkAuth, async (req, res) => {
           productData = await Part.findById(item.productId);
         } else if (item.itemType === "accessory") {
           productData = await Accessory.findById(item.productId);
+        } else if (item.itemType === "tire") {
+          productData = await Tire.findById(item.productId);
         }
 
         if (!productData) return null;
 
-        const imageUrl =
-          productData.images && productData.images.length > 0
-            ? productData.images[0]
-            : null;
+        
+        const title = productData.title 
+          ? productData.title 
+          : (productData.brand && productData.model) 
+            ? `${productData.brand} ${productData.model}` 
+            : `Продукт ${productData._id}`;
+
+        const imageUrl = productData.images && productData.images.length > 0
+          ? productData.images[0]
+          : null;
 
         return {
           _id: productData._id,
-          title: productData.title,
+          title,
           price: productData.price,
           image: imageUrl,
           quantity: item.quantity,
@@ -41,73 +50,74 @@ router.get("/:userId", checkAuth, async (req, res) => {
       })
     );
 
-    res.json({ items: populatedItems.filter((item) => item !== null) });
+    res.json({ items: populatedItems.filter(Boolean) });
   } catch (error) {
-    console.error(error);
+    console.error("Грешка при зареждане на количката:", error);
     res.status(500).json({ message: "Грешка при зареждане на количката." });
   }
 });
 
 router.post("/:userId", checkAuth, async (req, res) => {
   try {
-    const { productId, quantity } = req.body; 
+    const { productId, quantity } = req.body;
     const userId = req.params.userId;
 
-    let cart = await Cart.findOne({ userId });
+    if (!productId) {
+      return res.status(400).json({ message: "Липсва productId." });
+    }
 
+    let cart = await Cart.findOne({ userId });
     if (!cart) {
       cart = new Cart({ userId, items: [] });
     }
 
-    let productDetails;
-    let determinedItemType; 
+    let productDetails = null;
+    let determinedItemType = null;
 
     
     productDetails = await Part.findById(productId);
-    if (productDetails) {
-      determinedItemType = "part";
-    } else {
-      
+    if (productDetails) determinedItemType = "part";
+
+    if (!productDetails) {
       productDetails = await Accessory.findById(productId);
-      if (productDetails) {
-        determinedItemType = "accessory";
-      }
+      if (productDetails) determinedItemType = "accessory";
     }
 
     if (!productDetails) {
-      return res
-        .status(404)
-        .json({ message: "Продуктът не е намерен в базата данни." });
+      productDetails = await Tire.findById(productId);
+      if (productDetails) determinedItemType = "tire";
     }
 
-    const existingProduct = cart.items.find(
-      (item) =>
-        item.productId.toString() === productId &&
-        item.itemType === determinedItemType 
+    if (!productDetails) {
+      return res.status(404).json({ message: "Продуктът не е намерен." });
+    }
+
+    const existingItem = cart.items.find(
+      (i) =>
+        i.productId.toString() === productId && i.itemType === determinedItemType
     );
 
-    if (existingProduct) {
-      existingProduct.quantity += quantity || 1;
+    if (existingItem) {
+      existingItem.quantity += quantity || 1;
     } else {
       cart.items.push({
         productId,
         quantity: quantity || 1,
         itemType: determinedItemType,
-      }); 
+      });
     }
 
     await cart.save();
     res.status(200).json({ message: "Продуктът е добавен успешно." });
   } catch (error) {
-    console.error("Грешка при добавяне на продукт:", error);
-    res.status(500).json({ message: "Грешка при добавяне на продукт." });
+    console.error("Грешка при добавяне в количката:", error);
+    res.status(500).json({ message: "Грешка при добавяне в количката." });
   }
 });
 
 router.delete("/:userId/:productId", checkAuth, async (req, res) => {
   try {
     const { userId, productId } = req.params;
-
     const cart = await Cart.findOne({ userId });
 
     if (!cart) {
@@ -119,23 +129,21 @@ router.delete("/:userId/:productId", checkAuth, async (req, res) => {
     );
 
     await cart.save();
-
-    res.status(200).json({ message: "Продуктът е премахнат от количката." });
+    res.status(200).json({ message: "Продуктът е премахнат." });
   } catch (error) {
-    res.status(500).json({ message: "Грешка при премахване на продукт." });
+    console.error("Грешка при премахване:", error);
+    res.status(500).json({ message: "Грешка при премахване." });
   }
 });
 
 router.delete("/:userId", checkAuth, async (req, res) => {
   try {
     const { userId } = req.params;
-
-    const cart = await Cart.deleteOne({ userId });
-    res.status(200).json({ message: "Kоличката е изтрита." });
+    await Cart.deleteOne({ userId });
+    res.status(200).json({ message: "Количката е изчистена." });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Грешка при премахване на продукт. DGE", error });
+    console.error("Грешка при изчистване:", error);
+    res.status(500).json({ message: "Грешка при изчистване на количката." });
   }
 });
 
