@@ -5,23 +5,25 @@ const Part = require('../models/Part');
 
 router.get('/', async (req, res) => {
     try {
-        const lastAccessories = await Accessory.find()
+        
+        const lastAccessories = await Accessory.find({ isSold: false })
             .sort({ createdAt: -1 })
             .limit(10)
-            .lean(); 
+            .lean();
 
-        const lastParts = await Part.find()
+        const lastParts = await Part.find({ isSold: false }) 
             .sort({ createdAt: -1 })
             .limit(10)
-            .lean(); 
+            .lean();
 
         
         const accessoriesWithTypes = lastAccessories.map(acc => ({ ...acc, itemType: 'accessory' }));
         const partsWithTypes = lastParts.map(part => ({ ...part, itemType: 'part' }));
 
+        
         const combined = [...accessoriesWithTypes, ...partsWithTypes]
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .slice(0, 10); 
+            .slice(0, 10);
 
         res.json(combined);
     } catch (error) {

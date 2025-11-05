@@ -10,6 +10,7 @@ const partSchema = new mongoose.Schema({
   year: { type: String, required: false },
   images: { type: Array, required: false }, 
   type: { type: String, default: "part" },
+  isSold: { type: Boolean, default: false } 
 }, { timestamps: true });
 
 partSchema.index({ brand: 1, model: 1, year: 1 });

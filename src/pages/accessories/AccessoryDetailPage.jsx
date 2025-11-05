@@ -68,10 +68,10 @@ function AccessoryDetailPage() {
 
     return (
        <div className="accessory-detail-page">
-    {/* === ОБЩ КОНТЕЙНЕР === */}
+    
     <div className="page-wrapper">
 
-        {/* === ТОП ФИЙЧЪРИ === */}
+        
         <div className="top-features">
             <div className="feature-item">
                 <span className="feature-icon"><FaTruckFast /></span>

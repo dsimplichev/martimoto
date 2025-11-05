@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Проверка дали потребителят е логнат при стартиране
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, []);
 
-  // Логин
+  
   const login = async (email, password) => {
     try {
       const response = await axios.post(
@@ -54,10 +54,10 @@ export const AuthProvider = ({ children }) => {
       const { _id, username, email: userEmail, role } = response.data.user;
       const userData = { _id, username, email: userEmail, role };
 
-      // Изтриваме guest количката – няма миграция
+      
       localStorage.removeItem("guest_cart");
 
-      // Запазваме потребителя
+      
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       setErrorMessage(null);
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout
+  
   const logout = async () => {
     try {
       await axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true });
