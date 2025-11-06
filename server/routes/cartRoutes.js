@@ -6,6 +6,7 @@ const Part = require("../models/Part");
 const Accessory = require("../models/Accessory");
 const Tire = require("../models/CarTire");
 const Oil = require("../models/Oil");
+const WiperFluid = require("../models/WiperFluid");
 
 router.get("/:userId", checkAuth, async (req, res) => {
   try {
@@ -20,23 +21,27 @@ router.get("/:userId", checkAuth, async (req, res) => {
         else if (item.itemType === "accessory") productData = await Accessory.findById(item.productId);
         else if (item.itemType === "tire") productData = await Tire.findById(item.productId);
         else if (item.itemType === "oil") productData = await Oil.findById(item.productId);
+        else if (item.itemType === "wiperFluid") {
+          productData = await WiperFluid.findById(item.productId);
+
+        }
 
         if (!productData) return null;
 
-        
+
         const clean = productData.toObject();
 
-        
+
         const title = clean.title ||
           (clean.brand && clean.model ? `${clean.brand} ${clean.model}` :
-           clean.brand && clean.viscosity ? `${clean.brand} ${clean.viscosity} ${clean.volume}` :
-           `Продукт ${clean._id}`);
+            clean.brand && clean.viscosity ? `${clean.brand} ${clean.viscosity} ${clean.volume}` :
+              `Продукт ${clean._id}`);
 
         const image = clean.images?.[0] || null;
 
         return {
           _id: clean._id,
-          title,           
+          title,
           price: clean.price,
           image,
           quantity: item.quantity,
@@ -85,6 +90,10 @@ router.post("/:userId", checkAuth, async (req, res) => {
     if (!productDetails) {
       productDetails = await Oil.findById(productId);
       if (productDetails) determinedItemType = "oil";
+    }
+    if (!productDetails) {
+      productDetails = await WiperFluid.findById(productId); 
+      if (productDetails) determinedItemType = "wiperFluid";
     }
 
     if (!productDetails) {
