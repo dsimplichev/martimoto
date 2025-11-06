@@ -15,7 +15,7 @@ const cartItemSchema = new mongoose.Schema({
     itemType: {
         type: String, 
         required: true,
-        enum: ['part', 'accessory', 'tire', 'oil', "wiperFluid"]
+        enum: ['part', 'accessory', 'tire', 'oil', "wiperFluid", 'mat']
     },
     
 });
