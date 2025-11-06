@@ -1,119 +1,249 @@
+
 .admin-orders-container {
-    max-width: 800px; 
-    margin: 20px auto; 
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    max-width: 1000px; 
+    margin: 20px auto;
+    padding: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
 }
+
 
 .admin-orders-title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #2c3e50;
     text-align: center;
-    width: 100%;
+    margin-bottom: 20px;
+    letter-spacing: 0.4px;
 }
 
-.no-orders-message {
-    font-size: 18px;
-    color: #666;
-    text-align: center;
-}
 
 .orders-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-     width: 100%; 
-    max-width: 600px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
+    gap: 14px;
 }
+
 
 .order-item2 {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e6ea;
+    border-radius: 10px;
+    padding: 14px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    justify-content: space-between;
+    min-height: 140px;
 }
 
-.order-item:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.order-item2::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: #4e73df;
+    transition: width 0.3s ease;
 }
+
+.order-item2:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    border-color: #4e73df;
+}
+
+.order-item2:hover::before {
+    width: 6px;
+}
+
 
 .order-id,
 .customer-name,
 .customer-phone,
 .order-status {
-    font-size: 14px;
-    margin: 2px 0;
+    margin: 4px 0;
+    font-size: 0.88rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.4;
 }
 
-.order-status {
-    font-weight: bold;
-    color: #ff6347;
+.order-id strong,
+.customer-name strong,
+.customer-phone strong,
+.order-status strong {
+    color: #34495e;
+    min-width: 68px;
+    font-weight: 600;
+    font-size: 0.86rem;
 }
 
-.status-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    align-self: flex-start;
+.order-status span {
+    padding: 3px 8px;
+    border-radius: 16px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 }
 
-.status-button:hover {
-    background-color: #45a049;
-}
 
-.view-button {
-    background-color: #786ff8;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    align-self: flex-start;
-    
-}
+.order-status span[data-status="Pending"]    { background: #fff3cd; color: #856404; }
+.order-status span[data-status="Shipped"]    { background: #d1ecf1; color: #0c5460; }
+.order-status span[data-status="Completed"]  { background: #d4edda; color: #155724; }
+.order-status span[data-status="Deleted"]    { background: #f8d7da; color: #721c24; }
 
- 
 
 .order-buttons {
     display: flex;
-    gap: 15px; 
+    gap: 8px;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
+.status-button,
+.view-button,
 .delete-button2 {
-  background-color: #a72828;
-  color: white;
-  font-size: 13px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-  
+    padding: 7px 11px;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 38px;
+    flex: 1;
+}
+
+.status-button { background: #28a745; color: white; }
+.status-button:hover { background: #218838; transform: translateY(-1px); }
+
+.view-button { background: #6c757d; color: white; }
+.view-button:hover { background: #5a6268; transform: translateY(-1px); }
+
+.delete-button2 {
+    background: #dc3545;
+    color: white;
+    font-size: 0.95rem;
+    padding: 7px 9px;
+    flex: 0 0 auto;
 }
 
 .delete-button2:hover {
-  background-color: #886e21;
-  transform: scale(1.05);
+    background: #c82333;
+    transform: translateY(-1px);
 }
 
-.delete-button2:active {
-    transform: scale(0.98);
+.delete-button2 svg {
+    width: 15px;
+    height: 15px;
+}
+
+.order-date {
+    margin: 4px 0;
+    font-size: 0.88rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.4;
+}
+
+.order-date strong {
+    color: var(--text-light);
+    min-width: 68px;
+    font-weight: 600;
+    font-size: 0.86rem;
+}
+
+.order-date span {
+    font-weight: 500;
+    color: var(--text);
+}
+.order-updated {
+    margin: 4px 0;
+    font-size: 0.88rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.4;
+}
+
+.order-updated strong {
+    color: var(--text-light);
+    min-width: 68px;
+    font-weight: 600;
+    font-size: 0.86rem;
+}
+
+.order-updated span {
+    font-weight: 500;
+    color: var(--text);
+}
+
+@media (max-width: 768px) {
+    .orders-list {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .admin-orders-container {
+        margin: 10px;
+        padding: 14px;
+    }
+
+    .order-item2 {
+        padding: 12px;
+        min-height: auto;
+    }
+
+    .order-id,
+    .customer-name,
+    .customer-phone,
+    .order-status {
+        font-size: 0.9rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1px;
+    }
+
+    .order-id strong,
+    .customer-name strong,
+    .customer-phone strong,
+    .order-status strong {
+        min-width: auto;
+        font-size: 0.84rem;
+    }
+
+    .order-buttons {
+        flex-direction: column;
+    }
+
+    .status-button,
+    .view-button,
+    .delete-button2 {
+        width: 100%;
+        font-size: 0.88rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-orders-title {
+        font-size: 1.4rem;
+    }
 }

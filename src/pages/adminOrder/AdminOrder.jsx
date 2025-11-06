@@ -9,10 +9,10 @@ const AdminOrder = () => {
 
     useEffect(() => {
         fetch("http://localhost:5000/api/orders")
-          .then((res) => res.json())
-          .then((data) => setOrders(data))
-          .catch((error) => console.error("Грешка при зареждане на поръчките:", error));
-      }, []);
+            .then((res) => res.json())
+            .then((data) => setOrders(data))
+            .catch((error) => console.error("Грешка при зареждане на поръчките:", error));
+    }, []);
 
     const handleStatusUpdate = async (orderId, newStatus) => {
         try {
@@ -26,7 +26,7 @@ const AdminOrder = () => {
 
             if (response.ok) {
                 const updatedOrder = await response.json();
-                
+
                 setOrders((prevOrders) =>
                     prevOrders.map((order) =>
                         order._id === updatedOrder._id ? updatedOrder : order
@@ -65,13 +65,26 @@ const AdminOrder = () => {
         <div className="admin-orders-container">
             <h2 className="admin-orders-title">Поръчки за изпращане</h2>
             {orders
-                .filter(order => order.status !== "Deleted") 
+                .filter(order => order.status !== "Deleted")
                 .map((order) => (
                     <li key={order._id} className="order-item2">
                         <p className="order-id"><strong>Поръчка №:</strong> {order._id}</p>
                         <p className="customer-name"><strong>Клиент:</strong> {order.firstName} {order.lastName}</p>
                         <p className="customer-phone"><strong>Телефон:</strong> {order.phone}</p>
-                        <p className="order-status"><strong>Статус:</strong> {order.status}</p>
+                        <p className="order-status">
+                            <strong>Статус:</strong>
+                            <span data-status={order.status}>{order.status}</span>
+                        </p>
+                        <p className="order-date">
+                            <strong>Създадена:</strong>
+                            <span>{new Date(order.createdAt).toLocaleString('bg-BG')}</span>
+                        </p>
+                        {order.updatedAt && order.createdAt !== order.updatedAt && (
+                            <p className="order-updated">
+                                <strong>Променена:</strong>
+                                <span>{new Date(order.updatedAt).toLocaleString('bg-BG')}</span>
+                            </p>
+                        )}
 
                         <div className="order-buttons">
                             <button className="status-button" onClick={() => handleStatusUpdate(order._id, "Shipped")}>
