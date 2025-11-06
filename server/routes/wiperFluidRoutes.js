@@ -17,41 +17,39 @@ cloudinary.config({
 
 
 router.post('/add', upload.array('images', 3), async (req, res) => {
-    try {
-        const { title, volume, price } = req.body;
+  try {
+    const { title, volume, price } = req.body;
 
-        if (!title || !volume || !price) {
-            return res.status(400).json({ message: 'Всички полета са задължителни!' });
-        }
-
-        const images = [];
-
-        
-        if (req.files && req.files.length > 0) {
-            for (const file of req.files) {
-                const result = await cloudinary.uploader.upload(file.path, {
-                    folder: "wiper-fluids"
-                });
-                images.push(result.secure_url);
-
-               
-                fs.unlinkSync(file.path);
-            }
-        }
-
-        const newFluid = new WiperFluid({
-            title,
-            volume,
-            price: parseFloat(price),
-            images
-        });
-
-        await newFluid.save();
-        res.status(201).json({ message: 'Течността беше успешно добавена!', newFluid });
-    } catch (err) {
-        console.error('Грешка при добавяне на течността:', err);
-        res.status(500).json({ message: 'Грешка при добавяне на течността.', error: err.message });
+    if (!title || !volume || !price) {
+      return res.status(400).json({ message: 'Всички полета са задължителни!' });
     }
+
+    const images = [];
+
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: "wiper-fluids"
+        });
+        images.push(result.secure_url);
+        fs.unlinkSync(file.path); 
+      }
+    }
+
+    const newFluid = new WiperFluid({
+      title,
+      volume,
+      price: parseFloat(price),
+      images,
+      itemType: "wiperFluid" 
+    });
+
+    await newFluid.save();
+    res.status(201).json({ message: 'Течността беше успешно добавена!', newFluid });
+  } catch (err) {
+    console.error('Грешка при добавяне на течността:', err);
+    res.status(500).json({ message: 'Грешка при добавяне на течността.', error: err.message });
+  }
 });
 
 router.get('/', async (req, res) => {

@@ -39,7 +39,8 @@ router.post('/add', upload.array('images', 4), async (req, res) => {
             carYear: carYear || undefined,
             description,
             price: parseFloat(price),
-            images
+            images,
+            itemType: "mat"
         });
 
         await newMat.save();

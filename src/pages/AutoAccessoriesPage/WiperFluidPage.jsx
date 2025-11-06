@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import SectionHeader from '../../Card/SectionHeader';
 import axios from 'axios';
-import { FaShoppingCart } from 'react-icons/fa'; // Добавяме икона за количка
+import { FaShoppingCart } from 'react-icons/fa'; 
 import './WiperFluidPage.css';
 import { CartContext } from '../../Context/CartContext';
 import { useNavigate } from "react-router-dom";

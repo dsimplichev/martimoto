@@ -10,6 +10,7 @@ const matsSchema = new mongoose.Schema({
   description: { type: String },
   price: { type: Number, required: true },
   images: { type: [String], default: [] },
+  itemType: { type: String, default: "mat" },
   createdAt: { type: Date, default: Date.now }
 });
 
