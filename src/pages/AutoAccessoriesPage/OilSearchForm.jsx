@@ -22,6 +22,7 @@ function OilSearchForm() {
     const [oilComposition, setOilComposition] = useState('Избери Тип масло'); 
     const [allOils, setAllOils] = useState([]);      
     const [displayedOils, setDisplayedOils] = useState([]); 
+    const [notification, setNotification] = useState('');
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
@@ -73,7 +74,13 @@ function OilSearchForm() {
             quantity: 1
         };
         addToCart(productForCart);
-        alert("Продуктът беше добавен в количката!"); 
+       
+        setNotification(`Продукт "${oil.brand}" е добавен в количката.`);
+
+    
+    setTimeout(() => {
+        setNotification('');
+    }, 3000);
     };
     
    
@@ -157,6 +164,7 @@ function OilSearchForm() {
 
     return (
         <div className="oil-search-container">
+             {notification && <div className="cart-notification-center">{notification}</div>}
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="oil-type-selection">
                     {CATEGORY_MAP.map(cat => (
