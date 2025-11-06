@@ -117,7 +117,7 @@ function OilSearchForm() {
             const oilType = normalizeValue(oil.type);
             const compositionMatch = searchComposition === defaultComposition || oilType === searchComposition;
             
-            return manufacturerMatch && viscosityMatch && packingMatch && compositionMatch; // ✅ Включваме новия филтър
+            return manufacturerMatch && viscosityMatch && packingMatch && compositionMatch; 
         });
 
         

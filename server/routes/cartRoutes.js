@@ -5,45 +5,40 @@ const checkAuth = require("../middleware/authMiddleware");
 const Part = require("../models/Part");
 const Accessory = require("../models/Accessory");
 const Tire = require("../models/CarTire");
+const Oil = require("../models/Oil");
 
 router.get("/:userId", checkAuth, async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.params.userId });
-
-    if (!cart) {
-      return res.status(404).json({ message: "Количката не е намерена." });
-    }
+    if (!cart) return res.status(404).json({ message: "Количката не е намерена." });
 
     const populatedItems = await Promise.all(
       cart.items.map(async (item) => {
         let productData = null;
 
-        if (item.itemType === "part") {
-          productData = await Part.findById(item.productId);
-        } else if (item.itemType === "accessory") {
-          productData = await Accessory.findById(item.productId);
-        } else if (item.itemType === "tire") {
-          productData = await Tire.findById(item.productId);
-        }
+        if (item.itemType === "part") productData = await Part.findById(item.productId);
+        else if (item.itemType === "accessory") productData = await Accessory.findById(item.productId);
+        else if (item.itemType === "tire") productData = await Tire.findById(item.productId);
+        else if (item.itemType === "oil") productData = await Oil.findById(item.productId);
 
         if (!productData) return null;
 
         
-        const title = productData.title 
-          ? productData.title 
-          : (productData.brand && productData.model) 
-            ? `${productData.brand} ${productData.model}` 
-            : `Продукт ${productData._id}`;
+        const clean = productData.toObject();
 
-        const imageUrl = productData.images && productData.images.length > 0
-          ? productData.images[0]
-          : null;
+        
+        const title = clean.title ||
+          (clean.brand && clean.model ? `${clean.brand} ${clean.model}` :
+           clean.brand && clean.viscosity ? `${clean.brand} ${clean.viscosity} ${clean.volume}` :
+           `Продукт ${clean._id}`);
+
+        const image = clean.images?.[0] || null;
 
         return {
-          _id: productData._id,
-          title,
-          price: productData.price,
-          image: imageUrl,
+          _id: clean._id,
+          title,           
+          price: clean.price,
+          image,
           quantity: item.quantity,
           itemType: item.itemType,
         };
@@ -74,7 +69,7 @@ router.post("/:userId", checkAuth, async (req, res) => {
     let productDetails = null;
     let determinedItemType = null;
 
-    
+
     productDetails = await Part.findById(productId);
     if (productDetails) determinedItemType = "part";
 
@@ -86,6 +81,10 @@ router.post("/:userId", checkAuth, async (req, res) => {
     if (!productDetails) {
       productDetails = await Tire.findById(productId);
       if (productDetails) determinedItemType = "tire";
+    }
+    if (!productDetails) {
+      productDetails = await Oil.findById(productId);
+      if (productDetails) determinedItemType = "oil";
     }
 
     if (!productDetails) {
