@@ -76,9 +76,9 @@
     cursor: pointer;
     font-weight: bold;
     transition: 0.3s;
-    display: flex; /* За подравняване на иконата и текста */
+    display: flex; 
     align-items: center;
-    gap: 5px; /* Разстояние между иконата и текста */
+    gap: 5px; 
 }
 
 .pagination2 button:hover {
@@ -93,7 +93,7 @@
     border-color: #f39c12;
 }
 
-/* Добавени стилове за новите елементи */
+
 .pagination2 button:disabled {
     background-color: #f0f0f0;
     color: #ccc;
@@ -110,6 +110,30 @@
 
 .pagination2 button i {
     font-size: 14px;
+}
+
+.favorites-notification {
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff4d4d;
+  color: white;
+  padding: 16px 28px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 1.1rem;
+  font-weight: 500;
+  z-index: 9999;
+  text-align: center;
+  animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  10% { opacity: 1; transform: translate(-50%, -50%); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -60%); }
 }
 
 @media (max-width: 768px) {

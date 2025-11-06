@@ -8,14 +8,16 @@ import './productresults.css';
 function ProductResults() {
     const [accessories, setAccessories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [notification, setNotification] = useState('');
     const itemsPerPage = 12;
 
     const navigate = useNavigate();
     const location = useLocation();
     const query = new URLSearchParams(location.search).get('query');
 
-    const { addToCart } = useContext(CartContext); 
+    const { addToCart } = useContext(CartContext);
 
+    
     useEffect(() => {
         fetch(`http://localhost:5000/api/search?query=${query}`)
             .then((res) => res.json())
@@ -36,7 +38,6 @@ function ProductResults() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    
     const handleAddToCart = (e, id) => {
         e.stopPropagation();
 
@@ -54,7 +55,19 @@ function ProductResults() {
     };
 
     
-    const handleAddToFavorites = () => {};
+    const handleAddToFavorites = (e, id) => {
+        e.stopPropagation();
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setNotification('Моля, влезте в профила си, за да добавите този продукт в Любими.');
+            setTimeout(() => setNotification(''), 4000);
+            return;
+        }
+
+       
+        console.log("Добавен в любими продукт:", id);
+    };
 
     
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -96,14 +109,21 @@ function ProductResults() {
                     key={page}
                     onClick={() => handlePageChange(page)}
                     className={currentPage === page ? "active-page" : ""}
-                  >
+                >
                     {page}
-                  </button>
+                </button>
         );
     };
 
     return (
         <div className="product-results-container">
+            
+            {notification && (
+                <div className="favorites-notification fade-in">
+                    {notification}
+                </div>
+            )}
+
             <SectionHeader title={`Резултат от търсенето: ${query}`} />
 
             <div className="product-results">
@@ -117,8 +137,8 @@ function ProductResults() {
                             price={accessory.price}
                             itemType={accessory.type}
                             onNavigate={handleNavigate}
-                            onAddToCart={handleAddToCart} 
-                            onAddToFavorites={handleAddToFavorites} 
+                            onAddToCart={handleAddToCart}
+                            onAddToFavorites={handleAddToFavorites}
                         />
                     ))
                 ) : (
