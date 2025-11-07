@@ -1,200 +1,247 @@
-:root {
-    --primary-color: #007bff; 
-    --secondary-color: #28a745; 
-    --input-border: #dcdcdc;
-    --box-bg: #ffffff;
-}
-
-.add-tire-page-container {
+.add-tire-container {
     max-width: 900px;
     margin: 40px auto;
-    padding: 30px;
-    background-color: var(--box-bg);
-    border-radius: 12px; 
-    
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-.add-tire-page-container h1 {
+.add-tire-container h1 {
     text-align: center;
-    color: #333;
-    font-size: 2.2em;
+    font-size: 2rem;
+    color: #1f2937;
     font-weight: 700;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
-    display: block; 
-    width: 100%;
+    margin-bottom: 32px;
+    position: relative;
 }
+
+
+
 
 .add-tire-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; 
+    background: #ffffff;
+    padding: 36px;
+    border-radius: 20px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
 }
 
-
-.form-row,
-.add-tire-form textarea,
-.file-input-wrapper {
-    gap: 15px;
-}
 
 .form-row {
     display: flex;
-    flex-wrap: wrap; 
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.form-row input,
-.form-row select,
-.add-tire-form textarea {
+.form-group {
     flex: 1;
-    min-width: 180px; 
-    padding: 12px 15px; 
-    border: 1px solid var(--input-border);
-    border-radius: 6px; 
-    font-size: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    min-width: 220px;
 }
 
-.form-row input:focus,
-.form-row select:focus,
-.add-tire-form textarea:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    outline: none;
-}
-
-.add-tire-form textarea {
-    resize: vertical;
-}
-
-
-
-
-
-.file-input-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-    border: 1px dashed var(--input-border); 
-    border-radius: 6px;
-}
-
-.file-input-wrapper label {
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
     font-weight: 600;
-    color: #333;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fdfdfd;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    background: #ffffff;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
 
-.submit-tire-btn {
-    padding: 15px 25px;
-    background-color: var(--secondary-color); 
+.upload-btn {
+    display: block;
+    background: linear-gradient(135deg, #4361ee, #2ec4b6);
     color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: bold;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 8px;
 }
 
-.submit-tire-btn:hover {
-    background-color: #218838;
+.upload-btn:hover {
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(67, 97, 238, 0.25);
 }
 
-
-.success-message {
-    padding: 15px;
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-    border-radius: 6px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.error-message {
-    padding: 15px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 6px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-
-.price-row {
-    justify-content: flex-start; 
-}
-
-.price-row input {
-    max-width: 300px; 
-    flex-grow: 0; 
+.file-input {
+    display: none;
 }
 
 .image-previews {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 14px;
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1.5px dashed #cbd5e1;
+    border-radius: 14px;
+    justify-content: center;
 }
 
-.image-preview {
+.preview-item {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: white;
 }
 
-.image-preview img {
+.preview-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border-radius: 12px;
 }
 
-.remove-image-btn {
+.remove-btn {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    background: red;
+    top: -12px;
+    right: -12px;
+    width: 28px;
+    height: 28px;
+    background: #ef4444;
+    color: white;
+    border: 2.5px solid white;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(239, 68, 68, 0.4);
+    transition: all 0.2s ease;
+    z-index: 15;
+}
+
+.remove-btn:hover {
+    background: #dc2626;
+    transform: scale(1.15);
+}
+
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
-    line-height: 18px;
+    margin-top: 16px;
+    transition: all 0.3s ease;
 }
 
-.remove-image-btn:hover {
-    background: darkred;
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.3);
 }
 
 
-@media (max-width: 600px) {
-    .add-tire-page-container {
+.success-message {
+    background: #f0fdf4;
+    color: #065f46;
+    border: 1px solid #bbf7d0;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+
+@media (max-width: 768px) {
+    .add-tire-container {
         margin: 20px auto;
-        padding: 15px;
+        padding: 0 12px;
     }
-    
+
+    .add-tire-form {
+        padding: 24px;
+    }
+
     .form-row {
-        flex-direction: column; 
-        gap: 10px;
+        flex-direction: column;
+        gap: 16px;
     }
-    
-    .form-row input,
-    .form-row select {
+
+    .form-group {
         min-width: 100%;
     }
 
-    .price-row input {
-        max-width: 100%; 
+    .preview-item {
+        width: 90px;
+        height: 90px;
+    }
+
+    .remove-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        top: -10px;
+        right: -10px;
+    }
+
+    .submit-btn {
+        padding: 14px;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .preview-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .remove-btn {
+        width: 22px;
+        height: 22px;
+        top: -9px;
+        right: -9px;
     }
 }

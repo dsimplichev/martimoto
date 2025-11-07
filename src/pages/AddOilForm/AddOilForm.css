@@ -1,131 +1,220 @@
-.add-oil-form-container {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 25px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: 'Arial', sans-serif;
+.add-oil-container {
+    max-width: 640px;
+    margin: 40px auto;
+    padding: 0 16px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-.add-oil-form-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+.add-oil-container h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    color: #1f2937;
+    font-weight: 600;
+    margin-bottom: 28px;
+    position: relative;
 }
 
-.notification {
-  padding: 12px 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
-}
 
-.notification.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.notification.error {
-  background-color: #f8d7da;
-  color: #721c24;
-}
 
 .add-oil-form {
-  display: flex;
-  flex-direction: column;
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
 }
 
-.add-oil-form label {
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: #555;
+
+.form-group {
+    margin-bottom: 20px;
 }
 
-.add-oil-form input,
-.add-oil-form select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 15px;
-  outline: none;
-  transition: border 0.2s;
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
 }
 
-.add-oil-form input:focus,
-.add-oil-form select:focus {
-  border-color: #007bff;
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fdfdfd;
+    transition: all 0.3s ease;
 }
 
-.add-oil-form button {
-  margin-top: 5px;
-  padding: 12px;
-  background-color: #218838;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    background: #ffffff;
 }
 
-.add-oil-form button:hover {
-  background-color: #0056b3;
+
+.upload-btn {
+    display: block;
+    background: linear-gradient(135deg, #4361ee, #2ec4b6);
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 8px;
 }
 
-.add-oil-form select option {
-  padding: 5px;
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(67, 97, 238, 0.25);
 }
 
-.oil-image-previews {
+.file-input {
+    display: none;
+}
+
+.image-previews {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 14px;
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1.5px dashed #cbd5e1;
+    border-radius: 14px;
+    justify-content: center;
 }
 
-.oil-image-preview {
+.preview-item {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: white;
 }
 
-.oil-image-preview img {
+.preview-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border-radius: 12px;
 }
 
-.remove-oil-image {
+.remove-btn {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    background: red;
+    top: -12px;
+    right: -12px;
+    width: 28px;
+    height: 28px;
+    background: #ef4444;
+    color: white;
+    border: 2.5px solid white;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(239, 68, 68, 0.4);
+    transition: all 0.2s ease;
+    z-index: 15;
+}
+
+.remove-btn:hover {
+    background: #dc2626;
+    transform: scale(1.15);
+}
+
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
-    line-height: 18px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
 }
 
-.remove-oil-image:hover {
-    background: darkred;
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
 }
 
-@media (max-width: 640px) {
-  .add-oil-form-container {
-    padding: 15px;
-    margin: 15px;
-  }
 
-  .add-oil-form button {
-    padding: 10px;
-  }
+.notification {
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.notification.success {
+    background: #f0fdf4;
+    color: #065f46;
+    border: 1px solid #bbf7d0;
+}
+
+.notification.error {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+
+@media (max-width: 768px) {
+    .add-oil-container {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    .add-oil-form {
+        padding: 24px;
+    }
+
+    .preview-item {
+        width: 90px;
+        height: 90px;
+    }
+
+    .remove-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        top: -10px;
+        right: -10px;
+    }
+
+    .submit-btn {
+        padding: 13px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .preview-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .remove-btn {
+        width: 22px;
+        height: 22px;
+        top: -9px;
+        right: -9px;
+    }
 }

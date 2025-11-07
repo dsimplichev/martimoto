@@ -28,7 +28,7 @@ function AddCarTiresPage() {
     const [error, setError] = useState('');
 
     if (!isLoggedIn || user.role !== 'admin') {
-        return <p className="error-message">Нямате права да достъпвате тази страница.</p>;
+        return <p className="access-denied">Нямате права за достъп.</p>;
     }
 
     const handleChange = (e) => {
@@ -38,18 +38,12 @@ function AddCarTiresPage() {
     };
 
     const handleImageChange = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-
-        if (selectedFiles.length + tireData.images.length > 5) {
-            setError('Можете да качите максимум 5 снимки!');
-            e.target.value = null;
+        const files = Array.from(e.target.files);
+        if (tireData.images.length + files.length > 5) {
+            setError('Макс. 5 снимки!');
             return;
         }
-
-        setTireData(prev => ({
-            ...prev,
-            images: [...prev.images, ...selectedFiles]
-        }));
+        setTireData(prev => ({ ...prev, images: [...prev.images, ...files] }));
         setError('');
     };
 
@@ -66,11 +60,11 @@ function AddCarTiresPage() {
         setError('');
 
         if (!tireData.brand) {
-            setError('Марка е задължителна!');
+            setError('Марката е задължителна!');
             return;
         }
         if (tireData.images.length === 0) {
-            setError('Моля, качете поне една снимка на гумата.');
+            setError('Качете поне една снимка!');
             return;
         }
 
@@ -78,7 +72,7 @@ function AddCarTiresPage() {
         for (const key in tireData) {
             if (key !== 'images') formData.append(key, tireData[key]);
         }
-        tireData.images.forEach((image) => formData.append('images', image));
+        tireData.images.forEach(img => formData.append('images', img));
 
         try {
             const response = await axios.post('http://localhost:5000/api/add-car-tire', formData, {
@@ -86,107 +80,149 @@ function AddCarTiresPage() {
                 withCredentials: true,
             });
 
-            setMessage('Гумата беше успешно добавена! ID: ' + response.data.newTire._id);
-
+            setMessage(`Гумата е добавена успешно! ID: ${response.data.newTire._id}`);
             setTireData({
                 tireType: 'Автомобилни гуми',
                 brand: '', model: '', width: '', aspectRatio: '', diameter: '',
                 loadIndex: '', speedRating: '', fuelEconomy: '', wetGrip: '',
-                noiseLevel: '', season: 'Летни', price: '', description: '',
-                images: [],
+                noiseLevel: '', season: 'Летни', price: '', description: '', images: [],
             });
             document.getElementById('tire-image').value = null;
-
         } catch (err) {
-            console.error('Грешка при добавяне на гума:', err);
-            const errorMessage = err.response?.data?.message || 'Неуспешна връзка със сървъра или невалидни данни.';
-            setError('Грешка при добавяне на гума: ' + errorMessage);
+            const errMsg = err.response?.data?.message || 'Неуспешна връзка със сървъра.';
+            setError('Грешка: ' + errMsg);
         }
     };
 
     const seasons = ['Летни', 'Зимни', 'Всесезонни'];
 
     return (
-        <div className="add-tire-page-container">
+        <div className="add-tire-container">
             <h1>Добавяне на Авто Гуми</h1>
+
             {message && <div className="success-message">{message}</div>}
             {error && <div className="error-message">{error}</div>}
 
             <form onSubmit={handleSubmit} className="add-tire-form">
+                
                 <div className="form-row">
-                    <input
-                        type="text" name="brand" placeholder="Марка (напр. Michelin)"
-                        value={tireData.brand} onChange={handleChange} required
+                    <div className="form-group">
+                        <label>Марка</label>
+                        <input
+                            type="text" name="brand" placeholder="напр. Michelin"
+                            value={tireData.brand} onChange={handleChange} required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Модел</label>
+                        <input
+                            type="text" name="model" placeholder="напр. Pilot Sport 4"
+                            value={tireData.model} onChange={handleChange}
+                        />
+                    </div>
+                </div>
+
+                
+                <div className="form-row size-row">
+                    <div className="form-group">
+                        <label>Ширина</label>
+                        <input type="number" name="width" placeholder="205" value={tireData.width} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Профил</label>
+                        <input type="number" name="aspectRatio" placeholder="55" value={tireData.aspectRatio} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Диаметър</label>
+                        <input type="text" name="diameter" placeholder="R16" value={tireData.diameter} onChange={handleChange} required />
+                    </div>
+                </div>
+
+                
+                <div className="form-row">
+                    <div className="form-group">
+                        <label>Товарен индекс</label>
+                        <input type="text" name="loadIndex" placeholder="91" value={tireData.loadIndex} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Скоростен индекс</label>
+                        <input type="text" name="speedRating" placeholder="V" value={tireData.speedRating} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Икономия</label>
+                        <input type="text" name="fuelEconomy" placeholder="A" value={tireData.fuelEconomy} onChange={handleChange} required />
+                    </div>
+                </div>
+
+                
+                <div className="form-row">
+                    <div className="form-group">
+                        <label>Сцепление на мокро</label>
+                        <input type="text" name="wetGrip" placeholder="B" value={tireData.wetGrip} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Шум (dB)</label>
+                        <input type="number" name="noiseLevel" placeholder="72" value={tireData.noiseLevel} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label>Сезон</label>
+                        <select name="season" value={tireData.season} onChange={handleChange} required>
+                            {seasons.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                    </div>
+                </div>
+
+                
+                <div className="form-row">
+                    <div className="form-group">
+                        <label>Цена (лв.)</label>
+                        <input
+                            type="number" name="price" placeholder="189.90"
+                            value={tireData.price} onChange={handleChange} step="0.01" required
+                        />
+                    </div>
+                </div>
+
+                
+                <div className="form-group">
+                    <label>Описание</label>
+                    <textarea
+                        name="description" placeholder="Подробно описание..."
+                        value={tireData.description} onChange={handleChange} rows="4"
                     />
+                </div>
+
+                
+                <div className="form-group">
+                    <label>Снимки (до 5)</label>
+                    <label htmlFor="tire-image" className="upload-btn">
+                        Качи снимки
+                    </label>
                     <input
-                        type="text" name="model" placeholder="Модел (напр. Pilot Sport 4)"
-                        value={tireData.model} onChange={handleChange}
+                        id="tire-image"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handleImageChange}
+                        className="file-input"
                     />
+                    <div className="image-previews">
+                        {tireData.images.map((file, i) => (
+                            <div key={i} className="preview-item">
+                                <img src={URL.createObjectURL(file)} alt={`Preview ${i + 1}`} />
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveImage(i)}
+                                    className="remove-btn"
+                                >
+                                    x
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-                <div className="form-row size-inputs">
-                    <input type="number" name="width" placeholder="Ширина (напр. 205)"
-                        value={tireData.width} onChange={handleChange} required />
-                    <input type="number" name="aspectRatio" placeholder="Профил (напр. 55)"
-                        value={tireData.aspectRatio} onChange={handleChange} required />
-                    <input type="text" name="diameter" placeholder="Диаметър (напр. R16)"
-                        value={tireData.diameter} onChange={handleChange} required />
-                </div>
-
-                <div className="form-row">
-                    <input type="text" name="loadIndex" placeholder="Товарен индекс (напр. 91)"
-                        value={tireData.loadIndex} onChange={handleChange} required />
-                    <input type="text" name="speedRating" placeholder="Скоростен индекс (напр. V)"
-                        value={tireData.speedRating} onChange={handleChange} required />
-                    <input type="text" name="fuelEconomy" placeholder="Икономичен индекс (напр. A)"
-                        value={tireData.fuelEconomy} onChange={handleChange} required />
-                </div>
-
-                <div className="form-row">
-                    <input type="text" name="wetGrip" placeholder="Сцепление на мокро (напр. B)"
-                        value={tireData.wetGrip} onChange={handleChange} required />
-                    <input type="number" name="noiseLevel" placeholder="Индекс шум (напр. 72)"
-                        value={tireData.noiseLevel} onChange={handleChange} required />
-                    <select name="season" value={tireData.season} onChange={handleChange} required>
-                        {seasons.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                </div>
-
-                <div className="form-row price-row">
-                    <input type="number" name="price" placeholder="Цена (в лв.)"
-                        value={tireData.price} onChange={handleChange} step="0.01" required />
-                </div>
-
-                <textarea name="description" placeholder="Подробно описание на гумата"
-                    value={tireData.description} onChange={handleChange} rows="4" />
-
-                <div className="file-input-wrapper">
-                    <label htmlFor="tire-image">Снимки на гумата (до 5 бр.):</label>
-                    <input type="file" id="tire-image" name="images"
-                        onChange={handleImageChange} accept="image/*" multiple required />
-
-                    {tireData.images.length > 0 && (
-                        <div className="image-previews">
-                            {tireData.images.map((file, index) => (
-                                <div key={index} className="image-preview">
-                                    <img
-                                        src={URL.createObjectURL(file)}
-                                        alt={`Preview ${index + 1}`}
-                                    />
-                                    <button
-                                        type="button"
-                                        className="remove-image-btn"
-                                        onClick={() => handleRemoveImage(index)}
-                                    >
-                                        ×
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                <button type="submit" className="submit-tire-btn">Добави Гума</button>
+                <button type="submit" className="submit-btn">Добави Гума</button>
             </form>
         </div>
     );

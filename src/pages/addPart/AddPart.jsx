@@ -49,158 +49,166 @@ function AddPart() {
         formData.append('title', title);
         formData.append('description', description);
         formData.append('price', price);
-        images.forEach((image) => {
-            formData.append('images', image);
-        });
+        images.forEach((image) => formData.append('images', image));
 
         try {
             const response = await axios.post('http://localhost:5000/api/parts/add', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+                headers: { 'Content-Type': 'multipart/form-data' },
             });
 
             setMessage('Частта е добавена успешно!');
-            console.log('Частта е добавена успешно:', response.data);
             setFormVisible(false);
         } catch (error) {
-            console.error('Грешка при добавяне на част:', error);
+            console.error('Грешка:', error);
             setMessage('Грешка при добавяне на част!');
         }
     };
 
     const handleImageChange = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-        if (selectedFiles.length + images.length <= 4) {
-            setImages([...images, ...selectedFiles]);
-        } else {
-            alert('Можете да качите максимум 4 снимки!');
+        const files = Array.from(e.target.files);
+        if (images.length + files.length > 4) {
+            alert('Макс. 4 снимки!');
+            return;
         }
+        setImages([...images, ...files]);
     };
 
     const handleRemoveImage = (index) => {
-        const updatedImages = images.filter((_, i) => i !== index);
-        setImages(updatedImages);
+        setImages(images.filter((_, i) => i !== index));
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
-        return <p>Нямате права да достъпвате тази страница.</p>;
+        return <p className="access-denied">Нямате права за достъп.</p>;
     }
 
     return (
-        <div>
+        <div className="add-part-container">
             {formVisible ? (
-                <>
+                <form className="add-part-form" onSubmit={handleSubmit}>
                     <h2>Добави част</h2>
-                    <form className="add-part-form" onSubmit={handleSubmit}>
-                        <div>
-                            <label>Марка</label>
-                            <select value={brand} onChange={handleBrandChange}>
-                                <option value="">Изберете марка</option>
-                                <option value="BMW">BMW</option>
-                                <option value="Ducati">Ducati</option>
-                                <option value="Suzuki">Suzuki</option>
-                                <option value="Kawasaki">KAWASAKI</option>
-                                <option value="Honda">Honda</option>
-                                <option value="Yamaha">Yamaha</option>
-                                <option value="Aprilia">Aprilia</option>
+
+                    
+                    <div className="form-group">
+                        <label>Марка</label>
+                        <select value={brand} onChange={handleBrandChange} required>
+                            <option value="">Избери марка</option>
+                            {Object.keys(brands).map(b => (
+                                <option key={b} value={b}>{b}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    
+                    {brand && (
+                        <div className="form-group">
+                            <label>Модел</label>
+                            <select value={model} onChange={handleModelChange} required>
+                                <option value="">Избери модел</option>
+                                {availableModels.map(m => (
+                                    <option key={m} value={m}>{m}</option>
+                                ))}
                             </select>
                         </div>
+                    )}
 
-                        {brand && (
-                            <div>
-                                <label>Модел</label>
-                                <select value={model} onChange={handleModelChange}>
-                                    <option value="">Изберете модел</option>
-                                    {availableModels.map((modelName) => (
-                                        <option key={modelName} value={modelName}>
-                                            {modelName}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
-
-                        {model && availableYears.length > 0 && (
-                            <div>
-                                <label>Година</label>
-                                <select value={year} onChange={(e) => setYear(e.target.value)}>
-                                    <option value="">Изберете година</option>
-                                    {availableYears.map((yearOption) => (
-                                        <option key={yearOption} value={yearOption}>
-                                            {yearOption}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
-
-                        <div>
-                            <label>Име на частта</label>
-                            <input
-                                type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label>Описание</label>
-                            <textarea
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label>Цена</label>
-                            <input
-                                type="number"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="image-upload" className="upload-label">
-                                <i className="fas fa-upload"></i> Добави изображения
-                            </label>
-                            <input
-                                id="image-upload"
-                                type="file"
-                                accept="image/*"
-                                className="upload-button"
-                                onChange={handleImageChange}
-                                multiple
-                            />
-                            <div className="image-previews">
-                                {images.map((image, index) => (
-                                    <div key={index} className="image-preview-item">
-                                        <img
-                                            src={URL.createObjectURL(image)}
-                                            alt={`Uploaded ${index}`}
-                                            className="preview-image-thumb"
-                                        />
-                                        <button
-                                            type="button"
-                                            className="image-remove-btn"
-                                            onClick={() => handleRemoveImage(index)}
-                                        >
-                                            &times;
-                                        </button>
-                                    </div>
+                    
+                    {model && availableYears.length > 0 && (
+                        <div className="form-group">
+                            <label>Година</label>
+                            <select value={year} onChange={(e) => setYear(e.target.value)}>
+                                <option value="">Избери година</option>
+                                {availableYears.map(y => (
+                                    <option key={y} value={y}>{y}</option>
                                 ))}
-                            </div>
+                            </select>
                         </div>
+                    )}
 
-                        <button type="submit">Добави частта</button>
-                    </form>
-                </>
+                    
+                    <div className="form-group">
+                        <label>Име на частта</label>
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="напр. Ауспух Akrapovic"
+                            required
+                        />
+                    </div>
+
+                    
+                    <div className="form-group">
+                        <label>Описание</label>
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            rows="4"
+                            placeholder="Кратко описание на частта..."
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Цена (лв.)</label>
+                        <input
+                            type="number"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            min="0"
+                            step="0.01"
+                            placeholder="150.00"
+                            required
+                        />
+                    </div>
+
+                    
+                    <div className="form-group">
+                        <label>Снимки (макс. 4)</label>
+                        <label htmlFor="image-upload" className="upload-btn">
+                            <i className="fas fa-cloud-upload-alt"></i> Качи снимки
+                        </label>
+                        <input
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleImageChange}
+                            className="file-input"
+                        />
+                        <div className="image-previews">
+                            {images.map((img, i) => (
+                                <div key={i} className="preview-item">
+                                    <img src={URL.createObjectURL(img)} alt={`Preview ${i}`} />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveImage(i)}
+                                        className="remove-btn"
+                                    >
+                                        &times;
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <button type="submit" className="submit-btn">
+                        Добави частта
+                    </button>
+                </form>
             ) : (
-                <p>{message}</p>
+                <div className="success-message">
+                    <i className="fas fa-check-circle"></i>
+                    <p>{message}</p>
+                    <button onClick={() => window.location.reload()} className="reset-btn">
+                        Добави още
+                    </button>
+                </div>
+            )}
+
+            {message && formVisible && (
+                <p className={`message ${message.includes('Грешка') ? 'error' : ''}`}>
+                    {message}
+                </p>
             )}
         </div>
     );
