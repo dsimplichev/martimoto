@@ -1,107 +1,270 @@
-.order-details-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.ord-det-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #e9ecef;
 }
 
-h2, h3 {
-    text-align: center;
+
+.ord-det-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
 }
 
-.cart-items {
-    list-style: none;
-    padding: 0;
+.ord-det-title {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
 }
 
-.cart-items li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+.ord-det-subtitle {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
-.loading-message {
-    text-align: center;
-    font-size: 18px;
-    color: #666;
+/* === ИНФОРМАЦИЯ === */
+.ord-det-info {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
-.loading-message.error {
-    color: #d32f2f;
+.ord-det-info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
 }
 
-.cart-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding: 12px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    border: 1px solid #eee;
+.ord-det-info-item strong {
+  color: #34495e;
+  min-width: 120px;
 }
 
-.product-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+.ord-det-info-item a {
+  color: #2980b9;
+  text-decoration: none;
 }
 
-.product-image.placeholder {
-    background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    color: #999;
-    border: 1px dashed #ccc;
-    font-style: italic;
+.ord-det-info-item a:hover {
+  text-decoration: underline;
 }
 
-.product-info {
-    flex: 1;
+
+.ord-det-company {
+  background: #f8f9fa;
+  padding: 1.25rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid #e9ecef;
 }
 
-.product-title {
-    margin: 0 0 6px 0;
-    font-size: 1.1rem;
+.ord-det-section-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: #2c3e50;
+  font-weight: 600;
 }
 
-.product-title strong {
-    font-size: 1.15rem;
-    color: #1a1a1a;
+.ord-det-company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  font-size: 0.95rem;
 }
 
-.missing-product {
-    color: #d32f2f;
-    font-style: italic;
-    margin: 0;
+.ord-det-company-grid div {
+  padding: 0.4rem 0;
 }
 
-.order-summary {
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 2px solid #eee;
+
+.ord-det-products {
+  margin: 2rem 0;
 }
 
-.total-amount {
+.ord-det-cart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ord-det-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 14px;
+  border: 1px solid #eee;
+  transition: all 0.2s ease;
+}
+
+.ord-det-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.ord-det-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+.ord-det-img-placeholder {
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #999;
+  font-style: italic;
+  border: 1px dashed #ccc;
+}
+
+.ord-det-item-info {
+  flex: 1;
+}
+
+.ord-det-item-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.ord-det-item-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.ord-det-item-details span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ord-det-missing {
+  color: #c62828;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.ord-det-empty {
+  text-align: center;
+  color: #95a5a6;
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+
+.ord-det-summary {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  margin-top: 1.5rem;
+}
+
+.ord-det-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.ord-det-summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.ord-det-total {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.ord-det-status {
+  padding: 0.4rem 0.9rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ord-det-status-pending    { background: #fff3e0; color: #f57c00; }
+.ord-det-status-shipped    { background: #e8f5e9; color: #2e7d32; }
+.ord-det-status-completed  { background: #e3f2fd; color: #1565c0; }
+.ord-det-status-cancelled  { background: #ffebee; color: #c62828; }
+.ord-det-status-deleted    { background: #eceff1; color: #546e7a; }
+
+.ord-det-comment {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #555;
+}
+
+/* === СЪСТОЯНИЯ === */
+.ord-det-loading,
+.ord-det-error {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.ord-det-error {
+  color: #d32f2f;
+  background: #ffebee;
+  border-radius: 12px;
+  margin: 2rem;
+}
+
+
+@media (max-width: 768px) {
+  .ord-det-container {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .ord-det-title {
+    font-size: 1.6rem;
+  }
+
+  .ord-det-item {
+    flex-direction: column;
+  }
+
+  .ord-det-img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    background: white;
+  }
+
+  .ord-det-company-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ord-det-summary-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ord-det-total {
     font-size: 1.3rem;
-    font-weight: bold;
-    color: #2e7d32;
+  }
 }
-
-.status {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.status.pending { background: #fff3e0; color: #f57c00; }
-.status.completed { background: #e8f5e9; color: #2e7d32; }
-.status.cancelled { background: #ffebee; color: #c62828; }
