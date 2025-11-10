@@ -1,255 +1,236 @@
 
 const express = require("express");
 const router = express.Router();
-const Order = require("../models/Order");
 const mongoose = require("mongoose");
-const authenticateToken = require("../middleware/authMiddleware");
-require("../models/Part");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config");
+const Order = require("../models/Order");
+const Part = require("../models/Part");
 const Accessory = require("../models/Accessory");
+const Tire = require("../models/CarTire");
+const Oil = require("../models/Oil");
+const WiperFluid = require("../models/WiperFluid");
+const Mats = require("../models/Mats");
+const authenticateToken = require("../middleware/authMiddleware");
 
-
-let Part;
 
 router.post("/create", async (req, res) => {
   console.log("Получено от клиента:", req.body);
 
+  let userId = null;
+  const token = req.cookies?.token; 
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET);
+      userId = decoded.id;
+      console.log("Логнат потребител:", userId);
+    } catch (err) {
+      console.log("Невалиден токен – гост:", err.message);
+    }
+  }
+
   try {
     const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      deliveryMethod,
-      city,
-      office,
-      deliveryAddress,
-      companyName,
-      companyReg,
-      companyEIK,
-      companyAddress,
-      comment,
-      cart,
-      totalAmount,
+      firstName, lastName, email, phone,
+      deliveryMethod = "", city = "", office = "", deliveryAddress = "",
+      companyName = "", companyReg = "", companyEIK = "", companyAddress = "",
+      comment = "", cart, totalAmount
     } = req.body;
 
-    // Валидация на количката
-    if (!cart || !Array.isArray(cart) || cart.length === 0) {
-      return res.status(400).json({ message: "Количката не може да бъде празна." });
+    if (!firstName || !lastName || !email || !phone || !cart || !totalAmount) {
+      return res.status(400).json({ message: "Липсват задължителни данни." });
     }
 
-    // Валидация на ID и количество
-    for (const item of cart) {
-      if (!mongoose.Types.ObjectId.isValid(item.productId)) {
-        return res.status(400).json({ message: `Невалиден productId: ${item.productId}` });
-      }
-      if (typeof item.quantity !== "number" || item.quantity <= 0) {
-        return res.status(400).json({ message: `Невалидно количество за продукт ${item.productId}` });
-      }
+    if (!Array.isArray(cart) || cart.length === 0) {
+      return res.status(400).json({ message: "Количката е празна." });
     }
 
-    // Зареждане на моделите само ако не са заредени
-    if (!Part) Part = require("../models/Part");
+    const populatedCart = await Promise.all(
+      cart.map(async (item) => {
+        let product = null;
+        let title = "Неизвестен продукт";
 
-    // === ПРОВЕРКА И МАРКИРАНЕ НА ПРОДАДЕНИ АКСЕСОАРИ (1 бройка, атомарно) ===
-    const soldAccessories = cart.filter(item => item.itemType === "accessory");
+        switch (item.itemType) {
+          case "part":
+            product = await Part.findById(item.productId);
+            title = product?.title || "Част";
+            break;
+          case "accessory":
+            product = await Accessory.findById(item.productId);
+            title = product?.title || "Аксесоар";
+            break;
+          case "tire":
+            product = await Tire.findById(item.productId);
+            if (product)
+              title = `${product.brand} ${product.model} ${product.width}/${product.aspectRatio} R${product.diameter} ${product.speedRating}`;
+            break;
+          case "oil":
+            product = await Oil.findById(item.productId);
+            if (product)
+              title = `${product.brand} ${product.viscosity} ${product.type} ${product.volume}`;
+            break;
+          case "wiperFluid":
+            product = await WiperFluid.findById(item.productId);
+            title = product?.brand || "Течност";
+            break;
+          case "mat":
+            product = await Mats.findById(item.productId);
+            title = product ? `${product.carBrand} ${product.carModel}` : "Стелки";
+            break;
+          default:
+            return { error: `Невалиден itemType: ${item.itemType}` };
+        }
 
-    for (const item of soldAccessories) {
-      // 1. Проверка за 1 бройка
-      if (item.quantity !== 1) {
-        return res.status(400).json({
-          message: "Аксесоарите могат да се поръчват само по 1 брой."
-        });
-      }
+        if (!product) {
+          return { error: `Продуктът не е намерен: ${item.productId}` };
+        }
 
-      // 2. Атомарно маркиране – само ако НЕ е продаден
-      const result = await Accessory.findOneAndUpdate(
-        { _id: item.productId, isSold: false },
-        { isSold: true },
-        { new: true }
-      );
+        if (product.isSold !== undefined && !product.isSold) {
+          product.isSold = true;
+          await product.save();
+        }
 
-      if (!result) {
-        const accessory = await Accessory.findById(item.productId);
-        const title = accessory?.title || "Неизвестен аксесоар";
-        return res.status(400).json({
-          message: `Аксесоарът "${title}" вече е продаден.`
-        });
-      }
+        return {
+          productId: item.productId,
+          itemType: item.itemType,
+          quantity: item.quantity,
+          title,
+          price: product.price || 0,
+          image: product.images?.[0] || "https://placehold.co/80x80?text=Без+снимка",
+        };
+      })
+    );
+
+    const error = populatedCart.find((i) => i.error);
+    if (error) {
+      return res.status(400).json({ message: error.error });
     }
 
-    // === ПРОВЕРКА И МАРКИРАНЕ НА ПРОДАДЕНИ ЧАСТИ (по същия начин) ===
-    const soldParts = cart.filter(item => item.itemType === "part");
-
-    for (const item of soldParts) {
-      const result = await Part.findOneAndUpdate(
-        { _id: item.productId, isSold: false },
-        { isSold: true },
-        { new: true }
-      );
-
-      if (!result) {
-        const part = await Part.findById(item.productId);
-        const title = part?.title || "Неизвестна част";
-        return res.status(400).json({
-          message: `Частта "${title}" вече е продадена.`
-        });
-      }
-    }
-
-    // === СЪЗДАВАНЕ НА ПОРЪЧКАТА ===
     const newOrder = new Order({
-      firstName,
-      lastName,
-      email,
-      phone,
-      deliveryMethod,
-      city,
-      office,
-      deliveryAddress,
-      companyName,
-      companyReg,
-      companyEIK,
-      companyAddress,
-      comment,
-      cart,
-      totalAmount,
+      firstName, lastName, email, phone,
+      deliveryMethod, city, office, deliveryAddress,
+      companyName, companyReg, companyEIK, companyAddress,
+      comment, cart: populatedCart, totalAmount,
       status: "Pending",
-      userId: req.user ? req.user._id : undefined,
+      userId: userId || null,
+      statusHistory: [{ status: "Pending", timestamp: new Date() }],
     });
 
     const savedOrder = await newOrder.save();
-
-    console.log(`Поръчка създадена: #${savedOrder._id} | Части: ${soldParts.length} | Аксесоари: ${soldAccessories.length}`);
-
+    console.log("Поръчка създадена:", savedOrder._id, "userId:", userId || "гост");
     res.status(201).json(savedOrder);
   } catch (error) {
-    console.error("Грешка при създаване на поръчката:", error);
-    res.status(500).json({ message: "Грешка при създаване на поръчката." });
+    console.error("Грешка при поръчка:", error);
+    res.status(500).json({ message: "Сървърна грешка." });
   }
 });
 
-// === Останалите рутове – без промяна ===
-router.get("/", async (req, res) => {
-  try {
-    const orders = await Order.find();
-    res.json(orders);
-  } catch (error) {
-    res.status(500).json({ message: "Грешка при зареждане на поръчките!" });
-  }
-});
-
-router.get("/pending", async (req, res) => {
-  try {
-    const orders = await Order.find({ status: "Pending" });
-    res.json(orders);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Грешка при извличането на поръчките." });
-  }
-});
-
-router.patch("/update/:id", async (req, res) => {
-  try {
-    const { status } = req.body;
-    const validStatuses = ["Pending", "Shipped", "Completed", "Deleted"];
-    if (!validStatuses.includes(status)) {
-      return res.status(400).json({ message: "Невалиден статус." });
-    }
-
-    const updatedOrder = await Order.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
-
-    if (!updatedOrder) {
-      return res.status(404).json({ message: "Поръчката не е намерена." });
-    }
-
-    res.json(updatedOrder);
-  } catch (error) {
-    console.error("Грешка при актуализиране на поръчката:", error);
-    res.status(500).json({ message: "Грешка при актуализиране на поръчката." });
-  }
-});
 
 router.get("/history", authenticateToken, async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.user._id }).sort({ createdAt: -1 });
-
+    const orders = await Order.find({ userId: req.user.id }).sort({ createdAt: -1 });
     const formattedOrders = await Promise.all(
       orders.map(async (order) => {
         const items = await Promise.all(
           order.cart.map(async (item) => {
             let product = null;
-
-            if (item.itemType === "part") {
-              product = await Part.findById(item.productId);
-            } else if (item.itemType === "accessory") {
-              product = await Accessory.findById(item.productId);
+            switch (item.itemType) {
+              case "part": product = await Part.findById(item.productId); break;
+              case "accessory": product = await Accessory.findById(item.productId); break;
+              case "tire": product = await Tire.findById(item.productId); break;
+              case "oil": product = await Oil.findById(item.productId); break;
+              case "wiperFluid": product = await WiperFluid.findById(item.productId); break;
+              case "mat": product = await Mats.findById(item.productId); break;
             }
-
             return {
-              name: product?.title || "Без име",
-              description: product?.description || "",
-              price: product?.price || 0,
-              image: product?.images?.[0] || "",
-              quantity: item.quantity,
+              title: product?.title || item.title || "Без име",
+              price: product?.price || item.price || 0,
+              image: product?.images?.[0] || item.image || "https://placehold.co/80x80?text=Без+снимка",
+              quantity: item.quantity || 1,
             };
           })
         );
-
         return {
           _id: order._id,
           createdAt: order.createdAt,
           totalAmount: order.totalAmount,
           status: order.status,
-          items,
+          statusHistory: order.statusHistory || [],
+          cart: items,
         };
       })
     );
-
     res.status(200).json({ success: true, orders: formattedOrders });
   } catch (error) {
-    console.error("Грешка при взимане на история на поръчките:", error);
+    console.error("Грешка при история:", error);
     res.status(500).json({ success: false, message: "Сървърна грешка" });
   }
 });
 
-router.get("/:orderId", async (req, res) => {
-  const { orderId } = req.params;
-
+router.patch("/update/:id", authenticateToken, async (req, res) => {
   try {
-    const order = await Order.findById(orderId);
-    if (!order) {
-      return res.status(404).json({ message: "Поръчката не е намерена" });
+    if (!req.user.isAdmin) return res.status(403).json({ message: "Нямате права." });
+    const { status } = req.body;
+    const validStatuses = ["Pending", "Shipped", "Completed", "Deleted"];
+    if (!validStatuses.includes(status)) return res.status(400).json({ message: "Невалиден статус." });
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ message: "Не е намерена." });
+    if (order.status !== status) {
+      order.status = status;
+      order.statusHistory.push({ status, timestamp: new Date() });
     }
-
-    res.json(order);
+    const updated = await order.save();
+    res.json(updated);
   } catch (error) {
-    console.error("Грешка при търсене на поръчката:", error.message);
-    res.status(500).json({ message: "Грешка при търсене на поръчката" });
+    res.status(500).json({ message: "Грешка при актуализация." });
   }
 });
 
-router.patch("/delete/:id", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
-    const orderId = req.params.id;
+    if (!req.user.isAdmin) return res.status(403).json({ message: "Само админ." });
+    const orders = await Order.find().sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Сървърна грешка." });
+  }
+});
 
-    const updatedOrder = await Order.findByIdAndUpdate(
-      orderId,
+router.get("/pending", authenticateToken, async (req, res) => {
+  try {
+    if (!req.user.isAdmin) return res.status(403).json({ message: "Само админ." });
+    const orders = await Order.find({ status: "Pending" }).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Сървърна грешка." });
+  }
+});
+
+router.get("/:orderId", authenticateToken, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId);
+    if (!order) return res.status(404).json({ message: "Не е намерена." });
+    if (order.userId?.toString() !== req.user.id && !req.user.isAdmin) {
+      return res.status(403).json({ message: "Нямате достъп." });
+    }
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: "Сървърна грешка." });
+  }
+});
+
+router.patch("/delete/:id", authenticateToken, async (req, res) => {
+  try {
+    if (!req.user.isAdmin) return res.status(403).json({ message: "Само админ." });
+    const updated = await Order.findByIdAndUpdate(
+      req.params.id,
       { status: "Deleted" },
       { new: true }
     );
-
-    if (!updatedOrder) {
-      return res.status(404).json({ message: "Поръчката не беше намерена." });
-    }
-
-    res.json({ message: "Поръчката беше маркирана като 'Deleted'." });
+    if (!updated) return res.status(404).json({ message: "Не е намерена." });
+    res.json({ message: "Изтрита." });
   } catch (error) {
-    console.error("Грешка при маркиране на поръчката:", error);
-    res.status(500).json({ message: "Възникна грешка при изтриването на поръчката." });
+    res.status(500).json({ message: "Грешка при изтриване." });
   }
 });
 
