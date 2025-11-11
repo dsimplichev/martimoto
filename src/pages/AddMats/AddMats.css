@@ -1,163 +1,246 @@
-.mats-form-wrapper {
-    max-width: 650px; /* Малко по-широка форма */
-    width: 90%;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: "Arial", sans-serif;
+
+.add-mats-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 16px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-.mats-form-wrapper h2 {
+.add-mats-container h2 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.mats-notification {
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.mats-notification.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.mats-notification.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-.add-mats-form-body {
-    display: grid;
-    grid-template-columns: 1fr; /* По подразбиране е една колона */
-    gap: 15px;
-}
-
-/* На две колони на по-големи екрани */
-@media (min-width: 600px) {
-    .add-mats-form-body {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    /* Описанието и бутоните да заемат двете колони */
-    .mats-textarea,
-    .mats-submit-btn,
-    .mats-preview-container,
-    .mats-file-input {
-        grid-column: 1 / -1; 
-    }
-}
-
-.mats-label {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    font-size: 1.75rem;
+    color: #1f2937;
     font-weight: 600;
-    color: #555;
-    display: block; /* За да следва инпута */
+    margin-bottom: 28px;
+    position: relative;
 }
 
-.mats-input,
-.mats-select,
-.mats-textarea {
+
+
+
+.add-mats-form {
+    background: #ffffff;
+    padding: 36px;
+    border-radius: 20px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 280px;
+}
+
+.form-group.full {
+    flex: 1 1 100%;
+    min-width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 15px;
+    padding: 12px 14px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fdfdfd;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
     outline: none;
-    transition: border 0.2s;
-    box-sizing: border-box; /* За да включва padding и border в ширината */
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    background: #ffffff;
 }
 
-.mats-input:focus,
-.mats-select:focus,
-.mats-textarea:focus {
-    border-color: #007bff;
-}
-
-.mats-textarea {
-    min-height: 100px;
+.form-group textarea {
     resize: vertical;
+    min-height: 90px;
 }
 
-/* Стил за бутона за изпращане */
-.mats-submit-btn {
-    padding: 12px;
-    background-color: #28a745;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
+
+.upload-btn {
+    display: block;
+    background: linear-gradient(135deg, #4361ee, #2ec4b6);
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
     cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 8px;
 }
 
-.mats-submit-btn:hover {
-    background-color: #218838;
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(67, 97, 238, 0.25);
 }
 
-/* Контейнер за снимки */
-.mats-preview-container {
+.file-input {
+    display: none;
+}
+
+.image-previews {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 14px;
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1.5px dashed #cbd5e1;
+    border-radius: 14px;
     justify-content: center;
-    padding: 10px;
-    border: 2px solid #a0a0a0;
-    border-radius: 8px;
-    background-color: #e9e9e9;
 }
 
-.mats-preview-item {
+.preview-item {
     position: relative;
-    display: inline-block;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 5px;
-    background-color: #fff;
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: white;
 }
 
-.mats-preview-img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
 }
 
-
-.mats-remove-btn {
+.remove-btn {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #dc3545;
-    color: #fff;
-    border: 2px solid #fff;
+    top: -12px;
+    right: -12px;
+    width: 28px;
+    height: 28px;
+    background: #ef4444;
+    color: white;
+    border: 2.5px solid white;
     border-radius: 50%;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    line-height: 1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.2s, transform 0.1s;
-    z-index: 10;
+    box-shadow: 0 3px 10px rgba(239, 68, 68, 0.4);
+    transition: all 0.2s ease;
+    z-index: 15;
 }
 
-.mats-remove-btn:hover {
-    background: #c62828;
-    transform: scale(1.1);
+.remove-btn:hover {
+    background: #dc2626;
+    transform: scale(1.15);
+}
+
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.3);
+}
+
+
+.notification {
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.notification.success {
+    background: #f0fdf4;
+    color: #065f46;
+    border: 1px solid #bbf7d0;
+}
+
+.notification.error {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+
+@media (max-width: 768px) {
+    .add-mats-container {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    .add-mats-form {
+        padding: 24px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .form-group {
+        min-width: 100%;
+    }
+
+    .preview-item {
+        width: 90px;
+        height: 90px;
+    }
+
+    .remove-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        top: -10px;
+        right: -10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .preview-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .remove-btn {
+        width: 22px;
+        height: 22px;
+        top: -9px;
+        right: -9px;
+    }
 }

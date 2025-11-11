@@ -1,67 +1,66 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom"; 
-import { AuthContext } from '../../Context/AuthContext'; 
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../Context/AuthContext';
 import "./addaccessory.css";
 
 function AddAccessory() {
     const { user, isLoggedIn } = useContext(AuthContext);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
     const [message, setMessage] = useState('');
-    const [images, setImages] = useState([]); 
+    const [images, setImages] = useState([]);
+
+    const categories = [
+        "балансьори",
+        "краш-тапи",
+        "гараж",
+        "лепенки",
+        "ръкохватки"
+    ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (!title || !description || !price || !category || images.length === 0) {
             setMessage("Моля, попълнете всички полета и качете поне едно изображение!");
             return;
         }
-    
+
         try {
             const formData = new FormData();
-            images.forEach(image => formData.append('images', image));
+            images.forEach(img => formData.append('images', img));
             formData.append('title', title);
             formData.append('description', description);
             formData.append('price', price);
             formData.append('category', category);
-            formData.append('type', 'accessory')
-            
-    
+            formData.append('type', 'accessory');
+
             const response = await fetch("http://localhost:5000/api/accessories", {
                 method: "POST",
                 body: formData
             });
-    
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Грешка при качването:", errorData);
-                throw new Error("Неуспешно качване!");
-            }
-    
+
+            if (!response.ok) throw new Error("Грешка при качване!");
+
             setMessage("Аксесоарът е добавен успешно!");
-            
-            setTimeout(() => {
-                navigate("/accessories");
-            }, 1500);
-            
+            setTimeout(() => navigate("/accessories"), 1500);
         } catch (error) {
-            setMessage("Грешка при качването!");
+            setMessage("Грешка при добавяне на аксесоар!");
             console.error(error);
         }
     };
 
     const handleImageChange = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-        if (selectedFiles.length + images.length <= 5) {
-            setImages([...images, ...selectedFiles]);
-        } else {
-            alert('Можете да качите максимум 5 снимки!');
+        const files = Array.from(e.target.files);
+        if (images.length + files.length > 5) {
+            alert('Макс. 5 снимки!');
+            return;
         }
+        setImages([...images, ...files]);
     };
 
     const handleRemoveImage = (index) => {
@@ -69,87 +68,103 @@ function AddAccessory() {
     };
 
     if (!isLoggedIn || user.role !== 'admin') {
-        return <p>Нямате права да достъпвате тази страница.</p>;
+        return <p className="access-denied">Нямате права за достъп.</p>;
     }
 
     return (
-        <div>
-            <h2>Добави аксесоар</h2>
-            <form className="acc-form-container" onSubmit={handleSubmit}>
-                <div>
-                    <label>Избери категория</label>
-                    <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                        <option value="">Изберете категория</option>
-                        <option value="балансьори">Балансьори</option>
-                        <option value="краш-тапи">Краш тапи</option>
-                        <option value="гараж">Гараж</option>
-                        <option value="лепенки">Лепенки</option>
-                        <option value="ръкохватки">Ръкохватки</option>
+        <div className="add-accessory-container">
+            <form className="add-accessory-form" onSubmit={handleSubmit}>
+                <h2>Добави аксесоар</h2>
+
+                
+                <div className="form-group">
+                    <label>Категория</label>
+                    <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+                        <option value="">Избери категория</option>
+                        {categories.map(cat => (
+                            <option key={cat} value={cat}>{cat}</option>
+                        ))}
                     </select>
                 </div>
 
-                <div>
+                
+                <div className="form-group">
                     <label>Заглавие</label>
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="напр. Краш тапи R&G"
+                        required
                     />
                 </div>
 
-                <div>
+                
+                <div className="form-group">
                     <label>Описание</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        rows="4"
+                        placeholder="Кратко описание на аксесоара..."
+                        required
                     />
                 </div>
 
-                <div>
-                    <label>Цена</label>
+                
+                <div className="form-group">
+                    <label>Цена (лв.)</label>
                     <input
-                        type="text"
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        min="0"
+                        step="0.01"
+                        placeholder="89.90"
+                        required
                     />
                 </div>
 
-                <div>
-                    <label htmlFor="acc-image-upload" className="acc-upload-label">
-                        <i className="fas fa-upload"></i> Добави изображения
+               
+                <div className="form-group">
+                    <label>Снимки (макс. 5)</label>
+                    <label htmlFor="acc-image-upload" className="upload-btn">
+                        Качи снимки
                     </label>
                     <input
                         id="acc-image-upload"
                         type="file"
                         accept="image/*"
-                        className="acc-upload-button"
-                        onChange={handleImageChange}
                         multiple
+                        onChange={handleImageChange}
+                        className="file-input"
                     />
-                    <div className="acc-image-previews-list">
-                        {images.map((image, index) => (
-                            <div key={index} className="acc-image-preview-item">
-                                <img
-                                    src={URL.createObjectURL(image)}
-                                    alt={`Uploaded ${index}`}
-                                    className="acc-preview-thumb"
-                                />
+                    <div className="image-previews">
+                        {images.map((img, i) => (
+                            <div key={i} className="preview-item">
+                                <img src={URL.createObjectURL(img)} alt={`Preview ${i}`} />
                                 <button
                                     type="button"
-                                    className="acc-remove-image-btn"
-                                    onClick={() => handleRemoveImage(index)}
+                                    onClick={() => handleRemoveImage(i)}
+                                    className="remove-btn"
                                 >
-                                    &times;
+                                    x
                                 </button>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <button className='acc-submit-btn' type="submit">Добави аксесоар</button>
+                <button type="submit" className="submit-btn">
+                    Добави аксесоар
+                </button>
             </form>
 
-            {message && <p className="acc-message">{message}</p>}
+            {message && (
+                <p className={`message ${message.includes('Грешка') ? 'error' : 'success'}`}>
+                    {message}
+                </p>
+            )}
         </div>
     );
 }

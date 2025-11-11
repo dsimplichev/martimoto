@@ -7,30 +7,26 @@ const AddWiperFluidForm = () => {
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
     const [images, setImages] = useState([]);
-    const [previews, setPreviews] = useState([]);
     const [notification, setNotification] = useState(null);
 
-    
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
-        const newFiles = [...images, ...files].slice(0, 3);
-        setImages(newFiles);
-        setPreviews(newFiles.map(file => URL.createObjectURL(file)));
+        if (images.length + files.length > 3) {
+            setNotification({ type: "error", message: "Макс. 3 снимки!" });
+            return;
+        }
+        setImages(prev => [...prev, ...files]);
     };
 
-    
     const handleRemoveImage = (index) => {
-        const newImages = images.filter((_, i) => i !== index);
-        const newPreviews = previews.filter((_, i) => i !== index);
-        setImages(newImages);
-        setPreviews(newPreviews);
+        setImages(prev => prev.filter((_, i) => i !== index));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!title || !volume || !price || images.length === 0) {
-            setNotification({ type: "error", message: "Моля, попълнете всички полета и добавете поне едно изображение!" });
+            setNotification({ type: "error", message: "Попълнете всички полета и качете поне 1 снимка!" });
             return;
         }
 
@@ -38,86 +34,106 @@ const AddWiperFluidForm = () => {
         formData.append("title", title);
         formData.append("volume", volume);
         formData.append("price", price);
-        images.forEach(image => formData.append("images", image));
+        images.forEach(img => formData.append("images", img));
 
         try {
             const response = await axios.post(
                 "http://localhost:5000/api/wiper-fluid/add",
-                formData
+                formData,
+                { headers: { "Content-Type": "multipart/form-data" } }
             );
 
-            if (response.status === 201) {
-                setNotification({ type: "success", message: "Течността беше добавена успешно!" });
-                setTitle("");
-                setVolume("");
-                setPrice("");
-                setImages([]);
-                setPreviews([]);
-            }
+            setNotification({ type: "success", message: "Течността е добавена успешно!" });
+            setTitle("");
+            setVolume("");
+            setPrice("");
+            setImages([]);
+            document.getElementById('wiper-images').value = null;
         } catch (error) {
-            console.error(error);
-            const errorMessage = error.response?.data?.message || "Грешка при добавяне на течността.";
-            setNotification({ type: "error", message: errorMessage });
+            const msg = error.response?.data?.message || "Грешка при добавяне.";
+            setNotification({ type: "error", message: msg });
         }
     };
 
     return (
-        <div className="add-wiperfluid-form-container">
+        <div className="add-wiper-container">
             <h2>Добавяне на течност за чистачки</h2>
-            {notification && <div className={`notification ${notification.type}`}>{notification.message}</div>}
 
-            <form onSubmit={handleSubmit} className="add-wiperfluid-form">
-                <label>Заглавие:</label>
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Напр. Течност за чистачки - зимна"
-                />
+            {notification && (
+                <div className={`notification ${notification.type}`}>
+                    {notification.message}
+                </div>
+            )}
 
-                <label>Разфасовка (литри):</label>
-                <input
-                    type="text"
-                    value={volume}
-                    onChange={(e) => setVolume(e.target.value)}
-                    placeholder="Напр. 2L"
-                />
-
-                <label>Цена (лв):</label>
-                <input
-                    type="number"
-                    step="0.01"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Напр. 8.50"
-                />
-
-                <label>Изображения (до 3):</label>
-                <input
-                    type="file"
-                    name="images"
-                    multiple
-                    accept="image/*"
-                    onChange={handleImageChange}
-                />
-
+            <form onSubmit={handleSubmit} className="add-wiper-form">
                 
-                <div className="preview-container-fluid">
-                    {previews.map((src, idx) => (
-                        <div key={idx} className="preview-item-fluid">
-                            <img src={src} alt={`preview-${idx}`} className="preview-img-fluid" />
-                            <button
-                                type="button"
-                                className="remove-img-btn-fluid"
-                                onClick={() => handleRemoveImage(idx)}
-                            >
-                                &times; 
-                            </button>
-                        </div>
-                    ))}
+                <div className="form-group">
+                    <label>Заглавие</label>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="напр. Зимна течност -20°C"
+                        required
+                    />
                 </div>
 
-                <button type="submit" className="submit-btn-fluid">Добави течност</button>
+                
+                <div className="form-group">
+                    <label>Разфасовка (литри)</label>
+                    <input
+                        type="text"
+                        value={volume}
+                        onChange={(e) => setVolume(e.target.value)}
+                        placeholder="напр. 2L, 5L"
+                        required
+                    />
+                </div>
+
+                
+                <div className="form-group">
+                    <label>Цена (лв.)</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        placeholder="8.50"
+                        required
+                    />
+                </div>
+
+                
+                <div className="form-group">
+                    <label>Снимки (до 3)</label>
+                    <label htmlFor="wiper-images" className="upload-btn">
+                        Качи снимки
+                    </label>
+                    <input
+                        id="wiper-images"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handleImageChange}
+                        className="file-input"
+                    />
+                    <div className="image-previews">
+                        {images.map((file, i) => (
+                            <div key={i} className="preview-item">
+                                <img src={URL.createObjectURL(file)} alt={`Preview ${i + 1}`} />
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveImage(i)}
+                                    className="remove-btn"
+                                >
+                                    x
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <button type="submit" className="submit-btn">Добави течност</button>
             </form>
         </div>
     );

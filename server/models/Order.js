@@ -17,14 +17,26 @@ const orderSchema = new mongoose.Schema({
   comment: { type: String, required: false },
   cart: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Part', required: true },
+      productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+      itemType: { 
+        type: String, 
+        enum: ['part', 'accessory', 'tire', 'oil', 'wiperFluid', 'mat'], 
+        required: true 
+      },
       quantity: { type: Number, required: true },
+      title: { type: String, required: true },
+      price: { type: Number, required: true },
+      image: { type: String, required: false },
     },
   ],
   totalAmount: { type: Number, required: true },
-  status: { type: String, default: "Pending" }, 
+  status: { type: String, default: "Pending" },
+  statusHistory: [
+    {
+      status: { type: String, required: true },
+      timestamp: { type: Date, default: Date.now }
+    }
+  ],
 }, { timestamps: true });
 
-const Order = mongoose.model('Order', orderSchema);
-
-module.exports = Order;
+module.exports = mongoose.model('Order', orderSchema);

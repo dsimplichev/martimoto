@@ -3,154 +3,236 @@ import { useParams } from "react-router-dom";
 import "./orderDetails.css";
 
 const OrderDetails = () => {
-    const { orderId } = useParams();
-    const [order, setOrder] = useState(null);
-    const [productsData, setProductsData] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const { orderId } = useParams();
+  const [order, setOrder] = useState(null);
+  const [productsData, setProductsData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchOrder = async () => {
-            try {
-                const res = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-                    credentials: "include"
-                });
-                if (!res.ok) throw new Error("Поръчката не е намерена");
-                const data = await res.json();
-                setOrder(data);
-
-                if (data.cart && data.cart.length > 0) {
-                    await fetchProductsDetails(data.cart);
-                } else {
-                    setProductsData({});
-                }
-
-                setLoading(false);
-            } catch (err) {
-                console.error("Грешка при зареждане на поръчката:", err);
-                setError(err.message);
-                setLoading(false);
-            }
-        };
-
-        fetchOrder();
-    }, [orderId]);
-
-    const fetchProductsDetails = async (cartItems) => {
-        const details = {};
-        const fetchPromises = cartItems.map(async (item) => {
-            const productId = item.productId;
-
-            const endpoints = [
-                { type: "accessory",   url: `http://localhost:5000/accessories/detail/${productId}` },
-                { type: "part",        url: `http://localhost:5000/api/parts/${productId}` },
-                { type: "tire",        url: `http://localhost:5000/api/car-tires/${productId}` },
-                { type: "oil",         url: `http://localhost:5000/api/oils/${productId}` },
-                { type: "wiperFluid",  url: `http://localhost:5000/api/wiper-fluids/${productId}` },
-                { type: "mat",         url: `http://localhost:5000/api/mats/${productId}` }, // Нов ендпойнт
-            ];
-
-            for (const endpoint of endpoints) {
-                try {
-                    const res = await fetch(endpoint.url);
-                    if (res.ok) {
-                        const productData = await res.json();
-                        details[productId] = {
-                            title: productData.title || productData.name || "Неизвестен продукт",
-                            price: productData.price || 0,
-                            images: productData.images || (productData.image ? [productData.image] : []),
-                        };
-                        return;
-                    }
-                } catch (err) {
-                    
-                }
-            }
-
-            console.warn(`Продукт с ID ${productId} не е намерен в нито един ендпойнт`);
-            details[productId] = null;
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+          credentials: "include",
         });
+        if (!res.ok) throw new Error("Поръчката не е намерена");
+        const data = await res.json();
+        setOrder(data);
 
-        await Promise.all(fetchPromises);
-        setProductsData(details);
+        if (data.cart && data.cart.length > 0) {
+          await fetchProductsDetails(data.cart);
+        } else {
+          setProductsData({});
+        }
+
+        setLoading(false);
+      } catch (err) {
+        console.error("Грешка при зареждане:", err);
+        setError(err.message);
+        setLoading(false);
+      }
     };
 
-    if (loading) return <p className="loading-message">Зареждане на поръчката...</p>;
-    if (error || !order) return <p className="loading-message error">Грешка: {error || "Поръчката не съществува!"}</p>;
+    fetchOrder();
+  }, [orderId]);
 
-    return (
-        <div className="order-details-container">
-            <h2 className="order-details-title">Детайли за поръчка № {order._id}</h2>
-            <p><strong>Клиент:</strong> {order.firstName} {order.lastName}</p>
-            <p><strong>Email:</strong> {order.email}</p>
-            <p><strong>Телефон:</strong> {order.phone}</p>
-            <p><strong>Доставка:</strong> {order.deliveryMethod || "Не е посочено"}</p>
-            <p><strong>Град:</strong> {order.city || "Не е посочено"}</p>
-            <p><strong>Офис:</strong> {order.office || "Не е посочено"}</p>
-            <p><strong>Адрес за доставка:</strong> {order.deliveryAddress || "Не е посочен адрес"}</p>
+  const fetchProductsDetails = async (cartItems) => {
+    const details = {};
 
-            {order.companyName && (
-                <div className="company-details">
-                    <h3>Данни за фирма</h3>
-                    <p><strong>Име на фирмата:</strong> {order.companyName}</p>
-                    <p><strong>Регистрационен номер:</strong> {order.companyReg}</p>
-                    <p><strong>ЕИК:</strong> {order.companyEIK}</p>
-                    <p><strong>Адрес на фирмата:</strong> {order.companyAddress}</p>
-                </div>
-            )}
+    const fetchPromises = cartItems.map(async (item) => {
+      const productId = item.productId;
+      const itemType = item.itemType;
 
-            <h3>Продукти в поръчката</h3>
-            {order.cart.length === 0 ? (
-                <p>Няма продукти в поръчката.</p>
-            ) : (
-                <ul className="cart-items">
-                    {order.cart.map((item) => {
-                        const product = productsData[item.productId];
-                        const subtotal = product ? product.price * item.quantity : 0;
+      let url = "";
+      let title = "";
+      let price = 0;
+      let images = [];
 
-                        return (
-                            <li key={item._id} className="cart-item">
-                                {product ? (
-                                    <>
-                                        {product.images && product.images.length > 0 ? (
-                                            <img
-                                                src={product.images[0]}
-                                                alt={product.title}
-                                                className="product-image"
-                                                onError={(e) => {
-                                                    e.target.style.display = "none";
-                                                }}
-                                            />
-                                        ) : (
-                                            <div className="product-image placeholder">Без снимка</div>
-                                        )}
-                                        <div className="product-info">
-                                            <p className="product-title"><strong>{product.title}</strong></p>
-                                            <p><strong>Цена:</strong> {product.price.toFixed(2)} лв.</p>
-                                            <p><strong>Количество:</strong> {item.quantity}</p>
-                                            <p><strong>Сума:</strong> {subtotal.toFixed(2)} лв.</p>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <p className="missing-product">
-                                        <strong>Липсващ продукт (ID: {item.productId})</strong>
-                                        <br />
-                                        <small>Може да е изтрит или недостъпен.</small>
-                                    </p>
-                                )}
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
+      try {
+        
+        switch (itemType) {
+          case "tire":
+            url = `http://localhost:5000/api/car-tires/${productId}`;
+            break;
+          case "oil":
+            url = `http://localhost:5000/api/oils/${productId}`;
+            break;
+          case "wiperFluid":
+            url = `http://localhost:5000/api/wiper-fluid/${productId}`;
+            break;
+          case "mat":
+            url = `http://localhost:5000/api/mats/${productId}`;
+            break;
+          case "part":
+            url = `http://localhost:5000/api/parts/${productId}`;
+            break;
+          case "accessory":
+            url = `http://localhost:5000/accessories/detail/${productId}`;
+            break;
+          default:
+            details[productId] = null;
+            return;
+        }
 
-            <div className="order-summary">
-                <p className="total-amount"><strong>Обща сума:</strong> {order.totalAmount.toFixed(2)} лв.</p>
-                <p><strong>Статус:</strong> <span className={`status ${order.status.toLowerCase()}`}>{order.status}</span></p>
-                <p><strong>Коментар:</strong> {order.comment || "Няма коментар"}</p>
-            </div>
+        const res = await fetch(url);
+        if (!res.ok) {
+          details[productId] = null;
+          return;
+        }
+
+        const product = await res.json();
+
+       
+        switch (itemType) {
+          case "tire":
+            title = `${product.brand} ${product.model} ${product.width}/${product.aspectRatio} R${product.diameter} ${product.speedRating}`;
+            break;
+          case "oil":
+            title = `${product.brand} ${product.viscosity} ${product.type} ${product.volume}`;
+            break;
+          case "wiperFluid":
+            title = product.title || "Течност за чистачки";
+            break;
+          case "mat":
+            title = product.title || `${product.carBrand} ${product.carModel}`;
+            break;
+          case "part":
+          case "accessory":
+            title = product.title || "Продукт";
+            break;
+          default:
+            title = "Неизвестен продукт";
+        }
+
+        price = product.price || 0;
+        images = product.images || (product.image ? [product.image] : []);
+
+        details[productId] = { title, price, images };
+      } catch (err) {
+        console.warn(`Грешка при продукт ${productId}:`, err);
+        details[productId] = null;
+      }
+    });
+
+    await Promise.all(fetchPromises);
+    setProductsData(details);
+  };
+
+  if (loading) return <p className="ord-det-loading">Зареждане на поръчката...</p>;
+  if (error || !order) return <p className="ord-det-error">Грешка: {error || "Поръчката не съществува!"}</p>;
+
+  return (
+    <div className="ord-det-container">
+      <header className="ord-det-header">
+        <h1 className="ord-det-title">Поръчка № {order._id.slice(-8)}</h1>
+        <p className="ord-det-subtitle">Детайли и статус</p>
+      </header>
+
+      <section className="ord-det-info">
+        <div className="ord-det-info-item">
+          <strong>Клиент:</strong> {order.firstName} {order.lastName}
         </div>
-    );
+        <div className="ord-det-info-item">
+          <strong>Email:</strong> <a href={`mailto:${order.email}`}>{order.email}</a>
+        </div>
+        <div className="ord-det-info-item">
+          <strong>Телефон:</strong> <a href={`tel:${order.phone}`}>{order.phone}</a>
+        </div>
+        <div className="ord-det-info-item">
+          <strong>Доставка:</strong> {order.deliveryMethod || "—"}
+        </div>
+        <div className="ord-det-info-item">
+          <strong>Град:</strong> {order.city || "—"}
+        </div>
+        {order.office && (
+          <div className="ord-det-info-item">
+            <strong>Офис:</strong> {order.office}
+          </div>
+        )}
+        {order.deliveryAddress && (
+          <div className="ord-det-info-item">
+            <strong>Адрес:</strong> {order.deliveryAddress}
+          </div>
+        )}
+      </section>
+
+      {order.companyName && (
+        <section className="ord-det-company">
+          <h3 className="ord-det-section-title">Фактура</h3>
+          <div className="ord-det-company-grid">
+            <div><strong>Фирма:</strong> {order.companyName}</div>
+            <div><strong>МОЛ:</strong> {order.companyReg}</div>
+            <div><strong>ЕИК:</strong> {order.companyEIK}</div>
+            <div><strong>Адрес:</strong> {order.companyAddress}</div>
+          </div>
+        </section>
+      )}
+
+      <section className="ord-det-products">
+        <h3 className="ord-det-section-title">Продукти</h3>
+        {order.cart.length === 0 ? (
+          <p className="ord-det-empty">Няма продукти в поръчката.</p>
+        ) : (
+          <div className="ord-det-cart">
+            {order.cart.map((item) => {
+              const product = productsData[item.productId];
+              const subtotal = product ? product.price * item.quantity : 0;
+
+              return (
+                <article key={item._id} className="ord-det-item">
+                  {product ? (
+                    <>
+                      {product.images && product.images.length > 0 ? (
+                        <img
+                          src={product.images[0]}
+                          alt={product.title}
+                          className="ord-det-img"
+                          onError={(e) => (e.target.style.display = "none")}
+                        />
+                      ) : (
+                        <div className="ord-det-img ord-det-img-placeholder">Без снимка</div>
+                      )}
+                      <div className="ord-det-item-info">
+                        <h4 className="ord-det-item-title">{product.title}</h4>
+                        <div className="ord-det-item-details">
+                          <span><strong>Цена:</strong> {product.price.toFixed(2)} лв.</span>
+                          <span><strong>Бр.:</strong> {item.quantity}</span>
+                          <span><strong>Сума:</strong> {subtotal.toFixed(2)} лв.</span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="ord-det-missing">
+                      <strong>Липсващ продукт (ID: {item.productId})</strong>
+                      <small>Може да е изтрит от каталога.</small>
+                    </div>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      <footer className="ord-det-summary">
+        <div className="ord-det-summary-row">
+          <strong>Обща сума:</strong>
+          <span className="ord-det-total">{order.totalAmount.toFixed(2)} лв.</span>
+        </div>
+        <div className="ord-det-summary-row">
+          <strong>Статус:</strong>
+          <span className={`ord-det-status ord-det-status-${order.status.toLowerCase()}`}>
+            {order.status}
+          </span>
+        </div>
+        {order.comment && (
+          <div className="ord-det-summary-row ord-det-comment">
+            <strong>Коментар:</strong> {order.comment}
+          </div>
+        )}
+      </footer>
+    </div>
+  );
 };
 
 export default OrderDetails;
