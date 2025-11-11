@@ -6,13 +6,11 @@ import { FaUserCircle, FaShoppingCart, FaHeart, FaChevronDown } from "react-icon
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './nav.css';
 import martimoto10 from '../../assets/martimoto10.png';
-import Register from '../register/Register';
 import Login from '../login/Login';
-import axios from 'axios';
 import { HashLink } from 'react-router-hash-link';
 
 function Nav({ onLogout }) {
-    const { isLoggedIn, user, logout, setUser } = useContext(AuthContext);
+    const { isLoggedIn, user, logout } = useContext(AuthContext);
     const { cart } = useContext(CartContext);
     const { favorites } = useContext(FavoritesContext);
 
@@ -34,8 +32,6 @@ function Nav({ onLogout }) {
         logout();
         onLogout?.();
     };
-
-    
 
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     const totalBGN = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
