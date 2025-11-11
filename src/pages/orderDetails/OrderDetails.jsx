@@ -49,7 +49,6 @@ const OrderDetails = () => {
       let images = [];
 
       try {
-        
         switch (itemType) {
           case "tire":
             url = `http://localhost:5000/api/car-tires/${productId}`;
@@ -82,7 +81,6 @@ const OrderDetails = () => {
 
         const product = await res.json();
 
-       
         switch (itemType) {
           case "tire":
             title = `${product.brand} ${product.model} ${product.width}/${product.aspectRatio} R${product.diameter} ${product.speedRating}`;
@@ -175,38 +173,55 @@ const OrderDetails = () => {
         ) : (
           <div className="ord-det-cart">
             {order.cart.map((item) => {
-              const product = productsData[item.productId];
-              const subtotal = product ? product.price * item.quantity : 0;
+              const liveProduct = productsData[item.productId];
+
+              
+              const fallback = {
+                title: item.title || "Липсващо име",
+                price: item.price || 0,
+                images: item.image ? [item.image] : [],
+              };
+
+              const display = liveProduct || fallback;
+              const subtotal = display.price * (item.quantity || 1);
 
               return (
-                <article key={item._id} className="ord-det-item">
-                  {product ? (
-                    <>
-                      {product.images && product.images.length > 0 ? (
-                        <img
-                          src={product.images[0]}
-                          alt={product.title}
-                          className="ord-det-img"
-                          onError={(e) => (e.target.style.display = "none")}
-                        />
-                      ) : (
-                        <div className="ord-det-img ord-det-img-placeholder">Без снимка</div>
-                      )}
-                      <div className="ord-det-item-info">
-                        <h4 className="ord-det-item-title">{product.title}</h4>
-                        <div className="ord-det-item-details">
-                          <span><strong>Цена:</strong> {product.price.toFixed(2)} лв.</span>
-                          <span><strong>Бр.:</strong> {item.quantity}</span>
-                          <span><strong>Сума:</strong> {subtotal.toFixed(2)} лв.</span>
-                        </div>
-                      </div>
-                    </>
+                <article key={item.productId || item._id} className="ord-det-item">
+                  {display.images.length > 0 ? (
+                    <img
+                      src={display.images[0]}
+                      alt={display.title}
+                      className="ord-det-img"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        e.target.nextSibling?.classList.remove("ord-det-img-placeholder");
+                      }}
+                    />
                   ) : (
-                    <div className="ord-det-missing">
-                      <strong>Липсващ продукт (ID: {item.productId})</strong>
-                      <small>Може да е изтрит от каталога.</small>
-                    </div>
+                    <div className="ord-det-img ord-det-img-placeholder">Без снимка</div>
                   )}
+
+                  <div className="ord-det-item-info">
+                    <h4 className="ord-det-item-title">
+                      {display.title}
+                      {!liveProduct && (
+                        <span className="ord-det-missing-badge">
+                          
+                        </span>
+                      )}
+                    </h4>
+                    <div className="ord-det-item-details">
+                      <span>
+                        <strong>Цена:</strong> {display.price.toFixed(2)} лв.
+                      </span>
+                      <span>
+                        <strong>Бр.:</strong> {item.quantity || 1}
+                      </span>
+                      <span>
+                        <strong>Сума:</strong> {subtotal.toFixed(2)} лв.
+                      </span>
+                    </div>
+                  </div>
                 </article>
               );
             })}
