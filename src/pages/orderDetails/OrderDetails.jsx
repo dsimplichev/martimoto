@@ -175,7 +175,7 @@ const OrderDetails = () => {
             {order.cart.map((item) => {
               const liveProduct = productsData[item.productId];
 
-              
+
               const fallback = {
                 title: item.title || "Липсващо име",
                 price: item.price || 0,
@@ -206,7 +206,7 @@ const OrderDetails = () => {
                       {display.title}
                       {!liveProduct && (
                         <span className="ord-det-missing-badge">
-                          
+
                         </span>
                       )}
                     </h4>
@@ -228,6 +228,12 @@ const OrderDetails = () => {
           </div>
         )}
       </section>
+      {order.comment && (
+        <section className="ord-det-comment-section">
+          <h3 className="ord-det-section-title">Коментар:</h3>
+          <p className="ord-det-comment-text">{order.comment}</p>
+        </section>
+      )}
 
       <footer className="ord-det-summary">
         <div className="ord-det-summary-row">
@@ -240,11 +246,7 @@ const OrderDetails = () => {
             {order.status}
           </span>
         </div>
-        {order.comment && (
-          <div className="ord-det-summary-row ord-det-comment">
-            <strong>Коментар:</strong> {order.comment}
-          </div>
-        )}
+
       </footer>
     </div>
   );

@@ -30,7 +30,7 @@
   margin: 0;
 }
 
-/* === ИНФОРМАЦИЯ === */
+
 .ord-det-info {
   display: grid;
   gap: 0.75rem;
@@ -210,13 +210,34 @@
 .ord-det-status-cancelled  { background: #ffebee; color: #c62828; }
 .ord-det-status-deleted    { background: #eceff1; color: #546e7a; }
 
-.ord-det-comment {
-  margin-top: 1rem;
-  font-style: italic;
-  color: #555;
+.ord-det-comment-section {
+  background: #f8f9fa;
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  margin: 1.5rem 0;
 }
 
-/* === СЪСТОЯНИЯ === */
+.ord-det-comment-section .ord-det-section-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.ord-det-comment-text {
+  margin: 0;
+  font-style: italic;
+  color: #444;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
 .ord-det-loading,
 .ord-det-error {
   text-align: center;
@@ -266,5 +287,18 @@
 
   .ord-det-total {
     font-size: 1.3rem;
+  }
+
+  .ord-det-comment-section {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .ord-det-comment-section .ord-det-section-title {
+    font-size: 1.1rem;
+  }
+
+  .ord-det-comment-text {
+    font-size: 0.95rem;
   }
 }
