@@ -16,19 +16,20 @@ function MatsPage() {
     const [filteredMats, setFilteredMats] = useState([]);
     const [notification, setNotification] = useState("");
 
+    const [itemsToShow, setItemsToShow] = useState(9);
+    const [isMobile, setIsMobile] = useState(false);
+
     const navigate = useNavigate();
     const { addToCart } = useContext(CartContext);
 
     const brandOptions = Object.keys(MATS_SEARCH_OPTIONS.Марки);
     const materialOptions = MATS_SEARCH_OPTIONS.Материал || [];
 
-    
     const modelOptions = useMemo(() => {
         const models = MATS_SEARCH_OPTIONS.Марки[brand] || [];
         return models.map(m => m.name || m);
     }, [brand]);
 
-    
     const yearOptions = useMemo(() => {
         if (brand === 'Избери Марка' || model === 'Избери Модел') return [];
         const years = [];
@@ -38,18 +39,43 @@ function MatsPage() {
         return years;
     }, [brand, model]);
 
+    
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth <= 768;
+            setIsMobile(mobile);
+            setItemsToShow(mobile ? 6 : 9);
+        };
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    
     useEffect(() => {
         const fetchMats = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/mats');
                 setMats(response.data);
                 setFilteredMats(response.data);
+                setItemsToShow(isMobile ? 6 : 9);
             } catch (err) {
                 console.error('Грешка при зареждане на стелки:', err);
             }
         };
         fetchMats();
-    }, []);
+    }, [isMobile]);
+
+    
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                setItemsToShow(prev => Math.min(prev + (isMobile ? 6 : 9), filteredMats.length));
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [filteredMats, isMobile]);
 
     const handleBuyClick = (mat) => {
         const item = {
@@ -60,7 +86,6 @@ function MatsPage() {
             image: mat.images?.[0] || 'https://placehold.co/400x300?text=No+Image',
             itemType: "mat",
         };
-
         addToCart(item);
         setNotification(`Продукт "${mat.title}" беше добавен в количката.`);
         setTimeout(() => setNotification(""), 3000);
@@ -88,17 +113,17 @@ function MatsPage() {
             const modelMatch = model === 'Избери Модел' || mat.carModel === model;
             const yearMatch = year === 'Избери Година' || mat.carYear === year;
             const materialMatch = material === 'Избери Материал' || mat.material === material;
-            
             return brandMatch && modelMatch && yearMatch && materialMatch;
         });
+
+        setFilteredMats(results);
+        setItemsToShow(isMobile ? 6 : 9);
 
         if (results.length === 0) {
             setNotification("Няма намерени артикули според зададените критерии.");
         } else {
             setNotification("");
         }
-
-        setFilteredMats(results);
     };
 
     const resetSearch = () => {
@@ -107,19 +132,14 @@ function MatsPage() {
         setYear('Избери Година');
         setMaterial('Избери Материал');
         setFilteredMats(mats);
+        setItemsToShow(isMobile ? 6 : 9);
         setNotification("");
     };
 
     const renderSelect = (stateValue, setStateFunction, label, options) => {
         let isDisabled = false;
-        
-        if (label === 'Модел' && brand === 'Избери Марка') {
-            isDisabled = true;
-        }
-        
-        if (label === 'Година' && (brand === 'Избери Марка' || model === 'Избери Модел')) {
-            isDisabled = true;
-        }
+        if (label === 'Модел' && brand === 'Избери Марка') isDisabled = true;
+        if (label === 'Година' && (brand === 'Избери Марка' || model === 'Избери Модел')) isDisabled = true;
 
         return (
             <div className="select-wrapper">
@@ -132,9 +152,7 @@ function MatsPage() {
                     <option value={`Избери ${label}`} disabled>
                         {label.toUpperCase()}
                     </option>
-                    {options.map((v) => (
-                        <option key={v} value={v}>{v}</option>
-                    ))}
+                    {options.map((v) => <option key={v} value={v}>{v}</option>)}
                 </select>
             </div>
         );
@@ -143,7 +161,6 @@ function MatsPage() {
     return (
         <div className="mats-page-container">
             <SectionHeader title="СТЕЛКИ" />
-
             {notification && <div className="cart-notification-center">{notification}</div>}
 
             <form onSubmit={handleSearch} className="search-form-new mats-search-form">
@@ -163,10 +180,10 @@ function MatsPage() {
                     <p className="no-items-message">Няма намерени артикули според зададените критерии.</p>
                 ) : (
                     <div className="mats-grid">
-                        {filteredMats.map((mat) => (
+                        {filteredMats.slice(0, itemsToShow).map((mat) => (
                             <div key={mat._id} className="mat-card">
                                 <img
-                                    src={mat.images[0] || 'https://placehold.co/400x300?text=No+Image'}
+                                    src={mat.images?.[0] || 'https://placehold.co/400x300?text=No+Image'}
                                     alt={mat.title}
                                     className="mat-image"
                                 />

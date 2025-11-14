@@ -14,10 +14,14 @@ function TireSearchForm() {
     const [ratio, setRatio] = useState('Избери Височина');
     const [diameter, setDiameter] = useState('Избери Диаметър');
     const [brand, setBrand] = useState('Избери Марка');
-    const [season, setSeason] = useState('ANY'); 
+    const [season, setSeason] = useState('ANY');
+
     const [allTires, setAllTires] = useState([]);
     const [displayedTires, setDisplayedTires] = useState([]);
+
+    const [visibleCount, setVisibleCount] = useState(9); 
     const [notification, setNotification] = useState("");
+
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
     const currentOptions = TIRE_OPTIONS[tireType];
@@ -31,19 +35,39 @@ function TireSearchForm() {
     }, [tireType]);
 
     
+    useEffect(() => {
+        fetchTires();
+
+        const cardsPerLoad = window.innerWidth <= 768 ? 6 : 9;
+        setVisibleCount(cardsPerLoad);
+    }, []);
+
     const fetchTires = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/car-tires');
             setAllTires(response.data);
-            setDisplayedTires(response.data); 
+            setDisplayedTires(response.data);
         } catch (err) {
             console.error('Грешка при зареждане на гуми:', err);
         }
     };
 
+    const loadMoreTires = () => {
+        const cardsPerLoad = window.innerWidth <= 768 ? 6 : 9;
+        setVisibleCount(prev => prev + cardsPerLoad);
+    };
+
+    
     useEffect(() => {
-        fetchTires();
-    }, []);
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+                loadMoreTires();
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [displayedTires]);
 
     
     const handleAddToCart = (tire) => {
@@ -51,16 +75,17 @@ function TireSearchForm() {
             _id: tire._id,
             title: `${tire.brand} ${tire.model}`,
             price: tire.price,
-            image: tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png',
+            image: tire.images?.length > 0 ? tire.images[0] : '/placeholder.png',
             itemType: "tire",
             quantity: 1
         };
         addToCart(productForCart);
+
         setNotification(`Продукт "${tire.brand} ${tire.model}" е добавен в количката.`);
         setTimeout(() => setNotification(""), 3000);
     };
 
-
+    
     const handleSearch = (e, explicitSeason = season) => {
         if (e) e.preventDefault();
 
@@ -72,13 +97,13 @@ function TireSearchForm() {
             const diameterMatch = diameter === 'Избери Диаметър' || tire.diameter.toString().replace(/R/gi, '') === diameter.toString().replace(/R/gi, '');
             const brandMatch = brand === 'Избери Марка' || tire.brand === brand;
             const seasonMatch = currentSeason === 'ANY' || tire.season?.trim().toLowerCase() === currentSeason.toLowerCase();
-
             return widthMatch && ratioMatch && diameterMatch && brandMatch && seasonMatch;
         });
 
+        const cardsPerLoad = window.innerWidth <= 768 ? 6 : 9;
+        setVisibleCount(cardsPerLoad);
         setDisplayedTires(filteredTires);
     };
-
 
     const handleSeasonChange = (newSeason) => {
         const nextSeason = season === newSeason ? 'ANY' : newSeason;
@@ -86,16 +111,17 @@ function TireSearchForm() {
         setTimeout(() => handleSearch(null, nextSeason), 0);
     };
 
-
     const resetSearch = () => {
+        const cardsPerLoad = window.innerWidth <= 768 ? 6 : 9;
+
         setWidth('Избери Широчина');
         setRatio('Избери Височина');
         setDiameter('Избери Диаметър');
         setBrand('Избери Марка');
         setSeason('ANY');
+        setVisibleCount(cardsPerLoad);
         setDisplayedTires(allTires);
     };
-
 
     const renderSelect = (stateValue, setStateFunction, label, key) => {
         if (!currentOptions || !currentOptions[key]) return null;
@@ -116,6 +142,7 @@ function TireSearchForm() {
     return (
         <div className="tire-search-container">
             {notification && <div className="cart-notification-center">{notification}</div>}
+
             <form onSubmit={handleSearch} className="search-form-new">
                 <div className="select-group main-params-new">
                     {renderSelect(width, setWidth, 'Широчина', 'width')}
@@ -147,29 +174,36 @@ function TireSearchForm() {
                     <p className="no-tires-message">Няма налични гуми, отговарящи на Вашите критерии.</p>
                 ) : (
                     <div className="tire-grid">
-                        {displayedTires.map(tire => (
+                        {displayedTires.slice(0, visibleCount).map(tire => (
                             <div key={tire._id} className="tire-card">
                                 <div className="tire-image-wrapper">
                                     <img
-                                        src={tire.images && tire.images.length > 0 ? tire.images[0] : '/placeholder.png'}
-                                        alt={`${tire.brand || ''} ${tire.model || ''}`}
+                                        src={tire.images?.length > 0 ? tire.images[0] : '/placeholder.png'}
+                                        alt={`${tire.brand} ${tire.model}`}
                                         className="tire-image"
                                     />
                                 </div>
+
                                 <div className="tire-info-details">
-                                    <p className="tire-subtitle">{tire.brand || 'Марка'} | {tire.model || 'Модел'}</p>
+                                    <p className="tire-subtitle">{tire.brand} | {tire.model}</p>
+
                                     <p className="tire-size-season">
                                         {tire.width}/{tire.aspectRatio}/R{tire.diameter} | {tire.season}
                                         {tire.season === 'Всесезонни' && <FiCloudSnow className="season-icon-inline all-season-icon-inline" />}
                                         {tire.season === 'Зимни' && <RiSnowyFill className="season-icon-inline winter-icon-inline" />}
                                         {tire.season === 'Летни' && <RiSunFill className="season-icon-inline summer-icon-inline" />}
                                     </p>
+
                                     <div className="tire-price-row">
                                         <span className="tire-price-bgn"><strong>{Number(tire.price).toFixed(2)} лв.</strong></span>
-                                        <span className="tire-price-eur">/ {(Number(tire.price) / 1.95583).toFixed(2)} &euro; <small className="price-vat">с ддс</small></span>
+                                        <span className="tire-price-eur">/ {(Number(tire.price) / 1.95583).toFixed(2)} € <small className="price-vat">с ддс</small></span>
                                     </div>
+
                                     <div className="tire-card-actions">
-                                        <button className="view-details-button" onClick={(e) => { e.stopPropagation(); navigate(`/tire/${tire._id}`) }}>ВИЖТЕ ПОВЕЧЕ</button>
+                                        <button className="view-details-button" onClick={(e) => { e.stopPropagation(); navigate(`/tire/${tire._id}`) }}>
+                                            ВИЖТЕ ПОВЕЧЕ
+                                        </button>
+
                                         <button className="buy-button" onClick={(e) => { e.stopPropagation(); handleAddToCart(tire) }}>
                                             <FaShoppingCart className="buy-icon" /> КУПИ
                                         </button>

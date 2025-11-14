@@ -429,7 +429,7 @@ const Order = () => {
                 <p>{item.title}</p>
                 <p>{(item.price || 0)} лв. x {(item.quantity || 1)}</p>
               </div>
-              <button className="remove-btn" onClick={() => handleRemoveItem(item._id, item.itemType)}>
+              <button className="remove-btn2" onClick={() => handleRemoveItem(item._id, item.itemType)}>
                 <FaTrash />
               </button>
             </li>
