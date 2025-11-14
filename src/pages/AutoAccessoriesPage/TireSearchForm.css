@@ -1,3 +1,11 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .tire-search-container {
     max-width: 1000px;
     margin: 40px auto;
@@ -44,7 +52,6 @@
     transition: border-color 0.2s; 
 }
 
-
 .select-param option[disabled] {
     color: #888;
 }
@@ -57,13 +64,11 @@
     outline: none;
 }
 
-
 .select-wrapper::after,
 .brand-select-wrapper::after {
     content: '\f107' !important; 
     font-family: 'Font Awesome 5 Free' !important; 
     font-weight: 900 !important; 
-    
     position: absolute !important;
     top: 50% !important;
     right: 15px !important;
@@ -78,7 +83,6 @@
     max-width: 100%;
     margin-bottom: 10px;
 }
-
 
 .season-selection {
     display: flex;
@@ -104,7 +108,6 @@
     transition: all 0.2s ease;
 }
 
-
 .season-button:hover:not(.active-season) {
     border-color: #f39c12; 
 }
@@ -113,7 +116,6 @@
     font-size: 1.2rem;
     margin-right: 5px;
 }
-
 
 .all-season-icon { color: #2ecc71 !important; } 
 .winter-icon { color: #3498db !important; } 
@@ -129,8 +131,6 @@
 .season-button.active-season .season-icon {
     color: white !important;
 }
-
-
 
 .search-buttons-group {
     display: flex;
@@ -153,7 +153,6 @@
     flex-grow: 1; 
     max-width: 250px; 
 }
-
 
 .search-button-new:hover {
     background-color: #e67e22; 
@@ -178,13 +177,10 @@
     background-color: #5a6268;
 }
 
-
-
-
 .tire-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap:40px;
+    gap: 40px;
     padding: 0;
     grid-auto-rows: auto; 
     grid-auto-flow: row; 
@@ -192,18 +188,35 @@
     margin-bottom: 20px;
 }
 
+
 .tire-card {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px; 
     text-align: left; 
-    transition: box-shadow 0.2s ease;
     display: flex; 
     flex-direction: column;
     justify-content: space-between; 
     height: 100%; 
+
+    
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease forwards;
+
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out, border-color 0.3s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .tire-card:hover {
@@ -238,7 +251,6 @@
     overflow: hidden;
 }
 
-
 .tire-size-season {
     font-size: 0.95rem;
     color: #333;
@@ -254,16 +266,9 @@
     margin-left: 5px;
 }
 
-.all-season-icon-inline { 
-    color: #2ecc71 !important; 
-} 
-.winter-icon-inline { 
-    color: #3498db !important; 
-} 
-.summer-icon-inline { 
-    color: #f1c40f !important; 
-}
-
+.all-season-icon-inline { color: #2ecc71 !important; } 
+.winter-icon-inline { color: #3498db !important; } 
+.summer-icon-inline { color: #f1c40f !important; } 
 
 .tire-price-row {
     margin: 10px 0 15px 0; 
@@ -275,7 +280,6 @@
 }
 
 .tire-price-bgn strong {
-    
     font-size: 1.8rem; 
     font-weight: 900;
     color: #333;
@@ -295,7 +299,6 @@
     margin-left: 5px;
     align-self: flex-end; 
 }
-
 
 .tire-card-actions {
     display: flex;
@@ -348,88 +351,175 @@
 }
 
 
-
 @media (max-width: 768px) {
-    
     .tire-search-container {
         padding: 0 10px;
         margin: 20px auto;
-     
     }
-    
-    .search-buttons-group {
-        flex-direction: column; 
+
+    .search-form-new {
+        gap: 15px;
+    }
+
+    .main-params-new {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .select-wrapper {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .season-selection {
+        flex-wrap: wrap;
         gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .season-button {
+        flex: 1 1 100px;
+        min-width: 100px;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .search-buttons-group {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
     }
 
     .search-button-new,
     .reset-button-new {
         width: 100%;
         max-width: 100%;
-    }
-    
-    .main-params-new,
-    .season-selection {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .main-params-new,
-    .brand-select-wrapper,
-    .season-selection {
-        width: 100%;
-        max-width: 100%;
-        align-self: stretch; 
+        padding: 14px 20px;
+        font-size: 1.1rem;
     }
 
-    
-    .select-wrapper {
-        min-width: unset;
-        width: 100%;
+    .reset-button-new {
+        margin-top: 0;
     }
-    
-    
-    .season-selection {
-        flex-direction: row; 
-        flex-wrap: wrap; 
-        justify-content: flex-start;
-        gap: 10px;
-    }
-    
-    .season-button {
-        flex-basis: auto; 
+
+    .tire-grid {
+        gap: 24px;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
 }
 
 @media (max-width: 600px) {
     .tire-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px; 
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 0 8px;
     }
-    
+
+    .tire-card {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 260px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
     .tire-image-wrapper {
-        height: 120px;
-        margin-bottom: 5px;
+        height: 110px;
+        padding: 8px;
+        background-color: #f7f7f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    
+
+    .tire-image {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .tire-info-details {
+        padding: 8px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     .tire-subtitle {
-        font-size: 0.8rem;
-        min-height: 2em;
+        font-size: 0.78rem;
+        line-height: 1.2;
+        min-height: 2.4em;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin: 0 0 4px 0;
     }
-    
+
+    .tire-size-season {
+        font-size: 0.82rem;
+        margin: 2px 0 6px 0;
+        min-height: 1.4em;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .tire-price-row {
+        margin: 6px 0;
+        padding-top: 6px;
+        border-top: 1px dashed #eee;
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
     .tire-price-bgn strong {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
+        font-weight: 900;
     }
-    
+
     .tire-price-eur {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
+        color: #888;
     }
-    
+
+    .price-vat {
+        font-size: 0.65rem;
+        color: #aaa;
+    }
+
+    .tire-card-actions {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
     .view-details-button,
     .buy-button {
-        padding: 6px;
-        font-size: 0.8rem;
+        padding: 6px 8px;
+        font-size: 0.75rem;
+        border-radius: 18px;
+        text-align: center;
+    }
+
+    .buy-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .buy-icon {
+        font-size: 0.9rem;
     }
 }

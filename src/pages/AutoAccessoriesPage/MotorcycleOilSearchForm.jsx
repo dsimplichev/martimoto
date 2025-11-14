@@ -10,7 +10,6 @@ import vilka from '../../assets/vilka.png';
 import { useNavigate } from "react-router-dom";
 import { CartContext } from '../../Context/CartContext'; 
 
-
 const OIL_OPTIONS = DYNAMIC_OIL_OPTIONS['Масла за мотори'];
 
 function MotorcycleOilSearchForm() {
@@ -25,17 +24,19 @@ function MotorcycleOilSearchForm() {
     const [allOils, setAllOils] = useState([]); 
     const [displayedOils, setDisplayedOils] = useState([]); 
 
+    // ⭐ Infinite scroll
+    const [itemsToShow, setItemsToShow] = useState(9);
+    const [isMobile, setIsMobile] = useState(false);
+
     const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
-    
     const CATEGORY_MAP = {
         "Двигателно масло": "Двигателно масло",
         "Масло за скорости": "Масло за скорости",
         "Масло за вилка": "Масло за вилка"
     };
 
-   
     const handleOilTypeChange = (newOilType) => {
         setOilType(newOilType);
         setManufacturer('Избери Производител');
@@ -43,11 +44,8 @@ function MotorcycleOilSearchForm() {
         setViscosity('Избери Вискозитет');
         setOilComposition('Избери Тип масло');
         setPacking('Избери Разфасовка');
-        
     }
 
-
-    
     const fetchOils = async (selectedType) => {
         try {
             const response = await axios.get("http://localhost:5000/api/oils");
@@ -59,6 +57,7 @@ function MotorcycleOilSearchForm() {
             
             setAllOils(motorcycleOils);
             setDisplayedOils(motorcycleOils); 
+            setItemsToShow(isMobile ? 6 : 9);
         } catch (err) {
             console.error('Грешка при зареждане на масла за мотори:', err);
             setAllOils([]);
@@ -68,20 +67,35 @@ function MotorcycleOilSearchForm() {
 
     useEffect(() => {
         fetchOils(oilType);
-    }, [oilType]);
+    }, [oilType, isMobile]);
 
+    // ⭐ Device detection
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth <= 768;
+            setIsMobile(mobile);
+            setItemsToShow(mobile ? 6 : 9);
+        };
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
-    
-    const normalizeValue = (value) => {
-        if (!value) return '';
-        return value.toString().replace(/\s/g, '').trim().toLowerCase();
-    };
+    // ⭐ Infinite scroll
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                setItemsToShow(prev => Math.min(prev + (isMobile ? 6 : 9), displayedOils.length));
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [displayedOils, isMobile]);
 
-    
+    const normalizeValue = (value) => value?.toString().replace(/\s/g, '').trim().toLowerCase() || '';
+
     const handleSearch = (e) => {
         if (e) e.preventDefault();
-        
-       
         const searchManufacturer = normalizeValue(manufacturer);
         const searchPurpose = normalizeValue(purpose);
         const searchViscosity = normalizeValue(viscosity);
@@ -94,63 +108,43 @@ function MotorcycleOilSearchForm() {
         const defaultPacking = normalizeValue('Избери Разфасовка');
 
         const filteredOils = allOils.filter(oil => {
-            
-            const oilBrand = normalizeValue(oil.brand);
-            const manufacturerMatch = searchManufacturer === defaultManufacturer || oilBrand === searchManufacturer;
-            
-            
-            const oilPurpose = normalizeValue(oil.purpose);
-            const purposeMatch = searchPurpose === defaultPurpose || oilPurpose === searchPurpose;
-            
-            const oilViscosity = normalizeValue(oil.viscosity);
-            const viscosityMatch = searchViscosity === defaultViscosity || oilViscosity === searchViscosity;
-            
-            
-            const oilTypeMatch = normalizeValue(oil.type); 
-            const compositionMatch = searchComposition === defaultComposition || oilTypeMatch === searchComposition;
-            
-            
-            const oilVolume = normalizeValue(oil.volume);
-            const packingMatch = searchPacking === defaultPacking || oilVolume === searchPacking;
-            
+            const manufacturerMatch = searchManufacturer === defaultManufacturer || normalizeValue(oil.brand) === searchManufacturer;
+            const purposeMatch = searchPurpose === defaultPurpose || normalizeValue(oil.purpose) === searchPurpose;
+            const viscosityMatch = searchViscosity === defaultViscosity || normalizeValue(oil.viscosity) === searchViscosity;
+            const compositionMatch = searchComposition === defaultComposition || normalizeValue(oil.type) === searchComposition;
+            const packingMatch = searchPacking === defaultPacking || normalizeValue(oil.volume) === searchPacking;
             return manufacturerMatch && purposeMatch && viscosityMatch && compositionMatch && packingMatch;
         });
 
         setDisplayedOils(filteredOils);
+        setItemsToShow(isMobile ? 6 : 9);
     };
-    
-   
+
     const resetSearch = () => {
         setManufacturer('Избери Производител');
         setPurpose('Избери Предназначение');
         setViscosity('Избери Вискозитет');
         setOilComposition('Избери Тип масло'); 
         setPacking('Избери Разфасовка');
-        
-        setDisplayedOils(allOils); 
+        setDisplayedOils(allOils);
+        setItemsToShow(isMobile ? 6 : 9);
     }
-    
-   
+
     const handleAddToCart = (oil) => {
         const productForCart = {
             _id: oil._id,
             title: `${oil.brand} ${oil.viscosity} ${oil.volume}`,
             price: oil.price,
-            image: oil.images && oil.images.length > 0 ? oil.images[0] : '/placeholder.png',
+            image: oil.images?.[0] || '/placeholder.png',
             itemType: "oil",
             quantity: 1
         };
         addToCart(productForCart);
-        
         console.log(`Продукт ${oil.brand} добавен в количката.`); 
     };
 
-
-   
     const renderSelect = (stateValue, setStateFunction, label, key) => {
-        
         const currentOptions = OIL_OPTIONS[oilType]?.[key] || [];
-
         return (
             <div className="select-wrapper">
                 <select 
@@ -186,7 +180,6 @@ function MotorcycleOilSearchForm() {
                 </div>
 
                 <div className="select-group main-params-new">
-                    
                     {renderSelect(manufacturer, setManufacturer, 'Производител', 'Производител')}
                     {renderSelect(purpose, setPurpose, 'Предназначение', 'Предназначение')}
                     {renderSelect(viscosity, setViscosity, 'Вискозитет', 'Вискозитет')}
@@ -195,12 +188,8 @@ function MotorcycleOilSearchForm() {
                 </div>
 
                 <div className="search-buttons-group">
-                    <button type="submit" className="search-button-new">
-                        ТЪРСЕНЕ
-                    </button>
-                    <button type="button" className="reset-button-new" onClick={resetSearch}>
-                        ПОКАЖИ ВСИЧКИ
-                    </button>
+                    <button type="submit" className="search-button-new">ТЪРСЕНЕ</button>
+                    <button type="button" className="reset-button-new" onClick={resetSearch}>ПОКАЖИ ВСИЧКИ</button>
                 </div>
             </form>
 
@@ -208,11 +197,11 @@ function MotorcycleOilSearchForm() {
                 {displayedOils.length === 0 ? (
                     <p className="no-oils-message">Няма налични масла, отговарящи на Вашите критерии.</p>
                 ) : (
-                    displayedOils.map(oil => (
+                    displayedOils.slice(0, itemsToShow).map(oil => (
                         <div key={oil._id} className="oil-card">
                             <div className="oil-image-wrapper">
                                 <img
-                                    src={oil.images && oil.images.length > 0 ? oil.images[0] : 'https://placehold.co/150x150/EEEEEE/AAAAAA?text=OIL'}
+                                    src={oil.images?.[0] || 'https://placehold.co/150x150/EEEEEE/AAAAAA?text=OIL'}
                                     alt={oil.brand}
                                     className="oil-image"
                                 />
@@ -227,26 +216,17 @@ function MotorcycleOilSearchForm() {
                                     <span className="oil-detail-label">Разфасовка:</span>
                                     <span className="oil-detail-value">{oil.volume}</span>
                                 </div>
-                                
                                 <div className="oil-detail-row">
                                     <span className="oil-detail-label">Тип:</span>
-                                    <span className="oil-detail-value">{oil.type || 'N/A'}</span> 
+                                    <span className="oil-detail-value">{oil.type || 'N/A'}</span>
                                 </div>
                                 <div className="oil-price-row">
-                                    <span className="oil-price-bgn">
-                                        <strong>{Number(oil.price).toFixed(2)} лв.</strong>
-                                    </span>
+                                    <span className="oil-price-bgn"><strong>{Number(oil.price).toFixed(2)} лв.</strong></span>
                                     <span className="oil-price-eur">/ {(Number(oil.price) / 1.95583).toFixed(2)} &euro;</span>
                                 </div>
                             </div>
-
                             <div className="oil-card-actions">
-                                <button
-                                    className="oil-button view-details-button"
-                                    onClick={() => navigate(`/motorcycle-oil/${oil._id}`)}
-                                >
-                                    ВИЖ ПОВЕЧЕ
-                                </button>
+                                <button className="oil-button view-details-button" onClick={() => navigate(`/motorcycle-oil/${oil._id}`)}>ВИЖ ПОВЕЧЕ</button>
                                 <button className="oil-button buy-button" onClick={() => handleAddToCart(oil)}>
                                     <FaShoppingCart className="buy-icon" /> КУПИ
                                 </button>
