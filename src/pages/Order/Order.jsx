@@ -4,9 +4,10 @@ import axios from "axios";
 import "./order.css";
 import { RiIdCardLine } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaShoppingCart } from "react-icons/fa";
 import { CartContext } from "../../Context/CartContext";
 import NotificationCard from "../../Card/NotificationCard";
+
 
 const Order = () => {
   const { cart, removeFromCart, clearCart } = useContext(CartContext);
@@ -343,8 +344,8 @@ const Order = () => {
                     {loadingEcontOffices
                       ? "Зареждане..."
                       : selectedCityId && econtOffices.length > 0
-                      ? "Изберете офис"
-                      : "Няма офиси"}
+                        ? "Изберете офис"
+                        : "Няма офиси"}
                   </option>
                   {econtOffices.map((officeData) => (
                     <option key={officeData.id} value={officeData.address.fullAddress}>
@@ -420,21 +421,28 @@ const Order = () => {
       </div>
 
       <div className="order-right">
-        <h2>Количка</h2>
-        <ul className="cart-list">
-          {cart.map((item) => (
-            <li key={`${item._id}-${item.itemType}`} className="cart-item">
-              <img src={item.image} alt={item.title} className="cart-item-image" />
-              <div className="cart-item-details">
-                <p>{item.title}</p>
-                <p>{(item.price || 0)} лв. x {(item.quantity || 1)}</p>
-              </div>
-              <button className="remove-btn2" onClick={() => handleRemoveItem(item._id, item.itemType)}>
-                <FaTrash />
-              </button>
-            </li>
-          ))}
-        </ul>
+        <h2 className="order-cart-title2">
+          <FaShoppingCart className="order-cart-icon2" />
+          Вашата количка
+        </h2>
+
+        <div className="cart-list-container">
+          <ul className="cart-list">
+            {cart.map((item) => (
+              <li key={`${item._id}-${item.itemType}`} className="cart-item">
+                <img src={item.image} alt={item.title} className="cart-item-image" />
+                <div className="cart-item-details">
+                  <p>{item.title}</p>
+                  <p>{(item.price || 0).toFixed(2)} лв. × {item.quantity || 1}</p>
+                </div>
+                <button className="remove-btn2" onClick={() => handleRemoveItem(item._id, item.itemType)}>
+                  <FaTrash />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className="cart-total">
           <p><strong>Общо: {totalAmount.toFixed(2)} лв.</strong></p>
         </div>
