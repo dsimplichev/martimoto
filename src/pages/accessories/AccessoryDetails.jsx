@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { CartContext } from "../../Context/CartContext";
 import { FavoritesContext } from "../../Context/FavoritesContext";
-
+import { AuthContext } from "../../Context/AuthContext";
 import "./accessoryDetails.css";
 import SectionHeader from "../../Card/SectionHeader";
 import ProductCard from "../../Card/ProductCard"; 
@@ -18,7 +18,7 @@ function AccessoryDetails() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
   const [notification, setNotification] = useState("");
-
+  const { user } = useContext(AuthContext);
   const { addToCart } = useContext(CartContext);
   const { addToFavorites } = useContext(FavoritesContext);
 
@@ -69,18 +69,49 @@ function AccessoryDetails() {
   };
 
  
+
   const handleAddToFavorites = (e, accessory) => {
     e.stopPropagation();
-    const favoriteItem = {
+
+    if (!user) {
+      
+      showNotification(
+        <div className="login-required-popup">
+          <h3>Изисква се вход</h3>
+          <p>Трябва да влезете в профила си,<br />за да добавяте в Любими</p>
+          <button
+            onClick={() => {
+              setNotification(null);
+              navigate("/login");
+            }}
+            className="login-btn-popup"
+          >
+            Вход в профил
+          </button>
+          <button
+            onClick={() => setNotification(null)}
+            className="close-popup-btn"
+          >
+            ×
+          </button>
+        </div>,
+        0 
+      );
+      return;
+    }
+
+   
+    const item = {
       _id: accessory._id,
       title: accessory.title,
       price: accessory.price,
       image: getImageUrl(accessory.images?.[0]),
-      itemType: "accessory"
+      itemType: "accessory",
     };
-    addToFavorites(favoriteItem);
-    showNotification(`Продуктът "${accessory.title}" беше добавен в любими.`);
+    addToFavorites(item);
+    showNotification(<div className="notif-success">`Продуктът "${accessory.title}" беше добавен в любими.`</div>, 3000);
   };
+ 
 
   
   const handleNavigate = (id, itemType) => {
