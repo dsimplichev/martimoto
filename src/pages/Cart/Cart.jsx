@@ -45,7 +45,7 @@ const Cart = () => {
                 <h3>{item.title}</h3>
                 <button
                   onClick={() => removeItem(item._id)}
-                  className="remove-btn2"
+                  className="remove-btn3"
                 >
                   Премахни
                 </button>

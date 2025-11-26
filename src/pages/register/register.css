@@ -10,13 +10,9 @@
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
@@ -38,23 +34,15 @@
 }
 
 @keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .regtitle {
     color: var(--text-color);
     margin-bottom: 25px;
     font-weight: 600;
-    
 }
-
 
 label {
     display: block;
@@ -65,102 +53,71 @@ label {
     font-weight: 500;
 }
 
-.input-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-
 input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: 100%;
-    padding: 12px 40px 12px 15px; 
+    padding: 12px 15px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 16px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     color: var(--text-color);
+    box-sizing: border-box;
 }
 
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
+input:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
-}
-
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
     transform: translateY(-2px);
 }
-
-
-
-
-.icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--secondary-color);
-    pointer-events: none;
-}
-
-
 
 .btn__register {
     background-color: var(--primary-color);
     color: white;
     font-weight: bold;
     border: none;
-    padding: 12px 25px;
+    padding: 14px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     width: 100%;
-    margin-top: 15px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .btn__register:hover:not(:disabled) {
     background-color: var(--primary-dark);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(230, 126, 34, 0.3);
 }
 
 .btn__register:disabled {
-    background-color: var(--border-focus-color);
+    background-color: #ccc;
     cursor: not-allowed;
+    transform: none;
 }
-
 
 .message {
     font-size: 14px;
     font-weight: bold;
     text-align: center;
     margin-top: 15px;
-    animation: fadeIn 0.3s ease-in;
+    padding: 10px;
+    border-radius: 6px;
+    animation: fadeIn 0.4s ease;
 }
 
-.message.success {
-    color: var(--success-color);
-}
-
-.message.error {
-    color: var(--error-color);
-}
+.message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.message.error   { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
 
 .have__account {
     margin-top: 25px;
@@ -173,6 +130,7 @@ input[type="password"]:focus {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .account-login-row button {
@@ -181,43 +139,141 @@ input[type="password"]:focus {
     color: var(--primary-color);
     font-weight: bold;
     cursor: pointer;
-    padding: 0;
-    text-decoration: none;
-    transition: color 0.2s ease;
+    text-decoration: underline;
+    transition: color 0.2s;
 }
 
 .account-login-row button:hover {
     color: var(--primary-dark);
-    text-decoration: underline;
 }
+
+
+.password-requirements {
+    margin: 18px 0 10px;
+    padding: 16px;
+    background: #fdf8f0;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    text-align: left;
+    font-size: 13.5px;
+    line-height: 1.7;
+    animation: fadeIn 0.4s ease;
+}
+
+.password-requirements .req-title {
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.password-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.password-requirements li {
+    color: var(--error-color);
+    position: relative;
+    padding-left: 28px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.password-requirements li::before {
+    content: "✕";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--error-color);
+}
+
+.password-requirements li.valid {
+    color: var(--success-color);
+}
+
+.password-requirements li.valid::before {
+    content: "✓";
+    color: var(--success-color);
+}
+
+
+.password-requirements li.valid {
+    font-weight: 600;
+    opacity: 1;
+}
+
+.password-requirements li:not(.valid) {
+    opacity: 0.85;
+}
+
+.password-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.password-wrapper input {
+    padding-right: 50px !important;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.password-check {
+    position: absolute;
+    right: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--success-color);
+    pointer-events: none;
+    animation: popIn 0.3s ease;
+}
+
+.password-check.match {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+@keyframes popIn {
+    from { transform: translateY(-50%) scale(0); }
+    to { transform: translateY(-50%) scale(1); }
+}
+
 
 @media (max-width: 480px) {
     .form-container {
-        padding: 20px; 
-        width: 90%;
-        margin: 20px; 
+        padding: 20px;
+        margin: 15px;
     }
 
-    h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-    }
-
-    .input-field,
-    .btn__register {
-        font-size: 14px; 
-    }
-
-    .btn__register {
-        padding: 10px 20px; 
-    }
-
-    .have__account {
-        font-size: 12px;
+    .password-requirements {
+        padding: 14px;
+        font-size: 13px;
     }
 
     .account-login-row {
-        flex-direction: column; 
-        gap: 5px; 
+        flex-direction: column;
+        gap: 8px;
     }
 }

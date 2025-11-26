@@ -4,15 +4,17 @@
   max-width: 1200px;
   width: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .lp-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
-  padding: 8px 15px;
+  padding: 0;
   margin: 0 auto;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .lp-pagination {
@@ -22,7 +24,7 @@
   margin-top: 40px;
   gap: 6px;
   flex-wrap: wrap;
-  padding: 0 15px;
+  padding: 0;
 }
 
 .lp-page-btn {
@@ -96,77 +98,82 @@
 
 @media (max-width: 768px) {
   .lp-container {
-    margin: 30px 10px;
-    padding: 12px;
+    margin: 30px 4px !important;
+    padding: 12px 6px !important;
   }
 
   .lp-grid {
-    grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;     
     gap: 14px;
-    padding: 6px 12px;
+    padding: 0;
+    justify-items: center;              
   }
 
   .product2 {
+    width: 100%;
+    max-width: 190px;                   
     padding: 10px;
-    border-radius: 10px;
-    height: auto !important;
-    min-height: 220px;
+    min-height: 230px;
   }
 
   .product2 img {
     height: 120px !important;
-  }
-
-  .product-title {
-    font-size: 0.95rem;
-  }
-
-  .product-price2 {
-    font-size: 0.95rem;
-    max-width: 85px;
-  }
-
-  .details-btn1,
-  .add-to-cart-btn1 {
-    width: 30px;
-    height: 30px;
-    font-size: 15px;
-  }
-
-  .product-bottom-row {
-    padding-bottom: 5px;
-    gap: 8px;
+    object-fit: contain;
   }
 
   .lp-pagination {
     margin-top: 30px;
     gap: 5px;
-    padding: 0 12px;
+    padding: 0 6px;
   }
 
   .lp-page-btn {
-    padding: 6px 9px;
+    padding: 7px 10px;
     font-size: 0.85rem;
-    min-width: 32px;
+    min-width: 34px;
   }
 }
 
+
 @media (max-width: 480px) {
+  .lp-container {
+    margin: 20px 2px !important;
+    padding: 10px 4px !important;
+  }
+
   .lp-grid {
+    grid-template-columns: 1fr 1fr;     
     gap: 12px;
-    padding: 4px 10px;
   }
 
   .product2 {
+    max-width: 165px;
     padding: 8px;
-    min-height: 200px;
+    min-height: 210px;
   }
 
   .product2 img {
     height: 100px !important;
   }
+}
 
-  .lp-pagination {
-    padding: 0 10px;
+@media (max-width: 360px) {
+  .lp-container {
+    margin: 15px 0 !important;
+    padding: 8px 2px !important;
+  }
+
+  .lp-grid {
+    gap: 10px;
+  }
+
+  .product2 {
+    max-width: 155px;
+    padding: 7px;
+  }
+
+  .product2 img {
+    height: 90px !important;
   }
 }

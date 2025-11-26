@@ -1,9 +1,9 @@
-import React from "react"; 
+import React from "react";
 import { IoHeartOutline } from "react-icons/io5";
 import { MdAddShoppingCart } from "react-icons/md";
 import "./product.css";
 
-function ProductCard({ img, title, id, price, itemType, onNavigate, onAddToCart, onAddToFavorites }) { // Приема функции като props
+function ProductCard({ img, title, id, price, itemType, onNavigate, onAddToCart, onAddToFavorites }) { 
   const EUR_EXCHANGE_RATE = 1.95583;
   const priceEUR = (price / EUR_EXCHANGE_RATE).toFixed(2);
 
@@ -15,7 +15,10 @@ function ProductCard({ img, title, id, price, itemType, onNavigate, onAddToCart,
         <div className="product-info-left">
           <p className="product-title">{title}</p>
           <p className="product-price2">
-            {price} лв. / {priceEUR} €
+           
+            <span className="price-bgn">{price} лв.</span>
+            
+            <span className="price-eur">{priceEUR} €</span>
           </p>
         </div>
 
