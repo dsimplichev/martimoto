@@ -66,8 +66,8 @@ function AddPart() {
 
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
-        if (images.length + files.length > 4) {
-            alert('Макс. 4 снимки!');
+        if (images.length + files.length > 10) {
+            alert('Макс. 10 снимки!');
             return;
         }
         setImages([...images, ...files]);
@@ -163,7 +163,7 @@ function AddPart() {
 
                     
                     <div className="form-group">
-                        <label>Снимки (макс. 4)</label>
+                        <label>Снимки (макс. 10)</label>
                         <label htmlFor="image-upload" className="upload-btn">
                             <i className="fas fa-cloud-upload-alt"></i> Качи снимки
                         </label>

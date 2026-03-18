@@ -3,39 +3,62 @@ const router = express.Router();
 const Part = require('../models/Part');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
-const upload = multer({ dest: 'uploads/' });
 const mongoose = require('mongoose');
 
 
-router.post('/add', upload.array('images'), async (req, res) => {
-  try {
-    const { title, description, price, category, brand, model, year, type = 'part' } = req.body;
-    
-    const images = [];
-    for (const file of req.files) {
-      const result = await cloudinary.uploader.upload(file.path);
-      images.push(result.secure_url);
+const upload = multer({ 
+    dest: 'uploads/',
+    limits: {
+        fileSize: 5 * 1024 * 1024,        
+        files: 10                         
     }
-    
-    const newPart = new Part({
-      title,
-      description,
-      price,
-      category,
-      brand,
-      model,  
-      year,
-      images,
-      type,
-      isSold: false 
-    });
+});
 
-    await newPart.save();
-    res.status(201).json(newPart);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Грешка при добавяне на част' });
-  }
+router.post('/add', upload.array('images', 10), async (req, res) => {
+    try {
+        const { title, description, price, category, brand, model, year, type = 'part' } = req.body;
+
+        
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ message: 'Трябва да качите поне една снимка!' });
+        }
+
+        if (req.files.length > 10) {
+            return res.status(400).json({ message: 'Максимум 10 снимки са позволени!' });
+        }
+
+        const images = [];
+        for (const file of req.files) {
+            const result = await cloudinary.uploader.upload(file.path, {
+                folder: 'parts',                    
+                resource_type: 'image'
+            });
+            images.push(result.secure_url);
+        }
+        
+        const newPart = new Part({
+            title,
+            description,
+            price,
+            category,
+            brand,
+            model,  
+            year,
+            images,
+            type,
+            isSold: false 
+        });
+
+        await newPart.save();
+        res.status(201).json({ 
+            message: 'Частта е добавена успешно!',
+            part: newPart 
+        });
+
+    } catch (error) {
+        console.error('Грешка при добавяне на част:', error);
+        res.status(500).json({ message: 'Грешка при добавяне на част' });
+    }
 });
 
 

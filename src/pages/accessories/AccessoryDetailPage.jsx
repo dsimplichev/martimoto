@@ -7,6 +7,7 @@ import { FaTruckFast } from 'react-icons/fa6';
 import { BiSolidBadgeDollar } from 'react-icons/bi';
 import { FaPhoneVolume } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
+import { FaSearchPlus, FaTimes } from 'react-icons/fa';
 
 function AccessoryDetailPage() {
     const { id } = useParams();
